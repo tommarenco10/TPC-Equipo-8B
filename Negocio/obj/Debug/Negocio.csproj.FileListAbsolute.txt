@@ -1,9 +1,0 @@
-C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Negocio\bin\Debug\Negocio.dll
-C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Negocio\bin\Debug\Negocio.pdb
-C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Negocio\bin\Debug\Dominio.dll
-C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Negocio\bin\Debug\Dominio.pdb
-C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Negocio\obj\Debug\Negocio.csproj.AssemblyReference.cache
-C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Negocio\obj\Debug\Negocio.csproj.CoreCompileInputs.cache
-C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Negocio\obj\Debug\Negocio.csproj.Up2Date
-C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Negocio\obj\Debug\Negocio.dll
-C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Negocio\obj\Debug\Negocio.pdb
