@@ -3,7 +3,7 @@
   "WorkspaceRootPath": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\juanp\\desktop\\facultad\\github\\tpc-equipo-8b\\tpc\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\tpc\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
       "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
@@ -26,8 +26,8 @@
               "Title": "Default.aspx",
               "DocumentMoniker": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\TPC\\Default.aspx",
               "RelativeDocumentMoniker": "TPC\\Default.aspx",
-              "ToolTip": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\TPC\\Default.aspx*",
-              "RelativeToolTip": "TPC\\Default.aspx*",
+              "ToolTip": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\TPC\\Default.aspx",
+              "RelativeToolTip": "TPC\\Default.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
               "WhenOpened": "2024-10-21T00:43:04.712Z",
@@ -41,7 +41,7 @@
               "RelativeDocumentMoniker": "Negocio\\AccesoDatos.cs",
               "ToolTip": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\Negocio\\AccesoDatos.cs",
               "RelativeToolTip": "Negocio\\AccesoDatos.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAB2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-21T00:41:12.855Z",
               "EditorCaption": ""

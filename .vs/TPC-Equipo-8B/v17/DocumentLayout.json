@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|c:\\users\\juanp\\desktop\\facultad\\github\\tpc-equipo-8b\\negocio\\accesodatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|solutionrelative:negocio\\accesodatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\tpc\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\juanp\\desktop\\facultad\\github\\tpc-equipo-8b\\tpc\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|c:\\users\\juanp\\desktop\\facultad\\github\\tpc-equipo-8b\\negocio\\accesodatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|solutionrelative:negocio\\accesodatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,11 +18,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Default.aspx",
               "DocumentMoniker": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\TPC\\Default.aspx",
               "RelativeDocumentMoniker": "TPC\\Default.aspx",
@@ -35,13 +35,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "AccesoDatos.cs",
               "DocumentMoniker": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\Negocio\\AccesoDatos.cs",
               "RelativeDocumentMoniker": "Negocio\\AccesoDatos.cs",
-              "ToolTip": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\Negocio\\AccesoDatos.cs*",
-              "RelativeToolTip": "Negocio\\AccesoDatos.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAAAdAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\Negocio\\AccesoDatos.cs",
+              "RelativeToolTip": "Negocio\\AccesoDatos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAB2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-21T00:41:12.855Z",
               "EditorCaption": ""

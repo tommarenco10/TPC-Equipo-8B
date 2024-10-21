@@ -1,0 +1,6 @@
+C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Dominio\bin\Debug\Dominio.dll
+C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Dominio\bin\Debug\Dominio.pdb
+C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.csproj.AssemblyReference.cache
+C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
+C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.dll
+C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.pdb
