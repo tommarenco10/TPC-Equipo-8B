@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    internal class Entrenador
+    public class Entrenador
     {
         public int IdEntrenador { get; set; }
         public string Rol { get; set; }
-        public string Categoria { get; set; }
+        public List<Categoria> CategoriasAsignadas { get; set; }
+        public List<Entrenamiento> EntrenamientosProgramados { get; set; }
     }
 }

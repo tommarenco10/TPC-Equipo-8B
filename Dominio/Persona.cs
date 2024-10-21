@@ -8,11 +8,12 @@ namespace Dominio
 {
     public class Persona
     {
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
+        public string Nombres { get; set; }
+        public string Apellidos { get; set; }
         public int Edad { get; set; }
-        public LugarNacimiento LugarNacimiento { get; set; }
         public DateTime FechaNacimiento { get; set; }
+        public LugarNacimiento LugarNacimiento { get; set; }
+        public string Nacionalidad { get; set; }
         public string Email { get; set; }   
     }
 }

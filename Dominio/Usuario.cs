@@ -8,11 +8,11 @@ namespace Dominio
 {
     public enum TipoUsuario
     {
-        admin = 0,
-        entrenador = 1,
-        CuerpoMedico = 2,
-        Hincha = 3,
+        Administrador = 1,
+        CuerpoTecnico = 2,
+        CuerpoMedico = 3,
         Socio = 4,
+        Hincha = 5,
     }
     public class Usuario
     {
@@ -21,6 +21,6 @@ namespace Dominio
         public string Nombre { get; set; }
         public string Email { get; set; }
         public string Contraseña { get; set; }
-
+        public TipoUsuario Tipo { get; set; }
     }
 }
