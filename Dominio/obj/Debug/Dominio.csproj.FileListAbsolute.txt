@@ -4,3 +4,9 @@ C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.c
 C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
 C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.dll
 C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.pdb
+C:\Users\Administrator\Desktop\Proyecto integrador\TPC-Equipo-8BB\TPC-Equipo-8B\Dominio\bin\Debug\Dominio.dll
+C:\Users\Administrator\Desktop\Proyecto integrador\TPC-Equipo-8BB\TPC-Equipo-8B\Dominio\bin\Debug\Dominio.pdb
+C:\Users\Administrator\Desktop\Proyecto integrador\TPC-Equipo-8BB\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\Proyecto integrador\TPC-Equipo-8BB\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\Proyecto integrador\TPC-Equipo-8BB\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.dll
+C:\Users\Administrator\Desktop\Proyecto integrador\TPC-Equipo-8BB\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.pdb

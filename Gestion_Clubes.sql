@@ -104,7 +104,7 @@ create table TipoUsuario(
 create table Usuario (
 	IdUsuario bigint primary key identity(1,1),
 	Nombre varchar(50) not null,
-	Contraseña varchar(50) not null,
+	ContraseÃ±a varchar(50) not null,
 	Email varchar (50) not null,
 	IdTipoUsuario tinyint foreign key references TipoUsuario(IdTipoUsuario),
 )
