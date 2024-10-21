@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BF1C7F42-2453-4D77-8801-57342218DE20}</ProjectGuid>
+    <ProjectGuid>{7C95F306-14BB-4B45-8CDD-02ADA0B5E2B9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Negocio</RootNamespace>
-    <AssemblyName>Negocio</AssemblyName>
+    <RootNamespace>Acceso_Datos</RootNamespace>
+    <AssemblyName>Acceso_Datos</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,18 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JugadorNegocio.cs" />
+    <Compile Include="AccesoDatos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Acceso_Datos\Acceso_Datos.csproj">
-      <Project>{7c95f306-14bb-4b45-8cdd-02ada0b5e2b9}</Project>
-      <Name>Acceso_Datos</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dominio\Dominio.csproj">
-      <Project>{65b102a0-344a-406d-9fba-7c77fdccdc6d}</Project>
-      <Name>Dominio</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

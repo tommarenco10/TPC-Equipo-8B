@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7605C784-AF05-4578-9300-7D6AE8A79EF3}|AccesoDatos\\AccesoDatos.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc\\tpc-equipo-8b\\accesodatos\\accesodatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7605C784-AF05-4578-9300-7D6AE8A79EF3}|AccesoDatos\\AccesoDatos.csproj|solutionrelative:accesodatos\\accesodatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc\\tpc-equipo-8b\\negocio\\jugadornegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|solutionrelative:negocio\\jugadornegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\tpc\\gestionentrenamiento.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\gestionentrenamiento.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C95F306-14BB-4B45-8CDD-02ADA0B5E2B9}|Acceso_Datos\\Acceso_Datos.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc\\tpc-equipo-8b\\acceso_datos\\accesodatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C95F306-14BB-4B45-8CDD-02ADA0B5E2B9}|Acceso_Datos\\Acceso_Datos.csproj|solutionrelative:acceso_datos\\accesodatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "AccesoDatos.cs",
-              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\AccesoDatos\\AccesoDatos.cs",
-              "RelativeDocumentMoniker": "AccesoDatos\\AccesoDatos.cs",
-              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\AccesoDatos\\AccesoDatos.cs",
-              "RelativeToolTip": "AccesoDatos\\AccesoDatos.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAxwAoAAAAAAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\Acceso_Datos\\AccesoDatos.cs",
+              "RelativeDocumentMoniker": "Acceso_Datos\\AccesoDatos.cs",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\Acceso_Datos\\AccesoDatos.cs",
+              "RelativeToolTip": "Acceso_Datos\\AccesoDatos.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T20:14:41.379Z",
+              "WhenOpened": "2024-10-21T21:18:54.555Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "JugadorNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\Negocio\\JugadorNegocio.cs",
+              "RelativeDocumentMoniker": "Negocio\\JugadorNegocio.cs",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\Negocio\\JugadorNegocio.cs",
+              "RelativeToolTip": "Negocio\\JugadorNegocio.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAwwCAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T20:34:57.966Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "gestionEntrenamiento.aspx",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\gestionEntrenamiento.aspx",
+              "RelativeDocumentMoniker": "TPC\\gestionEntrenamiento.aspx",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\gestionEntrenamiento.aspx",
+              "RelativeToolTip": "TPC\\gestionEntrenamiento.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-10-21T20:24:53.771Z",
               "EditorCaption": ""
             }
           ]

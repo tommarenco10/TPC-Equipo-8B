@@ -67,8 +67,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Default.aspx" />
     <Content Include="estilos.css" />
+    <Content Include="gestionEntrenamiento.aspx" />
     <Content Include="index.aspx" />
     <Content Include="info.aspx" />
     <Content Include="ingreso.aspx" />
@@ -76,12 +76,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="gestionEntrenamiento.aspx.cs">
+      <DependentUpon>gestionEntrenamiento.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="gestionEntrenamiento.aspx.designer.cs">
+      <DependentUpon>gestionEntrenamiento.aspx</DependentUpon>
     </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
@@ -131,6 +131,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Acceso_Datos\Acceso_Datos.csproj">
+      <Project>{7c95f306-14bb-4b45-8cdd-02ada0b5e2b9}</Project>
+      <Name>Acceso_Datos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dominio\Dominio.csproj">
       <Project>{65b102a0-344a-406d-9fba-7c77fdccdc6d}</Project>
       <Name>Dominio</Name>

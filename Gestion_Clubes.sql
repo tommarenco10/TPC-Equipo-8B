@@ -1,5 +1,7 @@
 create database Gestion_Clubes
 
+use Gestion_Clubes
+
 create table Categoria(
 	IdCategoria tinyint primary key identity(1,1),
 	nombre varchar (30) not null,
@@ -115,3 +117,6 @@ create table Notificacion(
 	Mensaje varchar (300) not null,
 	FechaEnvio date not null,
 )
+
+
+--Select J.IdJugador, P.Nombre, P.Apellido, P.FechaNacimiento, P.LugarNacimiento, J.Altura, J.Peso, J.Posicion From Jugador J, Persona P

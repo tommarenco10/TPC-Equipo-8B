@@ -24,6 +24,7 @@
                         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                             <div class="navbar-nav">
                                 <a class="nav-link" runat="server" href="info.aspx">Sobre nosotros</a>
+                                <a class="nav-link" runat="server" href="gestionEntrenamiento.aspx">Entrenamiento</a>
                             </div>
                             <div class="navbar-nav ms-auto">
                                 <a class="nav-link" runat="server" href="ingreso.aspx">Ingresar</a>
