@@ -25,6 +25,19 @@
                             <div class="navbar-nav">
                                 <a class="nav-link" runat="server" href="info.aspx">Sobre nosotros</a>
                                 <a class="nav-link" runat="server" href="gestionEntrenamiento.aspx">Entrenamiento</a>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle bg-dark border-0 card" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Configuracion
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                        <li><a class="dropdown-item active" href="#">Agregar jugador</a></li>
+                                        <li><a class="dropdown-item" href="#">Agregar entrenador</a></li>
+                                        <li><a class="dropdown-item" href="#">Modificar jugador</a></li>
+                                        <li><a class="dropdown-item" href="#">Modificar entrenador</a></li>
+                                        <li><a class="dropdown-item" href="#">Eliminar jugador</a></li>
+                                        <li><a class="dropdown-item" href="#">Eliminar entrenador</a></li>
+                                    </ul>
+                                </div>
                             </div>
                             <div class="navbar-nav ms-auto">
                                 <a class="nav-link" runat="server" href="ingreso.aspx">Ingresar</a>
@@ -39,8 +52,8 @@
         </div>
     </form>
     <footer class="bg-dark text-white text-center py-3 ">
-    <p class="mb-0">&copy; 2024 Desarrollado por el Grupo 8B</p>
-</footer>
+        <p class="mb-0">&copy; 2024 Desarrollado por el Grupo 8B</p>
+    </footer>
 </body>
 
 </html>

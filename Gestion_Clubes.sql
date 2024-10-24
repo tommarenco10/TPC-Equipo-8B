@@ -118,5 +118,7 @@ create table Notificacion(
 	FechaEnvio date not null,
 )
 
+Select J.IdJugador, P.Nombre, P.Apellido, J.Altura, J.Peso, J.Posicion From Jugador J Left Join Persona P on J.IdPersona = P.IdPersona
 
---Select J.IdJugador, P.Nombre, P.Apellido, P.FechaNacimiento, P.LugarNacimiento, J.Altura, J.Peso, J.Posicion From Jugador J, Persona P
+
+

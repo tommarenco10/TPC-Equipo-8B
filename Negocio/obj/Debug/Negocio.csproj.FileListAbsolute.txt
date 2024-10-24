@@ -27,3 +27,5 @@ C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC\TPC-Equipo-8B\Negocio\o
 C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC\TPC-Equipo-8B\Negocio\obj\Debug\Negocio.pdb
 C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC\TPC-Equipo-8B\Negocio\bin\Debug\Acceso_Datos.dll
 C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC\TPC-Equipo-8B\Negocio\bin\Debug\Acceso_Datos.pdb
+C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Negocio\bin\Debug\Acceso_Datos.dll
+C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\Negocio\bin\Debug\Acceso_Datos.pdb
