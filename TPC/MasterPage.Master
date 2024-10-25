@@ -30,12 +30,12 @@
                                         Configuracion
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-dark">
-                                        <li><a class="dropdown-item active" href="#">Agregar jugador</a></li>
-                                        <li><a class="dropdown-item" href="#">Agregar entrenador</a></li>
-                                        <li><a class="dropdown-item" href="#">Modificar jugador</a></li>
-                                        <li><a class="dropdown-item" href="#">Modificar entrenador</a></li>
-                                        <li><a class="dropdown-item" href="#">Eliminar jugador</a></li>
-                                        <li><a class="dropdown-item" href="#">Eliminar entrenador</a></li>
+                                        <li><a class="dropdown-item" href="ConfigJugador.aspx"> Agregar jugador </a></li>
+                                        <li><a class="dropdown-item" href="ConfigEntrenador.aspx"> Agregar entrenador </a></li>
+                                        <li><a class="dropdown-item" href="ConfigJugador.aspx"> Modificar jugador </a></li>
+                                        <li><a class="dropdown-item" href="ConfigEntrenador.aspx"> Modificar entrenador </a></li>
+                                        <li><a class="dropdown-item" href="ConfigJugador.aspx"> Eliminar jugador </a></li>
+                                        <li><a class="dropdown-item" href="ConfigEntrenador.aspx"> Eliminar entrenador </a></li>
                                     </ul>
                                 </div>
                             </div>
