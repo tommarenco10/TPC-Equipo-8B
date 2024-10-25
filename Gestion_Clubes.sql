@@ -122,3 +122,85 @@ Select J.IdJugador, P.Nombre, P.Apellido, J.Altura, J.Peso, J.Posicion From Juga
 
 
 
+Como deberia leer el tipo de usuario? 
+namespace Negocio
+{
+    internal class UsuarioNegocio
+    {
+        public List<Usuario> listar()
+        {
+            List<Usuario> lista = new List<Usuario>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT IdUsuario,Nombre,Contraseña,Email,IdTipoUsuario FROM USUARIO");
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Usuario aux = new Usuario();
+
+                    aux.IdUsuario = datos.Lector["IdUsuario"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdUsuario"]) : 0;
+                    aux.Nombre = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : string.Empty;
+                    aux.Contraseña = datos.Lector["Contraseña"] != DBNull.Value ? (string)datos.Lector["Contraseña"] : string.Empty;
+                    aux.Tipo = datos.Lector["IdTipoUsuario"] != DBNull.Value ? Convert.ToDecimal(datos.Lector["IdTipoUsuario"]) : 0m;
+                    aux.Email = datos.Lector["Email"] != DBNull.Value ? (string)datos.Lector["Email"] : string.Empty;
+
+                    lista.Add(aux);
+                }
+
+                return lista;
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+                throw;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+
+
+
+        }
+
+
+    }
+}
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Dominio
+{
+    public enum TipoUsuario
+    {
+        Administrador = 1,
+        CuerpoTecnico = 2,
+        CuerpoMedico = 3,
+        Socio = 4,
+        Hincha = 5,
+    }
+    public class Usuario
+    {
+
+        public int IdUsuario { get; set; }
+        public string Nombre { get; set; }
+        public string Email { get; set; }
+        public string Contraseña { get; set; }
+        public TipoUsuario Tipo { get; set; }
+    }
+}
