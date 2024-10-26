@@ -2,6 +2,7 @@
 using Dominio;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Security.AccessControl;
@@ -155,11 +156,36 @@ namespace Negocio
             }
         }
 
+        public bool loguear(Usuario usuario)
+        {
+            AccesoDatos datos=new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("Select id,IdTipoUsuario from Usuario Where Nombre=@nombre AND Contraseña=@contraseña");
+                datos.agregarParametro("@nombre",usuario.Nombre);
+                datos.agregarParametro("@contraseña", usuario.Contraseña);
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    usuario.IdUsuario = (int)datos.Lector["id"];
+                    usuario.Tipo = (TipoUsuario)(int)datos.Lector["IdTipoUsuario"];
+                    return true;
+                }
+                return false;
 
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+            finally
+            {
 
+                datos.cerrarConexion();
+            }
 
-
+        }
 
 
 
