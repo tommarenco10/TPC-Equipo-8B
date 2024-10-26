@@ -2,6 +2,7 @@
 using Dominio;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
@@ -103,6 +104,56 @@ namespace Negocio
 
 
 
+
+        public void agregar(Usuario usuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("INSERT INTO Usuario (Nombre, Contraseña, Email, IdTipoUsuario) VALUES (@Nombre, @Contraseña, @Email, @IdTipoUsuario)");
+                datos.agregarParametro("@Nombre", usuario.Nombre);
+                datos.agregarParametro("@Contraseña", usuario.Contraseña);
+                datos.agregarParametro("@Email", usuario.Email);
+                datos.agregarParametro("@IdTipoUsuario", usuario.Tipo);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
+
+
+        public bool usuarioExistente(string nombre)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT Id FROM Usuario WHERE Nombre = @nombre");
+                datos.agregarParametro("@nombre", nombre);
+
+                // ejecutar la consulta y leer los resultados
+                SqlDataReader lector = datos.ejecutarLectura();
+
+                //verificar si hay alguna row con el nombre ya registrado.
+                return lector.HasRows;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al verificar el código de artículo.", ex);
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
 
 

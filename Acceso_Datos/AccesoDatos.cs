@@ -38,12 +38,13 @@ namespace Acceso_Datos
             comando.Parameters.AddWithValue(nombre, valor);
         }
 
-        public void ejecutarLectura()
+        public SqlDataReader ejecutarLectura()
         {
             try
             {
                 conexion.Open();
                 lector = comando.ExecuteReader();
+                return lector;
             }
             catch (Exception ex)
             {

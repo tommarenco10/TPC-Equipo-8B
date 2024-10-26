@@ -7,7 +7,11 @@
       "RelativeMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|solutionrelative:negocio\\usuarionegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\administrator\\desktop\\proyecto integrador\\tpc-equipo-8bb\\tpc-equipo-8b\\tpc\\configjugador.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "AbsoluteMoniker": "D:0:0:{7C95F306-14BB-4B45-8CDD-02ADA0B5E2B9}|Acceso_Datos\\Acceso_Datos.csproj|c:\\users\\administrator\\desktop\\proyecto integrador\\tpc-equipo-8bb\\tpc-equipo-8b\\acceso_datos\\accesodatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C95F306-14BB-4B45-8CDD-02ADA0B5E2B9}|Acceso_Datos\\Acceso_Datos.csproj|solutionrelative:acceso_datos\\accesodatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\tpc\\configjugador.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
       "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\configjugador.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
@@ -46,11 +50,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AccesoDatos.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Acceso_Datos\\AccesoDatos.cs",
+              "RelativeDocumentMoniker": "Acceso_Datos\\AccesoDatos.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Acceso_Datos\\AccesoDatos.cs",
+              "RelativeToolTip": "Acceso_Datos\\AccesoDatos.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAIAwwDAAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-26T19:19:06.718Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -60,14 +77,14 @@
               "RelativeDocumentMoniker": "Negocio\\UsuarioNegocio.cs",
               "ToolTip": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Negocio\\UsuarioNegocio.cs",
               "RelativeToolTip": "Negocio\\UsuarioNegocio.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAHcAAAAAAAAAAAAIwJgAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-25T05:09:23.567Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ConfigJugador.aspx",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\TPC\\ConfigJugador.aspx",
               "RelativeDocumentMoniker": "TPC\\ConfigJugador.aspx",
@@ -80,7 +97,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "EstadoJugadorNegocio.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Negocio\\EstadoJugadorNegocio.cs",
               "RelativeDocumentMoniker": "Negocio\\EstadoJugadorNegocio.cs",
@@ -92,7 +109,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "EstadoJugador.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Dominio\\EstadoJugador.cs",
               "RelativeDocumentMoniker": "Dominio\\EstadoJugador.cs",
@@ -104,7 +121,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "JugadorNegocio.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Negocio\\JugadorNegocio.cs",
               "RelativeDocumentMoniker": "Negocio\\JugadorNegocio.cs",
@@ -116,7 +133,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "Jugador.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Dominio\\Jugador.cs",
               "RelativeDocumentMoniker": "Dominio\\Jugador.cs",
@@ -128,7 +145,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "Categoria.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Dominio\\Categoria.cs",
               "RelativeDocumentMoniker": "Dominio\\Categoria.cs",
@@ -140,7 +157,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "CategoriaNegocio.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Negocio\\CategoriaNegocio.cs",
               "RelativeDocumentMoniker": "Negocio\\CategoriaNegocio.cs",
@@ -152,7 +169,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "ConfigJugador.aspx.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\TPC\\ConfigJugador.aspx.cs",
               "RelativeDocumentMoniker": "TPC\\ConfigJugador.aspx.cs",
