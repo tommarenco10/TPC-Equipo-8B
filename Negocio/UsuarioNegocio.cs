@@ -3,6 +3,7 @@ using Dominio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -47,5 +48,69 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+
+
+
+
+        public void modificar(Usuario usuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("UPDATE Usuario SET IdUsuario = @id, Nombre = @nombre, Contraseña=@contraseña, Email=@email,IdTipoUsuario=@tipoUsuario WHERE Id = @id");
+                datos.agregarParametro("@id", usuario.IdUsuario);
+                datos.agregarParametro("@nombre", usuario.Nombre);
+                datos.agregarParametro("@contraseña", usuario.Contraseña);
+                datos.agregarParametro("@email", usuario.Email);
+                datos.agregarParametro("@tipoUsuario", usuario.Tipo);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al modificar el artículo", ex);
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
+
+        public void eliminar(int id) 
+        {
+            AccesoDatos datos=new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("Delete from Usuarios where Id=@id");
+                datos.agregarParametro("@id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+
+                datos.cerrarConexion();
+
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
