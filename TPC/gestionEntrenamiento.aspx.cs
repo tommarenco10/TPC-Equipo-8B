@@ -121,7 +121,7 @@ namespace TPC
 
         protected void btnMostrarSeleccionados_Click(object sender, EventArgs e)
         {
-            
+            Response.Redirect("entrenamientoVistaPrevia.aspx");
         }
     }
 }
