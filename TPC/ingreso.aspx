@@ -2,9 +2,10 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
-        <div class="container">
+
+    <section>
         <h2 class="mt-5 mb-4 text-center">Iniciar Sesión</h2>
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -23,5 +24,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
 </asp:Content>
