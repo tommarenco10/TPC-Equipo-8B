@@ -7,17 +7,14 @@ create table Categoria(
 	nombre varchar (30) not null,
 )
 
-create table paises(
-	IdPais tinyint primary key identity (1,1),
-	Nombre Varchar (30) not null,
-)
-
 create table persona(
 	IdPersona bigint primary key identity(1,1),
 	Nombre varchar(30) not null,
 	Apellido varchar(30) not null,
 	FechaNacimiento date not null,
-	LugarNacimiento varchar(50) not null,
+	pais varchar(20) not null,
+	provincia varchar(30) not null,
+	ciudad varchar (30) not null,
 	Email varchar (30) not null,
 )
 
@@ -34,12 +31,6 @@ create table jugador(
 	posicion varchar (15) not null,
 	Idcategoria tinyint foreign key references Categoria (IdCategoria),
 	IdEstadoJugador tinyint foreign key references EstadoJugador (IdEstadojugador),
-)
-
-create table nacionalidad(
-	IdPais tinyint foreign key references paises(IdPais),
-	IdPersona bigint foreign key references persona (IdPersona),
-	primary key (Idpais, Idpersona),
 )
 
 create table entrenador(
@@ -118,89 +109,35 @@ create table Notificacion(
 	FechaEnvio date not null,
 )
 
-Select J.IdJugador, P.Nombre, P.Apellido, J.Altura, J.Peso, J.Posicion From Jugador J Left Join Persona P on J.IdPersona = P.IdPersona
+create or alter procedure Agregar_Jugador 
+@Nombre varchar(30),
+@Apellido varchar(30),
+@FechaNacimiento date,
+@Pais varchar(20),
+@Provincia varchar(30),
+@Ciudad varchar(30),
+@Email varchar(30),
+@Altura tinyint,
+@Peso decimal,
+@Posicion varchar(15),
+@IdCategoria tinyint,
+@IdEstadoJugador tinyint
+as
+begin
+insert into persona values (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad,@Email)
+declare @IdPersona bigint
+set @IdPersona = SCOPE_IDENTITY()
+insert into jugador values (@IdPersona, @Altura, @Peso, @Posicion, @IdCategoria, @IdEstadoJugador)
+end
 
+create or alter procedure Listar_Jugador
+as
+begin
+select p.Nombre, p.Apellido, p.FechaNacimiento, p.pais, p.provincia, p.ciudad, p.Email,
+		j.Altura, j.peso, j.posicion, c.nombre as NombreCategoria, ej.nombre as EstadoJugador 
+from persona p
+inner join jugador j on j.IdPersona = p.IdPersona
+inner join Categoria c on c.IdCategoria = j.Idcategoria
+inner join EstadoJugador ej on ej.IdEstadoJugador = j.IdEstadoJugador
+end
 
-
-Como deberia leer el tipo de usuario? 
-namespace Negocio
-{
-    internal class UsuarioNegocio
-    {
-        public List<Usuario> listar()
-        {
-            List<Usuario> lista = new List<Usuario>();
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                datos.setearConsulta("SELECT IdUsuario,Nombre,Contraseña,Email,IdTipoUsuario FROM USUARIO");
-                datos.ejecutarLectura();
-
-                while (datos.Lector.Read())
-                {
-                    Usuario aux = new Usuario();
-
-                    aux.IdUsuario = datos.Lector["IdUsuario"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdUsuario"]) : 0;
-                    aux.Nombre = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : string.Empty;
-                    aux.Contraseña = datos.Lector["Contraseña"] != DBNull.Value ? (string)datos.Lector["Contraseña"] : string.Empty;
-                    aux.Tipo = datos.Lector["IdTipoUsuario"] != DBNull.Value ? Convert.ToDecimal(datos.Lector["IdTipoUsuario"]) : 0m;
-                    aux.Email = datos.Lector["Email"] != DBNull.Value ? (string)datos.Lector["Email"] : string.Empty;
-
-                    lista.Add(aux);
-                }
-
-                return lista;
-
-
-
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-
-
-
-
-        }
-
-
-    }
-}
-
-
-
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dominio
-{
-    public enum TipoUsuario
-    {
-        Administrador = 1,
-        CuerpoTecnico = 2,
-        CuerpoMedico = 3,
-        Socio = 4,
-        Hincha = 5,
-    }
-    public class Usuario
-    {
-
-        public int IdUsuario { get; set; }
-        public string Nombre { get; set; }
-        public string Email { get; set; }
-        public string Contraseña { get; set; }
-        public TipoUsuario Tipo { get; set; }
-    }
-}
