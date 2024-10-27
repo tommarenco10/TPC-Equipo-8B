@@ -1,6 +1,7 @@
 ﻿using negocio;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -14,7 +15,6 @@ namespace TPC
         {
             if (!IsPostBack)
             {
-                // Verificar si hay jugadores seleccionados en sesión
                 if (Session["jugadoresSeleccionados"] != null)
                 {
                     List<int> jugadoresSeleccionados = (List<int>)Session["jugadoresSeleccionados"];
@@ -23,9 +23,21 @@ namespace TPC
                     // Obtener información de los jugadores seleccionados
                     var listaJugadores = negocioJugador.ObtenerJugadoresPorIds(jugadoresSeleccionados);
 
-                    // Asignar la lista al GridView
                     dgvJugadoresSeleccionados.DataSource = listaJugadores;
                     dgvJugadoresSeleccionados.DataBind();
+                }
+                else
+                {
+                    lblMensaje.CssClass = "alert alert-warning";
+                    lblMensaje.Text = "Aún no hay jugadores seleccionados.";
+                    lblMensaje.Visible = true;
+                }
+
+                if (Session["fechaHoraEntrenamiento"] != null)
+                {
+                    DateTime fechaHoraEntrenamiento = (DateTime)Session["fechaHoraEntrenamiento"];
+                    lblDetallesEntrenamiento.CssClass = "alert alert-info";
+                    lblDetallesEntrenamiento.Text = $"El entrenamiento está organizado para el {fechaHoraEntrenamiento.ToString("dddd, dd MMMM yyyy")} a las {fechaHoraEntrenamiento.ToString("HH:mm")}.";
                 }
             }
         }

@@ -23,7 +23,6 @@ namespace TPC
             {
                 if (!IsPostBack)
                 {
-                    // Cargar jugadores y categorías solo la primera vez que se carga la página
                     List<Jugador> listaJugador = negocioJugador.listar();
                     Session["listaJugador"] = listaJugador;
 
@@ -35,6 +34,20 @@ namespace TPC
 
                     // Opción para seleccionar
                     ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", "0"));
+                    
+                    // Recuperar Fecha y Hora del Entrenamiento
+                    if (Session["fechaHoraEntrenamiento"] != null)
+                    {
+                        DateTime fechaHoraEntrenamiento = (DateTime)Session["fechaHoraEntrenamiento"];
+
+                        txtFechaEntrenamiento.Text = fechaHoraEntrenamiento.ToString("yyyy-MM-dd");
+                        txtHoraEntrenamiento.Text = fechaHoraEntrenamiento.ToString("HH:mm");
+                    }
+                    else
+                    {
+                        txtFechaEntrenamiento.Text = string.Empty;
+                        txtHoraEntrenamiento.Text = string.Empty;
+                    }
                 }
             }
             catch (Exception ex)
@@ -121,7 +134,44 @@ namespace TPC
 
         protected void btnMostrarSeleccionados_Click(object sender, EventArgs e)
         {
-            Response.Redirect("entrenamientoVistaPrevia.aspx");
+            DateTime fechaEntrenamiento;
+            DateTime horaEntrenamiento;
+
+            if (string.IsNullOrEmpty(txtFechaEntrenamiento.Text) || string.IsNullOrEmpty(txtHoraEntrenamiento.Text))
+            {
+                lblError.CssClass = "alert alert-warning";
+                lblError.Text = "Por favor, complete los campos de fecha y hora.";
+                return;
+            }
+
+            else if (!DateTime.TryParse(txtFechaEntrenamiento.Text, out fechaEntrenamiento))
+            {
+                lblError.CssClass = "alert alert-danger";
+                lblError.Text = "Fecha no válida. Por favor, ingrese una fecha válida.";
+                return;
+            }
+
+            else if (!DateTime.TryParse(txtHoraEntrenamiento.Text, out horaEntrenamiento))
+            {
+                lblError.CssClass = "alert alert-danger";
+                lblError.Text = "Hora no válida. Por favor, ingrese una hora válida.";
+                return;
+            }
+
+            else if (fechaEntrenamiento.Date < DateTime.Today)
+            {
+                lblError.CssClass = "alert alert-danger";
+                lblError.Text = "Fecha no válida. La fecha seleccionada no puede ser en el pasado.";
+                return;
+            }
+
+            else
+            {
+                DateTime fechaHoraEntrenamiento = fechaEntrenamiento.Date.Add(horaEntrenamiento.TimeOfDay);
+                Session["fechaHoraEntrenamiento"] = fechaHoraEntrenamiento;
+                Response.Redirect("entrenamientoVistaPrevia.aspx");
+            }
         }
+
     }
 }
