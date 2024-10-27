@@ -10,23 +10,28 @@
     </asp:ContentPlaceHolder>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link href="estilos.css" rel="stylesheet" />
+    <link href="Estilos/estilos.css" rel="stylesheet" />
+    <script src="Scripts/scripts.js"></script>
 </head>
 
 <body>
     <form id="formMaster" runat="server">
         <div>
-            <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
+
                     <a class="navbar-brand" href="index.aspx">
                         <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEidhZJoLI6T0BSVVH418T5S5T8tRWYIxWa7eamJZ8MkgfS25B1Q6mhHoFCXAuM8KhN2CyCsbVyaiaObGy7A2HTN9qZjQz1sJGkbAORlbEWc3HGCu9oxg9l5OU3lZYpwB5rrLCUBLtCmGkQ/d/PES+United.png" alt="Bootstrap" width="30" height="24">
                     </a>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+                    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                         <div class="navbar-nav">
-                            <a class="nav-link" runat="server" href="info.aspx">Sobre nosotros</a>
-                            <a class="nav-link" runat="server" href="gestionEntrenamiento.aspx">Entrenamiento</a>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle bg-dark border-0 card" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                            <a class="nav-link active" runat="server" href="info.aspx">Sobre nosotros</a>
+                            <a class="nav-link active" runat="server" href="gestionEntrenamiento.aspx">Entrenamiento</a>
+
+                            <div class="nav-item dropdown">
+                                <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     Gestión Plantilla
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-dark">
@@ -35,8 +40,9 @@
                                     <li><a class="dropdown-item" href="ConfigJugador.aspx">Eliminar Jugador </a></li>
                                 </ul>
                             </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle bg-dark border-0 card" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                            <div class="nav-item dropdown">
+                                <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     Gestión Cuerpo Técnico
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-dark">
@@ -45,26 +51,33 @@
                                     <li><a class="dropdown-item" href="ConfigEntrenador.aspx">Eliminar Miembro </a></li>
                                 </ul>
                             </div>
+
                         </div>
+
                         <div class="navbar-nav ms-auto">
-                            <a class="nav-link" runat="server" href="ingreso.aspx">Ingresar</a>
-                            <a class="nav-link" runat="server" href="registro.aspx">Registrate!</a>
+                            <a class="nav-link active" runat="server" href="ingreso.aspx">Ingresar</a>
+                            <a class="nav-link active" runat="server" href="registro.aspx">Registrate!</a>
                         </div>
+
                     </div>
+
                 </div>
             </nav>
         </div>
+
         <div class="container">
             <div class="despegarBarra">
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
         </div>
+
     </form>
 
     <footer class="bg-dark text-white text-center py-3 ">
         <p class="mb-0">&copy; 2024 Desarrollado por el Grupo 8B</p>
     </footer>
+
 </body>
 
 </html>

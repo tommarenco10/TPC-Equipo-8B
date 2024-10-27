@@ -69,12 +69,13 @@
   <ItemGroup>
     <Content Include="ConfigEntrenador.aspx" />
     <Content Include="ConfigJugador.aspx" />
-    <Content Include="estilos.css" />
+    <Content Include="Estilos\estilos.css" />
     <Content Include="gestionEntrenamiento.aspx" />
     <Content Include="index.aspx" />
     <Content Include="info.aspx" />
     <Content Include="ingreso.aspx" />
     <Content Include="registro.aspx" />
+    <Content Include="Scripts\scripts.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

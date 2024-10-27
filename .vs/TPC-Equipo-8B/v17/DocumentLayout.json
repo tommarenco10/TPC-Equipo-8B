@@ -3,32 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc\\tpc-equipo-8b\\tpc\\registro.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\registro.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc\\tpc-equipo-8b\\tpc\\gestionentrenamiento.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\gestionentrenamiento.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc\\tpc-equipo-8b\\tpc\\ingreso.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\ingreso.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc\\tpc-equipo-8b\\tpc\\info.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\info.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc\\tpc-equipo-8b\\tpc\\index.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\index.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc\\tpc-equipo-8b\\tpc\\gestionentrenamiento.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\tpc\\gestionentrenamiento.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
       "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\gestionentrenamiento.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc\\tpc-equipo-8b\\tpc\\configjugador.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\configjugador.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc\\tpc-equipo-8b\\tpc\\configentrenador.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\configentrenador.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     }
   ],
   "DocumentGroupContainers": [
@@ -43,58 +23,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "registro.aspx",
-              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\registro.aspx",
-              "RelativeDocumentMoniker": "TPC\\registro.aspx",
-              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\registro.aspx",
-              "RelativeToolTip": "TPC\\registro.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-10-27T14:23:10.338Z",
+              "Title": "gestionEntrenamiento.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\gestionEntrenamiento.aspx.cs",
+              "RelativeDocumentMoniker": "TPC\\gestionEntrenamiento.aspx.cs",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\gestionEntrenamiento.aspx.cs",
+              "RelativeToolTip": "TPC\\gestionEntrenamiento.aspx.cs",
+              "ViewState": "AgIAAG4AAAAAAAAAAAAmwHwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-27T20:01:49.725Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ingreso.aspx",
-              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\ingreso.aspx",
-              "RelativeDocumentMoniker": "TPC\\ingreso.aspx",
-              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\ingreso.aspx",
-              "RelativeToolTip": "TPC\\ingreso.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-10-27T14:23:08.276Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "info.aspx",
-              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\info.aspx",
-              "RelativeDocumentMoniker": "TPC\\info.aspx",
-              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\info.aspx",
-              "RelativeToolTip": "TPC\\info.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-10-27T14:23:07.119Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "index.aspx",
-              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\index.aspx",
-              "RelativeDocumentMoniker": "TPC\\index.aspx",
-              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\index.aspx",
-              "RelativeToolTip": "TPC\\index.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-10-27T14:23:05.881Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "gestionEntrenamiento.aspx",
               "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\gestionEntrenamiento.aspx",
               "RelativeDocumentMoniker": "TPC\\gestionEntrenamiento.aspx",
@@ -103,32 +44,6 @@
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
               "WhenOpened": "2024-10-27T14:23:04.114Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ConfigJugador.aspx",
-              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\ConfigJugador.aspx",
-              "RelativeDocumentMoniker": "TPC\\ConfigJugador.aspx",
-              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\ConfigJugador.aspx",
-              "RelativeToolTip": "TPC\\ConfigJugador.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-10-27T14:23:02.377Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ConfigEntrenador.aspx",
-              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\ConfigEntrenador.aspx",
-              "RelativeDocumentMoniker": "TPC\\ConfigEntrenador.aspx",
-              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\ConfigEntrenador.aspx",
-              "RelativeToolTip": "TPC\\ConfigEntrenador.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-10-27T14:22:59.782Z",
               "EditorCaption": ""
             }
           ]
