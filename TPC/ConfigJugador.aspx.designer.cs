@@ -51,13 +51,31 @@ namespace TPC
         protected global::System.Web.UI.WebControls.TextBox txtboxFechaNac;
 
         /// <summary>
-        /// Control txtboxLugarNac.
+        /// Control txtboxPais.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtboxLugarNac;
+        protected global::System.Web.UI.WebControls.TextBox txtboxPais;
+
+        /// <summary>
+        /// Control txtboxProvincia.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtboxProvincia;
+
+        /// <summary>
+        /// Control txtboxCiudad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtboxCiudad;
 
         /// <summary>
         /// Control txtboxEmail.
@@ -78,13 +96,13 @@ namespace TPC
         protected global::System.Web.UI.WebControls.TextBox txtboxAltura;
 
         /// <summary>
-        /// Control txtPeso.
+        /// Control txtboxPeso.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPeso;
+        protected global::System.Web.UI.WebControls.TextBox txtboxPeso;
 
         /// <summary>
         /// Control txtboxPosicion.
@@ -114,12 +132,30 @@ namespace TPC
         protected global::System.Web.UI.WebControls.DropDownList ddlEstadoJugador;
 
         /// <summary>
-        /// Control btnConfirmar.
+        /// Control btnAgregar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnConfirmar;
+        protected global::System.Web.UI.WebControls.Button btnAgregar;
+
+        /// <summary>
+        /// Control btnModificar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnModificar;
+
+        /// <summary>
+        /// Control btnEliminar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEliminar;
     }
 }

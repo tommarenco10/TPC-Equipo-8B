@@ -13,7 +13,6 @@ namespace Dominio
         public int Edad { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public LugarNacimiento LugarNacimiento { get; set; }
-        public string Nacionalidad { get; set; }
         public string Email { get; set; }   
     }
 }

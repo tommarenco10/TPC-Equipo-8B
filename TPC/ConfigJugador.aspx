@@ -6,62 +6,77 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <section>
-        <div class="row g-3">
-            <div class="col-md-4">
-                <label for="txtNombre" class="form-label">Nombre:</label>
-                <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtboxNombre" />
-                <asp:Label for="txtDNI" CssClass="form-label text-danger" ID="lblDniAviso" runat="server" Text="Por favor, ingrese un Nombre" Visible="false"></asp:Label>
+        <div class="row">
+            <div class="col-6">
+                <div class="mb-3">
+                    <label for="txtNombre" class="form-label">Nombre:</label>
+                    <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtboxNombre" />
+                    <asp:Label for="txtDNI" CssClass="form-label text-danger" ID="lblDniAviso" runat="server" Text="Por favor, ingrese un Nombre" Visible="false"></asp:Label>
+                </div>
+
+                <div class="mb-3">
+                    <label for="txtApellido" class="form-label">Apellido:</label>
+                    <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtboxApellido" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="txtFechaNac" class="form-label">Fecha de nacimiento:</label>
+                    <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="txtboxFechaNac" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="txtpais" class="form-label">Pais:</label>
+                    <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtboxPais" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="txtprovincia" class="form-label">Provincia:</label>
+                    <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtboxProvincia" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="txtCiudad" class="form-label">Ciudad:</label>
+                    <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtboxCiudad" />
+                </div>
             </div>
 
-            <div class="col-md-2">
-                <label for="txtApellido" class="form-label">Apellido:</label>
-                <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtboxApellido" />
-            </div>
+            <div class="col-6">
 
-            <div class="col-md-4">
-                <label for="txtFechaNac" class="form-label">Fecha de nacimiento:</label>
-                <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="txtboxFechaNac" />
-            </div>
+                <div class="mb-3">
+                    <label for="txtEmail" class="form-label">Email:</label>
+                    <asp:TextBox runat="server" CssClass="form-control" TextMode="Email" ID="txtboxEmail" />
+                </div>
 
-            <div class="col-md-4">
-                <label for="txtLugarNac" class="form-label">Lugar de nacimiento:</label>
-                <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtboxLugarNac" />
-            </div>
+                <div class="mb-3">
+                    <label for="txtAltura" class="form-label">Altura:</label>
+                    <asp:TextBox runat="server" CssClass="form-control" TextMode="Number" ID="txtboxAltura" />
+                </div>
 
-            <div class="col-md-4">
-                <label for="txtEmail" class="form-label">Email:</label>
-                <asp:TextBox runat="server" CssClass="form-control" TextMode="Email" ID="txtboxEmail" />
-            </div>
+                <div class="mb-3">
+                    <label for="txtPeso" class="form-label">Peso:</label>
+                    <asp:TextBox runat="server" CssClass="form-control" TextMode="number" ID="txtboxPeso" />
+                </div>
 
-            <div class="col-md-3">
-                <label for="txtAltura" class="form-label">Altura:</label>
-                <asp:TextBox runat="server" CssClass="form-control" TextMode="Number" ID="txtboxAltura" />
-            </div>
+                <div class="mb-3">
+                    <label for="txtPosicion" class="form-label">Posicion:</label>
+                    <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtboxPosicion" />
+                </div>
 
-            <div class="col-md-2">
-                <label for="txtPeso" class="form-label">Peso:</label>
-                <asp:TextBox runat="server" CssClass="form-control" TextMode="number" ID="txtPeso" />
-            </div>
+                <div class="mb-3">
+                    <label for="txtCategoria" class="form-label">Categoria:</label>
+                    <asp:DropDownList runat="server" CssClass="btn btn-outline-dark dropdown-toggle" ID="ddlCategoria">
+                    </asp:DropDownList>
+                    <label for="txtEstadoJugador" class="form-label">Estado del jugador:</label>
+                    <asp:DropDownList runat="server" CssClass="btn btn-outline-dark dropdown-toggle" ID="ddlEstadoJugador">
+                    </asp:DropDownList>
+                </div>
 
-            <div class="col-md-6">
-                <label for="txtPosicion" class="form-label">Posicion:</label>
-                <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtboxPosicion" />
             </div>
-
-            <div class="col-md-6">
-                <label for="txtCategoria" class="form-label">Categoria:</label>
-                <asp:DropDownList runat="server" CssClass="btn btn-outline-dark dropdown-toggle" ID="ddlCategoria">
-                </asp:DropDownList>
-            </div>
-            <div class="col-md-8">
-                <label for="txtEstadoJugador" class="form-label">Estado del jugador:</label>
-                <asp:DropDownList runat="server" CssClass="btn btn-outline-dark dropdown-toggle" ID="ddlEstadoJugador">
-                </asp:DropDownList>
-            </div>
-
-            <div class="col-12">
-                <asp:Button Text="Confirmar" CssClass="btn btn-primary" ID="btnConfirmar" runat="server" Enabled="false" />
-            </div>
+        </div>
+        <div class="col-12">
+            <asp:Button Text="Agregar" CssClass="btn btn-primary" ID="btnAgregar" runat="server" OnClick="btnAgregar_Click" />
+            <asp:Button Text="Modificar" CssClass="btn btn-warning" ID="btnModificar" runat="server" OnClick="btnModificar_Click" />
+            <asp:Button Text="Eliminar" CssClass="btn btn-danger" ID="btnEliminar" runat="server" OnClick="btnEliminar_Click" />
         </div>
     </section>
 

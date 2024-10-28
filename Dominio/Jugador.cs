@@ -14,9 +14,6 @@ namespace Dominio
         public string Posicion { get; set; }
         public EstadoJugador estadoJugador { get; set; }
         public Categoria Categoria { get; set; }
-        public List<Incidencia> Incidencias { get; set; }
-        public List<Asistencia> Asistencias { get; set; }
-        public List<Reporte> Reportes { get; set; }
 
     }
 }

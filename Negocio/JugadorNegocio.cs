@@ -107,5 +107,39 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public void AgregarConSP(Jugador nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+           
+            try
+            {
+                datos.setearSP("Agregar_Jugador");
+
+                datos.agregarParametro("@Nombre", nuevo.Nombres);
+                datos.agregarParametro("@Apellido", nuevo.Apellidos);
+                datos.agregarParametro("@FechaNacimiento", nuevo.FechaNacimiento);
+                datos.agregarParametro("@Pais", nuevo.LugarNacimiento.Pais);
+                datos.agregarParametro("@Provincia", nuevo.LugarNacimiento.Provincia);
+                datos.agregarParametro("@Ciudad", nuevo.LugarNacimiento.Ciudad);
+                datos.agregarParametro("@Email", nuevo.Email);
+                datos.agregarParametro("@Altura", nuevo.Altura);
+                datos.agregarParametro("@Peso", nuevo.Peso);
+                datos.agregarParametro("@Posicion", nuevo.Posicion);
+                datos.agregarParametro("@IdCategoria", nuevo.Categoria.IdCategoria);
+                datos.agregarParametro("@IdEstadoJugador", nuevo.estadoJugador.IdEstadoJugador);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
     }
 }

@@ -1,5 +1,5 @@
 create database Gestion_Clubes
-
+Set Dateformat 'DMY'
 use Gestion_Clubes
 
 create table Categoria(
