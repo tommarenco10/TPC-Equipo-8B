@@ -6,6 +6,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <section>
+        <h3> En esta pagina podras gestionar la plantilla del club agregando, modificando o eliminando jugadores en casos de ventas, compras o si un jugador se encuentra disponible o no. </h3>
+        <p>Agregar: si completas todos los campos se realizara el alta de un nuevo jugador</p>
+        <p>Modificar: se cargaran todos los datos del jugador que hayas seleccionado previamente y podras modificar los campos, una vez hecho dale a modificar!</p>
+        <p>Eliminar: se eliminara el jugador que hayas seleccionado previamente, por favor tener precaucion a la hora de utilizar esta opcion.</p>
+        <p>Cancelar: si estas en esta pagina y te arrepentis de lo que estas haciendo, simplemente utiliza esta opcion!</p>
         <div class="row">
             <div class="col-6">
                 <div class="mb-3">

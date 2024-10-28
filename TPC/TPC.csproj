@@ -75,6 +75,7 @@
     <Content Include="index.aspx" />
     <Content Include="info.aspx" />
     <Content Include="ingreso.aspx" />
+    <Content Include="PlantillaJugadores.aspx" />
     <Content Include="registro.aspx" />
     <Content Include="Scripts\scripts.js" />
     <Content Include="Web.config" />
@@ -135,6 +136,13 @@
     </Compile>
     <Compile Include="MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="PlantillaJugadores.aspx.cs">
+      <DependentUpon>PlantillaJugadores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PlantillaJugadores.aspx.designer.cs">
+      <DependentUpon>PlantillaJugadores.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="registro.aspx.cs">

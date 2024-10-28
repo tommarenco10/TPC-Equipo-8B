@@ -67,10 +67,11 @@ namespace TPC
                 jugador.Categoria.NombreCategoria = ddlCategoria.Text;
 
                 jugador.estadoJugador = new EstadoJugador();
-                jugador.estadoJugador.IdEstadoJugador = int.Parse(ddlCategoria.SelectedValue);
+                jugador.estadoJugador.IdEstadoJugador = int.Parse(ddlEstadoJugador.SelectedValue);
                 jugador.estadoJugador.NombreEstado = ddlCategoria.Text;
 
                 negocio.AgregarConSP(jugador);
+
             }
             catch (Exception ex)
             {
