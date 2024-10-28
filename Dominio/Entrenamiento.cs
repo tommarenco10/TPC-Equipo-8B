@@ -9,16 +9,9 @@ namespace Dominio
 {
     public class Entrenamiento
     {
-        public enum EstadoEntrenamiento
-        {
-            Programado = 1,
-            EnCurso = 2,
-            Finalizado = 3
-        }
-
         public int IdEntrenamiento { get; set; }
         public DateTime FechaHora { get; set; }
-        public float Duracion { get; set; }
+        public TimeSpan Duracion { get; set; }
         public Categoria Categoria { get; set; }
         public string Descripcion { get; set; }
         public List<Jugador> JugadoresCitados { get; set; }

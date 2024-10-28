@@ -1,6 +1,8 @@
 create database Gestion_Clubes
+GO
 Set Dateformat 'DMY'
 use Gestion_Clubes
+GO
 
 create table Categoria(
 	IdCategoria tinyint primary key identity(1,1),
@@ -108,36 +110,3 @@ create table Notificacion(
 	Mensaje varchar (300) not null,
 	FechaEnvio date not null,
 )
-
-create or alter procedure Agregar_Jugador 
-@Nombre varchar(30),
-@Apellido varchar(30),
-@FechaNacimiento date,
-@Pais varchar(20),
-@Provincia varchar(30),
-@Ciudad varchar(30),
-@Email varchar(30),
-@Altura tinyint,
-@Peso decimal,
-@Posicion varchar(15),
-@IdCategoria tinyint,
-@IdEstadoJugador tinyint
-as
-begin
-insert into persona values (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad,@Email)
-declare @IdPersona bigint
-set @IdPersona = SCOPE_IDENTITY()
-insert into jugador values (@IdPersona, @Altura, @Peso, @Posicion, @IdCategoria, @IdEstadoJugador)
-end
-
-create or alter procedure Listar_Jugador
-as
-begin
-select p.Nombre, p.Apellido, p.FechaNacimiento, p.pais, p.provincia, p.ciudad, p.Email,
-		j.Altura, j.peso, j.posicion, c.nombre as NombreCategoria, ej.nombre as EstadoJugador 
-from persona p
-inner join jugador j on j.IdPersona = p.IdPersona
-inner join Categoria c on c.IdCategoria = j.Idcategoria
-inner join EstadoJugador ej on ej.IdEstadoJugador = j.IdEstadoJugador
-end
-

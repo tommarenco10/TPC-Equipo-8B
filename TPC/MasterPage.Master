@@ -28,9 +28,39 @@
                         <div class="navbar-nav">
 
                             <a class="nav-link active" runat="server" href="info.aspx">Sobre nosotros</a>
-                            <a class="nav-link active" runat="server" href="gestionEntrenamiento.aspx"> Entrenamiento </a>
-                            <a class="nav-link active" runat="server" href="PlantillaJugadores.aspx"> Plantilla </a>
-                            <a class="nav-link active" runat="server" href="">Entrenadores</a>
+
+                            <div class="nav-item dropdown">
+                                <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Entrenamientos
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item" href="gestionEntrenamiento.aspx">Agendar Entrenamientos </a></li>
+                                    <li><a class="dropdown-item" href="entrenamientosProgramados.aspx">Entrenamientos Programados </a></li>
+                                    <li><a class="dropdown-item" href="">Cancelar Entrenamiento </a></li>
+                                </ul>
+                            </div>
+
+                            <div class="nav-item dropdown">
+                                <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Plantillas
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item" href="ConfigJugador.aspx">Agregar Jugador </a></li>
+                                    <li><a class="dropdown-item" href="ConfigJugador.aspx">Modificar Jugador </a></li>
+                                    <li><a class="dropdown-item" href="ConfigJugador.aspx">Eliminar Jugador </a></li>
+                                </ul>
+                            </div>
+
+                            <div class="nav-item dropdown">
+                                <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Cuerpo Técnico
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item" href="ConfigEntrenador.aspx">Agregar Miembro </a></li>
+                                    <li><a class="dropdown-item" href="ConfigEntrenador.aspx">Modificar Miembro </a></li>
+                                    <li><a class="dropdown-item" href="ConfigEntrenador.aspx">Eliminar Miembro </a></li>
+                                </ul>
+                            </div>
 
                         </div>
 

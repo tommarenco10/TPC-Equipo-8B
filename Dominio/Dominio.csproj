@@ -45,6 +45,7 @@
     <Compile Include="Categoria.cs" />
     <Compile Include="Entrenador.cs" />
     <Compile Include="Entrenamiento.cs" />
+    <Compile Include="EstadoEntrenamiento.cs" />
     <Compile Include="EstadoJugador.cs" />
     <Compile Include="Incidencia.cs" />
     <Compile Include="Jugador.cs" />

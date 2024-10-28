@@ -25,7 +25,7 @@ namespace TPC
                 {
                     List<Jugador> listaJugador = negocioJugador.listar();
                     Session["listaJugador"] = listaJugador;
-
+                    
                     List<Categoria> listaCategorias = negocioCategoria.listar();
                     ddlCategoria.DataSource = listaCategorias;
                     ddlCategoria.DataTextField = "NombreCategoria";

@@ -36,6 +36,7 @@
                 <asp:BoundField HeaderText="Altura" DataField="Altura" />
                 <asp:BoundField HeaderText="Peso" DataField="Peso" />
                 <asp:BoundField HeaderText="Posicion" DataField="Posicion" />
+                <asp:BoundField HeaderText="Estado" DataField="estadoJugador.NombreEstado" />
                 <asp:TemplateField HeaderText="Citado a Entrenar">
                     <ItemTemplate>
                         <asp:CheckBox ID="chkCitado" runat="server" AutoPostBack="true" OnCheckedChanged="chkCitado_CheckedChanged" />

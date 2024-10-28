@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoriaNegocio.cs" />
+    <Compile Include="EntrenamientoNegocio.cs" />
+    <Compile Include="EstadoEntrenamientoNegocio.cs" />
     <Compile Include="EstadoJugadorNegocio.cs" />
     <Compile Include="JugadorNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
