@@ -3,12 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\administrator\\desktop\\proyecto integrador\\tpc-equipo-8bb\\tpc-equipo-8b\\tpc\\index.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\tpc\\index.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
       "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\index.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65B102A0-344A-406D-9FBA-7C77FDCCDC6D}|Dominio\\Dominio.csproj|C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\dominio\\jugador.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65B102A0-344A-406D-9FBA-7C77FDCCDC6D}|Dominio\\Dominio.csproj|solutionrelative:dominio\\jugador.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7C95F306-14BB-4B45-8CDD-02ADA0B5E2B9}|Acceso_Datos\\Acceso_Datos.csproj|C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\acceso_datos\\accesodatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7C95F306-14BB-4B45-8CDD-02ADA0B5E2B9}|Acceso_Datos\\Acceso_Datos.csproj|solutionrelative:acceso_datos\\accesodatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65B102A0-344A-406D-9FBA-7C77FDCCDC6D}|Dominio\\Dominio.csproj|C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\dominio\\lugarnacimiento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65B102A0-344A-406D-9FBA-7C77FDCCDC6D}|Dominio\\Dominio.csproj|solutionrelative:dominio\\lugarnacimiento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\negocio\\jugadornegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|solutionrelative:negocio\\jugadornegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65B102A0-344A-406D-9FBA-7C77FDCCDC6D}|Dominio\\Dominio.csproj|C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\dominio\\estadojugador.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65B102A0-344A-406D-9FBA-7C77FDCCDC6D}|Dominio\\Dominio.csproj|solutionrelative:dominio\\estadojugador.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\negocio\\usuarionegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|solutionrelative:negocio\\usuarionegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\tpc\\gestionentrenamiento.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -17,6 +37,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\tpc\\gestionentrenamiento.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
       "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\gestionentrenamiento.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Negocio\\SocioNegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Negocio\\SocioNegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,11 +50,72 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Jugador.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Dominio\\Jugador.cs",
+              "RelativeDocumentMoniker": "Dominio\\Jugador.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Dominio\\Jugador.cs",
+              "RelativeToolTip": "Dominio\\Jugador.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T22:42:31.821Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "JugadorNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Negocio\\JugadorNegocio.cs",
+              "RelativeDocumentMoniker": "Negocio\\JugadorNegocio.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Negocio\\JugadorNegocio.cs",
+              "RelativeToolTip": "Negocio\\JugadorNegocio.cs",
+              "ViewState": "AgIAAGQAAAAAAAAAAAAAAHgAAABQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T22:35:05.177Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LugarNacimiento.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Dominio\\LugarNacimiento.cs",
+              "RelativeDocumentMoniker": "Dominio\\LugarNacimiento.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Dominio\\LugarNacimiento.cs",
+              "RelativeToolTip": "Dominio\\LugarNacimiento.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T22:28:01.451Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "SocioNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Negocio\\SocioNegocio.cs",
+              "RelativeDocumentMoniker": "Negocio\\SocioNegocio.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Negocio\\SocioNegocio.cs",
+              "RelativeToolTip": "Negocio\\SocioNegocio.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwFkAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T22:01:58.455Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UsuarioNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Negocio\\UsuarioNegocio.cs",
+              "RelativeDocumentMoniker": "Negocio\\UsuarioNegocio.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Negocio\\UsuarioNegocio.cs",
+              "RelativeToolTip": "Negocio\\UsuarioNegocio.cs",
+              "ViewState": "AgIAAJ8AAAAAAAAAAAAqwMEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T21:53:44.871Z"
             },
             {
               "$type": "Document",
@@ -47,7 +132,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "AccesoDatos.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Acceso_Datos\\AccesoDatos.cs",
               "RelativeDocumentMoniker": "Acceso_Datos\\AccesoDatos.cs",
@@ -55,12 +140,23 @@
               "RelativeToolTip": "Acceso_Datos\\AccesoDatos.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T21:34:53.134Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-29T21:34:53.134Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
+              "Title": "EstadoJugador.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Dominio\\EstadoJugador.cs",
+              "RelativeDocumentMoniker": "Dominio\\EstadoJugador.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Dominio\\EstadoJugador.cs",
+              "RelativeToolTip": "Dominio\\EstadoJugador.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T22:48:01.517Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "gestionEntrenamiento.aspx.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\TPC\\gestionEntrenamiento.aspx.cs",
               "RelativeDocumentMoniker": "TPC\\gestionEntrenamiento.aspx.cs",
@@ -72,7 +168,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "gestionEntrenamiento.aspx",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\TPC\\gestionEntrenamiento.aspx",
               "RelativeDocumentMoniker": "TPC\\gestionEntrenamiento.aspx",
