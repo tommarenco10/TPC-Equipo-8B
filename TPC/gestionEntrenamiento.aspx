@@ -6,6 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <section>
+        <h1>Detalles Generales</h1>
         <div class="row mb-3">
             <div class="col-md-4">
                 <label for="txtFechaEntrenamiento" class="form-label">Fecha de Entrenamiento:</label>
@@ -16,12 +17,26 @@
                 <label for="txtHoraEntrenamiento" class="form-label">Hora de Entrenamiento:</label>
                 <asp:TextBox runat="server" CssClass="form-control" TextMode="Time" ID="txtHoraEntrenamiento" />
             </div>
-        </div>
 
+            <div class="col-md-4">
+                <label for="ddlCategoria" class="form-label">Categoría:</label>
+                <asp:DropDownList runat="server" CssClass="form-control" ID="ddlCategoria" AutoPostBack="true">
+                </asp:DropDownList>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-8">
+            </div>
+            <div class="col-md-4">
+                <asp:Button ID="btnPreseleccionar" runat="server" CssClass="btn btn-primary" Text="Preseleccionar Categoría" OnClick="btnPreseleccionar_Click"/>
+            </div>
+        </div>
+        <br />
+        <h3>Detalles Adicionales</h3>
         <div class="row mb-3">
             <div class="col-md-4">
-                <label for="txtCategoria" class="form-label">Categoria:</label>
-                <asp:DropDownList runat="server" CssClass="form-control" ID="ddlCategoria" AutoPostBack="true" OnSelectedIndexChanged="ddlCategoria_SelectedIndexChanged">
+                <label for="ddlJugadoresAdicionales" class="form-label">Jugadores Adicionales:</label>
+                <asp:DropDownList runat="server" CssClass="form-control" ID="ddlJugadoresAdicionales" AutoPostBack="true" OnSelectedIndexChanged="ddlJugadoresAdicionales_SelectedIndexChanged">
                 </asp:DropDownList>
             </div>
         </div>

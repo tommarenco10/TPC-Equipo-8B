@@ -82,6 +82,7 @@ namespace TPC
                 {
                     lblMensaje.Text = "Formato de duración inválido. Por favor, usa el formato hh:mm.";
                     lblMensaje.Visible = true;
+                    Session.Add("error", ex);
                 }
             }
             return TimeSpan.Zero;

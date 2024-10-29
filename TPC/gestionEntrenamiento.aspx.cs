@@ -25,17 +25,31 @@ namespace TPC
                 {
                     List<Jugador> listaJugador = negocioJugador.listar();
                     Session["listaJugador"] = listaJugador;
-                    
+
                     List<Categoria> listaCategorias = negocioCategoria.listar();
                     ddlCategoria.DataSource = listaCategorias;
                     ddlCategoria.DataTextField = "NombreCategoria";
                     ddlCategoria.DataValueField = "IdCategoria";
                     ddlCategoria.DataBind();
+                    ddlJugadoresAdicionales.DataSource = listaCategorias;
+                    ddlJugadoresAdicionales.DataTextField = "NombreCategoria";
+                    ddlJugadoresAdicionales.DataValueField = "IdCategoria";
+                    ddlJugadoresAdicionales.DataBind();
 
                     // Opción para seleccionar
                     ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", "0"));
-                    
-                    // Recuperar Fecha y Hora del Entrenamiento
+                    ddlJugadoresAdicionales.Items.Insert(0, new ListItem("Seleccione una categoría", "0"));
+
+                    //RECUPERAR DATOS
+
+                    // Categoria Seleccionada
+                    if (Session["categoriaSeleccionada"] != null)
+                    {
+                        int idCategoriaSeleccionada = (int)Session["categoriaSeleccionada"];
+                        ddlCategoria.SelectedValue = idCategoriaSeleccionada.ToString();
+                    }
+
+                    // Fecha y Hora del Entrenamiento
                     if (Session["fechaHoraEntrenamiento"] != null)
                     {
                         DateTime fechaHoraEntrenamiento = (DateTime)Session["fechaHoraEntrenamiento"];
@@ -56,11 +70,11 @@ namespace TPC
             }
         }
 
-        protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlJugadoresAdicionales_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                int idCategoriaSeleccionada = int.Parse(ddlCategoria.SelectedValue);
+                int idCategoriaSeleccionada = int.Parse(ddlJugadoresAdicionales.SelectedValue);
 
                 // Filtro de jugadores en base a la categoría seleccionada
                 List<Jugador> listaFiltrada = new List<Jugador>();
@@ -137,6 +151,9 @@ namespace TPC
             DateTime fechaEntrenamiento;
             DateTime horaEntrenamiento;
 
+            int idCategoriaSeleccionada = int.Parse(ddlCategoria.SelectedValue);
+            Session["categoriaSeleccionada"] = idCategoriaSeleccionada;
+
             if (string.IsNullOrEmpty(txtFechaEntrenamiento.Text) || string.IsNullOrEmpty(txtHoraEntrenamiento.Text))
             {
                 lblError.CssClass = "alert alert-warning";
@@ -173,5 +190,54 @@ namespace TPC
             }
         }
 
+        protected void btnPreseleccionar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int idCategoriaSeleccionada = int.Parse(ddlCategoria.SelectedValue);
+
+                List<Jugador> listaFiltrada = new List<Jugador>();
+
+                if (Session["listaJugador"] != null)
+                {
+                    List<Jugador> listaJugadores = (List<Jugador>)Session["listaJugador"];
+
+                    foreach (Jugador jugador in listaJugadores)
+                    {
+                        if (jugador.Categoria.IdCategoria == idCategoriaSeleccionada)
+                        {
+                            listaFiltrada.Add(jugador);
+                        }
+                    }
+                }
+
+                dgvEntrenamiento.DataSource = listaFiltrada;
+                dgvEntrenamiento.DataBind();
+
+                // Inicializar o recuperar la lista de jugadores seleccionados
+                List<int> jugadoresSeleccionados = Session["jugadoresSeleccionados"] != null
+                    ? (List<int>)Session["jugadoresSeleccionados"]
+                    : new List<int>();
+
+                foreach (GridViewRow row in dgvEntrenamiento.Rows)
+                {
+                    CheckBox chkCitado = (CheckBox)row.FindControl("chkCitado");
+                    chkCitado.Checked = true;
+
+                    int idJugador = Convert.ToInt32(dgvEntrenamiento.DataKeys[row.RowIndex].Value);
+
+                    // Agregar el jugador a la lista de jugadores seleccionados si no está ya en la lista
+                    if (!jugadoresSeleccionados.Contains(idJugador))
+                    {
+                        jugadoresSeleccionados.Add(idJugador);
+                    }
+                }
+                Session["jugadoresSeleccionados"] = jugadoresSeleccionados;
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+            }
+        }
     }
 }
