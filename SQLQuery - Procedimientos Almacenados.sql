@@ -126,3 +126,76 @@ BEGIN
     SET Rol = @Rol
     WHERE IdEntrenador = @IdEntrenador;
 END;
+
+
+
+CREATE PROCEDURE Agregar_Socio
+    @Nombre NVARCHAR(50),
+    @Apellido NVARCHAR(50),
+    @FechaNacimiento DATE,
+    @Ciudad NVARCHAR(50),
+    @Provincia NVARCHAR(50),
+    @Pais NVARCHAR(50)
+AS
+BEGIN
+    DECLARE @IdLugarNacimiento INT, @IdPersona INT;
+
+    -
+    INSERT INTO LugarNacimiento (Ciudad, Provincia, Pais)
+    VALUES (@Ciudad, @Provincia, @Pais);
+    SET @IdLugarNacimiento = SCOPE_IDENTITY();
+
+    
+    INSERT INTO Persona (Nombre, Apellido, FechaNacimiento, IdLugarNacimiento)
+    VALUES (@Nombre, @Apellido, @FechaNacimiento, @IdLugarNacimiento);
+    SET @IdPersona = SCOPE_IDENTITY();
+
+    
+    INSERT INTO Socio (IdPersona)
+    VALUES (@IdPersona);
+END;
+
+
+
+
+
+CREATE PROCEDURE Actualizar_Socio
+    @IdSocio INT,
+    @Nombre NVARCHAR(50),
+    @Apellido NVARCHAR(50),
+    @FechaNacimiento DATE,
+    @Ciudad NVARCHAR(50),
+    @Provincia NVARCHAR(50),
+    @Pais NVARCHAR(50)
+AS
+BEGIN
+    DECLARE @IdPersona INT, @IdLugarNacimiento INT;
+
+    
+    SELECT @IdPersona = IdPersona FROM Socio WHERE IdSocio = @IdSocio;
+
+   
+    SELECT @IdLugarNacimiento = IdLugarNacimiento FROM Persona WHERE IdPersona = @IdPersona;
+    UPDATE LugarNacimiento
+    SET Ciudad = @Ciudad,
+        Provincia = @Provincia,
+        Pais = @Pais
+    WHERE IdLugarNacimiento = @IdLugarNacimiento;
+
+    
+    UPDATE Persona
+    SET Nombre = @Nombre,
+        Apellido = @Apellido,
+        FechaNacimiento = @FechaNacimiento
+    WHERE IdPersona = @IdPersona;
+END;
+
+
+
+CREATE PROCEDURE Eliminar_Socio
+    @IdSocio INT
+AS
+BEGIN
+    DELETE FROM Socio
+    WHERE IdSocio = @IdSocio;
+END;
