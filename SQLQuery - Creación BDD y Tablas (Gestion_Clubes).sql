@@ -30,7 +30,7 @@ create table jugador(
 	IdPersona bigint foreign key references persona(idpersona),
 	Altura tinyint not null check(altura > 150),
 	peso decimal not null check (peso > 60),
-	posicion varchar (15) not null,
+	posicion varchar (15) not null,POr
 	Idcategoria tinyint foreign key references Categoria (IdCategoria),
 	IdEstadoJugador tinyint foreign key references EstadoJugador (IdEstadojugador),
 )

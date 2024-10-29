@@ -1,10 +1,12 @@
+use Gestion_Clubes
+go
 SET DATEFORMAT 'DMY'
 
 INSERT INTO Categoria
 VALUES ('Primera'), ('Reserva'), ('Juvenil')
 
 INSERT INTO EstadoJugador
-VALUES ('Disponible'), ('Lesionado'), ('Suspendido'), ('Citado a la Selección')
+VALUES ('Disponible'), ('Lesionado'), ('Suspendido'), ('Citado a la Selecciï¿½n')
 
 INSERT INTO EstadoEntrenamiento
 VALUES ('Programado'), ('En Curso'), ('Finalizado'), ('Cancelado'), ('Desconocido')
@@ -13,9 +15,9 @@ INSERT INTO persona
 VALUES
 ('Lionel', 'Messi', '24-06-1987', 'Argentina', 'Santa Fe', 'Rosario', 'messi@gmail.com'),
 ('Emiliano', 'Martinez', '02-09-1992', 'Argentina', 'Buenos Aires', 'Mar del Plata', 'miraquetecomo@gmail.com'),
-('Ángel', 'Di María', '14-02-1988', 'Argentina', 'Santa Fe', 'Rosario', 'fideo@gmail.com'),
+('ï¿½ngel', 'Di Marï¿½a', '14-02-1988', 'Argentina', 'Santa Fe', 'Rosario', 'fideo@gmail.com'),
 ('Federico', 'Mancuello', '26-03-1989', 'Argentina', 'Santa Fe', 'Reconquista', 'mancu@gmail.com'),
-('Alejandro', 'Garnacho', '01-07-2004', 'España', 'Madrid', 'Madrid', 'bichito@siuuu.com'),
+('Alejandro', 'Garnacho', '01-07-2004', 'Espaï¿½a', 'Madrid', 'Madrid', 'bichito@siuuu.com'),
 ('Tomas', 'Parmo', '08-01-2008', 'Argentina', 'Buenos Aires', 'Capital Federal', 'tomiparmo@gmail.com')
 
 SELECT * FROM persona

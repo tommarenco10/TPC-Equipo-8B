@@ -191,3 +191,5 @@ C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC\TPC-Equipo-8B\TPC\bin\A
 C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC\TPC-Equipo-8B\TPC\bin\Acceso_Datos.pdb
 C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\TPC\bin\Acceso_Datos.dll
 C:\Users\juanp\Desktop\Facultad\github\TPC-Equipo-8B\TPC\bin\Acceso_Datos.pdb
+C:\Users\Administrator\Desktop\Proyecto integrador\TPC-Equipo-8BB\TPC-Equipo-8B\TPC\bin\Acceso_Datos.dll
+C:\Users\Administrator\Desktop\Proyecto integrador\TPC-Equipo-8BB\TPC-Equipo-8B\TPC\bin\Acceso_Datos.pdb
