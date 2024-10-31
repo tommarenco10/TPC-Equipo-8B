@@ -70,6 +70,13 @@ begin
 	where IdJugador = @IdJugador
 end
 
+create or alter procedure Eliminar_Jugador 
+@IdJugador bigint 
+as
+begin
+	delete from jugador where IdJugador = @IdJugador
+end
+
 
 REATE PROCEDURE Agregar_Entrenador
     @Nombre NVARCHAR(50),

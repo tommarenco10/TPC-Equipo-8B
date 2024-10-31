@@ -12,11 +12,13 @@ namespace TPC
 {
     public partial class ConfigWeb : System.Web.UI.Page
     {
+        public bool ConfirmarEliminacion { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
                 txtboxId.Enabled = false;
+                ConfirmarEliminacion = false;
 
                 if (!IsPostBack)
                 {
@@ -43,7 +45,7 @@ namespace TPC
 
                     int id = int.Parse(Request.QueryString["IdJugador"].ToString());
                     txtboxId.Text = id.ToString();
-                    
+
                     Jugador jugador = new Jugador();
                     jugador = lista.Find(x => x.IdJugador == id);
 
@@ -56,9 +58,9 @@ namespace TPC
                     txtboxEmail.Text = jugador.Email.ToString();
                     txtboxAltura.Text = jugador.Altura.ToString();
                     txtboxPeso.Text = jugador.Peso.ToString();
-                    txtboxPosicion.Text = jugador.Posicion.ToString();                  
-                    ddlCategoria.SelectedValue = jugador.Categoria.IdCategoria.ToString();                    
-                    ddlEstadoJugador.SelectedValue = jugador.estadoJugador.IdEstadoJugador.ToString(); 
+                    txtboxPosicion.Text = jugador.Posicion.ToString();
+                    ddlCategoria.SelectedValue = jugador.Categoria.IdCategoria.ToString();
+                    ddlEstadoJugador.SelectedValue = jugador.estadoJugador.IdEstadoJugador.ToString();
                 }
 
             }
@@ -130,17 +132,34 @@ namespace TPC
 
             jugador.Categoria = new Categoria();
             jugador.Categoria.IdCategoria = int.Parse(ddlCategoria.SelectedValue);
-           
+
             jugador.estadoJugador = new EstadoJugador();
             jugador.estadoJugador.IdEstadoJugador = int.Parse(ddlEstadoJugador.SelectedValue);
-            
+
             negocio.ModificarJugador(jugador);
             Response.Redirect("PlantillaJugadores.aspx", false);
         }
 
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
+            ConfirmarEliminacion = true;
+        }
 
+        protected void BtnEliminarConfirmado_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (chkboxConfirmado.Checked)
+                {
+                    JugadorNegocio negocio = new JugadorNegocio();
+                    negocio.EliminarJugador(int.Parse(txtboxId.Text));
+                    Response.Redirect("PlantillaJugadores.aspx");
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+            }
         }
     }
 }

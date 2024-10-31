@@ -264,7 +264,26 @@ namespace negocio
             }
         }
 
+        public void EliminarJugador(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
 
+            try
+            {
+                datos.setearSP("Eliminar_Jugador");
+                datos.agregarParametro("IdJugador", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
     }
 }
