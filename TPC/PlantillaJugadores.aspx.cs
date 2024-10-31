@@ -12,19 +12,34 @@ namespace TPC
 {
     public partial class PlanillaJugadores : System.Web.UI.Page
     {
-        public List<Categoria> Categoria { get; set; }
-        public string titulo { get; set; }
-        public int contador { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-            Categoria = categoriaNegocio.listar();
-
+            JugadorNegocio negocio = new JugadorNegocio();
+            dgvPrimera.DataSource = negocio.ListarPorCategoria(1);
+            dgvPrimera.DataBind();
+            dgvReserva.DataSource = negocio.ListarPorCategoria(2);
+            dgvReserva.DataBind();
+            dgvJuveniles.DataSource = negocio.ListarPorCategoria(3);
+            dgvJuveniles.DataBind();
         }
 
         protected void dgv_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Response.Redirect("ConfigJugador.aspx", false);
+            if (dgvPrimera.SelectedDataKey != null)
+            {
+                var IdJugador = dgvPrimera.SelectedDataKey.Value.ToString();
+                Response.Redirect("ConfigJugador.aspx?IdJugador=" + IdJugador, false);
+            }
+            if (dgvReserva.SelectedDataKey != null)
+            {
+                var IdJugador = dgvReserva.SelectedDataKey.Value.ToString();
+                Response.Redirect("ConfigJugador.aspx?IdJugador=" + IdJugador, false);
+            }
+            if (dgvJuveniles.SelectedDataKey != null)
+            {
+                var IdJugador = dgvJuveniles.SelectedDataKey.Value.ToString();
+                Response.Redirect("ConfigJugador.aspx?IdJugador=" + IdJugador, false);
+            }
         }
     }
 }

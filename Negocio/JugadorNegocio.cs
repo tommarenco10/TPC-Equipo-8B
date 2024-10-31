@@ -111,7 +111,7 @@ namespace negocio
         public void AgregarConSP(Jugador nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
-           
+
             try
             {
                 datos.setearSP("Agregar_Jugador");
@@ -152,10 +152,11 @@ namespace negocio
                 datos.setearSP("Listar_JugadorPorCategoria");
                 datos.agregarParametro("@IdCategoria", Categoria);
                 datos.ejecutarLectura();
-                
+
                 while (datos.Lector.Read())
                 {
                     Jugador jugador = new Jugador();
+                    jugador.IdJugador = Convert.ToInt32(datos.Lector["IdJugador"]);
                     jugador.Nombres = (string)datos.Lector["Nombre"];
                     jugador.Apellidos = (string)datos.Lector["Apellido"];
                     jugador.FechaNacimiento = (DateTime)datos.Lector["FechaNacimiento"];
@@ -165,7 +166,7 @@ namespace negocio
                     jugador.LugarNacimiento.Ciudad = (string)datos.Lector["ciudad"];
                     jugador.Email = (string)datos.Lector["email"];
                     jugador.Altura = Convert.ToInt32(datos.Lector["Altura"]);
-                    jugador.Peso = Convert.ToDecimal(datos.Lector["Peso"]); 
+                    jugador.Peso = Convert.ToDecimal(datos.Lector["Peso"]);
                     jugador.Posicion = (string)datos.Lector["posicion"];
                     jugador.Categoria = new Categoria();
                     jugador.Categoria.NombreCategoria = (string)datos.Lector["NombreCategoria"];
@@ -182,7 +183,88 @@ namespace negocio
                 throw ex;
             }
 
+
         }
+
+        public List<Jugador> ListarJugador()
+        {
+            List<Jugador> lista = new List<Jugador>();
+
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearSP("Listar_Jugador");
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Jugador jugador = new Jugador();
+                    jugador.IdJugador = Convert.ToInt32(datos.Lector["IdJugador"]);
+                    jugador.Nombres = (string)datos.Lector["Nombre"];
+                    jugador.Apellidos = (string)datos.Lector["Apellido"];
+                    jugador.FechaNacimiento = (DateTime)datos.Lector["FechaNacimiento"];
+                    jugador.LugarNacimiento = new LugarNacimiento();
+                    jugador.LugarNacimiento.Pais = (string)datos.Lector["pais"];
+                    jugador.LugarNacimiento.Provincia = (string)datos.Lector["provincia"];
+                    jugador.LugarNacimiento.Ciudad = (string)datos.Lector["ciudad"];
+                    jugador.Email = (string)datos.Lector["email"];
+                    jugador.Altura = Convert.ToInt32(datos.Lector["Altura"]);
+                    jugador.Peso = Convert.ToDecimal(datos.Lector["Peso"]);
+                    jugador.Posicion = (string)datos.Lector["posicion"];
+                    jugador.Categoria = new Categoria();
+                    jugador.Categoria.IdCategoria = Convert.ToInt32(datos.Lector["IdCategoria"]);
+                    jugador.Categoria.NombreCategoria = (string)datos.Lector["NombreCategoria"];
+                    jugador.estadoJugador = new EstadoJugador();
+                    jugador.estadoJugador.IdEstadoJugador = Convert.ToInt32(datos.Lector["IdEstadoJugador"]);
+                    jugador.estadoJugador.NombreEstado = (string)datos.Lector["EstadoJugador"];
+
+                    lista.Add(jugador);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public void ModificarJugador(Jugador modificado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearSP("Modificar_Jugador");
+
+                datos.agregarParametro("@IdJugador", modificado.IdJugador);
+                datos.agregarParametro("@Nombre", modificado.Nombres);
+                datos.agregarParametro("@Apellido", modificado.Apellidos);
+                datos.agregarParametro("@FechaNacimiento", modificado.FechaNacimiento);
+                datos.agregarParametro("@Pais", modificado.LugarNacimiento.Pais);
+                datos.agregarParametro("@Provincia", modificado.LugarNacimiento.Provincia);
+                datos.agregarParametro("@Ciudad", modificado.LugarNacimiento.Ciudad);
+                datos.agregarParametro("@Email", modificado.Email);
+                datos.agregarParametro("@Altura", modificado.Altura);
+                datos.agregarParametro("@Peso", modificado.Peso);
+                datos.agregarParametro("@Posicion", modificado.Posicion);
+                datos.agregarParametro("@IdCategoria", modificado.Categoria.IdCategoria);
+                datos.agregarParametro("@IdEstadoJugador", modificado.estadoJugador.IdEstadoJugador);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
 
     }
 }

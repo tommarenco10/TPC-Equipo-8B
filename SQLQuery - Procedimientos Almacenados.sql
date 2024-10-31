@@ -26,8 +26,8 @@ end
 create or alter procedure Listar_Jugador
 as
 begin
-select p.Nombre, p.Apellido, p.FechaNacimiento, p.pais, p.provincia, p.ciudad, p.Email,
-		j.Altura, j.peso, j.posicion, c.nombre as NombreCategoria, ej.nombre as EstadoJugador 
+select j.IdJugador ,p.Nombre, p.Apellido, p.FechaNacimiento, p.pais, p.provincia, p.ciudad, p.Email,
+		j.Altura, j.peso, j.posicion, c.IdCategoria, c.nombre as NombreCategoria, ej.IdEstadoJugador ,ej.nombre as EstadoJugador 
 from persona p
 inner join jugador j on j.IdPersona = p.IdPersona
 inner join Categoria c on c.IdCategoria = j.Idcategoria
@@ -36,7 +36,7 @@ end
 
 CREATE OR ALTER PROCEDURE Listar_JugadorPorCategoria (@IdCategoria tinyint) AS
 BEGIN
-SELECT p.Nombre, p.Apellido, p.FechaNacimiento, p.pais, p.provincia, p.ciudad, p.Email,
+SELECT j.IdJugador, p.Nombre, p.Apellido, p.FechaNacimiento, p.pais, p.provincia, p.ciudad, p.Email,
 		j.Altura, j.peso, j.posicion, c.nombre as NombreCategoria, ej.nombre as EstadoJugador 
 FROM persona p
 INNER JOIN jugador j ON j.IdPersona = p.IdPersona
@@ -45,7 +45,30 @@ INNER JOIN EstadoJugador ej ON ej.IdEstadoJugador = j.IdEstadoJugador
 WHERE J.Idcategoria = @IdCategoria
 END
 
+create or alter procedure Modificar_Jugador 
+@IdJugador bigint, 
+@Nombre varchar(30),
+@Apellido varchar(30),
+@FechaNacimiento date,
+@Pais varchar(20),
+@Provincia varchar(30),
+@Ciudad varchar(30),
+@Email varchar(30),
+@Altura tinyint,
+@Peso decimal,
+@Posicion varchar(15),
+@IdCategoria tinyint,
+@IdEstadoJugador tinyint
+as
+begin 
+	update persona 
+	set Nombre = @Nombre, Apellido = @Apellido, FechaNacimiento = @FechaNacimiento, pais = @Pais, provincia = @Provincia, ciudad = @Ciudad, Email = @Email
+	where IdPersona = @IdJugador
 
+	update jugador 
+	set Altura = @Altura, peso = @Peso, posicion = @Posicion, Idcategoria = @IdCategoria, IdEstadoJugador = @IdEstadoJugador
+	where IdJugador = @IdJugador
+end
 
 
 REATE PROCEDURE Agregar_Entrenador

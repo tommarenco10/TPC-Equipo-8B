@@ -16,6 +16,8 @@ namespace TPC
         {
             try
             {
+                txtboxId.Enabled = false;
+
                 if (!IsPostBack)
                 {
                     CategoriaNegocio negocio = new CategoriaNegocio();
@@ -32,11 +34,37 @@ namespace TPC
                     ddlEstadoJugador.DataTextField = "NombreEstado";
                     ddlEstadoJugador.DataBind();
                 }
-            }
-            catch (Exception)
-            {
 
-                throw;
+                if (Request.QueryString["IdJugador"] != null && !IsPostBack)
+                {
+                    List<Jugador> lista = new List<Jugador>();
+                    JugadorNegocio negocio = new JugadorNegocio();
+                    lista = negocio.ListarJugador();
+
+                    int id = int.Parse(Request.QueryString["IdJugador"].ToString());
+                    txtboxId.Text = id.ToString();
+                    
+                    Jugador jugador = new Jugador();
+                    jugador = lista.Find(x => x.IdJugador == id);
+
+                    txtboxNombre.Text = jugador.Nombres.ToString();
+                    txtboxApellido.Text = jugador.Apellidos.ToString();
+                    txtboxFechaNac.Text = jugador.FechaNacimiento.ToString();
+                    txtboxPais.Text = jugador.LugarNacimiento.Pais.ToString();
+                    txtboxProvincia.Text = jugador.LugarNacimiento.Provincia.ToString();
+                    txtboxCiudad.Text = jugador.LugarNacimiento.Ciudad.ToString();
+                    txtboxEmail.Text = jugador.Email.ToString();
+                    txtboxAltura.Text = jugador.Altura.ToString();
+                    txtboxPeso.Text = jugador.Peso.ToString();
+                    txtboxPosicion.Text = jugador.Posicion.ToString();                  
+                    ddlCategoria.SelectedValue = jugador.Categoria.IdCategoria.ToString();                    
+                    ddlEstadoJugador.SelectedValue = jugador.estadoJugador.IdEstadoJugador.ToString(); 
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
             }
 
         }
@@ -82,7 +110,32 @@ namespace TPC
 
         protected void btnModificar_Click(object sender, EventArgs e)
         {
+            Jugador jugador = new Jugador();
+            JugadorNegocio negocio = new JugadorNegocio();
 
+            jugador.IdJugador = int.Parse(txtboxId.Text);
+            jugador.Nombres = txtboxNombre.Text;
+            jugador.Apellidos = txtboxApellido.Text;
+            jugador.FechaNacimiento = DateTime.Parse(txtboxFechaNac.Text);
+
+            jugador.LugarNacimiento = new LugarNacimiento();
+            jugador.LugarNacimiento.Pais = txtboxPais.Text;
+            jugador.LugarNacimiento.Provincia = txtboxProvincia.Text;
+            jugador.LugarNacimiento.Ciudad = txtboxCiudad.Text;
+
+            jugador.Email = txtboxEmail.Text;
+            jugador.Altura = int.Parse(txtboxAltura.Text);
+            jugador.Peso = decimal.Parse(txtboxPeso.Text);
+            jugador.Posicion = txtboxPosicion.Text;
+
+            jugador.Categoria = new Categoria();
+            jugador.Categoria.IdCategoria = int.Parse(ddlCategoria.SelectedValue);
+           
+            jugador.estadoJugador = new EstadoJugador();
+            jugador.estadoJugador.IdEstadoJugador = int.Parse(ddlEstadoJugador.SelectedValue);
+            
+            negocio.ModificarJugador(jugador);
+            Response.Redirect("PlantillaJugadores.aspx", false);
         }
 
         protected void btnEliminar_Click(object sender, EventArgs e)
