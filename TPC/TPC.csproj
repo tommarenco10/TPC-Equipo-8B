@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="ConfigEntrenador.aspx" />
     <Content Include="ConfigJugador.aspx" />
+    <Content Include="CuerpoTecnico.aspx" />
     <Content Include="entrenamientosProgramados.aspx" />
     <Content Include="entrenamientoVistaPrevia.aspx" />
     <Content Include="Estilos\estilos.css" />
@@ -95,6 +96,13 @@
     </Compile>
     <Compile Include="ConfigJugador.aspx.designer.cs">
       <DependentUpon>ConfigJugador.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CuerpoTecnico.aspx.cs">
+      <DependentUpon>CuerpoTecnico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CuerpoTecnico.aspx.designer.cs">
+      <DependentUpon>CuerpoTecnico.aspx</DependentUpon>
     </Compile>
     <Compile Include="entrenamientosProgramados.aspx.cs">
       <DependentUpon>entrenamientosProgramados.aspx</DependentUpon>

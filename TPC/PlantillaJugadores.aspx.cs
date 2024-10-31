@@ -1,4 +1,6 @@
-﻿using negocio;
+﻿using Dominio;
+using negocio;
+using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +12,14 @@ namespace TPC
 {
     public partial class PlanillaJugadores : System.Web.UI.Page
     {
+        public List<Categoria> Categoria { get; set; }
+        public string titulo { get; set; }
+        public int contador { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            JugadorNegocio negocio = new JugadorNegocio();
-            dgvPrimera.DataSource = negocio.ListarPorCategoria(1);
-            dgvPrimera.DataBind();
-            dgvReserva.DataSource = negocio.ListarPorCategoria(2);
-            dgvReserva.DataBind();
-            dgvJuveniles.DataSource = negocio.ListarPorCategoria(3);
-            dgvJuveniles.DataBind();
+            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+            Categoria = categoriaNegocio.listar();
+
         }
 
         protected void dgv_SelectedIndexChanged(object sender, EventArgs e)
