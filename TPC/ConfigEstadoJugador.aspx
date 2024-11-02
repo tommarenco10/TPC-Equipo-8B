@@ -10,22 +10,39 @@
 
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <asp:UpdatePanel ID="updatePanel" runat="server">
-        <contenttemplate>
+        <ContentTemplate>
             <div class="row">
                 <div class="col-md-6">
                     <div class="table-responsive">
                         <asp:GridView ID="dgvEstadosJugador" AutoGenerateColumns="False" CssClass="table table-striped table-hover"
                             runat="server" DataKeyNames="IdEstadoJugador" OnRowCommand="dgvEstadosJugador_RowCommand">
-                            <columns>
+                            <Columns>
                                 <asp:BoundField DataField="IdEstadoJugador" HeaderText="ID" Visible="False" />
-                                <asp:BoundField DataField="NombreEstado" HeaderText="Estado" />
+
+                                <asp:BoundField DataField="NombreEstado" HeaderText="Estado">
+                                    <HeaderStyle Width="60%" />
+                                    <ItemStyle Width="60%" />
+                                </asp:BoundField>
+
                                 <asp:TemplateField>
-                                    <itemtemplate>
+                                    <HeaderStyle Width="20%" />
+                                    <ItemStyle Width="20%" />
+                                    <ItemTemplate>
                                         <asp:Button ID="btnModificar" runat="server" Text="Modificar" CommandName="Modificar"
                                             CommandArgument='<%# Eval("IdEstadoJugador") %>' CssClass="btn btn-secondary" />
-                                    </itemtemplate>
+                                    </ItemTemplate>
                                 </asp:TemplateField>
-                            </columns>
+
+                                <asp:TemplateField>
+                                    <HeaderStyle Width="20%" />
+                                    <ItemStyle Width="20%" />
+                                    <ItemTemplate>
+                                        <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar"
+                                            CommandArgument='<%# Eval("IdEstadoJugador") %>' CssClass="btn btn-danger" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+
+                            </Columns>
                         </asp:GridView>
                     </div>
                     <asp:Button ID="btnAgregarNuevo" runat="server" Text="Agregar Nuevo Estado" CssClass="btn btn-primary" OnClick="btnAgregarNuevo_Click" />
@@ -43,10 +60,11 @@
                     </div>
                     <asp:Button ID="btnGuardarModificacion" runat="server" Text="Guardar Modificación" CssClass="btn btn-secondary" OnClick="btnGuardar_Click" Visible="false" />
                     <asp:Button ID="btnGuardarAgregado" runat="server" Text="Agregar Nuevo Estado" CssClass="btn btn-primary" OnClick="btnGuardar_Click" Visible="false" />
+                    <asp:Button ID="btnGuardarEliminacion" runat="server" Text="Eliminar Estado" CssClass="btn btn-danger" OnClick="btnGuardarEliminacion_Click" Visible="false" />
                     <asp:Label ID="lblMensaje" runat="server" ForeColor="Green" Visible="false"></asp:Label>
                 </div>
             </div>
-        </contenttemplate>
+        </ContentTemplate>
     </asp:UpdatePanel>
 
 </asp:Content>

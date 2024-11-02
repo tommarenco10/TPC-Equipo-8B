@@ -1,4 +1,5 @@
 ﻿using Dominio;
+using negocio;
 using Negocio;
 using System;
 using System.Collections.Generic;
@@ -21,18 +22,30 @@ namespace TPC
 
         protected void dgvEstadosJugador_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            lblTitulo.Text = "Modificar Estado Existente:";
             lblIdEstadoJugador.Visible = true;
             txtIdEstadoJugador.Visible = true;
             lblNombreEstado.Visible = true;
             txtNombreEstado.Visible = true;
             lblMensaje.Visible = false;
-            btnGuardarModificacion.Visible = true;
-            btnGuardarModificacion.Enabled = true;
             btnGuardarAgregado.Visible = false;
 
             if (e.CommandName == "Modificar")
             {
+                lblTitulo.Text = "Modificar Estado Existente:";
+                btnGuardarModificacion.Visible = true;
+                btnGuardarModificacion.Enabled = true;
+                btnGuardarEliminacion.Visible = false;
+                int idEstado = Convert.ToInt32(e.CommandArgument);
+                Session["IdEstadoSeleccionado"] = idEstado;
+                CargarFormulario();
+            }
+
+            if (e.CommandName == "Eliminar")
+            {
+                lblTitulo.Text = "Está seguro que desea eliminar el Estado?";
+                btnGuardarModificacion.Visible = false;
+                btnGuardarEliminacion.Visible = true;
+                btnGuardarEliminacion.Enabled = true;
                 int idEstado = Convert.ToInt32(e.CommandArgument);
                 Session["IdEstadoSeleccionado"] = idEstado;
                 CargarFormulario();
@@ -51,6 +64,7 @@ namespace TPC
             txtNombreEstado.Text = string.Empty;
             btnGuardarModificacion.Visible = false;
             btnGuardarAgregado.Visible = true;
+            btnGuardarEliminacion.Visible = false;
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -121,7 +135,7 @@ namespace TPC
                 EstadoJugadorNegocio negocioEJ = new EstadoJugadorNegocio();
                 List<EstadoJugador> listaEstados = negocioEJ.listar();
 
-                EstadoJugador estadoSeleccionado = listaEstados.FirstOrDefault(e => e.IdEstadoJugador == idEstado);
+                EstadoJugador estadoSeleccionado = listaEstados.FirstOrDefault(x => x.IdEstadoJugador == idEstado);
                 if (estadoSeleccionado != null)
                 {
                     txtIdEstadoJugador.Text = estadoSeleccionado.IdEstadoJugador.ToString();
@@ -133,6 +147,51 @@ namespace TPC
                 txtIdEstadoJugador.Text = string.Empty;
                 txtNombreEstado.Text = string.Empty;
             }
+        }
+
+        protected bool validarEliminacion()
+        {
+
+            JugadorNegocio negocioJugador = new JugadorNegocio();
+            EstadoJugadorNegocio negocioEJ = new EstadoJugadorNegocio();
+
+            List<Jugador> listaJugador = negocioJugador.listar();
+
+            if (Session["IdEstadoSeleccionado"] != null)
+            {
+                foreach (Jugador jugador in listaJugador)
+                {
+                    if (jugador.estadoJugador.IdEstadoJugador == (int)Session["IdEstadoSeleccionado"])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        protected void btnGuardarEliminacion_Click(object sender, EventArgs e)
+        {
+            if (validarEliminacion())
+            {
+                EstadoJugadorNegocio negocioEJ = new EstadoJugadorNegocio();
+                negocioEJ.eliminar((int)Session["IdEstadoSeleccionado"]);
+                lblMensaje.Text = "Estado eliminado exitosamente.";
+                lblMensaje.ForeColor = System.Drawing.Color.Green;
+                lblMensaje.Visible = true;
+                txtIdEstadoJugador.Text = string.Empty;
+                txtNombreEstado.Text = string.Empty;
+                btnGuardarEliminacion.Enabled = false;
+                cargarDataGridView();
+            }
+            else
+            {
+                btnGuardarEliminacion.Enabled = false;
+                lblMensaje.Visible = true;
+                lblMensaje.Text = "No se puede realizar la eliminación. El estado aún tiene registros asociados";
+            }
+
+           
         }
     }
 }
