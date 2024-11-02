@@ -11,7 +11,7 @@ namespace TPC
 {
 
 
-    public partial class ConfigVarias
+    public partial class ConfigEstadoJugador
     {
 
         /// <summary>
@@ -96,22 +96,22 @@ namespace TPC
         protected global::System.Web.UI.WebControls.TextBox txtNombreEstado;
 
         /// <summary>
-        /// Control btnModificar.
+        /// Control btnGuardarModificacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnModificar;
+        protected global::System.Web.UI.WebControls.Button btnGuardarModificacion;
 
         /// <summary>
-        /// Control btnAgregar.
+        /// Control btnGuardarAgregado.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAgregar;
+        protected global::System.Web.UI.WebControls.Button btnGuardarAgregado;
 
         /// <summary>
         /// Control lblMensaje.

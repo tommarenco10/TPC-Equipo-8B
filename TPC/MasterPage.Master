@@ -48,6 +48,18 @@
                                 <a class="nav-link active" runat="server" href="CuerpoTecnico.aspx">Cuerpo Tecnico</a>
                             </div>
 
+                            <div class="nav-item dropdown">
+                                <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Configuraciones
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item" href="ConfigEstadoJugador.aspx">Estados de Jugador </a></li>
+                                    <li><a class="dropdown-item" href="ConfigEstadoEntrenamiento.aspx">Estados de Entrenamiento </a></li>
+                                    <li><a class="dropdown-item" href="">Categorías </a></li>
+                                    <li><a class="dropdown-item" href="">Incidencias </a></li>
+                                </ul>
+                            </div>
+
                         </div>
 
                         <div class="navbar-nav ms-auto">

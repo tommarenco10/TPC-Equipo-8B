@@ -41,7 +41,48 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
+        }
+
+        public void agregar(EstadoEntrenamiento nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("INSERT INTO EstadoEntrenamiento VALUES (@Estado)");
+                datos.agregarParametro("@Estado", nuevo.NombreEstado);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
 
         }
+
+        public void modificar(EstadoEntrenamiento modificado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("UPDATE EstadoEntrenamiento SET nombre = @Estado WHERE IdEstadoEntrenamiento = @Id");
+                datos.agregarParametro("@Id", modificado.IdEstadoEntrenamiento);
+                datos.agregarParametro("@Estado", modificado.NombreEstado);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }

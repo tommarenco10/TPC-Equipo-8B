@@ -68,8 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConfigEntrenador.aspx" />
+    <Content Include="ConfigEstadoEntrenamiento.aspx" />
+    <Content Include="ConfigEstadoJugador.aspx" />
     <Content Include="ConfigJugador.aspx" />
-    <Content Include="ConfigVarias.aspx" />
     <Content Include="CuerpoTecnico.aspx" />
     <Content Include="entrenamientosProgramados.aspx" />
     <Content Include="entrenamientoVistaPrevia.aspx" />
@@ -91,19 +92,26 @@
     <Compile Include="ConfigEntrenador.aspx.designer.cs">
       <DependentUpon>ConfigEntrenador.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ConfigEstadoEntrenamiento.aspx.cs">
+      <DependentUpon>ConfigEstadoEntrenamiento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConfigEstadoEntrenamiento.aspx.designer.cs">
+      <DependentUpon>ConfigEstadoEntrenamiento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigEstadoJugador.aspx.cs">
+      <DependentUpon>ConfigEstadoJugador.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConfigEstadoJugador.aspx.designer.cs">
+      <DependentUpon>ConfigEstadoJugador.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ConfigJugador.aspx.cs">
       <DependentUpon>ConfigJugador.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ConfigJugador.aspx.designer.cs">
       <DependentUpon>ConfigJugador.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ConfigVarias.aspx.cs">
-      <DependentUpon>ConfigVarias.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ConfigVarias.aspx.designer.cs">
-      <DependentUpon>ConfigVarias.aspx</DependentUpon>
     </Compile>
     <Compile Include="CuerpoTecnico.aspx.cs">
       <DependentUpon>CuerpoTecnico.aspx</DependentUpon>

@@ -9,9 +9,8 @@ using System.Web.UI.WebControls;
 
 namespace TPC
 {
-    public partial class ConfigVarias : System.Web.UI.Page
+    public partial class ConfigEstadoEntrenamiento : System.Web.UI.Page
     {
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -20,24 +19,17 @@ namespace TPC
             }
         }
 
-        protected void cargarDataGridView()
-        {
-            EstadoJugadorNegocio negocioEJ = new EstadoJugadorNegocio();
-            dgvEstadosJugador.DataSource = negocioEJ.listar();
-            dgvEstadosJugador.DataBind();
-        }
-
-        protected void dgvEstadosJugador_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void dgvEstadosEntrenamiento_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             lblTitulo.Text = "Modificar Estado Existente:";
-            lblIdEstadoJugador.Visible = true;
-            txtIdEstadoJugador.Visible = true;
+            lblIdEstadoEntrenamiento.Visible = true;
+            txtIdEstadoEntrenamiento.Visible = true;
             lblNombreEstado.Visible = true;
             txtNombreEstado.Visible = true;
             lblMensaje.Visible = false;
-            btnModificar.Visible = true;
-            btnModificar.Enabled = true;
-            btnAgregar.Visible = false;
+            btnGuardarModificacion.Visible = true;
+            btnGuardarModificacion.Enabled = true;
+            btnGuardarAgregado.Visible = false;
 
             if (e.CommandName == "Modificar")
             {
@@ -50,23 +42,23 @@ namespace TPC
         protected void btnAgregarNuevo_Click(object sender, EventArgs e)
         {
             lblTitulo.Text = "Agregar Nuevo Estado:";
-            lblIdEstadoJugador.Visible = true;
-            txtIdEstadoJugador.Visible = true;
+            lblIdEstadoEntrenamiento.Visible = true;
+            txtIdEstadoEntrenamiento.Visible = true;
             lblNombreEstado.Visible = true;
             txtNombreEstado.Visible = true;
             lblMensaje.Visible = false;
-            txtIdEstadoJugador.Text = string.Empty;
+            txtIdEstadoEntrenamiento.Text = string.Empty;
             txtNombreEstado.Text = string.Empty;
-            btnModificar.Visible = false;
-            btnAgregar.Visible = true;
+            btnGuardarModificacion.Visible = false;
+            btnGuardarAgregado.Visible = true;
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            EstadoJugadorNegocio negocioEJ = new EstadoJugadorNegocio();
-            EstadoJugador estadoJugador = new EstadoJugador();
+            EstadoEntrenamientoNegocio negocioEE = new EstadoEntrenamientoNegocio();
+            EstadoEntrenamiento estadoEntrenamiento = new EstadoEntrenamiento();
 
-            List<EstadoJugador> listaEstados = negocioEJ.listar();
+            List<EstadoEntrenamiento> listaEstados = negocioEE.listar();
 
             string nombreEstado = txtNombreEstado.Text;
 
@@ -88,29 +80,36 @@ namespace TPC
 
             else
             {
-                estadoJugador.NombreEstado = nombreEstado;
+                estadoEntrenamiento.NombreEstado = nombreEstado;
 
-                if (string.IsNullOrEmpty(txtIdEstadoJugador.Text))
+                if (string.IsNullOrEmpty(txtIdEstadoEntrenamiento.Text))
                 {
-                    negocioEJ.agregar(estadoJugador);
+                    negocioEE.agregar(estadoEntrenamiento);
                     lblMensaje.Text = "Estado agregado exitosamente.";
                     lblMensaje.ForeColor = System.Drawing.Color.Green;
                     lblMensaje.Visible = true;
                 }
                 else
                 {
-                    estadoJugador.IdEstadoJugador = int.Parse(txtIdEstadoJugador.Text);
-                    negocioEJ.modificar(estadoJugador);
+                    estadoEntrenamiento.IdEstadoEntrenamiento = int.Parse(txtIdEstadoEntrenamiento.Text);
+                    negocioEE.modificar(estadoEntrenamiento);
                     lblMensaje.Text = "Estado modificado exitosamente.";
                     lblMensaje.ForeColor = System.Drawing.Color.Green;
                     lblMensaje.Visible = true;
-                    btnModificar.Enabled = false;
+                    btnGuardarModificacion.Enabled = false;
                 }
 
-                txtIdEstadoJugador.Text = string.Empty;
+                txtIdEstadoEntrenamiento.Text = string.Empty;
                 txtNombreEstado.Text = string.Empty;
                 cargarDataGridView();
             }
+        }
+
+        protected void cargarDataGridView()
+        {
+            EstadoEntrenamientoNegocio negocioEE = new EstadoEntrenamientoNegocio();
+            dgvEstadosEntrenamiento.DataSource = negocioEE.listar();
+            dgvEstadosEntrenamiento.DataBind();
         }
 
         protected void CargarFormulario()
@@ -119,19 +118,19 @@ namespace TPC
             {
                 int idEstado = Convert.ToInt32(Session["IdEstadoSeleccionado"]);
 
-                EstadoJugadorNegocio negocioEJ = new EstadoJugadorNegocio();
-                List<EstadoJugador> listaEstados = negocioEJ.listar();
+                EstadoEntrenamientoNegocio negocioEE = new EstadoEntrenamientoNegocio();
+                List<EstadoEntrenamiento> listaEstados = negocioEE.listar();
 
-                EstadoJugador estadoSeleccionado = listaEstados.FirstOrDefault(e => e.IdEstadoJugador == idEstado);
+                EstadoEntrenamiento estadoSeleccionado = listaEstados.FirstOrDefault(e => e.IdEstadoEntrenamiento == idEstado);
                 if (estadoSeleccionado != null)
                 {
-                    txtIdEstadoJugador.Text = estadoSeleccionado.IdEstadoJugador.ToString();
+                    txtIdEstadoEntrenamiento.Text = estadoSeleccionado.IdEstadoEntrenamiento.ToString();
                     txtNombreEstado.Text = estadoSeleccionado.NombreEstado;
                 }
             }
             else
             {
-                txtIdEstadoJugador.Text = string.Empty;
+                txtIdEstadoEntrenamiento.Text = string.Empty;
                 txtNombreEstado.Text = string.Empty;
             }
         }
