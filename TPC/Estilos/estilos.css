@@ -21,3 +21,10 @@ footer {
 .despegarBarra {
     margin-top: 3rem; 
 }
+
+.titulo {
+    font-size: 24px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 20px;
+}

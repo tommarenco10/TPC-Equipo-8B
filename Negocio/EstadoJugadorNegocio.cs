@@ -17,7 +17,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("select IdEstadoJugador, nombre from EstadoJugador");
+                datos.setearConsulta("SELECT IdEstadoJugador, nombre FROM EstadoJugador");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -41,7 +41,47 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
+        }
 
+        public void agregar(EstadoJugador nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("INSERT INTO EstadoJugador VALUES (@Estado)");
+                datos.agregarParametro("@Estado", nuevo.NombreEstado);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
+        public void modificar(EstadoJugador modificado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("UPDATE EstadoJugador SET nombre = @Estado WHERE IdEstadoJugador = @Id");
+                datos.agregarParametro("@Id", modificado.IdEstadoJugador);
+                datos.agregarParametro("@Estado", modificado.NombreEstado);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
     }
 }

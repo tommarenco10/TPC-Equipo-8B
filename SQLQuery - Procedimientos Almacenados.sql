@@ -2,7 +2,7 @@ USE Gestion_Clubes
 
 GO
 
-create or alter procedure Agregar_Jugador 
+create procedure Agregar_Jugador 
 @Nombre varchar(30),
 @Apellido varchar(30),
 @FechaNacimiento date,
@@ -23,7 +23,7 @@ set @IdPersona = SCOPE_IDENTITY()
 insert into jugador values (@IdPersona, @Altura, @Peso, @Posicion, @IdCategoria, @IdEstadoJugador)
 end
 
-create or alter procedure Listar_Jugador
+create procedure Listar_Jugador
 as
 begin
 select j.IdJugador ,p.Nombre, p.Apellido, p.FechaNacimiento, p.pais, p.provincia, p.ciudad, p.Email,
@@ -44,6 +44,8 @@ INNER JOIN Categoria c ON c.IdCategoria = j.Idcategoria
 INNER JOIN EstadoJugador ej ON ej.IdEstadoJugador = j.IdEstadoJugador
 WHERE J.Idcategoria = @IdCategoria
 END
+
+GO
 
 create or alter procedure Modificar_Jugador 
 @IdJugador bigint, 
@@ -70,6 +72,8 @@ begin
 	where IdJugador = @IdJugador
 end
 
+GO
+
 create or alter procedure Eliminar_Jugador 
 @IdJugador bigint 
 as
@@ -77,8 +81,9 @@ begin
 	delete from jugador where IdJugador = @IdJugador
 end
 
+GO
 
-REATE PROCEDURE Agregar_Entrenador
+CREATE PROCEDURE Agregar_Entrenador
     @Nombre NVARCHAR(50),
     @Apellido NVARCHAR(50),
     @FechaNacimiento DATE,
@@ -105,7 +110,7 @@ BEGIN
     VALUES (@IdPersona, @Rol);
 END;
 
-
+GO
 
 CREATE PROCEDURE Eliminar_Entrenador
     @IdEntrenador INT
@@ -115,10 +120,7 @@ BEGIN
     WHERE IdEntrenador = @IdEntrenador;
 END;
 
-
-
-
-
+GO
 
 CREATE PROCEDURE Actualizar_Entrenador
     @IdEntrenador INT,
@@ -157,7 +159,7 @@ BEGIN
     WHERE IdEntrenador = @IdEntrenador;
 END;
 
-
+GO
 
 CREATE PROCEDURE Agregar_Socio
     @Nombre NVARCHAR(50),
@@ -185,9 +187,7 @@ BEGIN
     VALUES (@IdPersona);
 END;
 
-
-
-
+GO
 
 CREATE PROCEDURE Actualizar_Socio
     @IdSocio INT,
@@ -220,7 +220,7 @@ BEGIN
     WHERE IdPersona = @IdPersona;
 END;
 
-
+GO
 
 CREATE PROCEDURE Eliminar_Socio
     @IdSocio INT
@@ -229,3 +229,5 @@ BEGIN
     DELETE FROM Socio
     WHERE IdSocio = @IdSocio;
 END;
+
+GO

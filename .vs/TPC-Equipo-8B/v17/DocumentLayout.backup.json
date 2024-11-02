@@ -1,38 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\",
+  "WorkspaceRootPath": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\tpc\\plantillajugadores.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\plantillajugadores.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc\\tpc-equipo-8b\\tpc\\configvarias.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\configvarias.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\tpc\\configjugador.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\configjugador.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\negocio\\estadojugadornegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|solutionrelative:negocio\\estadojugadornegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\tpc\\configjugador.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\configjugador.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\tpc\\configvarias.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\configvarias.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\juanp\\desktop\\facultad\\github\\tpc-equipo-8b\\tpc\\plantillajugadores.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\plantillajugadores.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{65B102A0-344A-406D-9FBA-7C77FDCCDC6D}|Dominio\\Dominio.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc\\tpc-equipo-8b\\dominio\\estadojugador.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65B102A0-344A-406D-9FBA-7C77FDCCDC6D}|Dominio\\Dominio.csproj|solutionrelative:dominio\\estadojugador.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\negocio\\jugadornegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|solutionrelative:negocio\\jugadornegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7C95F306-14BB-4B45-8CDD-02ADA0B5E2B9}|Acceso_Datos\\Acceso_Datos.csproj|C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\acceso_datos\\accesodatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7C95F306-14BB-4B45-8CDD-02ADA0B5E2B9}|Acceso_Datos\\Acceso_Datos.csproj|solutionrelative:acceso_datos\\accesodatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\negocio\\categorianegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|solutionrelative:negocio\\categorianegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\tpc\\masterpage.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}",
-      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\masterpage.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}"
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc\\tpc-equipo-8b\\tpc\\estilos\\estilos.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\estilos\\estilos.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,108 +30,71 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "JugadorNegocio.cs",
-              "DocumentMoniker": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\Negocio\\JugadorNegocio.cs",
-              "RelativeDocumentMoniker": "Negocio\\JugadorNegocio.cs",
-              "ToolTip": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\Negocio\\JugadorNegocio.cs",
-              "RelativeToolTip": "Negocio\\JugadorNegocio.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAAAOQAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-31T05:00:14.068Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AccesoDatos.cs",
-              "DocumentMoniker": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\Acceso_Datos\\AccesoDatos.cs",
-              "RelativeDocumentMoniker": "Acceso_Datos\\AccesoDatos.cs",
-              "ToolTip": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\Acceso_Datos\\AccesoDatos.cs",
-              "RelativeToolTip": "Acceso_Datos\\AccesoDatos.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-31T01:45:43.041Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "CategoriaNegocio.cs",
-              "DocumentMoniker": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\Negocio\\CategoriaNegocio.cs",
-              "RelativeDocumentMoniker": "Negocio\\CategoriaNegocio.cs",
-              "ToolTip": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\Negocio\\CategoriaNegocio.cs",
-              "RelativeToolTip": "Negocio\\CategoriaNegocio.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-31T01:00:56.361Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "PlantillaJugadores.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\TPC\\PlantillaJugadores.aspx.cs",
-              "RelativeDocumentMoniker": "TPC\\PlantillaJugadores.aspx.cs",
-              "ToolTip": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\TPC\\PlantillaJugadores.aspx.cs",
-              "RelativeToolTip": "TPC\\PlantillaJugadores.aspx.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAACQAAAANAAAAAAAAAA==",
+              "Title": "EstadoJugador.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\Dominio\\EstadoJugador.cs",
+              "RelativeDocumentMoniker": "Dominio\\EstadoJugador.cs",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\Dominio\\EstadoJugador.cs",
+              "RelativeToolTip": "Dominio\\EstadoJugador.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-31T00:56:02.644Z",
+              "WhenOpened": "2024-11-02T01:19:54.279Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PlantillaJugadores.aspx",
-              "DocumentMoniker": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\TPC\\PlantillaJugadores.aspx",
-              "RelativeDocumentMoniker": "TPC\\PlantillaJugadores.aspx",
-              "ToolTip": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\TPC\\PlantillaJugadores.aspx",
-              "RelativeToolTip": "TPC\\PlantillaJugadores.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-10-31T00:49:19.487Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ConfigJugador.aspx",
-              "DocumentMoniker": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\TPC\\ConfigJugador.aspx",
-              "RelativeDocumentMoniker": "TPC\\ConfigJugador.aspx",
-              "ToolTip": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\TPC\\ConfigJugador.aspx*",
-              "RelativeToolTip": "TPC\\ConfigJugador.aspx*",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-10-31T00:49:13.574Z",
+              "DocumentIndex": 4,
+              "Title": "estilos.css",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\Estilos\\estilos.css",
+              "RelativeDocumentMoniker": "TPC\\Estilos\\estilos.css",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\Estilos\\estilos.css",
+              "RelativeToolTip": "TPC\\Estilos\\estilos.css",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABoAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-11-02T01:07:31.887Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "ConfigJugador.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\TPC\\ConfigJugador.aspx.cs",
-              "RelativeDocumentMoniker": "TPC\\ConfigJugador.aspx.cs",
-              "ToolTip": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\TPC\\ConfigJugador.aspx.cs",
-              "RelativeToolTip": "TPC\\ConfigJugador.aspx.cs",
-              "ViewState": "AgIAAIAAAAAAAAAAAAAIwJsAAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-31T03:13:44.751Z",
+              "Title": "ConfigVarias.aspx",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\ConfigVarias.aspx",
+              "RelativeDocumentMoniker": "TPC\\ConfigVarias.aspx",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\ConfigVarias.aspx",
+              "RelativeToolTip": "TPC\\ConfigVarias.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-11-01T20:39:51.285Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "MasterPage.Master",
-              "DocumentMoniker": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\TPC\\MasterPage.Master",
-              "RelativeDocumentMoniker": "TPC\\MasterPage.Master",
-              "ToolTip": "C:\\Users\\juanp\\Desktop\\Facultad\\github\\TPC-Equipo-8B\\TPC\\MasterPage.Master",
-              "RelativeToolTip": "TPC\\MasterPage.Master",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-10-31T00:49:38.068Z",
+              "DocumentIndex": 0,
+              "Title": "ConfigVarias.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\ConfigVarias.aspx.cs",
+              "RelativeDocumentMoniker": "TPC\\ConfigVarias.aspx.cs",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\ConfigVarias.aspx.cs",
+              "RelativeToolTip": "TPC\\ConfigVarias.aspx.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAhwEEAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-01T21:48:33.898Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EstadoJugadorNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\Negocio\\EstadoJugadorNegocio.cs",
+              "RelativeDocumentMoniker": "Negocio\\EstadoJugadorNegocio.cs",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\Negocio\\EstadoJugadorNegocio.cs",
+              "RelativeToolTip": "Negocio\\EstadoJugadorNegocio.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAADIAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-01T19:56:06.438Z",
               "EditorCaption": ""
             }
           ]

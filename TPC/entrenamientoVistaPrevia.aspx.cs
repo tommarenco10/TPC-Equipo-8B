@@ -23,7 +23,7 @@ namespace TPC
                     JugadorNegocio negocioJugador = new JugadorNegocio();
 
                     // Obtener información de los jugadores seleccionados
-                    var listaJugadores = negocioJugador.ObtenerJugadoresPorIds(jugadoresSeleccionados);
+                    List<Jugador> listaJugadores = negocioJugador.ObtenerJugadoresPorIds(jugadoresSeleccionados);
 
                     dgvJugadoresSeleccionados.DataSource = listaJugadores;
                     dgvJugadoresSeleccionados.DataBind();

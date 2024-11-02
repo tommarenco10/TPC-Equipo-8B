@@ -4,11 +4,6 @@ Set Dateformat 'DMY'
 use Gestion_Clubes
 GO
 
-create table Categoria(
-	IdCategoria tinyint primary key identity(1,1),
-	nombre varchar (30) not null,
-)
-
 create table persona(
 	IdPersona bigint primary key identity(1,1),
 	Nombre varchar(30) not null,
@@ -20,17 +15,24 @@ create table persona(
 	Email varchar (30) not null,
 )
 
+create table Categoria(
+	IdCategoria tinyint primary key identity(1,1),
+	nombre varchar (30) not null,
+)
+
 create table EstadoJugador(
 	IdEstadoJugador tinyint primary key identity (1,1),
 	nombre varchar(30) not null,
 )
+
+GO
 
 create table jugador(
 	IdJugador int primary key identity(1,1),
 	IdPersona bigint foreign key references persona(idpersona),
 	Altura tinyint not null check(altura > 150),
 	peso decimal not null check (peso > 60),
-	posicion varchar (15) not null,POr
+	posicion varchar (15) not null,
 	Idcategoria tinyint foreign key references Categoria (IdCategoria),
 	IdEstadoJugador tinyint foreign key references EstadoJugador (IdEstadojugador),
 )
@@ -51,6 +53,8 @@ create table EstadoEntrenamiento(
 	nombre varchar(30) not null,
 )
 
+GO
+
 create table entrenamiento(
 	IdEntrenamiento bigint primary key identity (1,1),
 	FechaHora datetime not null,
@@ -60,6 +64,8 @@ create table entrenamiento(
 	Observaciones varchar(100),
 	IdEstadoEntrenamiento tinyint foreign key references EstadoEntrenamiento(IdEstadoEntrenamiento),
 )
+
+GO
 
 create table Asistencia (
 	IdAsistenia bigint primary key identity (1,1),
@@ -81,6 +87,8 @@ create table TipoIncidencia(
 	nombre varchar(30) not null,
 )
 
+GO
+
 create table incidencia (
 	IdIncidencia int primary key identity (1,1),
 	IdJugador int foreign key references jugador (idjugador),
@@ -96,6 +104,8 @@ create table TipoUsuario(
 	nombre varchar (30) not null,
 )
 
+GO
+
 create table Usuario (
 	IdUsuario bigint primary key identity(1,1),
 	Nombre varchar(50) not null,
@@ -103,6 +113,8 @@ create table Usuario (
 	Email varchar (50) not null,
 	IdTipoUsuario tinyint foreign key references TipoUsuario(IdTipoUsuario),
 )
+
+GO
 
 create table Notificacion(
 	IdNotificacion int primary key identity (1,1),
