@@ -34,7 +34,9 @@ namespace TPC
             txtIdEstadoJugador.Visible = true;
             lblNombreEstado.Visible = true;
             txtNombreEstado.Visible = true;
+            lblMensaje.Visible = false;
             btnModificar.Visible = true;
+            btnModificar.Enabled = true;
             btnAgregar.Visible = false;
 
             if (e.CommandName == "Modificar")
@@ -45,27 +47,72 @@ namespace TPC
             }
         }
 
+        protected void btnAgregarNuevo_Click(object sender, EventArgs e)
+        {
+            lblTitulo.Text = "Agregar Nuevo Estado:";
+            lblIdEstadoJugador.Visible = true;
+            txtIdEstadoJugador.Visible = true;
+            lblNombreEstado.Visible = true;
+            txtNombreEstado.Visible = true;
+            lblMensaje.Visible = false;
+            txtIdEstadoJugador.Text = string.Empty;
+            txtNombreEstado.Text = string.Empty;
+            btnModificar.Visible = false;
+            btnAgregar.Visible = true;
+        }
+
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             EstadoJugadorNegocio negocioEJ = new EstadoJugadorNegocio();
             EstadoJugador estadoJugador = new EstadoJugador();
 
-            estadoJugador.NombreEstado = txtNombreEstado.Text;
+            List<EstadoJugador> listaEstados = negocioEJ.listar();
 
-            if (string.IsNullOrEmpty(txtIdEstadoJugador.Text))
+            string nombreEstado = txtNombreEstado.Text;
+
+            bool existeEstado = listaEstados.Any(x => x.NombreEstado.Equals(nombreEstado, StringComparison.OrdinalIgnoreCase));
+
+            if (string.IsNullOrEmpty(nombreEstado))
             {
-                negocioEJ.agregar(estadoJugador);
+                lblMensaje.Text = "Por favor, complete la casilla de nombre.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                lblMensaje.Visible = true;
             }
+
+            else if (existeEstado)
+            {
+                lblMensaje.Text = "El estado ya existe. Por favor, ingrese un nombre diferente.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                lblMensaje.Visible = true;
+            }
+
             else
             {
-                estadoJugador.IdEstadoJugador = int.Parse(txtIdEstadoJugador.Text);
-                negocioEJ.modificar(estadoJugador);
-            }
+                estadoJugador.NombreEstado = nombreEstado;
 
-            txtIdEstadoJugador.Text = string.Empty;
-            txtNombreEstado.Text = string.Empty;
-            cargarDataGridView();
+                if (string.IsNullOrEmpty(txtIdEstadoJugador.Text))
+                {
+                    negocioEJ.agregar(estadoJugador);
+                    lblMensaje.Text = "Estado agregado exitosamente.";
+                    lblMensaje.ForeColor = System.Drawing.Color.Green;
+                    lblMensaje.Visible = true;
+                }
+                else
+                {
+                    estadoJugador.IdEstadoJugador = int.Parse(txtIdEstadoJugador.Text);
+                    negocioEJ.modificar(estadoJugador);
+                    lblMensaje.Text = "Estado modificado exitosamente.";
+                    lblMensaje.ForeColor = System.Drawing.Color.Green;
+                    lblMensaje.Visible = true;
+                    btnModificar.Enabled = false;
+                }
+
+                txtIdEstadoJugador.Text = string.Empty;
+                txtNombreEstado.Text = string.Empty;
+                cargarDataGridView();
+            }
         }
+
         protected void CargarFormulario()
         {
             if (Session["IdEstadoSeleccionado"] != null)
@@ -87,19 +134,6 @@ namespace TPC
                 txtIdEstadoJugador.Text = string.Empty;
                 txtNombreEstado.Text = string.Empty;
             }
-        }
-
-        protected void btnAgregarNuevo_Click(object sender, EventArgs e)
-        {
-            lblTitulo.Text = "Agregar Nuevo Estado:";
-            lblIdEstadoJugador.Visible = true;
-            txtIdEstadoJugador.Visible = true;
-            lblNombreEstado.Visible = true;
-            txtNombreEstado.Visible = true;
-            txtIdEstadoJugador.Text = string.Empty;
-            txtNombreEstado.Text = string.Empty;
-            btnModificar.Visible = false;
-            btnAgregar.Visible = true;
         }
     }
 }
