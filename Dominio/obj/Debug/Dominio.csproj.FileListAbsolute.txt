@@ -16,3 +16,9 @@ C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC\TPC-Equipo-8B\Dominio\o
 C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
 C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.dll
 C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.pdb
+C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC-Equipo-8B\Dominio\bin\Debug\Dominio.dll
+C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC-Equipo-8B\Dominio\bin\Debug\Dominio.pdb
+C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.csproj.AssemblyReference.cache
+C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
+C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.dll
+C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC-Equipo-8B\Dominio\obj\Debug\Dominio.pdb

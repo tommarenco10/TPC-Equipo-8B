@@ -33,13 +33,13 @@ namespace TPC
         protected global::System.Web.UI.UpdatePanel updatePanel;
 
         /// <summary>
-        /// Control dgvEstadosEntrenamiento.
+        /// Control dgvEstados.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvEstadosEntrenamiento;
+        protected global::System.Web.UI.WebControls.GridView dgvEstados;
 
         /// <summary>
         /// Control btnAgregarNuevo.
@@ -60,22 +60,22 @@ namespace TPC
         protected global::System.Web.UI.WebControls.Label lblTitulo;
 
         /// <summary>
-        /// Control lblIdEstadoEntrenamiento.
+        /// Control lblIdEstado.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIdEstadoEntrenamiento;
+        protected global::System.Web.UI.WebControls.Label lblIdEstado;
 
         /// <summary>
-        /// Control txtIdEstadoEntrenamiento.
+        /// Control txtIdEstado.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtIdEstadoEntrenamiento;
+        protected global::System.Web.UI.WebControls.TextBox txtIdEstado;
 
         /// <summary>
         /// Control lblNombreEstado.
@@ -112,6 +112,15 @@ namespace TPC
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGuardarAgregado;
+
+        /// <summary>
+        /// Control btnGuardarEliminacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGuardarEliminacion;
 
         /// <summary>
         /// Control lblMensaje.

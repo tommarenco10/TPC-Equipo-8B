@@ -1,4 +1,5 @@
 ﻿using Dominio;
+using negocio;
 using Negocio;
 using System;
 using System.Collections.Generic;
@@ -19,20 +20,32 @@ namespace TPC
             }
         }
 
-        protected void dgvEstadosEntrenamiento_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void dgvEstados_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            lblTitulo.Text = "Modificar Estado Existente:";
-            lblIdEstadoEntrenamiento.Visible = true;
-            txtIdEstadoEntrenamiento.Visible = true;
+            lblIdEstado.Visible = true;
+            txtIdEstado.Visible = true;
             lblNombreEstado.Visible = true;
             txtNombreEstado.Visible = true;
             lblMensaje.Visible = false;
-            btnGuardarModificacion.Visible = true;
-            btnGuardarModificacion.Enabled = true;
             btnGuardarAgregado.Visible = false;
 
             if (e.CommandName == "Modificar")
             {
+                lblTitulo.Text = "Modificar Estado Existente:";
+                btnGuardarModificacion.Visible = true;
+                btnGuardarModificacion.Enabled = true;
+                btnGuardarEliminacion.Visible = false;
+                int idEstado = Convert.ToInt32(e.CommandArgument);
+                Session["IdEstadoSeleccionado"] = idEstado;
+                CargarFormulario();
+            }
+
+            if (e.CommandName == "Eliminar")
+            {
+                lblTitulo.Text = "Está seguro que desea eliminar el Estado?";
+                btnGuardarModificacion.Visible = false;
+                btnGuardarEliminacion.Visible = true;
+                btnGuardarEliminacion.Enabled = true;
                 int idEstado = Convert.ToInt32(e.CommandArgument);
                 Session["IdEstadoSeleccionado"] = idEstado;
                 CargarFormulario();
@@ -42,21 +55,22 @@ namespace TPC
         protected void btnAgregarNuevo_Click(object sender, EventArgs e)
         {
             lblTitulo.Text = "Agregar Nuevo Estado:";
-            lblIdEstadoEntrenamiento.Visible = true;
-            txtIdEstadoEntrenamiento.Visible = true;
+            lblIdEstado.Visible = true;
+            txtIdEstado.Visible = true;
             lblNombreEstado.Visible = true;
             txtNombreEstado.Visible = true;
             lblMensaje.Visible = false;
-            txtIdEstadoEntrenamiento.Text = string.Empty;
+            txtIdEstado.Text = string.Empty;
             txtNombreEstado.Text = string.Empty;
             btnGuardarModificacion.Visible = false;
             btnGuardarAgregado.Visible = true;
+            btnGuardarEliminacion.Visible = false;
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             EstadoEntrenamientoNegocio negocioEE = new EstadoEntrenamientoNegocio();
-            EstadoEntrenamiento estadoEntrenamiento = new EstadoEntrenamiento();
+            EstadoEntrenamiento estadoJugador = new EstadoEntrenamiento();
 
             List<EstadoEntrenamiento> listaEstados = negocioEE.listar();
 
@@ -80,26 +94,26 @@ namespace TPC
 
             else
             {
-                estadoEntrenamiento.NombreEstado = nombreEstado;
+                estadoJugador.NombreEstado = nombreEstado;
 
-                if (string.IsNullOrEmpty(txtIdEstadoEntrenamiento.Text))
+                if (string.IsNullOrEmpty(txtIdEstado.Text))
                 {
-                    negocioEE.agregar(estadoEntrenamiento);
+                    negocioEE.agregar(estadoJugador);
                     lblMensaje.Text = "Estado agregado exitosamente.";
                     lblMensaje.ForeColor = System.Drawing.Color.Green;
                     lblMensaje.Visible = true;
                 }
                 else
                 {
-                    estadoEntrenamiento.IdEstadoEntrenamiento = int.Parse(txtIdEstadoEntrenamiento.Text);
-                    negocioEE.modificar(estadoEntrenamiento);
+                    estadoJugador.IdEstadoEntrenamiento = int.Parse(txtIdEstado.Text);
+                    negocioEE.modificar(estadoJugador);
                     lblMensaje.Text = "Estado modificado exitosamente.";
                     lblMensaje.ForeColor = System.Drawing.Color.Green;
                     lblMensaje.Visible = true;
                     btnGuardarModificacion.Enabled = false;
                 }
 
-                txtIdEstadoEntrenamiento.Text = string.Empty;
+                txtIdEstado.Text = string.Empty;
                 txtNombreEstado.Text = string.Empty;
                 cargarDataGridView();
             }
@@ -108,8 +122,8 @@ namespace TPC
         protected void cargarDataGridView()
         {
             EstadoEntrenamientoNegocio negocioEE = new EstadoEntrenamientoNegocio();
-            dgvEstadosEntrenamiento.DataSource = negocioEE.listar();
-            dgvEstadosEntrenamiento.DataBind();
+            dgvEstados.DataSource = negocioEE.listar();
+            dgvEstados.DataBind();
         }
 
         protected void CargarFormulario()
@@ -121,17 +135,60 @@ namespace TPC
                 EstadoEntrenamientoNegocio negocioEE = new EstadoEntrenamientoNegocio();
                 List<EstadoEntrenamiento> listaEstados = negocioEE.listar();
 
-                EstadoEntrenamiento estadoSeleccionado = listaEstados.FirstOrDefault(e => e.IdEstadoEntrenamiento == idEstado);
+                EstadoEntrenamiento estadoSeleccionado = listaEstados.FirstOrDefault(x => x.IdEstadoEntrenamiento == idEstado);
                 if (estadoSeleccionado != null)
                 {
-                    txtIdEstadoEntrenamiento.Text = estadoSeleccionado.IdEstadoEntrenamiento.ToString();
+                    txtIdEstado.Text = estadoSeleccionado.IdEstadoEntrenamiento.ToString();
                     txtNombreEstado.Text = estadoSeleccionado.NombreEstado;
                 }
             }
             else
             {
-                txtIdEstadoEntrenamiento.Text = string.Empty;
+                txtIdEstado.Text = string.Empty;
                 txtNombreEstado.Text = string.Empty;
+            }
+        }
+
+        protected bool validarEliminacion()
+        {
+
+            EntrenamientoNegocio negocioEntrenamiento = new EntrenamientoNegocio();
+            EstadoEntrenamientoNegocio negocioEE = new EstadoEntrenamientoNegocio();
+
+            List<Entrenamiento> listaEntrenamientos = negocioEntrenamiento.listar();
+
+            if (Session["IdEstadoSeleccionado"] != null)
+            {
+                foreach (Entrenamiento entrenamiento in listaEntrenamientos)
+                {
+                    if (entrenamiento.Estado.IdEstadoEntrenamiento == (int)Session["IdEstadoSeleccionado"])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        protected void btnGuardarEliminacion_Click(object sender, EventArgs e)
+        {
+            if (validarEliminacion())
+            {
+                EstadoEntrenamientoNegocio negocioEE = new EstadoEntrenamientoNegocio();
+                negocioEE.eliminar((int)Session["IdEstadoSeleccionado"]);
+                lblMensaje.Text = "Estado eliminado exitosamente.";
+                lblMensaje.ForeColor = System.Drawing.Color.Green;
+                lblMensaje.Visible = true;
+                txtIdEstado.Text = string.Empty;
+                txtNombreEstado.Text = string.Empty;
+                btnGuardarEliminacion.Enabled = false;
+                cargarDataGridView();
+            }
+            else
+            {
+                btnGuardarEliminacion.Enabled = false;
+                lblMensaje.Visible = true;
+                lblMensaje.Text = "No se puede realizar la eliminación. El estado aún tiene registros asociados";
             }
         }
     }
