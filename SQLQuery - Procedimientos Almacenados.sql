@@ -159,9 +159,16 @@ BEGIN
 	end catch
 END;
 
+create or alter procedure Listar_Entrenador
+as
+begin
+	select e.IdEntrandor ,p.Apellido, p.Nombre, p.Email, p.FechaNacimiento, p.pais, p.provincia, p.ciudad, e.Rol ,p.UrlImagen  from persona p
+	inner join entrenador e on e.IdPersona = p.IdPersona
+end
+
 GO
 
-CREATE PROCEDURE Actualizar_Socio
+CREATE or alter PROCEDURE Actualizar_Socio
     @IdSocio INT,
     @Nombre NVARCHAR(50),
     @Apellido NVARCHAR(50),
