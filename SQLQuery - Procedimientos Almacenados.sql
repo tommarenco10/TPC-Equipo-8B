@@ -35,7 +35,6 @@ inner join EstadoJugador ej on ej.IdEstadoJugador = j.IdEstadoJugador
 end
 
 create or alter procedure FiltroAvanzado 
-@posicion varchar(15),
 @NombreCategoria varchar(30),
 @NombreEstado varchar(30)
 as
@@ -46,7 +45,7 @@ from persona p
 inner join jugador j on j.IdPersona = p.IdPersona
 inner join Categoria c on c.IdCategoria = j.Idcategoria
 inner join EstadoJugador ej on ej.IdEstadoJugador = j.IdEstadoJugador
-where j.posicion like posicion and c.nombre like @NombreCategoria and ej.nombre like @NombreEstado
+where c.nombre like @NombreCategoria and ej.nombre like @NombreEstado
 end
 
 create or alter procedure Modificar_Jugador 
