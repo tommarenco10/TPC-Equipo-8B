@@ -2,7 +2,7 @@ USE Gestion_Clubes
 
 GO
 
-create procedure Agregar_Jugador 
+create or alter procedure Agregar_Jugador 
 @Nombre varchar(30),
 @Apellido varchar(30),
 @FechaNacimiento date,
@@ -60,7 +60,7 @@ end
 
 GO
 
-create procedure Listar_Jugador
+create or alter procedure Listar_Jugador
 as
 begin
 select j.IdJugador ,p.Nombre, p.Apellido, p.FechaNacimiento, p.pais, p.provincia, p.ciudad, p.Email,
@@ -100,9 +100,7 @@ end
 
 GO
 
---PROCEDIMIENTOS QUE NO SE PUEDEN CREAR CON LA BDD COMO ESTÁ
-
-CREATE PROCEDURE Actualizar_Entrenador
+CREATE or alter PROCEDURE Actualizar_Entrenador
     @IdEntrenador INT,
     @Nombre NVARCHAR(50),
     @Apellido NVARCHAR(50),
@@ -110,29 +108,27 @@ CREATE PROCEDURE Actualizar_Entrenador
     @Ciudad NVARCHAR(50),
     @Provincia NVARCHAR(50),
     @Pais NVARCHAR(50),
-    @Rol NVARCHAR(50)
+    @Rol NVARCHAR(50),
+	@Email varchar(30)
 AS
 BEGIN
     DECLARE @IdPersona INT, @IdLugarNacimiento INT;
     
-    SELECT @IdPersona = IdPersona FROM Entrenador WHERE IdEntrenador = @IdEntrenador;
-    
-    SELECT @IdLugarNacimiento = IdLugarNacimiento FROM Persona WHERE IdPersona = @IdPersona;
-    UPDATE LugarNacimiento
-    SET Ciudad = @Ciudad,
-        Provincia = @Provincia,
-        Pais = @Pais
-    WHERE IdLugarNacimiento = @IdLugarNacimiento;
+    SELECT @IdPersona = IdPersona FROM Entrenador WHERE IdEntrandor = @IdEntrenador;
     
     UPDATE Persona
     SET Nombre = @Nombre,
         Apellido = @Apellido,
-        FechaNacimiento = @FechaNacimiento
+        FechaNacimiento = @FechaNacimiento,
+		pais = @Pais,
+		provincia = @Provincia,
+		ciudad = @Ciudad,
+		Email = @Email
     WHERE IdPersona = @IdPersona;
     
     UPDATE Entrenador
     SET Rol = @Rol
-    WHERE IdEntrenador = @IdEntrenador;
+    WHERE IdEntrandor = @IdEntrenador;
 END;
 
 GO
@@ -144,47 +140,42 @@ CREATE PROCEDURE Actualizar_Socio
     @FechaNacimiento DATE,
     @Ciudad NVARCHAR(50),
     @Provincia NVARCHAR(50),
-    @Pais NVARCHAR(50)
+    @Pais NVARCHAR(50),
+	@Email varchar(30)
 AS
 BEGIN
     DECLARE @IdPersona INT, @IdLugarNacimiento INT;
     
     SELECT @IdPersona = IdPersona FROM Socio WHERE IdSocio = @IdSocio;
    
-    SELECT @IdLugarNacimiento = IdLugarNacimiento FROM Persona WHERE IdPersona = @IdPersona;
-    UPDATE LugarNacimiento
-    SET Ciudad = @Ciudad,
-        Provincia = @Provincia,
-        Pais = @Pais
-    WHERE IdLugarNacimiento = @IdLugarNacimiento;
-    
-    UPDATE Persona
+	UPDATE Persona
     SET Nombre = @Nombre,
         Apellido = @Apellido,
-        FechaNacimiento = @FechaNacimiento
+        FechaNacimiento = @FechaNacimiento,
+		pais = @Pais,
+		provincia = @Provincia,
+		ciudad = @Ciudad,
+		Email = @Email
     WHERE IdPersona = @IdPersona;
 END;
 
 GO
 
-CREATE PROCEDURE Agregar_Entrenador
+CREATE or alter PROCEDURE Agregar_Entrenador
     @Nombre NVARCHAR(50),
     @Apellido NVARCHAR(50),
     @FechaNacimiento DATE,
     @Ciudad NVARCHAR(50),
     @Provincia NVARCHAR(50),
     @Pais NVARCHAR(50),
-    @Rol NVARCHAR(50)
+    @Rol NVARCHAR(50),
+	@Email varchar(30)
 AS
 BEGIN
-    DECLARE @IdLugarNacimiento INT, @IdPersona INT;
+	declare @IdPersona bigint
     
-    INSERT INTO LugarNacimiento (Ciudad, Provincia, Pais)
-    VALUES (@Ciudad, @Provincia, @Pais);
-    SET @IdLugarNacimiento = SCOPE_IDENTITY();
-    
-    INSERT INTO Persona (Nombre, Apellido, FechaNacimiento, IdLugarNacimiento)
-    VALUES (@Nombre, @Apellido, @FechaNacimiento, @IdLugarNacimiento);
+    INSERT INTO Persona (Nombre, Apellido, FechaNacimiento, pais, provincia, ciudad)
+    VALUES (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad);
     SET @IdPersona = SCOPE_IDENTITY();
     
     INSERT INTO Entrenador (IdPersona, Rol)
@@ -193,23 +184,20 @@ END;
 
 GO
 
-CREATE PROCEDURE Agregar_Socio
+CREATE or alter PROCEDURE Agregar_Socio
     @Nombre NVARCHAR(50),
     @Apellido NVARCHAR(50),
     @FechaNacimiento DATE,
     @Ciudad NVARCHAR(50),
     @Provincia NVARCHAR(50),
-    @Pais NVARCHAR(50)
+    @Pais NVARCHAR(50),
+	@Email varchar(30)
 AS
 BEGIN
-    DECLARE @IdLugarNacimiento INT, @IdPersona INT;
+    declare @IdPersona bigint
 
-    INSERT INTO LugarNacimiento (Ciudad, Provincia, Pais)
-    VALUES (@Ciudad, @Provincia, @Pais);
-    SET @IdLugarNacimiento = SCOPE_IDENTITY();
-
-    INSERT INTO Persona (Nombre, Apellido, FechaNacimiento, IdLugarNacimiento)
-    VALUES (@Nombre, @Apellido, @FechaNacimiento, @IdLugarNacimiento);
+    INSERT INTO Persona (Nombre, Apellido, FechaNacimiento, pais, provincia, ciudad)
+    VALUES (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad);
     SET @IdPersona = SCOPE_IDENTITY();
     
     INSERT INTO Socio (IdPersona)
@@ -223,5 +211,5 @@ CREATE PROCEDURE Eliminar_Entrenador
 AS
 BEGIN
     DELETE FROM Entrenador
-    WHERE IdEntrenador = @IdEntrenador;
+    WHERE IdEntrandor = @IdEntrenador;
 END;
