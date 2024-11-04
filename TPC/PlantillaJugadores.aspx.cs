@@ -15,31 +15,64 @@ namespace TPC
         protected void Page_Load(object sender, EventArgs e)
         {
             JugadorNegocio negocio = new JugadorNegocio();
-            dgvPrimera.DataSource = negocio.ListarPorCategoria(1);
-            dgvPrimera.DataBind();
-            dgvReserva.DataSource = negocio.ListarPorCategoria(2);
-            dgvReserva.DataBind();
-            dgvJuveniles.DataSource = negocio.ListarPorCategoria(3);
-            dgvJuveniles.DataBind();
+            Session.Add("ListaJugadores", negocio.ListarJugador());
+            dgvJugadores.DataSource = Session["ListaJugadores"];
+            dgvJugadores.DataBind();
+
+            if (!IsPostBack)
+            {
+                CategoriaNegocio negocioCategoria = new CategoriaNegocio();
+
+                ddlCategoria.DataSource = negocioCategoria.listar();
+                ddlCategoria.DataTextField = "NombreCategoria";
+                ddlCategoria.DataBind();
+
+                EstadoJugadorNegocio negocioEJ = new EstadoJugadorNegocio();
+
+                ddlEstadoJugador.DataSource = negocioEJ.listar();
+                ddlEstadoJugador.DataTextField = "NombreEstado";
+                ddlEstadoJugador.DataBind();
+            }
         }
 
         protected void dgv_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (dgvPrimera.SelectedDataKey != null)
+            if (dgvJugadores.SelectedDataKey != null)
             {
-                var IdJugador = dgvPrimera.SelectedDataKey.Value.ToString();
+                var IdJugador = dgvJugadores.SelectedDataKey.Value.ToString();
                 Response.Redirect("ConfigJugador.aspx?IdJugador=" + IdJugador, false);
             }
-            if (dgvReserva.SelectedDataKey != null)
+        }
+
+        protected void txtboxFiltroNombre_TextChanged(object sender, EventArgs e)
+        {
+            List<Jugador> lista = (List<Jugador>)Session["listajugadores"];
+            List<Jugador> filtro = lista.FindAll(x => x.Apellidos.ToUpper().Contains(txtboxFiltroNombre.Text.ToUpper()));
+            dgvJugadores.DataSource = filtro;
+            dgvJugadores.DataBind();
+        }
+
+        protected void FiltroAvanzado_Click(object sender, EventArgs e)
+        {
+            try
             {
-                var IdJugador = dgvReserva.SelectedDataKey.Value.ToString();
-                Response.Redirect("ConfigJugador.aspx?IdJugador=" + IdJugador, false);
+                JugadorNegocio negocio = new JugadorNegocio();
+                List<Jugador> jugador = negocio.FiltroAvanzado(ddlCategoria.SelectedItem.ToString(), ddlEstadoJugador.SelectedItem.ToString());
+                dgvJugadores.DataSource = jugador;
+                dgvJugadores.DataBind();    
             }
-            if (dgvJuveniles.SelectedDataKey != null)
+            catch (Exception ex)
             {
-                var IdJugador = dgvJuveniles.SelectedDataKey.Value.ToString();
-                Response.Redirect("ConfigJugador.aspx?IdJugador=" + IdJugador, false);
+                Session.Add("error", ex.ToString());
             }
+        }
+
+        protected void txtboxFiltroPosicion_TextChanged(object sender, EventArgs e)
+        {
+            List<Jugador> lista = (List<Jugador>)Session["listajugadores"];
+            List<Jugador> filtro = lista.FindAll(x => x.Posicion.ToUpper().Contains(txtboxFiltroPosicion.Text.ToUpper()));
+            dgvJugadores.DataSource = filtro;
+            dgvJugadores.DataBind();
         }
     }
 }

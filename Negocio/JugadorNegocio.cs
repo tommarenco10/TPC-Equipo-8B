@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dominio;
 using Acceso_Datos;
 using System.Text.RegularExpressions;
+using System.Collections;
 
 namespace negocio
 {
@@ -142,50 +143,6 @@ namespace negocio
 
         }
 
-        public List<Jugador> ListarPorCategoria(int Categoria)
-        {
-            List<Jugador> lista = new List<Jugador>();
-
-            try
-            {
-                AccesoDatos datos = new AccesoDatos();
-                datos.setearSP("Listar_JugadorPorCategoria");
-                datos.agregarParametro("@IdCategoria", Categoria);
-                datos.ejecutarLectura();
-
-                while (datos.Lector.Read())
-                {
-                    Jugador jugador = new Jugador();
-                    jugador.IdJugador = Convert.ToInt32(datos.Lector["IdJugador"]);
-                    jugador.Nombres = (string)datos.Lector["Nombre"];
-                    jugador.Apellidos = (string)datos.Lector["Apellido"];
-                    jugador.FechaNacimiento = (DateTime)datos.Lector["FechaNacimiento"];
-                    jugador.LugarNacimiento = new LugarNacimiento();
-                    jugador.LugarNacimiento.Pais = (string)datos.Lector["pais"];
-                    jugador.LugarNacimiento.Provincia = (string)datos.Lector["provincia"];
-                    jugador.LugarNacimiento.Ciudad = (string)datos.Lector["ciudad"];
-                    jugador.Email = (string)datos.Lector["email"];
-                    jugador.Altura = Convert.ToInt32(datos.Lector["Altura"]);
-                    jugador.Peso = Convert.ToDecimal(datos.Lector["Peso"]);
-                    jugador.Posicion = (string)datos.Lector["posicion"];
-                    jugador.Categoria = new Categoria();
-                    jugador.Categoria.NombreCategoria = (string)datos.Lector["NombreCategoria"];
-                    jugador.estadoJugador = new EstadoJugador();
-                    jugador.estadoJugador.NombreEstado = (string)datos.Lector["EstadoJugador"];
-
-                    lista.Add(jugador);
-                }
-
-                return lista;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-
-        }
-
         public List<Jugador> ListarJugador()
         {
             List<Jugador> lista = new List<Jugador>();
@@ -228,6 +185,53 @@ namespace negocio
                 throw ex;
             }
 
+        }
+
+        public List<Jugador> FiltroAvanzado(string categoria, string estado)
+        {
+
+            List<Jugador> lista = new List<Jugador>();
+
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearSP("FiltroAvanzado");
+                datos.agregarParametro("@NombreCategoria", categoria);
+                datos.agregarParametro("@NombreEstado", estado);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Jugador jugador = new Jugador();
+                    jugador.IdJugador = Convert.ToInt32(datos.Lector["IdJugador"]);
+                    jugador.Nombres = (string)datos.Lector["Nombre"];
+                    jugador.Apellidos = (string)datos.Lector["Apellido"];
+                    jugador.FechaNacimiento = (DateTime)datos.Lector["FechaNacimiento"];
+                    jugador.LugarNacimiento = new LugarNacimiento();
+                    jugador.LugarNacimiento.Pais = (string)datos.Lector["pais"];
+                    jugador.LugarNacimiento.Provincia = (string)datos.Lector["provincia"];
+                    jugador.LugarNacimiento.Ciudad = (string)datos.Lector["ciudad"];
+                    jugador.Email = (string)datos.Lector["email"];
+                    jugador.Altura = Convert.ToInt32(datos.Lector["Altura"]);
+                    jugador.Peso = Convert.ToDecimal(datos.Lector["Peso"]);
+                    jugador.Posicion = (string)datos.Lector["posicion"];
+                    jugador.Categoria = new Categoria();
+                    jugador.Categoria.IdCategoria = Convert.ToInt32(datos.Lector["IdCategoria"]);
+                    jugador.Categoria.NombreCategoria = (string)datos.Lector["NombreCategoria"];
+                    jugador.estadoJugador = new EstadoJugador();
+                    jugador.estadoJugador.IdEstadoJugador = Convert.ToInt32(datos.Lector["IdEstadoJugador"]);
+                    jugador.estadoJugador.NombreEstado = (string)datos.Lector["EstadoJugador"];
+
+                    lista.Add(jugador);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public void ModificarJugador(Jugador modificado)

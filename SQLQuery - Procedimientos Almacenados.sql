@@ -34,18 +34,20 @@ inner join Categoria c on c.IdCategoria = j.Idcategoria
 inner join EstadoJugador ej on ej.IdEstadoJugador = j.IdEstadoJugador
 end
 
-CREATE OR ALTER PROCEDURE Listar_JugadorPorCategoria (@IdCategoria tinyint) AS
-BEGIN
-SELECT j.IdJugador, p.Nombre, p.Apellido, p.FechaNacimiento, p.pais, p.provincia, p.ciudad, p.Email,
-		j.Altura, j.peso, j.posicion, c.nombre as NombreCategoria, ej.nombre as EstadoJugador 
-FROM persona p
-INNER JOIN jugador j ON j.IdPersona = p.IdPersona
-INNER JOIN Categoria c ON c.IdCategoria = j.Idcategoria
-INNER JOIN EstadoJugador ej ON ej.IdEstadoJugador = j.IdEstadoJugador
-WHERE J.Idcategoria = @IdCategoria
-END
-
-GO
+create or alter procedure FiltroAvanzado 
+@posicion varchar(15),
+@NombreCategoria varchar(30),
+@NombreEstado varchar(30)
+as
+begin
+	select j.IdJugador ,p.Nombre, p.Apellido, p.FechaNacimiento, p.pais, p.provincia, p.ciudad, p.Email,
+		j.Altura, j.peso, j.posicion, c.IdCategoria, c.nombre as NombreCategoria, ej.IdEstadoJugador ,ej.nombre as EstadoJugador 
+from persona p
+inner join jugador j on j.IdPersona = p.IdPersona
+inner join Categoria c on c.IdCategoria = j.Idcategoria
+inner join EstadoJugador ej on ej.IdEstadoJugador = j.IdEstadoJugador
+where j.posicion like posicion and c.nombre like @NombreCategoria and ej.nombre like @NombreEstado
+end
 
 create or alter procedure Modificar_Jugador 
 @IdJugador bigint, 
