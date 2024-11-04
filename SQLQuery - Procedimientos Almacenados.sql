@@ -17,10 +17,18 @@ create or alter procedure Agregar_Jugador
 @IdEstadoJugador tinyint
 as
 begin
-insert into persona values (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad,@Email)
-declare @IdPersona bigint
-set @IdPersona = SCOPE_IDENTITY()
-insert into jugador values (@IdPersona, @Altura, @Peso, @Posicion, @IdCategoria, @IdEstadoJugador)
+	begin try
+		begin transaction
+			insert into persona values (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad,@Email)
+			declare @IdPersona bigint
+			set @IdPersona = SCOPE_IDENTITY()
+			insert into jugador values (@IdPersona, @Altura, @Peso, @Posicion, @IdCategoria, @IdEstadoJugador)
+		commit transaction
+	end try
+	begin catch
+		rollback transaction
+		raiserror('error en los parametros',16,10)
+	end catch
 end
 
 GO
@@ -89,13 +97,21 @@ create or alter procedure Modificar_Jugador
 @IdEstadoJugador tinyint
 as
 begin 
-	update persona 
-	set Nombre = @Nombre, Apellido = @Apellido, FechaNacimiento = @FechaNacimiento, pais = @Pais, provincia = @Provincia, ciudad = @Ciudad, Email = @Email
-	where IdPersona = @IdJugador
+	begin try
+		begin transaction
+			update persona 
+			set Nombre = @Nombre, Apellido = @Apellido, FechaNacimiento = @FechaNacimiento, pais = @Pais, provincia = @Provincia, ciudad = @Ciudad, Email = @Email
+			where IdPersona = @IdJugador
 
-	update jugador 
-	set Altura = @Altura, peso = @Peso, posicion = @Posicion, Idcategoria = @IdCategoria, IdEstadoJugador = @IdEstadoJugador
-	where IdJugador = @IdJugador
+			update jugador 
+			set Altura = @Altura, peso = @Peso, posicion = @Posicion, Idcategoria = @IdCategoria, IdEstadoJugador = @IdEstadoJugador
+			where IdJugador = @IdJugador
+		commit transaction
+	end try
+	begin catch
+		rollback transaction
+		raiserror('error en los parametros', 16,10)
+	end catch
 end
 
 GO
@@ -112,23 +128,31 @@ CREATE or alter PROCEDURE Actualizar_Entrenador
 	@Email varchar(30)
 AS
 BEGIN
-    DECLARE @IdPersona INT, @IdLugarNacimiento INT;
-    
-    SELECT @IdPersona = IdPersona FROM Entrenador WHERE IdEntrandor = @IdEntrenador;
-    
-    UPDATE Persona
-    SET Nombre = @Nombre,
-        Apellido = @Apellido,
-        FechaNacimiento = @FechaNacimiento,
-		pais = @Pais,
-		provincia = @Provincia,
-		ciudad = @Ciudad,
-		Email = @Email
-    WHERE IdPersona = @IdPersona;
-    
-    UPDATE Entrenador
-    SET Rol = @Rol
-    WHERE IdEntrandor = @IdEntrenador;
+	begin try
+		begin transaction
+			DECLARE @IdPersona INT, @IdLugarNacimiento INT;
+			
+			SELECT @IdPersona = IdPersona FROM Entrenador WHERE IdEntrandor = @IdEntrenador;
+			
+			UPDATE Persona
+			SET Nombre = @Nombre,
+			    Apellido = @Apellido,
+			    FechaNacimiento = @FechaNacimiento,
+				pais = @Pais,
+				provincia = @Provincia,
+				ciudad = @Ciudad,
+				Email = @Email
+			WHERE IdPersona = @IdPersona;
+			
+			UPDATE Entrenador
+			SET Rol = @Rol
+			WHERE IdEntrandor = @IdEntrenador;
+		commit transaction
+	end try
+	begin catch
+		rollback transaction
+		raiserror('error en los parametros', 16, 10)
+	end catch
 END;
 
 GO
@@ -144,19 +168,27 @@ CREATE PROCEDURE Actualizar_Socio
 	@Email varchar(30)
 AS
 BEGIN
-    DECLARE @IdPersona INT, @IdLugarNacimiento INT;
-    
-    SELECT @IdPersona = IdPersona FROM Socio WHERE IdSocio = @IdSocio;
+	begin try
+		begin transaction
+			DECLARE @IdPersona INT, @IdLugarNacimiento INT;
+			
+			SELECT @IdPersona = IdPersona FROM Socio WHERE IdSocio = @IdSocio;
    
-	UPDATE Persona
-    SET Nombre = @Nombre,
-        Apellido = @Apellido,
-        FechaNacimiento = @FechaNacimiento,
-		pais = @Pais,
-		provincia = @Provincia,
-		ciudad = @Ciudad,
-		Email = @Email
-    WHERE IdPersona = @IdPersona;
+			UPDATE Persona
+			SET Nombre = @Nombre,
+			    Apellido = @Apellido,
+			    FechaNacimiento = @FechaNacimiento,
+				pais = @Pais,
+				provincia = @Provincia,
+				ciudad = @Ciudad,
+				Email = @Email
+			WHERE IdPersona = @IdPersona;
+		commit transaction
+	end try
+	begin catch
+		rollback transaction
+		raiserror ('error en los parametros', 16,10)
+	end catch
 END;
 
 GO
@@ -172,14 +204,22 @@ CREATE or alter PROCEDURE Agregar_Entrenador
 	@Email varchar(30)
 AS
 BEGIN
-	declare @IdPersona bigint
-    
-    INSERT INTO Persona (Nombre, Apellido, FechaNacimiento, pais, provincia, ciudad)
-    VALUES (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad);
-    SET @IdPersona = SCOPE_IDENTITY();
-    
-    INSERT INTO Entrenador (IdPersona, Rol)
-    VALUES (@IdPersona, @Rol);
+	begin try
+		begin transaction
+			declare @IdPersona bigint
+			
+			INSERT INTO Persona (Nombre, Apellido, FechaNacimiento, pais, provincia, ciudad)
+			VALUES (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad);
+			SET @IdPersona = SCOPE_IDENTITY();
+			
+			INSERT INTO Entrenador (IdPersona, Rol)
+			VALUES (@IdPersona, @Rol);
+		commit transaction
+	end try
+	begin catch
+		rollback transaction
+		raiserror('error en los parametros', 16, 10)
+	end catch
 END;
 
 GO
@@ -194,14 +234,22 @@ CREATE or alter PROCEDURE Agregar_Socio
 	@Email varchar(30)
 AS
 BEGIN
-    declare @IdPersona bigint
+	begin try
+		begin transaction
+			declare @IdPersona bigint
 
-    INSERT INTO Persona (Nombre, Apellido, FechaNacimiento, pais, provincia, ciudad)
-    VALUES (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad);
-    SET @IdPersona = SCOPE_IDENTITY();
-    
-    INSERT INTO Socio (IdPersona)
-    VALUES (@IdPersona);
+			INSERT INTO Persona (Nombre, Apellido, FechaNacimiento, pais, provincia, ciudad)
+			VALUES (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad);
+			SET @IdPersona = SCOPE_IDENTITY();
+			
+			INSERT INTO Socio (IdPersona)
+			VALUES (@IdPersona);
+		commit transaction
+	end try
+	begin catch
+		rollback transaction
+		raiserror('error en los parametros', 16, 10)
+	end catch
 END;
 
 GO
