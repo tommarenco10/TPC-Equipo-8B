@@ -14,12 +14,13 @@ create or alter procedure Agregar_Jugador
 @Peso decimal,
 @Posicion varchar(15),
 @IdCategoria tinyint,
-@IdEstadoJugador tinyint
+@IdEstadoJugador tinyint,
+@UrlImagen varchar(300)
 as
 begin
 	begin try
 		begin transaction
-			insert into persona values (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad,@Email)
+			insert into persona values (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad,@Email, @UrlImagen)
 			declare @IdPersona bigint
 			set @IdPersona = SCOPE_IDENTITY()
 			insert into jugador values (@IdPersona, @Altura, @Peso, @Posicion, @IdCategoria, @IdEstadoJugador)
@@ -72,7 +73,7 @@ create or alter procedure Listar_Jugador
 as
 begin
 select j.IdJugador ,p.Nombre, p.Apellido, p.FechaNacimiento, p.pais, p.provincia, p.ciudad, p.Email,
-		j.Altura, j.peso, j.posicion, c.IdCategoria, c.nombre as NombreCategoria, ej.IdEstadoJugador ,ej.nombre as EstadoJugador 
+		j.Altura, j.peso, j.posicion, c.IdCategoria, c.nombre as NombreCategoria, ej.IdEstadoJugador ,ej.nombre as EstadoJugador, p.UrlImagen
 from persona p
 inner join jugador j on j.IdPersona = p.IdPersona
 inner join Categoria c on c.IdCategoria = j.Idcategoria
@@ -94,13 +95,14 @@ create or alter procedure Modificar_Jugador
 @Peso decimal,
 @Posicion varchar(15),
 @IdCategoria tinyint,
-@IdEstadoJugador tinyint
+@IdEstadoJugador tinyint,
+@UrlImagen varchar(300)
 as
 begin 
 	begin try
 		begin transaction
 			update persona 
-			set Nombre = @Nombre, Apellido = @Apellido, FechaNacimiento = @FechaNacimiento, pais = @Pais, provincia = @Provincia, ciudad = @Ciudad, Email = @Email
+			set Nombre = @Nombre, Apellido = @Apellido, FechaNacimiento = @FechaNacimiento, pais = @Pais, provincia = @Provincia, ciudad = @Ciudad, Email = @Email, UrlImagen = @UrlImagen
 			where IdPersona = @IdJugador
 
 			update jugador 
@@ -125,7 +127,8 @@ CREATE or alter PROCEDURE Actualizar_Entrenador
     @Provincia NVARCHAR(50),
     @Pais NVARCHAR(50),
     @Rol NVARCHAR(50),
-	@Email varchar(30)
+	@Email varchar(30),
+	@UrlImagen varchar(300)
 AS
 BEGIN
 	begin try
@@ -141,7 +144,8 @@ BEGIN
 				pais = @Pais,
 				provincia = @Provincia,
 				ciudad = @Ciudad,
-				Email = @Email
+				Email = @Email,
+				UrlImagen = @UrlImagen
 			WHERE IdPersona = @IdPersona;
 			
 			UPDATE Entrenador
@@ -165,7 +169,8 @@ CREATE PROCEDURE Actualizar_Socio
     @Ciudad NVARCHAR(50),
     @Provincia NVARCHAR(50),
     @Pais NVARCHAR(50),
-	@Email varchar(30)
+	@Email varchar(30),
+	@UrlImagen varchar (300)
 AS
 BEGIN
 	begin try
@@ -181,7 +186,8 @@ BEGIN
 				pais = @Pais,
 				provincia = @Provincia,
 				ciudad = @Ciudad,
-				Email = @Email
+				Email = @Email,
+				UrlImagen = @UrlImagen
 			WHERE IdPersona = @IdPersona;
 		commit transaction
 	end try
@@ -201,15 +207,16 @@ CREATE or alter PROCEDURE Agregar_Entrenador
     @Provincia NVARCHAR(50),
     @Pais NVARCHAR(50),
     @Rol NVARCHAR(50),
-	@Email varchar(30)
+	@Email varchar(30),
+	@UrlImagen varchar(300)
 AS
 BEGIN
 	begin try
 		begin transaction
 			declare @IdPersona bigint
 			
-			INSERT INTO Persona (Nombre, Apellido, FechaNacimiento, pais, provincia, ciudad)
-			VALUES (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad);
+			INSERT INTO Persona (Nombre, Apellido, FechaNacimiento, pais, provincia, ciudad, Email, UrlImagen)
+			VALUES (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad, @Email, @UrlImagen);
 			SET @IdPersona = SCOPE_IDENTITY();
 			
 			INSERT INTO Entrenador (IdPersona, Rol)
@@ -231,15 +238,16 @@ CREATE or alter PROCEDURE Agregar_Socio
     @Ciudad NVARCHAR(50),
     @Provincia NVARCHAR(50),
     @Pais NVARCHAR(50),
-	@Email varchar(30)
+	@Email varchar(30),
+	@UrlImagen varchar(300)
 AS
 BEGIN
 	begin try
 		begin transaction
 			declare @IdPersona bigint
 
-			INSERT INTO Persona (Nombre, Apellido, FechaNacimiento, pais, provincia, ciudad)
-			VALUES (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad);
+			INSERT INTO Persona (Nombre, Apellido, FechaNacimiento, pais, provincia, ciudad, Email, UrlImagen)
+			VALUES (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad, @Email, @UrlImagen);
 			SET @IdPersona = SCOPE_IDENTITY();
 			
 			INSERT INTO Socio (IdPersona)

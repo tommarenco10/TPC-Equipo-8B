@@ -15,6 +15,9 @@ create table persona(
 	Email varchar (30) not null,
 )
 
+alter table persona
+add UrlImagen varchar(300)
+
 create table Categoria(
 	IdCategoria tinyint primary key identity(1,1),
 	nombre varchar (30) not null,
