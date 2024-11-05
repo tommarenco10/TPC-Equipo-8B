@@ -12,5 +12,7 @@ namespace Dominio
         public Entrenamiento Entrenamiento { get; set; }
         public string Descripcion { get; set; }
         public string Observaciones { get; set; }
+
+        public int IdCategoria { get; set; }
     }
 }
