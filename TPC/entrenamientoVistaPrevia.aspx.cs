@@ -15,32 +15,40 @@ namespace TPC
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                if (Session["jugadoresSeleccionados"] != null)
+                if (!IsPostBack)
                 {
-                    List<int> jugadoresSeleccionados = (List<int>)Session["jugadoresSeleccionados"];
-                    JugadorNegocio negocioJugador = new JugadorNegocio();
+                    if (Session["jugadoresSeleccionados"] != null)
+                    {
+                        List<int> jugadoresSeleccionados = (List<int>)Session["jugadoresSeleccionados"];
+                        JugadorNegocio negocioJugador = new JugadorNegocio();
 
-                    // Obtener información de los jugadores seleccionados
-                    List<Jugador> listaJugadores = negocioJugador.ObtenerJugadoresPorIds(jugadoresSeleccionados);
+                        // Obtener información de los jugadores seleccionados
+                        List<Jugador> listaJugadores = negocioJugador.ObtenerJugadoresPorIds(jugadoresSeleccionados);
 
-                    dgvJugadoresSeleccionados.DataSource = listaJugadores;
-                    dgvJugadoresSeleccionados.DataBind();
-                }
-                else
-                {
-                    lblMensaje.CssClass = "alert alert-warning";
-                    lblMensaje.Text = "Aún no hay jugadores seleccionados.";
-                    lblMensaje.Visible = true;
-                }
+                        dgvJugadoresSeleccionados.DataSource = listaJugadores;
+                        dgvJugadoresSeleccionados.DataBind();
+                    }
+                    else
+                    {
+                        lblMensaje.CssClass = "alert alert-warning";
+                        lblMensaje.Text = "Aún no hay jugadores seleccionados.";
+                        lblMensaje.Visible = true;
+                    }
 
-                if (Session["fechaHoraEntrenamiento"] != null)
-                {
-                    DateTime fechaHoraEntrenamiento = (DateTime)Session["fechaHoraEntrenamiento"];
-                    lblDetallesEntrenamiento.CssClass = "alert alert-info";
-                    lblDetallesEntrenamiento.Text = $"El entrenamiento está organizado para el {fechaHoraEntrenamiento.ToString("dddd, dd MMMM yyyy")} a las {fechaHoraEntrenamiento.ToString("HH:mm")}.";
+                    if (Session["fechaHoraEntrenamiento"] != null)
+                    {
+                        DateTime fechaHoraEntrenamiento = (DateTime)Session["fechaHoraEntrenamiento"];
+                        lblDetallesEntrenamiento.CssClass = "alert alert-info";
+                        lblDetallesEntrenamiento.Text = $"El entrenamiento está organizado para el {fechaHoraEntrenamiento.ToString("dddd, dd MMMM yyyy")} a las {fechaHoraEntrenamiento.ToString("HH:mm")}.";
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
             }
         }
 
@@ -54,19 +62,25 @@ namespace TPC
             Entrenamiento entrenamiento = new Entrenamiento();
             EntrenamientoNegocio entrenamientoNegocio = new EntrenamientoNegocio();
 
-            
-            entrenamiento.FechaHora = (DateTime)Session["fechaHoraEntrenamiento"];
-            entrenamiento.Duracion = verificarDuracion(txtDuracion.Text);
-            entrenamiento.Descripcion = txtDescripcion.Text;
-            entrenamiento.Observaciones = txtObservaciones.Text;
-            entrenamiento.Categoria = new Categoria();
-            //entrenamiento.Categoria.IdCategoria = int.Parse(ddlCategoria.SelectedValue);
-            entrenamiento.Categoria.IdCategoria = 1;
-            entrenamiento.Estado = new EstadoEntrenamiento();
-            entrenamiento.Estado.IdEstadoEntrenamiento = 1;
+            try
+            {
+                entrenamiento.FechaHora = (DateTime)Session["fechaHoraEntrenamiento"];
+                entrenamiento.Duracion = verificarDuracion(txtDuracion.Text);
+                entrenamiento.Descripcion = txtDescripcion.Text;
+                entrenamiento.Observaciones = txtObservaciones.Text;
+                entrenamiento.Categoria = new Categoria();
+                //entrenamiento.Categoria.IdCategoria = int.Parse(ddlCategoria.SelectedValue);
+                entrenamiento.Categoria.IdCategoria = 1;
+                entrenamiento.Estado = new EstadoEntrenamiento();
+                entrenamiento.Estado.IdEstadoEntrenamiento = 1;
 
-            entrenamientoNegocio.agregarEntrenamiento(entrenamiento);
-
+                entrenamientoNegocio.agregarEntrenamiento(entrenamiento);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
         }
 
         protected TimeSpan verificarDuracion(string duracion)
@@ -87,5 +101,8 @@ namespace TPC
             }
             return TimeSpan.Zero;
         }
+
+
+
     }
 }

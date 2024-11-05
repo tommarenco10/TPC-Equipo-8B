@@ -35,7 +35,6 @@ namespace TPC
                     ddlJugadoresAdicionales.DataTextField = "NombreCategoria";
                     ddlJugadoresAdicionales.DataValueField = "IdCategoria";
                     ddlJugadoresAdicionales.DataBind();
-
                     // Opción para seleccionar
                     ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", "0"));
                     ddlJugadoresAdicionales.Items.Insert(0, new ListItem("Seleccione una categoría", "0"));
@@ -66,127 +65,8 @@ namespace TPC
             }
             catch (Exception ex)
             {
-                Session.Add("error", ex);
-            }
-        }
-
-        protected void ddlJugadoresAdicionales_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                int idCategoriaSeleccionada = int.Parse(ddlJugadoresAdicionales.SelectedValue);
-
-                // Filtro de jugadores en base a la categoría seleccionada
-                List<Jugador> listaFiltrada = new List<Jugador>();
-
-                if (Session["listaJugador"] != null)
-                {
-                    List<Jugador> listaJugadores = (List<Jugador>)Session["listaJugador"];
-
-                    foreach (Jugador jugador in listaJugadores)
-                    {
-                        if (jugador.Categoria.IdCategoria == idCategoriaSeleccionada)
-                        {
-                            listaFiltrada.Add(jugador);
-                        }
-                    }
-                }
-
-                dgvEntrenamiento.DataSource = listaFiltrada;
-                dgvEntrenamiento.DataBind();
-
-                // Restaurar el estado de los checkboxes de los jugadores seleccionados 
-                List<int> jugadoresSeleccionados = (List<int>)Session["jugadoresSeleccionados"];
-                if (jugadoresSeleccionados != null)
-                {
-                    foreach (GridViewRow row in dgvEntrenamiento.Rows)
-                    {
-                        CheckBox chkCitado = (CheckBox)row.FindControl("chkCitado");
-                        int idJugador = Convert.ToInt32(dgvEntrenamiento.DataKeys[row.RowIndex].Value);
-
-                        if (jugadoresSeleccionados.Contains(idJugador))
-                        {
-                            chkCitado.Checked = true;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Session.Add("error", ex);
-            }
-        }
-
-        protected void chkCitado_CheckedChanged(object sender, EventArgs e)
-        {
-            if (Session["jugadoresSeleccionados"] == null)
-            {
-                Session["jugadoresSeleccionados"] = new List<int>();
-            }
-
-            CheckBox chk = (CheckBox)sender;
-            GridViewRow row = (GridViewRow)chk.NamingContainer;
-            int idJugador = Convert.ToInt32(dgvEntrenamiento.DataKeys[row.RowIndex].Value);
-
-            List<int> jugadoresSeleccionados = (List<int>)Session["jugadoresSeleccionados"];
-
-            if (chk.Checked)
-            {
-                // Agregar el jugador a la lista si no está ya en la lista
-                if (!jugadoresSeleccionados.Contains(idJugador))
-                {
-                    jugadoresSeleccionados.Add(idJugador);
-                }
-            }
-            else
-            {
-                // Remover el jugador de la lista si se deselecciona
-                jugadoresSeleccionados.Remove(idJugador);
-            }
-            Session["jugadoresSeleccionados"] = jugadoresSeleccionados;
-        }
-
-        protected void btnMostrarSeleccionados_Click(object sender, EventArgs e)
-        {
-            DateTime fechaEntrenamiento;
-            DateTime horaEntrenamiento;
-
-            int idCategoriaSeleccionada = int.Parse(ddlCategoria.SelectedValue);
-            Session["categoriaSeleccionada"] = idCategoriaSeleccionada;
-
-            if (string.IsNullOrEmpty(txtFechaEntrenamiento.Text) || string.IsNullOrEmpty(txtHoraEntrenamiento.Text))
-            {
-                lblError.CssClass = "alert alert-warning";
-                lblError.Text = "Por favor, complete los campos de fecha y hora.";
-                return;
-            }
-
-            else if (!DateTime.TryParse(txtFechaEntrenamiento.Text, out fechaEntrenamiento))
-            {
-                lblError.CssClass = "alert alert-danger";
-                lblError.Text = "Fecha no válida. Por favor, ingrese una fecha válida.";
-                return;
-            }
-
-            else if (!DateTime.TryParse(txtHoraEntrenamiento.Text, out horaEntrenamiento))
-            {
-                lblError.CssClass = "alert alert-danger";
-                lblError.Text = "Hora no válida. Por favor, ingrese una hora válida.";
-                return;
-            }
-
-            else if (fechaEntrenamiento.Date < DateTime.Today)
-            {
-                lblError.CssClass = "alert alert-danger";
-                lblError.Text = "Fecha no válida. La fecha seleccionada no puede ser en el pasado.";
-                return;
-            }
-
-            else
-            {
-                DateTime fechaHoraEntrenamiento = fechaEntrenamiento.Date.Add(horaEntrenamiento.TimeOfDay);
-                Session["fechaHoraEntrenamiento"] = fechaHoraEntrenamiento;
-                Response.Redirect("entrenamientoVistaPrevia.aspx");
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
             }
         }
 
@@ -236,8 +116,147 @@ namespace TPC
             }
             catch (Exception ex)
             {
-                Session.Add("error", ex);
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
             }
         }
+
+        protected void ddlJugadoresAdicionales_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int idCategoriaSeleccionada = int.Parse(ddlJugadoresAdicionales.SelectedValue);
+
+                // Filtro de jugadores en base a la categoría seleccionada
+                List<Jugador> listaFiltrada = new List<Jugador>();
+
+                if (Session["listaJugador"] != null)
+                {
+                    List<Jugador> listaJugadores = (List<Jugador>)Session["listaJugador"];
+
+                    foreach (Jugador jugador in listaJugadores)
+                    {
+                        if (jugador.Categoria.IdCategoria == idCategoriaSeleccionada)
+                        {
+                            listaFiltrada.Add(jugador);
+                        }
+                    }
+                }
+
+                dgvEntrenamiento.DataSource = listaFiltrada;
+                dgvEntrenamiento.DataBind();
+
+                // Restaurar el estado de los checkboxes de los jugadores seleccionados 
+                List<int> jugadoresSeleccionados = (List<int>)Session["jugadoresSeleccionados"];
+                if (jugadoresSeleccionados != null)
+                {
+                    foreach (GridViewRow row in dgvEntrenamiento.Rows)
+                    {
+                        CheckBox chkCitado = (CheckBox)row.FindControl("chkCitado");
+                        int idJugador = Convert.ToInt32(dgvEntrenamiento.DataKeys[row.RowIndex].Value);
+
+                        if (jugadoresSeleccionados.Contains(idJugador))
+                        {
+                            chkCitado.Checked = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+        }
+
+        protected void chkCitado_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Session["jugadoresSeleccionados"] == null)
+                {
+                    Session["jugadoresSeleccionados"] = new List<int>();
+                }
+
+                CheckBox chk = (CheckBox)sender;
+                GridViewRow row = (GridViewRow)chk.NamingContainer;
+                int idJugador = Convert.ToInt32(dgvEntrenamiento.DataKeys[row.RowIndex].Value);
+
+                List<int> jugadoresSeleccionados = (List<int>)Session["jugadoresSeleccionados"];
+
+                if (chk.Checked)
+                {
+                    // Agregar el jugador a la lista si no está ya en la lista
+                    if (!jugadoresSeleccionados.Contains(idJugador))
+                    {
+                        jugadoresSeleccionados.Add(idJugador);
+                    }
+                }
+                else
+                {
+                    // Remover el jugador de la lista si se deselecciona
+                    jugadoresSeleccionados.Remove(idJugador);
+                }
+                Session["jugadoresSeleccionados"] = jugadoresSeleccionados;
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+        }
+
+        protected void btnMostrarSeleccionados_Click(object sender, EventArgs e)
+        {
+            DateTime fechaEntrenamiento;
+            DateTime horaEntrenamiento;
+
+            try
+            {
+                int idCategoriaSeleccionada = int.Parse(ddlCategoria.SelectedValue);
+                Session["categoriaSeleccionada"] = idCategoriaSeleccionada;
+
+                if (string.IsNullOrEmpty(txtFechaEntrenamiento.Text) || string.IsNullOrEmpty(txtHoraEntrenamiento.Text))
+                {
+                    lblError.CssClass = "alert alert-warning";
+                    lblError.Text = "Por favor, complete los campos de fecha y hora.";
+                    return;
+                }
+
+                else if (!DateTime.TryParse(txtFechaEntrenamiento.Text, out fechaEntrenamiento))
+                {
+                    lblError.CssClass = "alert alert-danger";
+                    lblError.Text = "Fecha no válida. Por favor, ingrese una fecha válida.";
+                    return;
+                }
+
+                else if (!DateTime.TryParse(txtHoraEntrenamiento.Text, out horaEntrenamiento))
+                {
+                    lblError.CssClass = "alert alert-danger";
+                    lblError.Text = "Hora no válida. Por favor, ingrese una hora válida.";
+                    return;
+                }
+
+                else if (fechaEntrenamiento.Date < DateTime.Today)
+                {
+                    lblError.CssClass = "alert alert-danger";
+                    lblError.Text = "Fecha no válida. La fecha seleccionada no puede ser en el pasado.";
+                    return;
+                }
+
+                else
+                {
+                    DateTime fechaHoraEntrenamiento = fechaEntrenamiento.Date.Add(horaEntrenamiento.TimeOfDay);
+                    Session["fechaHoraEntrenamiento"] = fechaHoraEntrenamiento;
+                    Response.Redirect("entrenamientoVistaPrevia.aspx");
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+        }
+
     }
 }
