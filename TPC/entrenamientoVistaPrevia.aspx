@@ -38,11 +38,6 @@
             <label for="txtDescripcion">Descripción Planificada del Entrenamiento</label>
             <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="4" placeholder="Describe brevemente el entrenamiento planificado..."></asp:TextBox>
         </div>
-
-        <div class="form-group">
-            <label for="txtObservaciones">Observaciones Post Entrenamiento</label>
-            <asp:TextBox ID="txtObservaciones" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="4" placeholder="Escribe las observaciones respectivas al entrenamiento..."></asp:TextBox>
-        </div>
     </section>
 
     <br />

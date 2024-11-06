@@ -8,6 +8,7 @@ using Dominio;
 using Acceso_Datos;
 using negocio;
 using Negocio;
+using System.Threading;
 
 
 namespace TPC
@@ -95,9 +96,8 @@ namespace TPC
                 dgvEntrenamiento.DataBind();
 
                 // Inicializar o recuperar la lista de jugadores seleccionados
-                List<int> jugadoresSeleccionados = Session["jugadoresSeleccionados"] != null
-                    ? (List<int>)Session["jugadoresSeleccionados"]
-                    : new List<int>();
+                List<Jugador> jugadoresSeleccionados = Session["jugadoresSeleccionados"] != null
+                    ? (List<Jugador>)Session["jugadoresSeleccionados"] : new List<Jugador>();
 
                 foreach (GridViewRow row in dgvEntrenamiento.Rows)
                 {
@@ -106,12 +106,14 @@ namespace TPC
 
                     int idJugador = Convert.ToInt32(dgvEntrenamiento.DataKeys[row.RowIndex].Value);
 
-                    // Agregar el jugador a la lista de jugadores seleccionados si no está ya en la lista
-                    if (!jugadoresSeleccionados.Contains(idJugador))
+                    Jugador jugadorSeleccionado = listaFiltrada.FirstOrDefault(j => j.IdJugador == idJugador);
+
+                    if (jugadorSeleccionado != null && !jugadoresSeleccionados.Any(j => j.IdJugador == jugadorSeleccionado.IdJugador))
                     {
-                        jugadoresSeleccionados.Add(idJugador);
+                        jugadoresSeleccionados.Add(jugadorSeleccionado);
                     }
                 }
+
                 Session["jugadoresSeleccionados"] = jugadoresSeleccionados;
             }
             catch (Exception ex)
@@ -248,9 +250,10 @@ namespace TPC
                 {
                     DateTime fechaHoraEntrenamiento = fechaEntrenamiento.Date.Add(horaEntrenamiento.TimeOfDay);
                     Session["fechaHoraEntrenamiento"] = fechaHoraEntrenamiento;
-                    Response.Redirect("entrenamientoVistaPrevia.aspx");
+                    Response.Redirect("entrenamientoVistaPrevia.aspx", false);
                 }
             }
+            catch (ThreadAbortException) { }
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());

@@ -32,6 +32,15 @@ namespace TPC
                     // Opción para seleccionar
                     ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", "0"));
                 }
+
+                if (dgvEntrenamientos.Rows.Count == 0)
+                {
+                    lblMensaje.Visible = true;
+                }
+                else
+                {
+                    lblMensaje.Visible = false;
+                }
             }
             catch (Exception ex)
             {
@@ -46,39 +55,30 @@ namespace TPC
             {
                 int idCategoriaSeleccionada = int.Parse(ddlCategoria.SelectedValue);
 
-                // Filtro de jugadores en base a la categoría seleccionada
-                List<Jugador> listaFiltrada = new List<Jugador>();
+                List<Entrenamiento> listaFiltrada = new List<Entrenamiento>();
 
-                if (Session["listaJugador"] != null)
+                if (Session["listaEntrenamientos"] != null)
                 {
-                    List<Jugador> listaJugadores = (List<Jugador>)Session["listaJugador"];
+                    List<Entrenamiento> listaEntrenamientos = (List<Entrenamiento>)Session["listaEntrenamientos"];
 
-                    foreach (Jugador jugador in listaJugadores)
+                    foreach (Entrenamiento entrenamiento in listaEntrenamientos)
                     {
-                        if (jugador.Categoria.IdCategoria == idCategoriaSeleccionada)
+                        if (entrenamiento.Categoria.IdCategoria == idCategoriaSeleccionada)
                         {
-                            listaFiltrada.Add(jugador);
+                            listaFiltrada.Add(entrenamiento);
                         }
                     }
                 }
-
                 dgvEntrenamientos.DataSource = listaFiltrada;
                 dgvEntrenamientos.DataBind();
 
-                // Restaurar el estado de los checkboxes de los jugadores seleccionados 
-                List<int> jugadoresSeleccionados = (List<int>)Session["jugadoresSeleccionados"];
-                if (jugadoresSeleccionados != null)
+                if (dgvEntrenamientos.Rows.Count == 0)
                 {
-                    foreach (GridViewRow row in dgvEntrenamientos.Rows)
-                    {
-                        CheckBox chkCitado = (CheckBox)row.FindControl("chkCitado");
-                        int idJugador = Convert.ToInt32(dgvEntrenamientos.DataKeys[row.RowIndex].Value);
-
-                        if (jugadoresSeleccionados.Contains(idJugador))
-                        {
-                            chkCitado.Checked = true;
-                        }
-                    }
+                    lblMensaje.Visible = true;
+                }
+                else
+                {
+                    lblMensaje.Visible = false;
                 }
             }
             catch (Exception ex)
@@ -86,6 +86,11 @@ namespace TPC
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
+        }
+
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("gestionEntrenamiento.aspx");
         }
     }
 }

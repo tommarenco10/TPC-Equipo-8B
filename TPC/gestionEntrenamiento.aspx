@@ -6,7 +6,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <section>
-        <h1>Detalles Generales</h1>
+        <h1>Agendar Entrenamiento</h1>
+        <br />
+        <br />
+        <h3>Detalles Generales</h3>
         <div class="row mb-3">
             <div class="col-md-4">
                 <label for="txtFechaEntrenamiento" class="form-label">Fecha de Entrenamiento:</label>
@@ -32,7 +35,7 @@
             </div>
         </div>
         <br />
-        <h3>Detalles Adicionales</h3>
+        <h5>Detalles Adicionales</h5>
         <div class="row mb-3">
             <div class="col-md-4">
                 <label for="ddlJugadoresAdicionales" class="form-label">Jugadores Adicionales:</label>

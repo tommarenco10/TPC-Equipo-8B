@@ -5,6 +5,9 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+
+    <h1>Entrenamientos Programados</h1>
+    <br />
     <div class="row mb-3">
         <div class="col-md-4">
             <label for="txtCategoria" class="form-label">Categoria:</label>
@@ -13,15 +16,34 @@
         </div>
     </div>
 
+    <asp:Label ID="lblMensaje" runat="server" CssClass="text-danger" Text="La categoría seleccionada no tiene entrenamientos registrados." Visible="false"></asp:Label>
+
     <section>
         <asp:GridView ID="dgvEntrenamientos" CssClass="table table-dark table-hover" runat="server" AutoGenerateColumns="false" DataKeyNames="IdEntrenamiento">
             <Columns>
-                <asp:BoundField DataField="IdJugador" Visible="false" />
-                <asp:BoundField HeaderText="Apellido" DataField="Apellidos" />
-                <asp:BoundField HeaderText="Nombre" DataField="Nombres" />
-                <asp:BoundField HeaderText="Altura" DataField="Altura" />
-                <asp:BoundField HeaderText="Peso" DataField="Peso" />
-                <asp:BoundField HeaderText="Posicion" DataField="Posicion" /> 
+                <asp:BoundField DataField="IdEntrenamiento" Visible="false" />
+                <asp:BoundField HeaderText="Fecha y Horario" DataField="FechaHora" />
+                <asp:BoundField HeaderText="Duracion" DataField="Duracion" />
+                <asp:BoundField HeaderText="Categoria" DataField="Categoria.NombreCategoria" />
+                <asp:BoundField HeaderText="Estado" DataField="Estado.NombreEstado" />
+                <asp:TemplateField>
+                    <HeaderStyle Width="8%" />
+                    <ItemStyle Width="8%" />
+                    <ItemTemplate>
+                        <asp:Button ID="btnModificar" runat="server" Text="Modificar" CommandName="Modificar"
+                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-secondary" />
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:TemplateField>
+                    <HeaderStyle Width="8%" />
+                    <ItemStyle Width="8%" />
+                    <ItemTemplate>
+                        <asp:Button ID="btnVerDetalle" runat="server" Text="Ver Detalle" CommandName="VerDetalle"
+                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-primary" />
+                    </ItemTemplate>
+                </asp:TemplateField>
+
             </Columns>
         </asp:GridView>
     </section>
@@ -29,7 +51,7 @@
     <br />
 
     <div>
-        <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" CssClass="btn btn-primary"/>
+        <asp:Button ID="btnAgregar" runat="server" Text="Agregar Nuevo" CssClass="btn btn-primary" OnClick="btnAgregar_Click" />
     </div>
 
 </asp:Content>

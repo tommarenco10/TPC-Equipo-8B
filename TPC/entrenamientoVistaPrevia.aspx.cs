@@ -21,14 +21,13 @@ namespace TPC
                 {
                     if (Session["jugadoresSeleccionados"] != null)
                     {
-                        List<int> jugadoresSeleccionados = (List<int>)Session["jugadoresSeleccionados"];
+                        List<Jugador> jugadoresSeleccionados = (List<Jugador>)Session["jugadoresSeleccionados"];
                         JugadorNegocio negocioJugador = new JugadorNegocio();
 
-                        // Obtener información de los jugadores seleccionados
-                        List<Jugador> listaJugadores = negocioJugador.ObtenerJugadoresPorIds(jugadoresSeleccionados);
-
-                        dgvJugadoresSeleccionados.DataSource = listaJugadores;
+                        dgvJugadoresSeleccionados.DataSource = jugadoresSeleccionados;
                         dgvJugadoresSeleccionados.DataBind();
+
+                        txtDuracion.Text = "00:00";
                     }
                     else
                     {
@@ -67,13 +66,10 @@ namespace TPC
                 entrenamiento.FechaHora = (DateTime)Session["fechaHoraEntrenamiento"];
                 entrenamiento.Duracion = verificarDuracion(txtDuracion.Text);
                 entrenamiento.Descripcion = txtDescripcion.Text;
-                entrenamiento.Observaciones = txtObservaciones.Text;
                 entrenamiento.Categoria = new Categoria();
-                //entrenamiento.Categoria.IdCategoria = int.Parse(ddlCategoria.SelectedValue);
-                entrenamiento.Categoria.IdCategoria = 1;
+                entrenamiento.Categoria.IdCategoria = (int)Session["categoriaSeleccionada"];
                 entrenamiento.Estado = new EstadoEntrenamiento();
                 entrenamiento.Estado.IdEstadoEntrenamiento = 1;
-
                 entrenamientoNegocio.agregarEntrenamiento(entrenamiento);
             }
             catch (Exception ex)

@@ -1,12 +1,71 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc-equipo-8b\\tpc\\entrenamientosprogramados.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\entrenamientosprogramados.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\tpc\\entrenamientosprogramados.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\entrenamientosprogramados.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65B102A0-344A-406D-9FBA-7C77FDCCDC6D}|Dominio\\Dominio.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc-equipo-8b\\dominio\\entrenamiento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65B102A0-344A-406D-9FBA-7C77FDCCDC6D}|Dominio\\Dominio.csproj|solutionrelative:dominio\\entrenamiento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Entrenamiento.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\Dominio\\Entrenamiento.cs",
+              "RelativeDocumentMoniker": "Dominio\\Entrenamiento.cs",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\Dominio\\Entrenamiento.cs",
+              "RelativeToolTip": "Dominio\\Entrenamiento.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAA8AAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T23:57:03.386Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "entrenamientosProgramados.aspx",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\TPC\\entrenamientosProgramados.aspx",
+              "RelativeDocumentMoniker": "TPC\\entrenamientosProgramados.aspx",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\TPC\\entrenamientosProgramados.aspx",
+              "RelativeToolTip": "TPC\\entrenamientosProgramados.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-11-05T23:21:55.744Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "entrenamientosProgramados.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\TPC\\entrenamientosProgramados.aspx.cs",
+              "RelativeDocumentMoniker": "TPC\\entrenamientosProgramados.aspx.cs",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\TPC\\entrenamientosProgramados.aspx.cs",
+              "RelativeToolTip": "TPC\\entrenamientosProgramados.aspx.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAowFEAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T23:48:11.67Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
