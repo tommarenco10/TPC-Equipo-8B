@@ -27,7 +27,7 @@ namespace Negocio
 
                         Entrenamiento entrenamiento = new Entrenamiento();
                         EntrenamientoNegocio entrenamientoNegocio = new EntrenamientoNegocio();
-                        entrenamiento = entrenamientoNegocio.obtenerPorId((int)datos.Lector["IdEntrenamiento"]);
+                        entrenamiento = entrenamientoNegocio.ObtenerEntrenamientoPorId((int)datos.Lector["IdEntrenamiento"]);
                      
 
                         Reporte aux = new Reporte
@@ -96,7 +96,37 @@ namespace Negocio
                     datos.cerrarConexion();
                 }
             }
+
+
+
+
+        public void actualizar(Reporte reporte)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE Reporte SET IdEntrenamiento = @IdEntrenamiento, Descrpcion = @Descripcion, Observaciones = @Observaciones WHERE IdReporte = @IdReporte");
+                datos.agregarParametro("@IdReporte", reporte.IdReporte);
+                datos.agregarParametro("@IdEntrenamiento", reporte.Entrenamiento.IdEntrenamiento);
+                datos.agregarParametro("@Descripcion", reporte.Descripcion);
+                datos.agregarParametro("@Observaciones", reporte.Observaciones);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
+
+
+
+    }
     }
 
 
