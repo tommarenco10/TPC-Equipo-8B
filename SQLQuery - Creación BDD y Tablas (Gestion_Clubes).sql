@@ -46,6 +46,10 @@ create table entrenador(
 	Rol varchar (30) not null,
 )
 
+alter table entrenador
+	add IdCategoria tinyint foreign key references categoria(IdCategoria)
+	add FechaContratacion date 
+
 create table socio (
 	IdSocio bigint primary key identity(1,1),
 	IdPersona bigint foreign key references persona (IdPersona),

@@ -128,12 +128,13 @@ CREATE or alter PROCEDURE Actualizar_Entrenador
     @Pais NVARCHAR(50),
     @Rol NVARCHAR(50),
 	@Email varchar(30),
-	@UrlImagen varchar(300)
+	@FechaContratacion date,
+	@IdCategoria tinyint
 AS
 BEGIN
 	begin try
 		begin transaction
-			DECLARE @IdPersona INT, @IdLugarNacimiento INT;
+			DECLARE @IdPersona bigint
 			
 			SELECT @IdPersona = IdPersona FROM Entrenador WHERE IdEntrandor = @IdEntrenador;
 			
@@ -144,12 +145,13 @@ BEGIN
 				pais = @Pais,
 				provincia = @Provincia,
 				ciudad = @Ciudad,
-				Email = @Email,
-				UrlImagen = @UrlImagen
+				Email = @Email
 			WHERE IdPersona = @IdPersona;
 			
 			UPDATE Entrenador
-			SET Rol = @Rol
+			SET Rol = @Rol,
+				FechaContratacion = @FechaContratacion,
+				IdCategoria = @IdCategoria
 			WHERE IdEntrandor = @IdEntrenador;
 		commit transaction
 	end try
@@ -162,7 +164,7 @@ END;
 create or alter procedure Listar_Entrenador
 as
 begin
-	select e.IdEntrandor ,p.Apellido, p.Nombre, p.Email, p.FechaNacimiento, p.pais, p.provincia, p.ciudad, e.Rol ,p.UrlImagen  from persona p
+	select e.IdEntrandor ,p.Apellido, p.Nombre, p.Email, p.FechaNacimiento, p.pais, p.provincia, p.ciudad, e.Rol, e.FechaContratacion, e.IdCategoria ,p.UrlImagen  from persona p
 	inner join entrenador e on e.IdPersona = p.IdPersona
 end
 
@@ -215,19 +217,20 @@ CREATE or alter PROCEDURE Agregar_Entrenador
     @Pais NVARCHAR(50),
     @Rol NVARCHAR(50),
 	@Email varchar(30),
-	@UrlImagen varchar(300)
+	@FechaContratacion date,
+	@IdCategoria tinyint
 AS
 BEGIN
 	begin try
 		begin transaction
 			declare @IdPersona bigint
 			
-			INSERT INTO Persona (Nombre, Apellido, FechaNacimiento, pais, provincia, ciudad, Email, UrlImagen)
-			VALUES (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad, @Email, @UrlImagen);
+			INSERT INTO Persona (Nombre, Apellido, FechaNacimiento, pais, provincia, ciudad, Email)
+			VALUES (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad, @Email);
 			SET @IdPersona = SCOPE_IDENTITY();
 			
-			INSERT INTO Entrenador (IdPersona, Rol)
-			VALUES (@IdPersona, @Rol);
+			INSERT INTO Entrenador (IdPersona, Rol, FechaContratacion , IdCategoria)
+			VALUES (@IdPersona, @Rol, @FechaContratacion, @IdCategoria);
 		commit transaction
 	end try
 	begin catch
@@ -273,6 +276,22 @@ CREATE PROCEDURE Eliminar_Entrenador
     @IdEntrenador INT
 AS
 BEGIN
-    DELETE FROM Entrenador
-    WHERE IdEntrandor = @IdEntrenador;
+	begin try
+		begin transaction 
+			
+			declare @idpersona bigint
+
+			select @idpersona = IdPersona from entrenador where IdEntrandor = @IdEntrenador
+
+			DELETE FROM Entrenador
+			WHERE IdEntrandor = @IdEntrenador;
+
+			delete persona 
+			where IdPersona = @idpersona
+
+		commit transaction
+	end try
+	begin catch
+		rollback transaction
+	end catch
 END;

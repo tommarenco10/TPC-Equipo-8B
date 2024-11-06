@@ -10,7 +10,7 @@ namespace Dominio
     {
         public int IdEntrenador { get; set; }
         public string Rol { get; set; }
-        public List<Categoria> CategoriasAsignadas { get; set; }
-        public List<Entrenamiento> EntrenamientosProgramados { get; set; }
+        public DateTime FechaContratacion { get; set; }
+        public Categoria categoria { get; set; }
     }
 }

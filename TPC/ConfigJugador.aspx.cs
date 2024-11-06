@@ -101,6 +101,7 @@ namespace TPC
                 jugador.estadoJugador.NombreEstado = ddlCategoria.Text;
 
                 negocio.AgregarConSP(jugador);
+                Response.Redirect("PlantillaJugadores.aspx", false);
 
             }
             catch (Exception ex)
@@ -112,32 +113,42 @@ namespace TPC
 
         protected void btnModificar_Click(object sender, EventArgs e)
         {
-            Jugador jugador = new Jugador();
-            JugadorNegocio negocio = new JugadorNegocio();
+            try
+            {
+                Jugador jugador = new Jugador();
+                JugadorNegocio negocio = new JugadorNegocio();
 
-            jugador.IdJugador = int.Parse(txtboxId.Text);
-            jugador.Nombres = txtboxNombre.Text;
-            jugador.Apellidos = txtboxApellido.Text;
-            jugador.FechaNacimiento = DateTime.Parse(txtboxFechaNac.Text);
+                jugador.IdJugador = int.Parse(txtboxId.Text);
+                jugador.Nombres = txtboxNombre.Text;
+                jugador.Apellidos = txtboxApellido.Text;
+                jugador.FechaNacimiento = DateTime.Parse(txtboxFechaNac.Text);
 
-            jugador.LugarNacimiento = new LugarNacimiento();
-            jugador.LugarNacimiento.Pais = txtboxPais.Text;
-            jugador.LugarNacimiento.Provincia = txtboxProvincia.Text;
-            jugador.LugarNacimiento.Ciudad = txtboxCiudad.Text;
+                jugador.LugarNacimiento = new LugarNacimiento();
+                jugador.LugarNacimiento.Pais = txtboxPais.Text;
+                jugador.LugarNacimiento.Provincia = txtboxProvincia.Text;
+                jugador.LugarNacimiento.Ciudad = txtboxCiudad.Text;
 
-            jugador.Email = txtboxEmail.Text;
-            jugador.Altura = int.Parse(txtboxAltura.Text);
-            jugador.Peso = decimal.Parse(txtboxPeso.Text);
-            jugador.Posicion = txtboxPosicion.Text;
+                jugador.Email = txtboxEmail.Text;
+                jugador.Altura = int.Parse(txtboxAltura.Text);
+                jugador.Peso = decimal.Parse(txtboxPeso.Text);
+                jugador.Posicion = txtboxPosicion.Text;
 
-            jugador.Categoria = new Categoria();
-            jugador.Categoria.IdCategoria = int.Parse(ddlCategoria.SelectedValue);
+                jugador.Categoria = new Categoria();
+                jugador.Categoria.IdCategoria = int.Parse(ddlCategoria.SelectedValue);
+                jugador.Categoria.NombreCategoria = ddlCategoria.Text;
 
-            jugador.estadoJugador = new EstadoJugador();
-            jugador.estadoJugador.IdEstadoJugador = int.Parse(ddlEstadoJugador.SelectedValue);
+                jugador.estadoJugador = new EstadoJugador();
+                jugador.estadoJugador.IdEstadoJugador = int.Parse(ddlEstadoJugador.SelectedValue);
+                jugador.estadoJugador.NombreEstado = ddlCategoria.Text;
 
-            negocio.ModificarJugador(jugador);
-            Response.Redirect("PlantillaJugadores.aspx", false);
+                negocio.AgregarConSP(jugador);
+                Response.Redirect("PlantillaJugadores.aspx", false);
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+            }
         }
 
         protected void btnEliminar_Click(object sender, EventArgs e)
