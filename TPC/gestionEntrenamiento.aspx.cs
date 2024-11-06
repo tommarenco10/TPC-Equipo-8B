@@ -96,21 +96,18 @@ namespace TPC
                 dgvEntrenamiento.DataBind();
 
                 // Inicializar o recuperar la lista de jugadores seleccionados
-                List<Jugador> jugadoresSeleccionados = Session["jugadoresSeleccionados"] != null
-                    ? (List<Jugador>)Session["jugadoresSeleccionados"] : new List<Jugador>();
-
+                List<int> jugadoresSeleccionados = Session["jugadoresSeleccionados"] != null
+                    ? (List<int>)Session["jugadoresSeleccionados"]
+                    : new List<int>();
                 foreach (GridViewRow row in dgvEntrenamiento.Rows)
                 {
                     CheckBox chkCitado = (CheckBox)row.FindControl("chkCitado");
                     chkCitado.Checked = true;
-
                     int idJugador = Convert.ToInt32(dgvEntrenamiento.DataKeys[row.RowIndex].Value);
-
-                    Jugador jugadorSeleccionado = listaFiltrada.FirstOrDefault(j => j.IdJugador == idJugador);
-
-                    if (jugadorSeleccionado != null && !jugadoresSeleccionados.Any(j => j.IdJugador == jugadorSeleccionado.IdJugador))
+                    // Agregar el jugador a la lista de jugadores seleccionados si no está ya en la lista
+                    if (!jugadoresSeleccionados.Contains(idJugador))
                     {
-                        jugadoresSeleccionados.Add(jugadorSeleccionado);
+                        jugadoresSeleccionados.Add(idJugador);
                     }
                 }
 

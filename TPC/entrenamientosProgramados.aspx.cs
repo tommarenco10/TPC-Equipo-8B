@@ -92,5 +92,12 @@ namespace TPC
         {
             Response.Redirect("gestionEntrenamiento.aspx");
         }
+
+        protected void btnVerDetalle_Click(object sender, EventArgs e)
+        {
+            
+            
+            Response.Redirect("entrenamientoVistaPrevia.aspx");
+        }
     }
 }

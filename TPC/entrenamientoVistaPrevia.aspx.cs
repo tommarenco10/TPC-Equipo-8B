@@ -17,14 +17,15 @@ namespace TPC
         {
             try
             {
+                CategoriaNegocio negocioCategoria = new CategoriaNegocio();
                 if (!IsPostBack)
                 {
                     if (Session["jugadoresSeleccionados"] != null)
                     {
-                        List<Jugador> jugadoresSeleccionados = (List<Jugador>)Session["jugadoresSeleccionados"];
+                        List<int> jugadoresSeleccionados = (List<int>)Session["jugadoresSeleccionados"];
                         JugadorNegocio negocioJugador = new JugadorNegocio();
-
-                        dgvJugadoresSeleccionados.DataSource = jugadoresSeleccionados;
+                        List<Jugador> listaJugadores = negocioJugador.ObtenerJugadoresPorIds(jugadoresSeleccionados);
+                        dgvJugadoresSeleccionados.DataSource = listaJugadores;
                         dgvJugadoresSeleccionados.DataBind();
 
                         txtDuracion.Text = "00:00";
@@ -36,11 +37,18 @@ namespace TPC
                         lblMensaje.Visible = true;
                     }
 
-                    if (Session["fechaHoraEntrenamiento"] != null)
+                    if (Session["fechaHoraEntrenamiento"] != null && Session["categoriaSeleccionada"] != null)
                     {
                         DateTime fechaHoraEntrenamiento = (DateTime)Session["fechaHoraEntrenamiento"];
+                        int idCategoriaSeleccionada = (int)Session["categoriaSeleccionada"];
+                        List<Categoria> listaCategorias = negocioCategoria.listar();
+                        Categoria categoria = listaCategorias.FirstOrDefault(x => x.IdCategoria == idCategoriaSeleccionada);
+                        string categoriaSeleccionada = string.Empty;
+                        if (categoria != null) {
+                            categoriaSeleccionada = categoria.NombreCategoria;
+                        }
                         lblDetallesEntrenamiento.CssClass = "alert alert-info";
-                        lblDetallesEntrenamiento.Text = $"El entrenamiento está organizado para el {fechaHoraEntrenamiento.ToString("dddd, dd MMMM yyyy")} a las {fechaHoraEntrenamiento.ToString("HH:mm")}.";
+                        lblDetallesEntrenamiento.Text = $"El entrenamiento de la categoría '{categoriaSeleccionada}' está organizado para el {fechaHoraEntrenamiento.ToString("dddd, dd MMMM yyyy")} a las {fechaHoraEntrenamiento.ToString("HH:mm")}.";
                     }
                 }
             }
@@ -69,7 +77,8 @@ namespace TPC
                 entrenamiento.Categoria = new Categoria();
                 entrenamiento.Categoria.IdCategoria = (int)Session["categoriaSeleccionada"];
                 entrenamiento.Estado = new EstadoEntrenamiento();
-                entrenamiento.Estado.IdEstadoEntrenamiento = 1;
+                entrenamiento.Estado.IdEstadoEntrenamiento = 1; //PROGRAMADO POR DEFAULT
+                entrenamiento.JugadoresCitados = (List<Jugador>)Session["jugadoresSeleccionados"];
                 entrenamientoNegocio.agregarEntrenamiento(entrenamiento);
             }
             catch (Exception ex)

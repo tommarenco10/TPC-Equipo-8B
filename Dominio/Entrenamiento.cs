@@ -15,8 +15,8 @@ namespace Dominio
         public Categoria Categoria { get; set; }
         public string Descripcion { get; set; }
         public List<Jugador> JugadoresCitados { get; set; }
-        public List<Jugador> JugadoresPresentes { get; set; }
         public EstadoEntrenamiento Estado { get; set; }
+        public List<Jugador> JugadoresPresentes { get; set; }
         public string Observaciones { get; set; }
     }
 }

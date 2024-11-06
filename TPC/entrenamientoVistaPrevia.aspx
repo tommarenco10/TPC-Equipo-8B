@@ -6,15 +6,18 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <section>
-        <h3>Detalles del Entrenamiento</h3>
+        <h1>Vista Previa del Entrenamiento</h1>
+        <br />
+        <h3>Detalles</h3>
         <br />
         <asp:Label ID="lblDetallesEntrenamiento" runat="server"></asp:Label>
+        <br />
         <br />
         <br />
     </section>
 
     <section>
-        <h2>Jugadores Seleccionados</h2>
+        <h3>Jugadores Seleccionados</h3>
         <asp:GridView ID="dgvJugadoresSeleccionados" runat="server" CssClass="table table-striped" AutoGenerateColumns="false" DataKeyNames="IdJugador">
             <Columns>
                 <asp:BoundField DataField="IdJugador" Visible="false" />
@@ -28,7 +31,7 @@
             </Columns>
         </asp:GridView>
     </section>
-
+    <br />
     <section>
         <div class="col-md-4">
             <label for="txtDuracion" class="form-label">Duración del Entrenamiento:</label>
