@@ -108,5 +108,57 @@ namespace Negocio
             }
         }
 
+        public Entrenamiento ObtenerEntrenamientoPorId(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT E.IdEntrenamiento, E.IdCategoria, C.nombre AS Categoria, E.Descripcion, E.IdEstadoEntrenamiento, EE.nombre AS EstadoEntrenamiento, E.FechaHora, E.Duracion, E.Observaciones FROM entrenamiento AS E INNER JOIN Categoria AS C ON E.IdCategoria = C.IdCategoria INNER JOIN EstadoEntrenamiento AS EE ON E.IdEstadoEntrenamiento = EE.IdEstadoEntrenamiento WHERE E.IdEntrenamiento = @id");
+                datos.agregarParametro("@id", id);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    Entrenamiento aux = new Entrenamiento();
+
+                    aux.IdEntrenamiento = datos.Lector["IdEntrenamiento"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEntrenamiento"]) : 0;
+                    aux.FechaHora = datos.Lector["FechaHora"] != DBNull.Value ? (DateTime)datos.Lector["FechaHora"] : DateTime.MinValue;
+                    aux.Duracion = datos.Lector["Duracion"] != DBNull.Value ? (TimeSpan)datos.Lector["Duracion"] : TimeSpan.Zero;
+                    aux.Categoria = new Categoria();
+                    aux.Categoria.IdCategoria = datos.Lector["IdCategoria"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdCategoria"]) : 0;
+                    aux.Categoria.NombreCategoria = datos.Lector["Categoria"] != DBNull.Value ? (string)datos.Lector["Categoria"] : string.Empty;
+                    aux.Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : string.Empty;
+                    //JUGADORES CITADOS
+                    JugadorNegocio jugadorNegocio = new JugadorNegocio();
+                    aux.JugadoresCitados = jugadorNegocio.listarPorEntrenamiento(aux.IdEntrenamiento);
+
+
+
+
+                    aux.Estado = new EstadoEntrenamiento();
+                    aux.Estado.IdEstadoEntrenamiento = datos.Lector["IdEstadoEntrenamiento"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoEntrenamiento"]) : 0;
+                    aux.Estado.NombreEstado = datos.Lector["EstadoEntrenamiento"] != DBNull.Value ? (string)datos.Lector["EstadoEntrenamiento"] : string.Empty;
+            //JUGADORES PRESENTES
+                    aux.Observaciones = datos.Lector["Observaciones"] != DBNull.Value ? (string)datos.Lector["Observaciones"] : string.Empty;
+
+                    return aux;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
     }
 }

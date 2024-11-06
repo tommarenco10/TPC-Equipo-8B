@@ -42,21 +42,38 @@
             <label for="txtDescripcion">Descripción Planificada del Entrenamiento</label>
             <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="4" placeholder="Describe brevemente el entrenamiento planificado..."></asp:TextBox>
         </div>
+        <br />
+        <% if (tipoPagina == 2)
+            { %>
+        <div class="form-group">
+            <label for="txtObservaciones">Observaciones Post Entrenamiento</label>
+            <asp:TextBox ID="txtObservaciones" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="4" placeholder="Escribe las observaciones respectivas al entrenamiento..."></asp:TextBox>
+        </div>
+        <% } %>
     </section>
 
     <br />
-
+    <% if (tipoPagina == 1)
+        { %>
     <section>
         <div>
             <h6>¿Desea confirmar el Entrenamiento?</h6>
             <asp:Button ID="btnConfirmar" runat="server" CssClass="btn btn-success" Text="Sí, confirmar" OnClick="btnConfirmar_Click" />
             <asp:Button ID="btnVolver" runat="server" CssClass="btn btn-danger" Text="No, volver" OnClick="btnVolver_Click" />
-            <br />
-            <br />
-            <asp:Label ID="lblMensaje" runat="server" Visible="false"></asp:Label>
         </div>
     </section>
+    <% }
+        else if (tipoPagina == 2)
+        { %>
+    <section>
+        <div>
+            <asp:Button ID="btnVolverDetalle" runat="server" CssClass="btn btn-primary" Text="Volver" OnClick="btnVolverDetalle_Click" />
+        </div>
+    </section>
+    <% } %>
 
 
-
+    <br />
+    <br />
+    <asp:Label ID="lblMensaje" runat="server" Visible="false"></asp:Label>
 </asp:Content>

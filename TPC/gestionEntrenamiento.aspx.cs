@@ -6,7 +6,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
 using Acceso_Datos;
-using negocio;
 using Negocio;
 using System.Threading;
 
@@ -247,7 +246,7 @@ namespace TPC
                 {
                     DateTime fechaHoraEntrenamiento = fechaEntrenamiento.Date.Add(horaEntrenamiento.TimeOfDay);
                     Session["fechaHoraEntrenamiento"] = fechaHoraEntrenamiento;
-                    Response.Redirect("entrenamientoVistaPrevia.aspx", false);
+                    Response.Redirect("entrenamientoVistaPrevia.aspx?id=1", false); //FUNCION AGREGADO
                 }
             }
             catch (ThreadAbortException) { }

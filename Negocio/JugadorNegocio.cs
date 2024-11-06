@@ -8,7 +8,7 @@ using Acceso_Datos;
 using System.Text.RegularExpressions;
 using System.Collections;
 
-namespace negocio
+namespace Negocio
 {
     public class JugadorNegocio
     {
@@ -55,8 +55,6 @@ namespace negocio
             }
 
         }
-
-
         public List<Jugador> ObtenerJugadoresPorIds(List<int> ids)
         {
             List<Jugador> lista = new List<Jugador>();
@@ -286,6 +284,60 @@ namespace negocio
             finally
             {
                 datos.cerrarConexion();
+            }
+        }
+
+
+        public List<Jugador> listarPorEntrenamiento(int idEntrenamiento)
+        {
+            List<Jugador> lista = new List<Jugador>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta(@"SELECT j.IdJugador, p.Nombre, p.Apellido, p.FechaNacimiento, p.Pais, 
+                                p.Provincia, p.Ciudad, p.Email, j.Altura, j.Peso, j.Posicion, 
+                                c.IdCategoria, c.Nombre AS NombreCategoria, 
+                                ej.IdEstadoJugador, ej.Nombre AS EstadoJugador, p.UrlImagen
+                              FROM Persona p
+                              INNER JOIN Jugador j ON j.IdPersona = p.IdPersona
+                              INNER JOIN Categoria c ON c.IdCategoria = j.IdCategoria
+                              INNER JOIN EstadoJugador ej ON ej.IdEstadoJugador = j.IdEstadoJugador
+                              INNER JOIN Asistencia a ON a.IdJugador = j.IdJugador
+                              WHERE a.IdEntrenamiento = @IdEntrenamiento");
+                datos.agregarParametro("@IdEntrenamiento", idEntrenamiento);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Jugador jugador = new Jugador();
+                    jugador.IdJugador = Convert.ToInt32(datos.Lector["IdJugador"]);
+                    jugador.Nombres = (string)datos.Lector["Nombre"];
+                    jugador.Apellidos = (string)datos.Lector["Apellido"];
+                    jugador.FechaNacimiento = (DateTime)datos.Lector["FechaNacimiento"];
+                    jugador.LugarNacimiento = new LugarNacimiento();
+                    jugador.LugarNacimiento.Pais = (string)datos.Lector["pais"];
+                    jugador.LugarNacimiento.Provincia = (string)datos.Lector["provincia"];
+                    jugador.LugarNacimiento.Ciudad = (string)datos.Lector["ciudad"];
+                    jugador.Email = (string)datos.Lector["email"];
+                    jugador.Altura = Convert.ToInt32(datos.Lector["Altura"]);
+                    jugador.Peso = Convert.ToDecimal(datos.Lector["Peso"]);
+                    jugador.Posicion = (string)datos.Lector["posicion"];
+                    jugador.Categoria = new Categoria();
+                    jugador.Categoria.IdCategoria = Convert.ToInt32(datos.Lector["IdCategoria"]);
+                    jugador.Categoria.NombreCategoria = (string)datos.Lector["NombreCategoria"];
+                    jugador.estadoJugador = new EstadoJugador();
+                    jugador.estadoJugador.IdEstadoJugador = Convert.ToInt32(datos.Lector["IdEstadoJugador"]);
+                    jugador.estadoJugador.NombreEstado = (string)datos.Lector["EstadoJugador"];
+
+                    lista.Add(jugador);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 

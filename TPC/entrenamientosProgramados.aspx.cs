@@ -3,6 +3,7 @@ using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -95,9 +96,24 @@ namespace TPC
 
         protected void btnVerDetalle_Click(object sender, EventArgs e)
         {
-            
-            
-            Response.Redirect("entrenamientoVistaPrevia.aspx");
+            try
+            {
+                Button btnVerDetalle = (Button)sender;
+                int idEntrenamiento = Convert.ToInt32(btnVerDetalle.CommandArgument);
+
+                EntrenamientoNegocio negocioEntrenamiento = new EntrenamientoNegocio();
+                Entrenamiento entrenamientoSeleccionado = negocioEntrenamiento.ObtenerEntrenamientoPorId(idEntrenamiento);
+
+                Session["entrenamientoSeleccionado"] = entrenamientoSeleccionado;
+
+                Response.Redirect("entrenamientoVistaPrevia.aspx?id=2"); //FUNCION VER DETALLE
+            }
+            catch (ThreadAbortException) { }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
         }
     }
 }
