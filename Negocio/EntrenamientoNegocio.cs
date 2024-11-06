@@ -59,7 +59,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta ("INSERT INTO entrenamiento (FechaHora, Duracion, IdCategoria, Descripcion, Observaciones, IdEstadoEntrenamiento) VALUES (@FechaHora, @Duracion, @IdCategoria, @Descripcion, @Observaciones, @IdEstadoEntrenamiento)");
+                datos.setearConsulta("INSERT INTO entrenamiento (FechaHora, Duracion, IdCategoria, Descripcion, Observaciones, IdEstadoEntrenamiento) VALUES (@FechaHora, @Duracion, @IdCategoria, @Descripcion, @Observaciones, @IdEstadoEntrenamiento)");
 
                 datos.agregarParametro("@FechaHora", nuevo.FechaHora);
                 datos.agregarParametro("@Duracion", nuevo.Duracion);
@@ -80,5 +80,33 @@ namespace Negocio
             }
 
         }
+
+        public int obtenerUltimoEntrenamiento()
+        {
+            int aux = 0;
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT TOP 1 IdEntrenamiento FROM entrenamiento ORDER BY IdEntrenamiento DESC");
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    aux = datos.Lector["IdEntrenamiento"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEntrenamiento"]) : 0;
+                }
+
+                return aux;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }

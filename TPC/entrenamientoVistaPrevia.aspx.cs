@@ -44,7 +44,8 @@ namespace TPC
                         List<Categoria> listaCategorias = negocioCategoria.listar();
                         Categoria categoria = listaCategorias.FirstOrDefault(x => x.IdCategoria == idCategoriaSeleccionada);
                         string categoriaSeleccionada = string.Empty;
-                        if (categoria != null) {
+                        if (categoria != null)
+                        {
                             categoriaSeleccionada = categoria.NombreCategoria;
                         }
                         lblDetallesEntrenamiento.CssClass = "alert alert-info";
@@ -69,6 +70,11 @@ namespace TPC
             Entrenamiento entrenamiento = new Entrenamiento();
             EntrenamientoNegocio entrenamientoNegocio = new EntrenamientoNegocio();
 
+            Asistencia asistencia = new Asistencia();
+            AsistenciaNegocio asistenciaNegocio = new AsistenciaNegocio();
+
+            JugadorNegocio jugadorNegocio = new JugadorNegocio();
+
             try
             {
                 entrenamiento.FechaHora = (DateTime)Session["fechaHoraEntrenamiento"];
@@ -78,8 +84,34 @@ namespace TPC
                 entrenamiento.Categoria.IdCategoria = (int)Session["categoriaSeleccionada"];
                 entrenamiento.Estado = new EstadoEntrenamiento();
                 entrenamiento.Estado.IdEstadoEntrenamiento = 1; //PROGRAMADO POR DEFAULT
-                entrenamiento.JugadoresCitados = (List<Jugador>)Session["jugadoresSeleccionados"];
+                entrenamiento.Observaciones = string.Empty;
+
+                List<int> jugadoresSeleccionadosIds = (List<int>)Session["jugadoresSeleccionados"];
+
+                if (jugadoresSeleccionadosIds != null && jugadoresSeleccionadosIds.Count > 0)
+                {
+                    List<Jugador> jugadoresSeleccionados = jugadorNegocio.ObtenerJugadoresPorIds(jugadoresSeleccionadosIds);
+
+                    entrenamiento.JugadoresCitados = jugadoresSeleccionados;
+                }
+                else
+                {
+                    entrenamiento.JugadoresCitados = new List<Jugador>();
+                }
+
                 entrenamientoNegocio.agregarEntrenamiento(entrenamiento);
+
+                if (entrenamiento.JugadoresCitados != null && entrenamientoNegocio.obtenerUltimoEntrenamiento() != 0)
+                {
+                    foreach (Jugador jugador in entrenamiento.JugadoresCitados)
+                    {
+                        asistencia.IdJugador = jugador.IdJugador;
+                        asistencia.IdEntrenamiento = entrenamientoNegocio.obtenerUltimoEntrenamiento();
+                        asistencia.EstadoAsistencia = false;
+                        asistencia.Observaciones = string.Empty;
+                        asistenciaNegocio.agregar(asistencia);
+                    }
+                }
             }
             catch (Exception ex)
             {

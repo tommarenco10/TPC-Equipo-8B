@@ -37,6 +37,7 @@
             <label for="txtDuracion" class="form-label">Duración del Entrenamiento:</label>
             <asp:TextBox runat="server" CssClass="form-control" TextMode="Time" ID="txtDuracion" />
         </div>
+        <br />
         <div class="form-group">
             <label for="txtDescripcion">Descripción Planificada del Entrenamiento</label>
             <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="4" placeholder="Describe brevemente el entrenamiento planificado..."></asp:TextBox>

@@ -44,14 +44,6 @@ namespace Negocio
 
         }
 
-
-
-
-
-
-
-
-
         public Categoria obtenerPorId(int id)
         {
             AccesoDatos datos = new AccesoDatos();
