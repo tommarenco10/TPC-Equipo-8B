@@ -28,3 +28,4 @@ VALUES
 (4, 177, 75, 'Mediocampista', 2, 1),
 (5, 180, 80, 'Delantero', 3, 1),
 (6, 171, 70, 'Mediocampista', 3, 4)
+

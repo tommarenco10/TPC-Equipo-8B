@@ -43,7 +43,7 @@ end
 
 GO
 
-CREATE PROCEDURE Eliminar_Socio
+CREATE OR ALTER PROCEDURE Eliminar_Socio
     @IdSocio INT
 AS
 BEGIN
@@ -161,6 +161,8 @@ BEGIN
 	end catch
 END;
 
+GO
+
 create or alter procedure Listar_Entrenador
 as
 begin
@@ -272,7 +274,7 @@ END;
 
 GO
 
-CREATE PROCEDURE Eliminar_Entrenador
+CREATE OR ALTER PROCEDURE Eliminar_Entrenador
     @IdEntrenador INT
 AS
 BEGIN

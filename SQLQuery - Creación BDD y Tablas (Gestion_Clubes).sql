@@ -15,6 +15,8 @@ create table persona(
 	Email varchar (30) not null,
 )
 
+GO
+
 alter table persona
 add UrlImagen varchar(300)
 
@@ -45,9 +47,12 @@ create table entrenador(
 	IdPersona bigint foreign key references persona (IdPersona),
 	Rol varchar (30) not null,
 )
+	
+GO
 
 alter table entrenador
 	add IdCategoria tinyint foreign key references categoria(IdCategoria)
+alter table entrenador
 	add FechaContratacion date 
 
 create table socio (
@@ -89,21 +94,16 @@ create table Reporte(
 	Observaciones varchar (100),
 )
 
-create table TipoIncidencia(
-	IdTipoIncidencia tinyint primary key identity (1,1),
-	nombre varchar(30) not null,
-)
-
 GO
 
 create table incidencia (
 	IdIncidencia int primary key identity (1,1),
 	IdJugador int foreign key references jugador (idjugador),
+	IdEstadoJugador tinyint foreign key references  EstadoJugador(IdEstadoJugador),
 	Descripcion varchar(100) not null,
 	FechaRegistro date not null, 
 	FechaResolucion date,
-	IdTipoIncidencia tinyint foreign key references  tipoIncidencia(IdTipoIncidencia),
-	Estado bit not null,
+	Estado bit not null
 )
 
 create table TipoUsuario(
