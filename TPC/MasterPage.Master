@@ -53,10 +53,9 @@
                                     Configuraciones
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item" href="ConfigEstadoJugador.aspx">Estados de Jugador </a></li>
-                                    <li><a class="dropdown-item" href="ConfigEstadoEntrenamiento.aspx">Estados de Entrenamiento </a></li>
+                                    <li><a class="dropdown-item" href="ConfigEstados.aspx?id=1">Estados de Jugador </a></li>
+                                    <li><a class="dropdown-item" href="ConfigEstados.aspx?id=2">Estados de Entrenamiento </a></li>
                                     <li><a class="dropdown-item" href="">Categorías </a></li>
-                                    <li><a class="dropdown-item" href="">Incidencias </a></li>
                                 </ul>
                             </div>
 

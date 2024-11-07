@@ -26,12 +26,13 @@
                 <asp:BoundField HeaderText="Duracion" DataField="Duracion" />
                 <asp:BoundField HeaderText="Categoria" DataField="Categoria.NombreCategoria" />
                 <asp:BoundField HeaderText="Estado" DataField="Estado.NombreEstado" />
+
                 <asp:TemplateField>
                     <HeaderStyle Width="8%" />
                     <ItemStyle Width="8%" />
                     <ItemTemplate>
-                        <asp:Button ID="btnModificar" runat="server" Text="Modificar" CommandName="Modificar"
-                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-secondary" />
+                        <asp:Button ID="btnVerDetalle" runat="server" Text="Ver Detalle" CommandName="VerDetalle"
+                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-primary" OnClick="btnVerDetalle_Click" />
                     </ItemTemplate>
                 </asp:TemplateField>
 
@@ -39,8 +40,17 @@
                     <HeaderStyle Width="8%" />
                     <ItemStyle Width="8%" />
                     <ItemTemplate>
-                        <asp:Button ID="btnVerDetalle" runat="server" Text="Ver Detalle" CommandName="VerDetalle"
-                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-primary" OnClick="btnVerDetalle_Click"/>
+                        <asp:Button ID="btnActualizar" runat="server" Text="Actualizar" CommandName="Actualizar"
+                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-outline-warning" />
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:TemplateField>
+                    <HeaderStyle Width="8%" />
+                    <ItemStyle Width="8%" />
+                    <ItemTemplate>
+                        <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CommandName="Cancelar"
+                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-danger" />
                     </ItemTemplate>
                 </asp:TemplateField>
 

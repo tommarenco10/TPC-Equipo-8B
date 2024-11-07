@@ -30,7 +30,7 @@ namespace Negocio
                     aux.Categoria.NombreCategoria = datos.Lector["Categoria"] != DBNull.Value ? (string)datos.Lector["Categoria"] : string.Empty;
                     aux.Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : string.Empty;
                     aux.Estado = new EstadoEntrenamiento();
-                    aux.Estado.IdEstadoEntrenamiento = datos.Lector["IdEstadoEntrenamiento"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoEntrenamiento"]) : 0;
+                    aux.Estado.IdEstado = datos.Lector["IdEstadoEntrenamiento"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoEntrenamiento"]) : 0;
                     aux.Estado.NombreEstado = datos.Lector["EstadoEntrenamiento"] != DBNull.Value ? (string)datos.Lector["EstadoEntrenamiento"] : string.Empty;
                     aux.FechaHora = datos.Lector["FechaHora"] != DBNull.Value ? (DateTime)datos.Lector["FechaHora"] : DateTime.MinValue;
                     aux.Duracion = datos.Lector["Duracion"] != DBNull.Value ? (TimeSpan)(datos.Lector["Duracion"]) : TimeSpan.Zero;
@@ -66,7 +66,7 @@ namespace Negocio
                 datos.agregarParametro("@IdCategoria", nuevo.Categoria.IdCategoria);
                 datos.agregarParametro("@Descripcion", nuevo.Descripcion);
                 datos.agregarParametro("@Observaciones", nuevo.Observaciones);
-                datos.agregarParametro("@IdEstadoEntrenamiento", nuevo.Estado.IdEstadoEntrenamiento);
+                datos.agregarParametro("@IdEstadoEntrenamiento", nuevo.Estado.IdEstado);
 
                 datos.ejecutarAccion();
             }
@@ -137,7 +137,7 @@ namespace Negocio
 
 
                     aux.Estado = new EstadoEntrenamiento();
-                    aux.Estado.IdEstadoEntrenamiento = datos.Lector["IdEstadoEntrenamiento"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoEntrenamiento"]) : 0;
+                    aux.Estado.IdEstado = datos.Lector["IdEstadoEntrenamiento"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoEntrenamiento"]) : 0;
                     aux.Estado.NombreEstado = datos.Lector["EstadoEntrenamiento"] != DBNull.Value ? (string)datos.Lector["EstadoEntrenamiento"] : string.Empty;
             //JUGADORES PRESENTES
                     aux.Observaciones = datos.Lector["Observaciones"] != DBNull.Value ? (string)datos.Lector["Observaciones"] : string.Empty;

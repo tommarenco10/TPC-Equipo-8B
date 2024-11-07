@@ -1,11 +1,18 @@
-﻿<%@ Page Title="Estados de Entrenamiento" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ConfigEstadoEntrenamiento.aspx.cs" Inherits="TPC.ConfigEstadoEntrenamiento" %>
+﻿<%@ Page Title="Estados" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ConfigEstados.aspx.cs" Inherits="TPC.ConfigEstados" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+    <% if (tipoPagina == 1)
+        { %>
+    <h2>Configuración de los Estados de Jugador</h2>
+    <% }
+        else if (tipoPagina == 2)
+        { %>
     <h2>Configuración de los Estados de Entrenamiento</h2>
+    <% } %>
     <br />
 
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
@@ -15,9 +22,9 @@
                 <div class="col-md-6">
                     <div class="table-responsive">
                         <asp:GridView ID="dgvEstados" AutoGenerateColumns="False" CssClass="table table-striped table-hover"
-                            runat="server" DataKeyNames="IdEstadoEntrenamiento" OnRowCommand="dgvEstados_RowCommand">
+                            runat="server" DataKeyNames="IdEstado" OnRowCommand="dgvEstados_RowCommand">
                             <Columns>
-                                <asp:BoundField DataField="IdEstadoEntrenamiento" HeaderText="ID" Visible="False" />
+                                <asp:BoundField DataField="IdEstado" HeaderText="ID" Visible="False" />
 
                                 <asp:BoundField DataField="NombreEstado" HeaderText="Estado">
                                     <HeaderStyle Width="60%" />
@@ -29,7 +36,7 @@
                                     <ItemStyle Width="20%" />
                                     <ItemTemplate>
                                         <asp:Button ID="btnModificar" runat="server" Text="Modificar" CommandName="Modificar"
-                                            CommandArgument='<%# Eval("IdEstadoEntrenamiento") %>' CssClass="btn btn-secondary" />
+                                            CommandArgument='<%# Eval("IdEstado") %>' CssClass="btn btn-secondary" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
@@ -38,7 +45,7 @@
                                     <ItemStyle Width="20%" />
                                     <ItemTemplate>
                                         <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar"
-                                            CommandArgument='<%# Eval("IdEstadoEntrenamiento") %>' CssClass="btn btn-danger" />
+                                            CommandArgument='<%# Eval("IdEstado") %>' CssClass="btn btn-danger" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
 

@@ -14,6 +14,8 @@ namespace TPC
 {
     public partial class gestionEntrenamiento : System.Web.UI.Page
     {
+        private List<Jugador> listaJugadores;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             JugadorNegocio negocioJugador = new JugadorNegocio();
@@ -23,8 +25,8 @@ namespace TPC
             {
                 if (!IsPostBack)
                 {
-                    List<Jugador> listaJugador = negocioJugador.listar();
-                    Session["listaJugador"] = listaJugador;
+                    listaJugadores = negocioJugador.listar();
+                    Session["listaJugadores"] = listaJugadores;
 
                     List<Categoria> listaCategorias = negocioCategoria.listar();
                     ddlCategoria.DataSource = listaCategorias;
@@ -78,9 +80,10 @@ namespace TPC
 
                 List<Jugador> listaFiltrada = new List<Jugador>();
 
-                if (Session["listaJugador"] != null)
+                listaJugadores = (List<Jugador>)Session["listaJugadores"];
+
+                if (listaJugadores != null)
                 {
-                    List<Jugador> listaJugadores = (List<Jugador>)Session["listaJugador"];
 
                     foreach (Jugador jugador in listaJugadores)
                     {
@@ -118,19 +121,19 @@ namespace TPC
                 Response.Redirect("Error.aspx");
             }
         }
-
+        
         protected void ddlJugadoresAdicionales_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
                 int idCategoriaSeleccionada = int.Parse(ddlJugadoresAdicionales.SelectedValue);
-
-                // Filtro de jugadores en base a la categoría seleccionada
+    
                 List<Jugador> listaFiltrada = new List<Jugador>();
 
-                if (Session["listaJugador"] != null)
+                listaJugadores = (List<Jugador>)Session["listaJugadores"];
+
+                if (listaJugadores != null)
                 {
-                    List<Jugador> listaJugadores = (List<Jugador>)Session["listaJugador"];
 
                     foreach (Jugador jugador in listaJugadores)
                     {

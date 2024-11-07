@@ -6,15 +6,20 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using static System.Collections.Specialized.BitVector32;
 
 namespace TPC
 {
-    public partial class ConfigEstadoEntrenamiento : System.Web.UI.Page
+    public partial class ConfigEstados : System.Web.UI.Page
     {
+        public int tipoPagina;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                tipoPagina = Convert.ToInt32(Request.QueryString["id"]);
+                Session["tipoPagina"] = tipoPagina;
+
                 cargarDataGridView();
             }
         }
@@ -33,6 +38,7 @@ namespace TPC
                 if (e.CommandName == "Modificar")
                 {
                     lblTitulo.Text = "Modificar Estado Existente:";
+                    txtNombreEstado.Enabled = true;
                     btnGuardarModificacion.Visible = true;
                     btnGuardarModificacion.Enabled = true;
                     btnGuardarEliminacion.Visible = false;
@@ -44,6 +50,7 @@ namespace TPC
                 if (e.CommandName == "Eliminar")
                 {
                     lblTitulo.Text = "Está seguro que desea eliminar el Estado?";
+                    txtNombreEstado.Enabled = false;
                     btnGuardarModificacion.Visible = false;
                     btnGuardarEliminacion.Visible = true;
                     btnGuardarEliminacion.Enabled = true;
@@ -62,6 +69,7 @@ namespace TPC
         protected void btnAgregarNuevo_Click(object sender, EventArgs e)
         {
             lblTitulo.Text = "Agregar Nuevo Estado:";
+            txtNombreEstado.Enabled = true;
             lblIdEstado.Visible = true;
             txtIdEstado.Visible = true;
             lblNombreEstado.Visible = true;
@@ -75,15 +83,26 @@ namespace TPC
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
-        {             
+        {
+            EstadoJugadorNegocio negocioEJ = new EstadoJugadorNegocio();
+            EstadoJugador estadoJugador = new EstadoJugador();
             EstadoEntrenamientoNegocio negocioEE = new EstadoEntrenamientoNegocio();
-            EstadoEntrenamiento estadoJugador = new EstadoEntrenamiento();
+            EstadoEntrenamiento estadoEntrenamiento = new EstadoEntrenamiento();
+
             try
             {
-                List<EstadoEntrenamiento> listaEstados = negocioEE.listar();
+                IEnumerable<dynamic> listaEstados;
+
+                if ((int)Session["tipoPagina"] == 1)
+                {
+                    listaEstados = negocioEJ.listar();
+                }
+                else
+                {
+                    listaEstados = negocioEE.listar();
+                }
 
                 string nombreEstado = txtNombreEstado.Text;
-
                 bool existeEstado = listaEstados.Any(x => x.NombreEstado.Equals(nombreEstado, StringComparison.OrdinalIgnoreCase));
 
                 if (string.IsNullOrEmpty(nombreEstado))
@@ -102,23 +121,48 @@ namespace TPC
 
                 else
                 {
-                    estadoJugador.NombreEstado = nombreEstado;
+                    if ((int)Session["tipoPagina"] == 1)
+                    {
+                        estadoJugador.NombreEstado = nombreEstado;
 
-                    if (string.IsNullOrEmpty(txtIdEstado.Text))
-                    {
-                        negocioEE.agregar(estadoJugador);
-                        lblMensaje.Text = "Estado agregado exitosamente.";
-                        lblMensaje.ForeColor = System.Drawing.Color.Green;
-                        lblMensaje.Visible = true;
+                        if (string.IsNullOrEmpty(txtIdEstado.Text))
+                        {
+                            negocioEJ.agregar(estadoJugador);
+                            lblMensaje.Text = "Estado agregado exitosamente.";
+                            lblMensaje.ForeColor = System.Drawing.Color.Green;
+                            lblMensaje.Visible = true;
+                        }
+                        else
+                        {
+                            estadoJugador.IdEstado = int.Parse(txtIdEstado.Text);
+                            negocioEJ.modificar(estadoJugador);
+                            lblMensaje.Text = "Estado modificado exitosamente.";
+                            lblMensaje.ForeColor = System.Drawing.Color.Green;
+                            lblMensaje.Visible = true;
+                            btnGuardarModificacion.Enabled = false;
+                        }
                     }
-                    else
+                    else if ((int)Session["tipoPagina"] == 2)
                     {
-                        estadoJugador.IdEstadoEntrenamiento = int.Parse(txtIdEstado.Text);
-                        negocioEE.modificar(estadoJugador);
-                        lblMensaje.Text = "Estado modificado exitosamente.";
-                        lblMensaje.ForeColor = System.Drawing.Color.Green;
-                        lblMensaje.Visible = true;
-                        btnGuardarModificacion.Enabled = false;
+
+                        estadoEntrenamiento.NombreEstado = nombreEstado;
+
+                        if (string.IsNullOrEmpty(txtIdEstado.Text))
+                        {
+                            negocioEE.agregar(estadoEntrenamiento);
+                            lblMensaje.Text = "Estado agregado exitosamente.";
+                            lblMensaje.ForeColor = System.Drawing.Color.Green;
+                            lblMensaje.Visible = true;
+                        }
+                        else
+                        {
+                            estadoEntrenamiento.IdEstado = int.Parse(txtIdEstado.Text);
+                            negocioEE.modificar(estadoEntrenamiento);
+                            lblMensaje.Text = "Estado modificado exitosamente.";
+                            lblMensaje.ForeColor = System.Drawing.Color.Green;
+                            lblMensaje.Visible = true;
+                            btnGuardarModificacion.Enabled = false;
+                        }
                     }
 
                     txtIdEstado.Text = string.Empty;
@@ -134,11 +178,20 @@ namespace TPC
         }
 
         protected void cargarDataGridView()
-        {          
+        {
             EstadoEntrenamientoNegocio negocioEE = new EstadoEntrenamientoNegocio();
+            EstadoJugadorNegocio negocioEJ = new EstadoJugadorNegocio();
+
             try
             {
-                dgvEstados.DataSource = negocioEE.listar();
+                if ((int)Session["tipoPagina"] == 1)
+                {
+                    dgvEstados.DataSource = negocioEJ.listar();
+                }
+                else if ((int)Session["tipoPagina"] == 2)
+                {
+                    dgvEstados.DataSource = negocioEE.listar();
+                }
                 dgvEstados.DataBind();
             }
             catch (Exception ex)
@@ -157,12 +210,28 @@ namespace TPC
                     int idEstado = Convert.ToInt32(Session["IdEstadoSeleccionado"]);
 
                     EstadoEntrenamientoNegocio negocioEE = new EstadoEntrenamientoNegocio();
-                    List<EstadoEntrenamiento> listaEstados = negocioEE.listar();
+                    EstadoJugadorNegocio negocioEJ = new EstadoJugadorNegocio();
 
-                    EstadoEntrenamiento estadoSeleccionado = listaEstados.FirstOrDefault(x => x.IdEstadoEntrenamiento == idEstado);
+                    IEnumerable<dynamic> listaEstados;
+
+                    if ((int)Session["tipoPagina"] == 1)
+                    {
+                        listaEstados = negocioEJ.listar();
+                    }
+                    else if ((int)Session["tipoPagina"] == 2)
+                    {
+                        listaEstados = negocioEE.listar();
+                    }
+                    else
+                    {
+                        listaEstados = null;
+                    }
+
+                    var estadoSeleccionado = listaEstados.FirstOrDefault(x => x.IdEstado == idEstado);
+
                     if (estadoSeleccionado != null)
                     {
-                        txtIdEstado.Text = estadoSeleccionado.IdEstadoEntrenamiento.ToString();
+                        txtIdEstado.Text = estadoSeleccionado.IdEstado.ToString();
                         txtNombreEstado.Text = estadoSeleccionado.NombreEstado;
                     }
                 }
@@ -182,21 +251,52 @@ namespace TPC
         protected bool validarEliminacion()
         {
             EntrenamientoNegocio negocioEntrenamiento = new EntrenamientoNegocio();
+            JugadorNegocio negocioJugador = new JugadorNegocio();
             EstadoEntrenamientoNegocio negocioEE = new EstadoEntrenamientoNegocio();
+            EstadoJugadorNegocio negocioEJ = new EstadoJugadorNegocio();
 
             try
             {
+                IEnumerable<dynamic> lista;
 
-                List<Entrenamiento> listaEntrenamientos = negocioEntrenamiento.listar();
+                if ((int)Session["tipoPagina"] == 1)
+                {
+                    lista = negocioJugador.listar();
+                }
+                else if ((int)Session["tipoPagina"] == 2)
+                {
+                    lista = negocioEntrenamiento.listar();
+                }
+                else
+                {
+                    lista = null;
+                }
 
                 if (Session["IdEstadoSeleccionado"] != null)
                 {
-                    foreach (Entrenamiento entrenamiento in listaEntrenamientos)
+                    if ((int)Session["tipoPagina"] == 1)
                     {
-                        if (entrenamiento.Estado.IdEstadoEntrenamiento == (int)Session["IdEstadoSeleccionado"])
+                        foreach (Jugador jugador in lista)
                         {
-                            return false;
+                            if (jugador.estadoJugador.IdEstado == (int)Session["IdEstadoSeleccionado"])
+                            {
+                                return false;
+                            }
                         }
+                    }
+                    else if ((int)Session["tipoPagina"] == 2)
+                    {
+                        foreach (Entrenamiento entrenamiento in lista)
+                        {
+                            if (entrenamiento.Estado.IdEstado == (int)Session["IdEstadoSeleccionado"])
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
                 return true;
@@ -216,8 +316,15 @@ namespace TPC
             {
                 if (validarEliminacion())
                 {
-                    EstadoEntrenamientoNegocio negocioEE = new EstadoEntrenamientoNegocio();
-                    negocioEE.eliminar((int)Session["IdEstadoSeleccionado"]);
+                    if ((int)Session["tipoPagina"] == 1)
+                    {
+                        EstadoJugadorNegocio negocioEJ = new EstadoJugadorNegocio();
+                        negocioEJ.eliminar((int)Session["IdEstadoSeleccionado"]);
+                    }
+                    else if ((int)Session["tipoPagina"] == 2) {
+                        EstadoEntrenamientoNegocio negocioEE = new EstadoEntrenamientoNegocio();
+                        negocioEE.eliminar((int)Session["IdEstadoSeleccionado"]);
+                    }
                     lblMensaje.Text = "Estado eliminado exitosamente.";
                     lblMensaje.ForeColor = System.Drawing.Color.Green;
                     lblMensaje.Visible = true;

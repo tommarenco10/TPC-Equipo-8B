@@ -36,7 +36,7 @@ namespace Negocio
                     aux.Categoria.IdCategoria = datos.Lector["IdCategoria"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdCategoria"]) : 0;
                     aux.Categoria.NombreCategoria = datos.Lector["NombreCategoria"] != DBNull.Value ? (string)datos.Lector["NombreCategoria"] : string.Empty;
                     aux.estadoJugador = new EstadoJugador();
-                    aux.estadoJugador.IdEstadoJugador = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
+                    aux.estadoJugador.IdEstado = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
                     aux.estadoJugador.NombreEstado = datos.Lector["EstadoJugador"] != DBNull.Value ? (string)datos.Lector["EstadoJugador"] : string.Empty;
 
                     lista.Add(aux);
@@ -89,7 +89,7 @@ namespace Negocio
                     aux.Categoria.IdCategoria = datos.Lector["IdCategoria"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdCategoria"]) : 0;
                     aux.Categoria.NombreCategoria = datos.Lector["NombreCategoria"] != DBNull.Value ? (string)datos.Lector["NombreCategoria"] : string.Empty;
                     aux.estadoJugador = new EstadoJugador();
-                    aux.estadoJugador.IdEstadoJugador = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
+                    aux.estadoJugador.IdEstado = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
                     aux.estadoJugador.NombreEstado = datos.Lector["EstadoJugador"] != DBNull.Value ? (string)datos.Lector["EstadoJugador"] : string.Empty;
 
                     lista.Add(aux);
@@ -126,7 +126,7 @@ namespace Negocio
                 datos.agregarParametro("@Peso", nuevo.Peso);
                 datos.agregarParametro("@Posicion", nuevo.Posicion);
                 datos.agregarParametro("@IdCategoria", nuevo.Categoria.IdCategoria);
-                datos.agregarParametro("@IdEstadoJugador", nuevo.estadoJugador.IdEstadoJugador);
+                datos.agregarParametro("@IdEstadoJugador", nuevo.estadoJugador.IdEstado);
 
                 datos.ejecutarAccion();
             }
@@ -170,7 +170,7 @@ namespace Negocio
                     jugador.Categoria.IdCategoria = Convert.ToInt32(datos.Lector["IdCategoria"]);
                     jugador.Categoria.NombreCategoria = (string)datos.Lector["NombreCategoria"];
                     jugador.estadoJugador = new EstadoJugador();
-                    jugador.estadoJugador.IdEstadoJugador = Convert.ToInt32(datos.Lector["IdEstadoJugador"]);
+                    jugador.estadoJugador.IdEstado = Convert.ToInt32(datos.Lector["IdEstadoJugador"]);
                     jugador.estadoJugador.NombreEstado = (string)datos.Lector["EstadoJugador"];
 
                     lista.Add(jugador);
@@ -217,7 +217,7 @@ namespace Negocio
                     jugador.Categoria.IdCategoria = Convert.ToInt32(datos.Lector["IdCategoria"]);
                     jugador.Categoria.NombreCategoria = (string)datos.Lector["NombreCategoria"];
                     jugador.estadoJugador = new EstadoJugador();
-                    jugador.estadoJugador.IdEstadoJugador = Convert.ToInt32(datos.Lector["IdEstadoJugador"]);
+                    jugador.estadoJugador.IdEstado = Convert.ToInt32(datos.Lector["IdEstadoJugador"]);
                     jugador.estadoJugador.NombreEstado = (string)datos.Lector["EstadoJugador"];
 
                     lista.Add(jugador);
@@ -252,7 +252,7 @@ namespace Negocio
                 datos.agregarParametro("@Peso", modificado.Peso);
                 datos.agregarParametro("@Posicion", modificado.Posicion);
                 datos.agregarParametro("@IdCategoria", modificado.Categoria.IdCategoria);
-                datos.agregarParametro("@IdEstadoJugador", modificado.estadoJugador.IdEstadoJugador);
+                datos.agregarParametro("@IdEstadoJugador", modificado.estadoJugador.IdEstado);
 
                 datos.ejecutarAccion();
             }
@@ -327,7 +327,7 @@ namespace Negocio
                     jugador.Categoria.IdCategoria = Convert.ToInt32(datos.Lector["IdCategoria"]);
                     jugador.Categoria.NombreCategoria = (string)datos.Lector["NombreCategoria"];
                     jugador.estadoJugador = new EstadoJugador();
-                    jugador.estadoJugador.IdEstadoJugador = Convert.ToInt32(datos.Lector["IdEstadoJugador"]);
+                    jugador.estadoJugador.IdEstado = Convert.ToInt32(datos.Lector["IdEstadoJugador"]);
                     jugador.estadoJugador.NombreEstado = (string)datos.Lector["EstadoJugador"];
 
                     lista.Add(jugador);

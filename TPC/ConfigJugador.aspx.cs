@@ -59,7 +59,7 @@ namespace TPC
                     txtboxPeso.Text = jugador.Peso.ToString();
                     txtboxPosicion.Text = jugador.Posicion.ToString();
                     ddlCategoria.SelectedValue = jugador.Categoria.IdCategoria.ToString();
-                    ddlEstadoJugador.SelectedValue = jugador.estadoJugador.IdEstadoJugador.ToString();
+                    ddlEstadoJugador.SelectedValue = jugador.estadoJugador.IdEstado.ToString();
                 }
 
             }
@@ -96,7 +96,7 @@ namespace TPC
                 jugador.Categoria.NombreCategoria = ddlCategoria.Text;
 
                 jugador.estadoJugador = new EstadoJugador();
-                jugador.estadoJugador.IdEstadoJugador = int.Parse(ddlEstadoJugador.SelectedValue);
+                jugador.estadoJugador.IdEstado = int.Parse(ddlEstadoJugador.SelectedValue);
                 jugador.estadoJugador.NombreEstado = ddlCategoria.Text;
 
                 negocio.AgregarConSP(jugador);
@@ -137,7 +137,7 @@ namespace TPC
                 jugador.Categoria.NombreCategoria = ddlCategoria.Text;
 
                 jugador.estadoJugador = new EstadoJugador();
-                jugador.estadoJugador.IdEstadoJugador = int.Parse(ddlEstadoJugador.SelectedValue);
+                jugador.estadoJugador.IdEstado = int.Parse(ddlEstadoJugador.SelectedValue);
                 jugador.estadoJugador.NombreEstado = ddlCategoria.Text;
 
                 negocio.AgregarConSP(jugador);

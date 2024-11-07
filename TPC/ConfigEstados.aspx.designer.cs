@@ -11,7 +11,7 @@ namespace TPC
 {
 
 
-    public partial class ConfigEstadoJugador
+    public partial class ConfigEstados
     {
 
         /// <summary>
@@ -33,13 +33,13 @@ namespace TPC
         protected global::System.Web.UI.UpdatePanel updatePanel;
 
         /// <summary>
-        /// Control dgvEstadosJugador.
+        /// Control dgvEstados.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvEstadosJugador;
+        protected global::System.Web.UI.WebControls.GridView dgvEstados;
 
         /// <summary>
         /// Control btnAgregarNuevo.
@@ -60,22 +60,22 @@ namespace TPC
         protected global::System.Web.UI.WebControls.Label lblTitulo;
 
         /// <summary>
-        /// Control lblIdEstadoJugador.
+        /// Control lblIdEstado.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIdEstadoJugador;
+        protected global::System.Web.UI.WebControls.Label lblIdEstado;
 
         /// <summary>
-        /// Control txtIdEstadoJugador.
+        /// Control txtIdEstado.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtIdEstadoJugador;
+        protected global::System.Web.UI.WebControls.TextBox txtIdEstado;
 
         /// <summary>
         /// Control lblNombreEstado.

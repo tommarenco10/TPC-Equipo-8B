@@ -24,7 +24,7 @@ namespace Negocio
                 {
                     EstadoJugador aux = new EstadoJugador();
 
-                    aux.IdEstadoJugador = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
+                    aux.IdEstado = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
                     aux.NombreEstado = datos.Lector["nombre"] != DBNull.Value ? (string)datos.Lector["nombre"] : string.Empty;
 
                     lista.Add(aux);
@@ -70,7 +70,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("UPDATE EstadoJugador SET nombre = @Estado WHERE IdEstadoJugador = @Id");
-                datos.agregarParametro("@Id", modificado.IdEstadoJugador);
+                datos.agregarParametro("@Id", modificado.IdEstado);
                 datos.agregarParametro("@Estado", modificado.NombreEstado);
                 datos.ejecutarAccion();
             }

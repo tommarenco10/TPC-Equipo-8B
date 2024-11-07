@@ -24,7 +24,7 @@ namespace Negocio
                 {
                     EstadoEntrenamiento aux = new EstadoEntrenamiento();
 
-                    aux.IdEstadoEntrenamiento = datos.Lector["IdEstadoEntrenamiento"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoEntrenamiento"]) : 0;
+                    aux.IdEstado = datos.Lector["IdEstadoEntrenamiento"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoEntrenamiento"]) : 0;
                     aux.NombreEstado = datos.Lector["nombre"] != DBNull.Value ? (string)datos.Lector["nombre"] : string.Empty;
 
                     lista.Add(aux);
@@ -70,7 +70,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("UPDATE EstadoEntrenamiento SET nombre = @Estado WHERE IdEstadoEntrenamiento = @Id");
-                datos.agregarParametro("@Id", modificado.IdEstadoEntrenamiento);
+                datos.agregarParametro("@Id", modificado.IdEstado);
                 datos.agregarParametro("@Estado", modificado.NombreEstado);
                 datos.ejecutarAccion();
             }

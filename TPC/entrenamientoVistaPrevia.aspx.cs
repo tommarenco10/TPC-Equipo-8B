@@ -121,7 +121,7 @@ namespace TPC
                 entrenamiento.Categoria = new Categoria();
                 entrenamiento.Categoria.IdCategoria = (int)Session["categoriaSeleccionada"];
                 entrenamiento.Estado = new EstadoEntrenamiento();
-                entrenamiento.Estado.IdEstadoEntrenamiento = 1; //PROGRAMADO POR DEFAULT
+                entrenamiento.Estado.IdEstado = 1; //PROGRAMADO POR DEFAULT
                 entrenamiento.Observaciones = string.Empty;
 
                 List<int> jugadoresSeleccionadosIds = (List<int>)Session["jugadoresSeleccionados"];

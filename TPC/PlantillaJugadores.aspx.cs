@@ -14,8 +14,8 @@ namespace TPC
         protected void Page_Load(object sender, EventArgs e)
         {
             JugadorNegocio negocio = new JugadorNegocio();
-            Session.Add("ListaJugadores", negocio.ListarJugador());
-            dgvJugadores.DataSource = Session["ListaJugadores"];
+            Session.Add("listaJugadores", negocio.ListarJugador());
+            dgvJugadores.DataSource = Session["listaJugadores"];
             dgvJugadores.DataBind();
 
             if (!IsPostBack)

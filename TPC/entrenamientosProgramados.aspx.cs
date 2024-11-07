@@ -12,6 +12,8 @@ namespace TPC
 {
     public partial class entrenamientosProgramados : System.Web.UI.Page
     {
+        private List<Entrenamiento> listaEntrenamientos;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             EntrenamientoNegocio negocioEntrenamiento = new EntrenamientoNegocio();
@@ -21,7 +23,7 @@ namespace TPC
             {
                 if (!IsPostBack)
                 {
-                    List<Entrenamiento> listaEntrenamientos = negocioEntrenamiento.listar();
+                    listaEntrenamientos = negocioEntrenamiento.listar();
                     Session["listaEntrenamientos"] = listaEntrenamientos;
 
                     List<Categoria> listaCategorias = negocioCategoria.listar();
@@ -58,9 +60,10 @@ namespace TPC
 
                 List<Entrenamiento> listaFiltrada = new List<Entrenamiento>();
 
-                if (Session["listaEntrenamientos"] != null)
+                listaEntrenamientos = (List<Entrenamiento>)Session["listaEntrenamientos"];
+
+                if (listaEntrenamientos != null)
                 {
-                    List<Entrenamiento> listaEntrenamientos = (List<Entrenamiento>)Session["listaEntrenamientos"];
 
                     foreach (Entrenamiento entrenamiento in listaEntrenamientos)
                     {
