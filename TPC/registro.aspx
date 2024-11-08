@@ -8,17 +8,24 @@
     <section>
         <h2 class="mb-4">Formulario de Registro</h2>
         <div class="row g-3">
+
+            <!--Usuario y Contraseña -->
             <div class="col-md-4">
-                <label for="txtDNI" class="form-label">DNI:</label>
-                <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtDNI" />
-                <asp:Label for="txtDNI" CssClass="form-label text-danger" ID="lblDniAviso" runat="server" Text="Por favor, ingrese un Nro. de Documento." Visible="false"></asp:Label>
+                <label for="txtUserName" class="form-label">Nombre de usuario:</label>
+                <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtUserName" />
             </div>
 
-            <div class="col-md-2">
-                <label for="txtID" class="form-label">ID:</label>
-                <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtID" />
+            <div class="col-md-4">
+                <label for="txtPassword" class="form-label">Contraseña:</label>
+                <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtPassword" TextMode="Password" />
             </div>
 
+            <!--Linea separadora -->
+            <div class="col-12">
+                <hr />
+            </div>
+
+            <!--Datos Personales -->
             <div class="col-md-4">
                 <label for="txtNombre" class="form-label">Nombre:</label>
                 <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtNombre" />
@@ -27,6 +34,12 @@
             <div class="col-md-4">
                 <label for="txtApellido" class="form-label">Apellido:</label>
                 <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtApellido" />
+            </div>
+
+            <div class="col-md-4">
+                <label for="txtDNI" class="form-label">DNI:</label>
+                <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtDNI" />
+                <asp:Label for="txtDNI" CssClass="form-label text-danger" ID="lblDniAviso" runat="server" Text="Por favor, ingrese un Nro. de Documento." Visible="false"></asp:Label>
             </div>
 
             <div class="col-md-4">

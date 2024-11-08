@@ -12,14 +12,14 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="mb-3">
-                            <label for="txtEmail" class="form-label">Dirección Email</label>
-                            <asp:TextBox runat="server" type="email" CssClass="form-control" ID="txtEmail" />
+                            <label for="txtEmail" class="form-label">Nombre de usuario</label>
+                            <asp:TextBox runat="server" type="email" CssClass="form-control" ID="txtUserName" />
                         </div>
                         <div class="mb-3">
                             <label for="txtPass" class="form-label">Contraseña</label>
                             <asp:TextBox type="password" CssClass="form-control" ID="txtPass" runat="server" />
                         </div>
-                        <asp:Button type="submit" Text="Iniciar Sesión" runat="server" CssClass="btn btn-primary w-100" ID="btnLogIn" />
+                        <asp:Button type="submit" Text="Iniciar Sesión" runat="server" CssClass="btn btn-primary w-100" ID="btnLogIn" OnClick="btnLogIn_Click" />
                     </div>
                 </div>
             </div>

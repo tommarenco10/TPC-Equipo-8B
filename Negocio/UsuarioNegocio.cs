@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Negocio
 {
-    internal class UsuarioNegocio
+    public class UsuarioNegocio
     {
         public List<Usuario> listar()
         {
@@ -161,7 +161,7 @@ namespace Negocio
             AccesoDatos datos=new AccesoDatos();
             try
             {
-                datos.setearConsulta("Select id,IdTipoUsuario from Usuario Where Nombre=@nombre AND Contraseña=@contraseña");
+                datos.setearConsulta("Select id,IdTipoUsuario,Email from Usuario Where Nombre=@nombre AND Contraseña=@contraseña");
                 datos.agregarParametro("@nombre",usuario.Nombre);
                 datos.agregarParametro("@contraseña", usuario.Contraseña);
                 datos.ejecutarLectura();
@@ -169,6 +169,7 @@ namespace Negocio
                 {
                     usuario.IdUsuario = (int)datos.Lector["id"];
                     usuario.Tipo = (TipoUsuario)(int)datos.Lector["IdTipoUsuario"];
+                    usuario.Email = (string)datos.Lector["Email"];
                     return true;
                 }
                 return false;
