@@ -4,7 +4,8 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+    <% if (tipoPagina != 1)
+        {%>
     <section>
         <h1>Agendar Entrenamiento</h1>
         <br />
@@ -31,11 +32,18 @@
             <div class="col-md-8">
             </div>
             <div class="col-md-4">
-                <asp:Button ID="btnPreseleccionar" runat="server" CssClass="btn btn-primary" Text="Preseleccionar Categoría" OnClick="btnPreseleccionar_Click"/>
+                <asp:Button ID="btnPreseleccionar" runat="server" CssClass="btn btn-primary" Text="Preseleccionar Categoría" OnClick="btnPreseleccionar_Click" />
             </div>
         </div>
         <br />
         <h5>Detalles Adicionales</h5>
+
+        <% }
+            else
+            { %>
+        <h5>Agregar Jugadores</h5>
+        <% }%>
+
         <div class="row mb-3">
             <div class="col-md-4">
                 <label for="ddlJugadoresAdicionales" class="form-label">Jugadores Adicionales:</label>
@@ -65,12 +73,18 @@
     </section>
 
     <br />
-
+    <% if (tipoPagina != 1)
+        {%>
     <div>
         <asp:Button ID="btnMostrarSeleccionados" runat="server" Text="Mostrar Jugadores Seleccionados" CssClass="btn btn-primary" OnClick="btnMostrarSeleccionados_Click" />
 
         <asp:Label ID="lblError" runat="server"></asp:Label>
     </div>
-
+    <% }
+        else
+        { %>
+    <asp:Button ID="btnAgregar" CssClass="btn btn-primary" runat="server" Text="Agregar" OnClick="btnAgregar_Click" />
+    <asp:Button ID="btnVolver" CssClass="btn btn-secondary" runat="server" Text="Volver sin guardar" OnClick="btnVolver_Click" />
+    <% } %>
 
 </asp:Content>

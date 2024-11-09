@@ -15,6 +15,7 @@ namespace TPC
     public partial class gestionEntrenamiento : System.Web.UI.Page
     {
         private List<Jugador> listaJugadores;
+        public int tipoPagina;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,8 +24,23 @@ namespace TPC
 
             try
             {
+                if (Session["tipoPagina"] != null)
+                {
+                    tipoPagina = (int)Session["tipoPagina"];
+                }
+
                 if (!IsPostBack)
                 {
+
+                    if (Session["jugadoresSeleccionados"] != null)
+                    { 
+                        Session["auxLista"] = new List<int>((List<int>)Session["jugadoresSeleccionados"]);
+                    }
+
+
+                    tipoPagina = Convert.ToInt32(Request.QueryString["id"]);
+                    Session["tipoPagina"] = tipoPagina;
+
                     listaJugadores = negocioJugador.listar();
                     Session["listaJugadores"] = listaJugadores;
 
@@ -64,6 +80,7 @@ namespace TPC
                         txtHoraEntrenamiento.Text = string.Empty;
                     }
                 }
+
             }
             catch (Exception ex)
             {
@@ -121,13 +138,13 @@ namespace TPC
                 Response.Redirect("Error.aspx");
             }
         }
-        
+
         protected void ddlJugadoresAdicionales_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
                 int idCategoriaSeleccionada = int.Parse(ddlJugadoresAdicionales.SelectedValue);
-    
+
                 List<Jugador> listaFiltrada = new List<Jugador>();
 
                 listaJugadores = (List<Jugador>)Session["listaJugadores"];
@@ -260,5 +277,15 @@ namespace TPC
             }
         }
 
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("entrenamientoVistaPrevia.aspx?id=3");
+        }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Session["jugadoresSeleccionados"] = Session["auxLista"];
+            Response.Redirect("entrenamientoVistaPrevia.aspx?id=3");
+        }
     }
 }

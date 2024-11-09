@@ -257,50 +257,53 @@ namespace TPC
 
             try
             {
-                IEnumerable<dynamic> lista;
+                if ((int)Session["IdEstadoSeleccionado"] != 1)
+                {
+                    IEnumerable<dynamic> lista;
 
-                if ((int)Session["tipoPagina"] == 1)
-                {
-                    lista = negocioJugador.listar();
-                }
-                else if ((int)Session["tipoPagina"] == 2)
-                {
-                    lista = negocioEntrenamiento.listar();
-                }
-                else
-                {
-                    lista = null;
-                }
-
-                if (Session["IdEstadoSeleccionado"] != null)
-                {
                     if ((int)Session["tipoPagina"] == 1)
                     {
-                        foreach (Jugador jugador in lista)
-                        {
-                            if (jugador.estadoJugador.IdEstado == (int)Session["IdEstadoSeleccionado"])
-                            {
-                                return false;
-                            }
-                        }
+                        lista = negocioJugador.listar();
                     }
                     else if ((int)Session["tipoPagina"] == 2)
                     {
-                        foreach (Entrenamiento entrenamiento in lista)
-                        {
-                            if (entrenamiento.Estado.IdEstado == (int)Session["IdEstadoSeleccionado"])
-                            {
-                                return false;
-                            }
-                        }
+                        lista = negocioEntrenamiento.listar();
                     }
                     else
                     {
-                        return false;
+                        lista = null;
                     }
-                }
-                return true;
 
+                    if (Session["IdEstadoSeleccionado"] != null)
+                    {
+                        if ((int)Session["tipoPagina"] == 1)
+                        {
+                            foreach (Jugador jugador in lista)
+                            {
+                                if (jugador.estadoJugador.IdEstado == (int)Session["IdEstadoSeleccionado"])
+                                {
+                                    return false;
+                                }
+                            }
+                        }
+                        else if ((int)Session["tipoPagina"] == 2)
+                        {
+                            foreach (Entrenamiento entrenamiento in lista)
+                            {
+                                if (entrenamiento.Estado.IdEstado == (int)Session["IdEstadoSeleccionado"])
+                                {
+                                    return false;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                else { return false; }
             }
             catch (Exception ex)
             {
@@ -337,7 +340,13 @@ namespace TPC
                 {
                     btnGuardarEliminacion.Enabled = false;
                     lblMensaje.Visible = true;
-                    lblMensaje.Text = "No se puede realizar la eliminación. El estado aún tiene registros asociados";
+                    if ((int)Session["IdEstadoSeleccionado"] != 1)
+                    {
+                        lblMensaje.Text = "No se puede realizar la eliminación. El estado aún tiene registros asociados.";
+                    }
+                    else {
+                        lblMensaje.Text = "No se puede realizar la eliminación. El estado es clave para el funcionamiento del programa.";
+                    }
                 }
 
             }

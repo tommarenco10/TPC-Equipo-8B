@@ -7,16 +7,14 @@ using System.Threading.Tasks;
 
 namespace Negocio
 {
-    internal class Seguridad
+    public class Seguridad
     {
-
-
 
         public bool sesionActiva(Object user)
         {
 
             Usuario usuario = user != null ? (Usuario)user : null;
-            
+
             if (usuario != null)
             {
                 return true;
@@ -26,11 +24,10 @@ namespace Negocio
         }
 
 
-
         public bool esAdmin(Object user)
         {
             Usuario usuario = user != null ? (Usuario)user : null;
-            if (usuario!=null&&usuario.Tipo == TipoUsuario.Administrador)
+            if (usuario != null && usuario.Tipo == TipoUsuario.Administrador)
             {
                 return true;
             }
@@ -41,14 +38,12 @@ namespace Negocio
         public bool esEntrenador(Object user)
         {
             Usuario usuario = user != null ? (Usuario)user : null;
-            if (usuario != null && usuario.Tipo== TipoUsuario.CuerpoTecnico)
+            if (usuario != null && usuario.Tipo == TipoUsuario.CuerpoTecnico)
             {
                 return true;
             }
             else { return false; }
         }
-
-
 
 
         public bool esMedico(Usuario user)
@@ -60,7 +55,6 @@ namespace Negocio
             }
             else { return false; }
         }
-
 
 
         public bool esSocio(Usuario user)
@@ -86,9 +80,5 @@ namespace Negocio
 
 
 
-
-
     }
 }
-
-

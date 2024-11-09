@@ -1,11 +1,11 @@
-﻿<%@ Page Title="Entrenamientos Programados" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="entrenamientosProgramados.aspx.cs" Inherits="TPC.entrenamientosProgramados" %>
+﻿<%@ Page Title="Historial de Entrenamientos" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="entrenamientosHistorial.aspx.cs" Inherits="TPC.entrenamientosHistorial" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <h1>Entrenamientos Programados</h1>
+    <h1>Historial de Entrenamientos</h1>
     <br />
     <div class="row mb-3">
         <div class="col-md-4">
@@ -40,7 +40,7 @@
                     <ItemStyle Width="8%" />
                     <ItemTemplate>
                         <asp:Button ID="btnActualizar" runat="server" Text="Actualizar" CommandName="Actualizar"
-                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-outline-warning" OnClick="btnActualizar_Click" />
+                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-outline-warning" />
                     </ItemTemplate>
                 </asp:TemplateField>
 

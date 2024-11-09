@@ -10,10 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace TPC
 {
-    public partial class entrenamientosProgramados : System.Web.UI.Page
+    public partial class entrenamientosHistorial : System.Web.UI.Page
     {
-        private List<Entrenamiento> listaEntrenamientosProgramados;
-
+        private List<Entrenamiento> listaEntrenamientos;
         protected void Page_Load(object sender, EventArgs e)
         {
             EntrenamientoNegocio negocioEntrenamiento = new EntrenamientoNegocio();
@@ -23,12 +22,8 @@ namespace TPC
             {
                 if (!IsPostBack)
                 {
-                    int idEstadoProgramado = 1;
-                    listaEntrenamientosProgramados = negocioEntrenamiento.listarPorFechaAscendente();
-                    listaEntrenamientosProgramados = listaEntrenamientosProgramados
-                        .Where(entrenamiento => entrenamiento.Estado.IdEstado == idEstadoProgramado)
-                        .ToList();
-                    Session["listaEntrenamientosProgramados"] = listaEntrenamientosProgramados;
+                    listaEntrenamientos = negocioEntrenamiento.listar();
+                    Session["listaEntrenamientos"] = listaEntrenamientos;
 
                     List<Categoria> listaCategorias = negocioCategoria.listar();
                     ddlCategoria.DataSource = listaCategorias;
@@ -64,12 +59,12 @@ namespace TPC
 
                 List<Entrenamiento> listaFiltrada = new List<Entrenamiento>();
 
-                listaEntrenamientosProgramados = (List<Entrenamiento>)Session["listaEntrenamientosProgramados"];
+                listaEntrenamientos = (List<Entrenamiento>)Session["listaEntrenamientos"];
 
-                if (listaEntrenamientosProgramados != null)
+                if (listaEntrenamientos != null)
                 {
 
-                    foreach (Entrenamiento entrenamiento in listaEntrenamientosProgramados)
+                    foreach (Entrenamiento entrenamiento in listaEntrenamientos)
                     {
                         if (entrenamiento.Categoria.IdCategoria == idCategoriaSeleccionada)
                         {
@@ -111,49 +106,9 @@ namespace TPC
                 EntrenamientoNegocio negocioEntrenamiento = new EntrenamientoNegocio();
                 Entrenamiento entrenamientoSeleccionado = negocioEntrenamiento.ObtenerEntrenamientoPorId(idEntrenamiento);
 
-                List<int> listaJugadores = new List<int>();
-                foreach (Jugador jugador in entrenamientoSeleccionado.JugadoresCitados)
-                {
-                    listaJugadores.Add(jugador.IdJugador); // Agregar cada IdJugador a la lista
-                }
-                Session["jugadoresSeleccionados"] = listaJugadores;
-
                 Session["entrenamientoSeleccionado"] = entrenamientoSeleccionado;
 
                 Response.Redirect("entrenamientoVistaPrevia.aspx?id=2"); //FUNCION VER DETALLE
-            }
-            catch (ThreadAbortException) { }
-            catch (Exception ex)
-            {
-                Session.Add("error", ex.ToString());
-                Response.Redirect("Error.aspx");
-            }
-        }
-
-        protected void btnActualizar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Button btnActualizar = (Button)sender;
-                int idEntrenamiento = Convert.ToInt32(btnActualizar.CommandArgument);
-
-                EntrenamientoNegocio negocioEntrenamiento = new EntrenamientoNegocio();
-                Entrenamiento entrenamientoSeleccionado = negocioEntrenamiento.ObtenerEntrenamientoPorId(idEntrenamiento);
-
-                List<int> listaJugadores = new List<int>();
-                foreach (Jugador jugador in entrenamientoSeleccionado.JugadoresCitados)
-                {
-                    listaJugadores.Add(jugador.IdJugador); // Agregar cada IdJugador a la lista
-                }
-                Session["jugadoresSeleccionados"] = listaJugadores;
-
-                Session["categoriaSeleccionada"] = entrenamientoSeleccionado.Categoria.IdCategoria;
-                Session["fechaHoraEntrenamiento"] = entrenamientoSeleccionado.FechaHora;
-                Session["duracionEntrenamiento"] = entrenamientoSeleccionado.Duracion.ToString();
-                Session["descripcionEntrenamiento"] = entrenamientoSeleccionado.Descripcion;
-                Session["observacionesEntrenamiento"] = entrenamientoSeleccionado.Observaciones;
-
-                Response.Redirect("entrenamientoVistaPrevia.aspx?id=3"); //FUNCION ACTUALIZAR
             }
             catch (ThreadAbortException) { }
             catch (Exception ex)

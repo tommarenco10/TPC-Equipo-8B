@@ -29,3 +29,8 @@ VALUES
 (5, 180, 80, 'Delantero', 3, 1),
 (6, 171, 70, 'Mediocampista', 3, 4)
 
+INSERT INTO entrenamiento
+VALUES
+('2024-11-12', '2:00:00', '1', 'Entrenamiento Táctico', '', '1'),
+('2024-11-12', '2:00:00', '2', 'Entrenamiento Táctico', '', '1'),
+('2024-11-12', '2:00:00', '3', 'Entrenamiento Táctico', '', '2')

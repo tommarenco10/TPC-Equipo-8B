@@ -1,30 +1,14 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\",
+  "WorkspaceRootPath": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|c:\\users\\administrator\\desktop\\proyecto integrador\\tpc-equipo-8bb\\tpc-equipo-8b\\negocio\\usuarionegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|solutionrelative:negocio\\usuarionegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc\\tpc-equipo-8b\\tpc\\entrenamientovistaprevia.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\entrenamientovistaprevia.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\administrator\\desktop\\proyecto integrador\\tpc-equipo-8bb\\tpc-equipo-8b\\tpc\\ingreso.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\ingreso.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65B102A0-344A-406D-9FBA-7C77FDCCDC6D}|Dominio\\Dominio.csproj|c:\\users\\administrator\\desktop\\proyecto integrador\\tpc-equipo-8bb\\tpc-equipo-8b\\dominio\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65B102A0-344A-406D-9FBA-7C77FDCCDC6D}|Dominio\\Dominio.csproj|solutionrelative:dominio\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\administrator\\desktop\\proyecto integrador\\tpc-equipo-8bb\\tpc-equipo-8b\\tpc\\registro.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\registro.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|c:\\users\\administrator\\desktop\\proyecto integrador\\tpc-equipo-8bb\\tpc-equipo-8b\\negocio\\notificacionnegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|solutionrelative:negocio\\notificacionnegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\administrator\\desktop\\proyecto integrador\\tpc-equipo-8bb\\tpc-equipo-8b\\tpc\\ingreso.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\ingreso.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\tpc\\gestionentrenamiento.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\gestionentrenamiento.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,89 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "NotificacionNegocio.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Negocio\\NotificacionNegocio.cs",
-              "RelativeDocumentMoniker": "Negocio\\NotificacionNegocio.cs",
-              "ToolTip": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Negocio\\NotificacionNegocio.cs",
-              "RelativeToolTip": "Negocio\\NotificacionNegocio.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-08T15:01:19.92Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UsuarioNegocio.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Negocio\\UsuarioNegocio.cs",
-              "RelativeDocumentMoniker": "Negocio\\UsuarioNegocio.cs",
-              "ToolTip": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Negocio\\UsuarioNegocio.cs",
-              "RelativeToolTip": "Negocio\\UsuarioNegocio.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBcAAAAoAAAAAAAAAA==",
+              "Title": "entrenamientoVistaPrevia.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\entrenamientoVistaPrevia.aspx.cs",
+              "RelativeDocumentMoniker": "TPC\\entrenamientoVistaPrevia.aspx.cs",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\entrenamientoVistaPrevia.aspx.cs",
+              "RelativeToolTip": "TPC\\entrenamientoVistaPrevia.aspx.cs",
+              "ViewState": "AgIAAJwAAAAAAAAAAAAwwK0AAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-08T14:40:19.864Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "registro.aspx",
-              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\TPC\\registro.aspx",
-              "RelativeDocumentMoniker": "TPC\\registro.aspx",
-              "ToolTip": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\TPC\\registro.aspx",
-              "RelativeToolTip": "TPC\\registro.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-11-08T14:09:44.364Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Usuario.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Dominio\\Usuario.cs",
-              "RelativeDocumentMoniker": "Dominio\\Usuario.cs",
-              "ToolTip": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\Dominio\\Usuario.cs",
-              "RelativeToolTip": "Dominio\\Usuario.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-08T14:09:17.594Z",
+              "WhenOpened": "2024-11-08T22:09:08.761Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ingreso.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\TPC\\ingreso.aspx.cs",
-              "RelativeDocumentMoniker": "TPC\\ingreso.aspx.cs",
-              "ToolTip": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\TPC\\ingreso.aspx.cs",
-              "RelativeToolTip": "TPC\\ingreso.aspx.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAArAAAAAAAAAA==",
+              "Title": "gestionEntrenamiento.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\gestionEntrenamiento.aspx.cs",
+              "RelativeDocumentMoniker": "TPC\\gestionEntrenamiento.aspx.cs",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\gestionEntrenamiento.aspx.cs",
+              "RelativeToolTip": "TPC\\gestionEntrenamiento.aspx.cs",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAAAEUAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-08T14:05:38.048Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ingreso.aspx",
-              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\TPC\\ingreso.aspx",
-              "RelativeDocumentMoniker": "TPC\\ingreso.aspx",
-              "ToolTip": "C:\\Users\\Administrator\\Desktop\\Proyecto integrador\\TPC-Equipo-8BB\\TPC-Equipo-8B\\TPC\\ingreso.aspx",
-              "RelativeToolTip": "TPC\\ingreso.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-11-08T13:58:12.274Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-09T02:15:20.559Z"
             }
           ]
         }

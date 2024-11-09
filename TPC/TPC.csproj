@@ -71,6 +71,7 @@
     <Content Include="ConfigEstados.aspx" />
     <Content Include="ConfigJugador.aspx" />
     <Content Include="CuerpoTecnico.aspx" />
+    <Content Include="entrenamientosHistorial.aspx" />
     <Content Include="entrenamientosProgramados.aspx" />
     <Content Include="entrenamientoVistaPrevia.aspx" />
     <Content Include="Error.aspx" />
@@ -112,6 +113,13 @@
     </Compile>
     <Compile Include="CuerpoTecnico.aspx.designer.cs">
       <DependentUpon>CuerpoTecnico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="entrenamientosHistorial.aspx.cs">
+      <DependentUpon>entrenamientosHistorial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="entrenamientosHistorial.aspx.designer.cs">
+      <DependentUpon>entrenamientosHistorial.aspx</DependentUpon>
     </Compile>
     <Compile Include="entrenamientosProgramados.aspx.cs">
       <DependentUpon>entrenamientosProgramados.aspx</DependentUpon>

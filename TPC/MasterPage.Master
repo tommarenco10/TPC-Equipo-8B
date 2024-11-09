@@ -36,7 +36,7 @@
                                 <ul class="dropdown-menu dropdown-menu-dark">
                                     <li><a class="dropdown-item" href="gestionEntrenamiento.aspx">Agendar Entrenamientos </a></li>
                                     <li><a class="dropdown-item" href="entrenamientosProgramados.aspx">Entrenamientos Programados </a></li>
-                                    <li><a class="dropdown-item" href="">Cancelar Entrenamiento </a></li>
+                                    <li><a class="dropdown-item" href="entrenamientosHistorial.aspx">Historial de Entrenamientos </a></li>
                                 </ul>
                             </div>
 

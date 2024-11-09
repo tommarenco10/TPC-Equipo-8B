@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -18,31 +19,79 @@ namespace TPC
         {
             try
             {
-                CategoriaNegocio negocioCategoria = new CategoriaNegocio();
                 if (!IsPostBack)
                 {
+                    CategoriaNegocio negocioCategoria = new CategoriaNegocio();
+
                     tipoPagina = Convert.ToInt32(Request.QueryString["id"]);
+                    Session["tipoPagina"] = tipoPagina;
 
-                    if (tipoPagina == 1)
+                    if (Session["jugadoresSeleccionados"] != null)
                     {
-                        if (Session["jugadoresSeleccionados"] != null)
-                        {
-                            List<int> jugadoresSeleccionados = (List<int>)Session["jugadoresSeleccionados"];
-                            JugadorNegocio negocioJugador = new JugadorNegocio();
-                            List<Jugador> listaJugadores = negocioJugador.ObtenerJugadoresPorIds(jugadoresSeleccionados);
-                            dgvJugadoresSeleccionados.DataSource = listaJugadores;
-                            dgvJugadoresSeleccionados.DataBind();
-                        }
-                        else
-                        {
-                            lblMensaje.CssClass = "alert alert-warning";
-                            lblMensaje.Text = "Aún no hay jugadores seleccionados.";
-                            lblMensaje.Visible = true;
-                        }
+                        List<int> jugadoresSeleccionados = (List<int>)Session["jugadoresSeleccionados"];
+                        JugadorNegocio negocioJugador = new JugadorNegocio();
+                        List<Jugador> listaJugadores = negocioJugador.ObtenerJugadoresPorIds(jugadoresSeleccionados);
+                        dgvJugadoresSeleccionados.DataSource = listaJugadores;
+                        dgvJugadoresSeleccionados.DataBind();
+                    }
+                    else
+                    {
+                        lblMensaje.CssClass = "alert alert-warning";
+                        lblMensaje.Text = "Aún no hay jugadores seleccionados.";
+                        lblMensaje.Visible = true;
+                    }
 
+                    if ((int)Session["tipoPagina"] == 1)
+                    {
+                        txtDuracion.Text = "00:00";
+                    }
+
+                    if ((int)Session["tipoPagina"] == 2)
+                    {
+                        Entrenamiento entrenamiento = (Entrenamiento)Session["entrenamientoSeleccionado"];
+                        txtDuracion.Enabled = false;
+                        txtDescripcion.Enabled = false;
+                        txtObservaciones.Enabled = false;
+                        lblDetallesEntrenamiento.CssClass = "alert alert-info";
+                        lblDetallesEntrenamiento.Text = $"El entrenamiento de la categoría '{entrenamiento.Categoria.NombreCategoria}' está organizado para el {entrenamiento.FechaHora.ToString("dddd, dd MMMM yyyy")} a las {entrenamiento.FechaHora.ToString("HH:mm")}.";
+                        txtDuracion.Text = entrenamiento.Duracion.ToString();
+                        txtDescripcion.Text = entrenamiento.Descripcion;
+                        txtObservaciones.Text = entrenamiento.Observaciones;
+                    }
+
+                    if ((int)Session["tipoPagina"] == 3)
+                    {
+                        List<Categoria> listaCategorias = negocioCategoria.listar();
+                        ddlCategoria.DataSource = listaCategorias;
+                        ddlCategoria.DataTextField = "NombreCategoria";
+                        ddlCategoria.DataValueField = "IdCategoria";
+                        ddlCategoria.DataBind();
+                        ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", "0"));
+                        int categoriaSeleccionadaId = (int)Session["categoriaSeleccionada"];
+                        ddlCategoria.SelectedValue = categoriaSeleccionadaId.ToString();
+
+                        DateTime fechaHoraEntrenamiento = (DateTime)Session["fechaHoraEntrenamiento"];
+                        DateTime fechaEntrenamiento = fechaHoraEntrenamiento.Date;
+                        TimeSpan horaEntrenamiento = fechaHoraEntrenamiento.TimeOfDay;
+                        txtFechaEntrenamiento.Text = fechaEntrenamiento.ToString("yyyy-MM-dd");            // Formato de fecha
+                        txtHoraEntrenamiento.Text = horaEntrenamiento.ToString(@"hh\:mm");
+
+                        txtDuracion.Text = (string)Session["duracionEntrenamiento"];
+                        txtDescripcion.Text = (string)Session["descripcionEntrenamiento"];
+                        txtObservaciones.Text = (string)Session["observacionesEntrenamiento"];
+                    }
+
+                    if ((int)Session["tipoPagina"] == 2 || (int)Session["tipoPagina"] == 3)
+                    {
+                        txtObservaciones.Visible = true;
+                    }
+
+                    if ((int)Session["tipoPagina"] == 1 || (int)Session["tipoPagina"] == 3)
+                    {
                         if (Session["fechaHoraEntrenamiento"] != null && Session["categoriaSeleccionada"] != null)
                         {
                             DateTime fechaHoraEntrenamiento = (DateTime)Session["fechaHoraEntrenamiento"];
+
                             int idCategoriaSeleccionada = (int)Session["categoriaSeleccionada"];
                             List<Categoria> listaCategorias = negocioCategoria.listar();
                             Categoria categoria = listaCategorias.FirstOrDefault(x => x.IdCategoria == idCategoriaSeleccionada);
@@ -54,42 +103,9 @@ namespace TPC
                             lblDetallesEntrenamiento.CssClass = "alert alert-info";
                             lblDetallesEntrenamiento.Text = $"El entrenamiento de la categoría '{categoriaSeleccionada}' está organizado para el {fechaHoraEntrenamiento.ToString("dddd, dd MMMM yyyy")} a las {fechaHoraEntrenamiento.ToString("HH:mm")}.";
                         }
-                        txtDuracion.Text = "00:00";
-                        txtObservaciones.Visible = true;
-                    }
-                    else if (tipoPagina == 2)
-                    {
-                        EntrenamientoNegocio entrenamientoNegocio = new EntrenamientoNegocio();
-                        Entrenamiento entrenamiento = new Entrenamiento();
-
-                        entrenamiento = (Entrenamiento)Session["entrenamientoSeleccionado"];
-
-                        if (entrenamiento != null)
-                        {
-                            dgvJugadoresSeleccionados.DataSource = entrenamiento.JugadoresCitados;
-                            dgvJugadoresSeleccionados.DataBind();
-                        }
-                        else
-                        {
-                            lblMensaje.CssClass = "alert alert-warning";
-                            lblMensaje.Text = "Aún no hay jugadores seleccionados.";
-                            lblMensaje.Visible = true;
-                        }
-
-                        lblDetallesEntrenamiento.CssClass = "alert alert-info";
-                        lblDetallesEntrenamiento.Text = $"El entrenamiento de la categoría '{entrenamiento.Categoria.NombreCategoria}' está organizado para el {entrenamiento.FechaHora.ToString("dddd, dd MMMM yyyy")} a las {entrenamiento.FechaHora.ToString("HH:mm")}.";
-
-                        txtDuracion.Text = entrenamiento.Duracion.ToString();
-                        txtDuracion.Enabled = false;
-
-                        txtDescripcion.Text = entrenamiento.Descripcion;
-                        txtDescripcion.Enabled = false;
-
-                        txtObservaciones.Visible = true;
-                        txtObservaciones.Text = entrenamiento.Observaciones;
-                        txtObservaciones.Enabled = false;
                     }
                 }
+                Session["tipoPagina"] = tipoPagina;
             }
             catch (Exception ex)
             {
@@ -150,7 +166,17 @@ namespace TPC
                         asistenciaNegocio.agregar(asistencia);
                     }
                 }
+
+
+                Session.Remove("jugadoresSeleccionados");
+                Session.Remove("categoriaSeleccionada");
+                Session.Remove("fechaHoraEntrenamiento");
+                
+                string script = "alert('Entrenamiento agregado correctamente');";
+                script += "window.location = 'gestionEntrenamiento.aspx';";
+                ClientScript.RegisterStartupScript(this.GetType(), "AlertAndRedirect", script, true);
             }
+            catch (ThreadAbortException) { }
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
@@ -180,6 +206,16 @@ namespace TPC
         protected void btnVolverDetalle_Click(object sender, EventArgs e)
         {
             Response.Redirect("entrenamientosProgramados.aspx");
+        }
+
+        protected void btnActualizar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnAgregarJugadores_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("gestionEntrenamiento.aspx?id=1");
         }
     }
 }
