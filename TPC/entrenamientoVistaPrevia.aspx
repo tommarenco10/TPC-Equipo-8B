@@ -78,7 +78,7 @@
             <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="4" placeholder="Describe brevemente el entrenamiento planificado..."></asp:TextBox>
         </div>
         <br />
-        <% if (tipoPagina == 2 || tipoPagina == 3)
+        <% if (tipoPagina == 2)
             { %>
         <div class="form-group">
             <label for="txtObservaciones">Observaciones Post Entrenamiento</label>

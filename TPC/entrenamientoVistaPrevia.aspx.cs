@@ -130,18 +130,8 @@ namespace TPC
             {
                 Button botonPresionado = (Button)sender;
 
-                DateTime fechaEntrenamiento;
-                DateTime horaEntrenamiento;
-
-                if (DateTime.TryParse(txtFechaEntrenamiento.Text, out fechaEntrenamiento) &&
-                    DateTime.TryParse(txtHoraEntrenamiento.Text, out horaEntrenamiento))
-                {
-                    entrenamiento.FechaHora = fechaEntrenamiento.Date.Add(horaEntrenamiento.TimeOfDay);
-                }
-
                 entrenamiento.Duracion = verificarDuracion(txtDuracion.Text);
                 entrenamiento.Descripcion = txtDescripcion.Text;
-                entrenamiento.Categoria = new Categoria { IdCategoria = int.Parse(ddlCategoria.SelectedValue) };
                 entrenamiento.Estado = new EstadoEntrenamiento { IdEstado = 1 }; // PROGRAMADO POR DEFAULT
                 entrenamiento.Observaciones = string.Empty;
 
@@ -158,12 +148,23 @@ namespace TPC
 
                 if (botonPresionado.ID == "btnConfirmar")
                 {
+                    entrenamiento.FechaHora = (DateTime)Session["fechaHoraEntrenamiento"];
+                    entrenamiento.Categoria = new Categoria { IdCategoria = (int)Session["categoriaSeleccionada"] };
                     entrenamientoNegocio.agregarEntrenamiento(entrenamiento);
                     int idNuevoEntrenamiento = entrenamientoNegocio.obtenerUltimoEntrenamiento();
                     asistenciaNegocio.AgregarAsistenciaMultiple(idNuevoEntrenamiento, jugadoresSeleccionadosIds);
                 }
                 else if (botonPresionado.ID == "btnActualizar")
                 {
+                    DateTime fechaEntrenamiento;
+                    DateTime horaEntrenamiento;
+
+                    if (DateTime.TryParse(txtFechaEntrenamiento.Text, out fechaEntrenamiento) &&
+                        DateTime.TryParse(txtHoraEntrenamiento.Text, out horaEntrenamiento))
+                    {
+                        entrenamiento.FechaHora = fechaEntrenamiento.Date.Add(horaEntrenamiento.TimeOfDay);
+                    }
+                    entrenamiento.Categoria = new Categoria { IdCategoria = int.Parse(ddlCategoria.SelectedValue) };
                     entrenamiento.IdEntrenamiento = (int)Session["idEntrenamientoSeleccionado"];
                     entrenamientoNegocio.modificarEntrenamiento(entrenamiento);
                     asistenciaNegocio.ActualizarAsistencias(entrenamiento.IdEntrenamiento, jugadoresSeleccionadosIds);
@@ -173,11 +174,11 @@ namespace TPC
                 Session.Remove("categoriaSeleccionada");
                 Session.Remove("fechaHoraEntrenamiento");
 
-               // string script = botonPresionado.ID == "btnConfirmar"
-               //  ? "alert('Entrenamiento agregado correctamente'); window.location = 'gestionEntrenamiento.aspx';"
-                // : "alert('Entrenamiento modificado correctamente'); window.location = 'entrenamientosProgramados.aspx';";
+                string script = botonPresionado.ID == "btnConfirmar"
+                    ? "alert('Entrenamiento agregado correctamente'); window.location = 'gestionEntrenamiento.aspx';"
+                    : "alert('Entrenamiento modificado correctamente'); window.location = 'entrenamientosProgramados.aspx';";
 
-                //ClientScript.RegisterStartupScript(this.GetType(), "AlertAndRedirect", script, true);
+                ClientScript.RegisterStartupScript(this.GetType(), "AlertAndRedirect", script, true);
             }
             catch (ThreadAbortException) { }
             catch (Exception ex)
