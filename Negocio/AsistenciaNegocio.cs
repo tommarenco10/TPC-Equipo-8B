@@ -77,7 +77,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("UPDATE Asistencia SET IdEntrenamiento = @IdEntrenamiento, IdJugador = @IdJugador, Asistio = @Asistio, Observaciones = @Observaciones WHERE IdAsistenia = @IdAsistencia");
+                datos.setearConsulta("UPDATE Asistencia SET Asistio = @Asistio, Observaciones = @Observaciones WHERE IdAsistenia = @IdAsistencia, IdEntrenamiento = @IdEntrenamiento, IdJugador = @IdJugador");
 
                 datos.agregarParametro("@IdAsistencia", modificado.IdAsistencia);
                 datos.agregarParametro("@IdEntrenamiento", modificado.IdEntrenamiento);
@@ -103,6 +103,22 @@ namespace Negocio
                 AccesoDatos datos = new AccesoDatos();
                 datos.setearConsulta("DELETE FROM Asistencia WHERE IdAsistenia = @IdAsistencia");
                 datos.agregarParametro("@IdAsistencia", id);
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void eliminarAsistenciaPorEntrenamiento(int idEntrenamiento)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("DELETE FROM Asistencia WHERE IdEntrenamiento = @IdEntrenamiento");
+                datos.agregarParametro("@IdEntrenamiento", idEntrenamiento);
                 datos.ejecutarAccion();
 
             }

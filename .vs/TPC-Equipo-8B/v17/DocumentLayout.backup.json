@@ -1,14 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\",
+  "WorkspaceRootPath": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc\\tpc-equipo-8b\\tpc\\entrenamientovistaprevia.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc-equipo-8b\\tpc\\entrenamientovistaprevia.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\entrenamientovistaprevia.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\tpc\\gestionentrenamiento.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc-equipo-8b\\tpc\\gestionentrenamiento.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\gestionentrenamiento.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc-equipo-8b\\tpc\\entrenamientovistaprevia.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\entrenamientovistaprevia.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc-equipo-8b\\negocio\\asistencianegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|solutionrelative:negocio\\asistencianegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc-equipo-8b\\negocio\\entrenamientonegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF1C7F42-2453-4D77-8801-57342218DE20}|Negocio\\Negocio.csproj|solutionrelative:negocio\\entrenamientonegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +30,72 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "entrenamientoVistaPrevia.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\entrenamientoVistaPrevia.aspx.cs",
-              "RelativeDocumentMoniker": "TPC\\entrenamientoVistaPrevia.aspx.cs",
-              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\entrenamientoVistaPrevia.aspx.cs",
-              "RelativeToolTip": "TPC\\entrenamientoVistaPrevia.aspx.cs",
-              "ViewState": "AgIAAJwAAAAAAAAAAAAwwK0AAAAQAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "AsistenciaNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\Negocio\\AsistenciaNegocio.cs",
+              "RelativeDocumentMoniker": "Negocio\\AsistenciaNegocio.cs",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\Negocio\\AsistenciaNegocio.cs",
+              "RelativeToolTip": "Negocio\\AsistenciaNegocio.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-08T22:09:08.761Z",
+              "WhenOpened": "2024-11-09T23:45:40.423Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "entrenamientoVistaPrevia.aspx",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\TPC\\entrenamientoVistaPrevia.aspx",
+              "RelativeDocumentMoniker": "TPC\\entrenamientoVistaPrevia.aspx",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\TPC\\entrenamientoVistaPrevia.aspx",
+              "RelativeToolTip": "TPC\\entrenamientoVistaPrevia.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-11-09T23:37:51.501Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "gestionEntrenamiento.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\gestionEntrenamiento.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\TPC\\gestionEntrenamiento.aspx.cs",
               "RelativeDocumentMoniker": "TPC\\gestionEntrenamiento.aspx.cs",
-              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC\\TPC-Equipo-8B\\TPC\\gestionEntrenamiento.aspx.cs",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\TPC\\gestionEntrenamiento.aspx.cs",
               "RelativeToolTip": "TPC\\gestionEntrenamiento.aspx.cs",
-              "ViewState": "AgIAAEgAAAAAAAAAAAAAAEUAAAA3AAAAAAAAAA==",
+              "ViewState": "AgIAAJ0AAAAAAAAAAAAgwOQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-09T02:15:20.559Z"
+              "WhenOpened": "2024-11-09T23:25:33.808Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "entrenamientoVistaPrevia.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\TPC\\entrenamientoVistaPrevia.aspx.cs",
+              "RelativeDocumentMoniker": "TPC\\entrenamientoVistaPrevia.aspx.cs",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\TPC\\entrenamientoVistaPrevia.aspx.cs",
+              "RelativeToolTip": "TPC\\entrenamientoVistaPrevia.aspx.cs",
+              "ViewState": "AgIAAKkAAAAAAAAAAAAiwPcAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-08T22:09:08.761Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EntrenamientoNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\Negocio\\EntrenamientoNegocio.cs",
+              "RelativeDocumentMoniker": "Negocio\\EntrenamientoNegocio.cs",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\Negocio\\EntrenamientoNegocio.cs",
+              "RelativeToolTip": "Negocio\\EntrenamientoNegocio.cs",
+              "ViewState": "AgIAAH0AAAAAAAAAAAAwwIwAAABVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-09T23:41:28.239Z",
+              "EditorCaption": ""
             }
           ]
         }

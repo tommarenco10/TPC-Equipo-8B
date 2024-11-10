@@ -112,7 +112,7 @@
 
         <div>
             <h6>¿Desea confirmar el Entrenamiento?</h6>
-            <asp:Button ID="btnActualizar" runat="server" CssClass="btn btn-warning" Text="Sí, modificar" OnClick="btnActualizar_Click" />
+            <asp:Button ID="btnActualizar" runat="server" CssClass="btn btn-warning" Text="Sí, modificar" OnClick="btnConfirmar_Click" />
             <asp:Button ID="btnVolver2" runat="server" CssClass="btn btn-danger" Text="No, volver" OnClick="btnVolverDetalle_Click" />
         </div>
 

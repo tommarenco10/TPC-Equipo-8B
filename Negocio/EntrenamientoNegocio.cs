@@ -124,6 +124,34 @@ namespace Negocio
 
         }
 
+        public void modificarEntrenamiento(Entrenamiento modificado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE entrenamiento SET FechaHora = @FechaHora, Duracion = @Duracion, IdCategoria = @IdCategoria, Descripcion = @Descripcion, Observaciones = @Observaciones, IdEstadoEntrenamiento = @IdEstadoEntrenamiento WHERE IdEntrenamiento = @IdEntrenamiento");
+
+                datos.agregarParametro("@FechaHora", modificado.FechaHora);
+                datos.agregarParametro("@Duracion", modificado.Duracion);
+                datos.agregarParametro("@IdCategoria", modificado.Categoria.IdCategoria);
+                datos.agregarParametro("@Descripcion", modificado.Descripcion);
+                datos.agregarParametro("@Observaciones", modificado.Observaciones);
+                datos.agregarParametro("@IdEstadoEntrenamiento", modificado.Estado.IdEstado);
+                datos.agregarParametro("@IdEntrenamiento", modificado.IdEntrenamiento); 
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
         public int obtenerUltimoEntrenamiento()
         {
             int aux = 0;
@@ -172,17 +200,14 @@ namespace Negocio
                     aux.Categoria.IdCategoria = datos.Lector["IdCategoria"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdCategoria"]) : 0;
                     aux.Categoria.NombreCategoria = datos.Lector["Categoria"] != DBNull.Value ? (string)datos.Lector["Categoria"] : string.Empty;
                     aux.Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : string.Empty;
-                    //JUGADORES CITADOS
-                    JugadorNegocio jugadorNegocio = new JugadorNegocio();
-                    aux.JugadoresCitados = jugadorNegocio.listarPorEntrenamiento(aux.IdEntrenamiento);
-
-
-
-
                     aux.Estado = new EstadoEntrenamiento();
                     aux.Estado.IdEstado = datos.Lector["IdEstadoEntrenamiento"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoEntrenamiento"]) : 0;
                     aux.Estado.NombreEstado = datos.Lector["EstadoEntrenamiento"] != DBNull.Value ? (string)datos.Lector["EstadoEntrenamiento"] : string.Empty;
-            //JUGADORES PRESENTES
+
+                    //LISTAS DE JUGADORES
+                    JugadorNegocio jugadorNegocio = new JugadorNegocio();
+                    aux.JugadoresCitados = jugadorNegocio.listarPorEntrenamiento(aux.IdEntrenamiento);
+                    aux.JugadoresPresentes = jugadorNegocio.listarPresentesPorEntrenamiento(aux.IdEntrenamiento);
                     aux.Observaciones = datos.Lector["Observaciones"] != DBNull.Value ? (string)datos.Lector["Observaciones"] : string.Empty;
 
                     return aux;

@@ -131,6 +131,8 @@ namespace TPC
 
             try
             {
+                Button botonPresionado = (Button)sender;
+
                 entrenamiento.FechaHora = (DateTime)Session["fechaHoraEntrenamiento"];
                 entrenamiento.Duracion = verificarDuracion(txtDuracion.Text);
                 entrenamiento.Descripcion = txtDescripcion.Text;
@@ -153,28 +155,56 @@ namespace TPC
                     entrenamiento.JugadoresCitados = new List<Jugador>();
                 }
 
-                entrenamientoNegocio.agregarEntrenamiento(entrenamiento);
+
+                if (botonPresionado.ID == "btnConfirmar")
+                {
+                    entrenamientoNegocio.agregarEntrenamiento(entrenamiento);
+                }
+                else if (botonPresionado.ID == "btnActualizar")
+                {
+                    entrenamientoNegocio.modificarEntrenamiento(entrenamiento);
+                }
+
 
                 if (entrenamiento.JugadoresCitados != null && entrenamientoNegocio.obtenerUltimoEntrenamiento() != 0)
                 {
+                    int idEntrenamiento = 0;
+
+                    if (botonPresionado.ID == "btnActualizar")
+                    {
+                        asistenciaNegocio.eliminarAsistenciaPorEntrenamiento(entrenamiento.IdEntrenamiento);
+                        idEntrenamiento = entrenamiento.IdEntrenamiento;
+                    }
+                    else if (botonPresionado.ID == "btnConfirmar"){
+                        idEntrenamiento = entrenamientoNegocio.obtenerUltimoEntrenamiento();
+                    }
+
                     foreach (Jugador jugador in entrenamiento.JugadoresCitados)
                     {
                         asistencia.IdJugador = jugador.IdJugador;
-                        asistencia.IdEntrenamiento = entrenamientoNegocio.obtenerUltimoEntrenamiento();
+                        asistencia.IdEntrenamiento = idEntrenamiento;
                         asistencia.EstadoAsistencia = false;
                         asistencia.Observaciones = string.Empty;
                         asistenciaNegocio.agregar(asistencia);
                     }
                 }
-
-
+                
                 Session.Remove("jugadoresSeleccionados");
                 Session.Remove("categoriaSeleccionada");
                 Session.Remove("fechaHoraEntrenamiento");
-                
-                string script = "alert('Entrenamiento agregado correctamente');";
-                script += "window.location = 'gestionEntrenamiento.aspx';";
-                ClientScript.RegisterStartupScript(this.GetType(), "AlertAndRedirect", script, true);
+
+                if (botonPresionado.ID == "btnConfirmar")
+                {
+                    string script = "alert('Entrenamiento agregado correctamente');";
+                    script += "window.location = 'gestionEntrenamiento.aspx';";
+                    ClientScript.RegisterStartupScript(this.GetType(), "AlertAndRedirect", script, true);
+                }
+                else if (botonPresionado.ID == "btnActualizar")
+                {
+                    string script = "alert('Entrenamiento modificado correctamente');";
+                    script += "window.location = 'entrenamientosProgramados.aspx';";
+                    ClientScript.RegisterStartupScript(this.GetType(), "AlertAndRedirect", script, true);
+                }
             }
             catch (ThreadAbortException) { }
             catch (Exception ex)
@@ -208,13 +238,23 @@ namespace TPC
             Response.Redirect("entrenamientosProgramados.aspx");
         }
 
-        protected void btnActualizar_Click(object sender, EventArgs e)
-        {
-
-        }
-
         protected void btnAgregarJugadores_Click(object sender, EventArgs e)
         {
+            DateTime fechaEntrenamiento;
+            DateTime horaEntrenamiento;
+
+            if (DateTime.TryParse(txtFechaEntrenamiento.Text, out fechaEntrenamiento) &&
+                DateTime.TryParse(txtHoraEntrenamiento.Text, out horaEntrenamiento))
+            {
+                DateTime fechaHoraEntrenamiento = fechaEntrenamiento.Date.Add(horaEntrenamiento.TimeOfDay);
+                Session["fechaHoraEntrenamiento"] = fechaHoraEntrenamiento;
+            }
+
+            Session["categoriaSeleccionada"] = int.Parse(ddlCategoria.SelectedValue);
+            Session["duracionEntrenamiento"] = txtDuracion.Text;
+            Session["descripcionEntrenamiento"] = txtDescripcion.Text;
+            Session["observacionesEntrenamiento"] = txtObservaciones.Text;
+
             Response.Redirect("gestionEntrenamiento.aspx?id=1");
         }
     }
