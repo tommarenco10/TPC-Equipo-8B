@@ -146,7 +146,7 @@ namespace TPC
                     listaJugadores.Add(jugador.IdJugador); // Agregar cada IdJugador a la lista
                 }
                 Session["jugadoresSeleccionados"] = listaJugadores;
-
+                Session["idEntrenamientoSeleccionado"] = entrenamientoSeleccionado.IdEntrenamiento;
                 Session["categoriaSeleccionada"] = entrenamientoSeleccionado.Categoria.IdCategoria;
                 Session["fechaHoraEntrenamiento"] = entrenamientoSeleccionado.FechaHora;
                 Session["duracionEntrenamiento"] = entrenamientoSeleccionado.Duracion.ToString();

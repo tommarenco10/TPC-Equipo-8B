@@ -138,7 +138,15 @@ namespace Negocio
                 datos.agregarParametro("@Descripcion", modificado.Descripcion);
                 datos.agregarParametro("@Observaciones", modificado.Observaciones);
                 datos.agregarParametro("@IdEstadoEntrenamiento", modificado.Estado.IdEstado);
-                datos.agregarParametro("@IdEntrenamiento", modificado.IdEntrenamiento); 
+                datos.agregarParametro("@IdEntrenamiento", modificado.IdEntrenamiento);
+
+                Console.WriteLine($"FechaHora: {modificado.FechaHora}");
+                Console.WriteLine($"Duracion: {modificado.Duracion}");
+                Console.WriteLine($"IdCategoria: {modificado.Categoria.IdCategoria}");
+                Console.WriteLine($"Descripcion: {modificado.Descripcion}");
+                Console.WriteLine($"Observaciones: {modificado.Observaciones}");
+                Console.WriteLine($"IdEstadoEntrenamiento: {modificado.Estado.IdEstado}");
+                Console.WriteLine($"IdEntrenamiento: {modificado.IdEntrenamiento}");
 
                 datos.ejecutarAccion();
             }

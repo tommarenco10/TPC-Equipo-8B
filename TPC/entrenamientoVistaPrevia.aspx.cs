@@ -123,88 +123,61 @@ namespace TPC
         {
             Entrenamiento entrenamiento = new Entrenamiento();
             EntrenamientoNegocio entrenamientoNegocio = new EntrenamientoNegocio();
-
-            Asistencia asistencia = new Asistencia();
             AsistenciaNegocio asistenciaNegocio = new AsistenciaNegocio();
-
             JugadorNegocio jugadorNegocio = new JugadorNegocio();
 
             try
             {
                 Button botonPresionado = (Button)sender;
 
-                entrenamiento.FechaHora = (DateTime)Session["fechaHoraEntrenamiento"];
+                DateTime fechaEntrenamiento;
+                DateTime horaEntrenamiento;
+
+                if (DateTime.TryParse(txtFechaEntrenamiento.Text, out fechaEntrenamiento) &&
+                    DateTime.TryParse(txtHoraEntrenamiento.Text, out horaEntrenamiento))
+                {
+                    entrenamiento.FechaHora = fechaEntrenamiento.Date.Add(horaEntrenamiento.TimeOfDay);
+                }
+
                 entrenamiento.Duracion = verificarDuracion(txtDuracion.Text);
                 entrenamiento.Descripcion = txtDescripcion.Text;
-                entrenamiento.Categoria = new Categoria();
-                entrenamiento.Categoria.IdCategoria = (int)Session["categoriaSeleccionada"];
-                entrenamiento.Estado = new EstadoEntrenamiento();
-                entrenamiento.Estado.IdEstado = 1; //PROGRAMADO POR DEFAULT
+                entrenamiento.Categoria = new Categoria { IdCategoria = int.Parse(ddlCategoria.SelectedValue) };
+                entrenamiento.Estado = new EstadoEntrenamiento { IdEstado = 1 }; // PROGRAMADO POR DEFAULT
                 entrenamiento.Observaciones = string.Empty;
 
                 List<int> jugadoresSeleccionadosIds = (List<int>)Session["jugadoresSeleccionados"];
 
                 if (jugadoresSeleccionadosIds != null && jugadoresSeleccionadosIds.Count > 0)
                 {
-                    List<Jugador> jugadoresSeleccionados = jugadorNegocio.ObtenerJugadoresPorIds(jugadoresSeleccionadosIds);
-
-                    entrenamiento.JugadoresCitados = jugadoresSeleccionados;
+                    entrenamiento.JugadoresCitados = jugadorNegocio.ObtenerJugadoresPorIds(jugadoresSeleccionadosIds);
                 }
                 else
                 {
                     entrenamiento.JugadoresCitados = new List<Jugador>();
                 }
 
-
                 if (botonPresionado.ID == "btnConfirmar")
                 {
                     entrenamientoNegocio.agregarEntrenamiento(entrenamiento);
+                    int idNuevoEntrenamiento = entrenamientoNegocio.obtenerUltimoEntrenamiento();
+                    asistenciaNegocio.AgregarAsistenciaMultiple(idNuevoEntrenamiento, jugadoresSeleccionadosIds);
                 }
                 else if (botonPresionado.ID == "btnActualizar")
                 {
+                    entrenamiento.IdEntrenamiento = (int)Session["idEntrenamientoSeleccionado"];
                     entrenamientoNegocio.modificarEntrenamiento(entrenamiento);
+                    asistenciaNegocio.ActualizarAsistencias(entrenamiento.IdEntrenamiento, jugadoresSeleccionadosIds);
                 }
 
-
-                if (entrenamiento.JugadoresCitados != null && entrenamientoNegocio.obtenerUltimoEntrenamiento() != 0)
-                {
-                    int idEntrenamiento = 0;
-
-                    if (botonPresionado.ID == "btnActualizar")
-                    {
-                        asistenciaNegocio.eliminarAsistenciaPorEntrenamiento(entrenamiento.IdEntrenamiento);
-                        idEntrenamiento = entrenamiento.IdEntrenamiento;
-                    }
-                    else if (botonPresionado.ID == "btnConfirmar"){
-                        idEntrenamiento = entrenamientoNegocio.obtenerUltimoEntrenamiento();
-                    }
-
-                    foreach (Jugador jugador in entrenamiento.JugadoresCitados)
-                    {
-                        asistencia.IdJugador = jugador.IdJugador;
-                        asistencia.IdEntrenamiento = idEntrenamiento;
-                        asistencia.EstadoAsistencia = false;
-                        asistencia.Observaciones = string.Empty;
-                        asistenciaNegocio.agregar(asistencia);
-                    }
-                }
-                
                 Session.Remove("jugadoresSeleccionados");
                 Session.Remove("categoriaSeleccionada");
                 Session.Remove("fechaHoraEntrenamiento");
 
-                if (botonPresionado.ID == "btnConfirmar")
-                {
-                    string script = "alert('Entrenamiento agregado correctamente');";
-                    script += "window.location = 'gestionEntrenamiento.aspx';";
-                    ClientScript.RegisterStartupScript(this.GetType(), "AlertAndRedirect", script, true);
-                }
-                else if (botonPresionado.ID == "btnActualizar")
-                {
-                    string script = "alert('Entrenamiento modificado correctamente');";
-                    script += "window.location = 'entrenamientosProgramados.aspx';";
-                    ClientScript.RegisterStartupScript(this.GetType(), "AlertAndRedirect", script, true);
-                }
+               // string script = botonPresionado.ID == "btnConfirmar"
+               //  ? "alert('Entrenamiento agregado correctamente'); window.location = 'gestionEntrenamiento.aspx';"
+                // : "alert('Entrenamiento modificado correctamente'); window.location = 'entrenamientosProgramados.aspx';";
+
+                //ClientScript.RegisterStartupScript(this.GetType(), "AlertAndRedirect", script, true);
             }
             catch (ThreadAbortException) { }
             catch (Exception ex)
