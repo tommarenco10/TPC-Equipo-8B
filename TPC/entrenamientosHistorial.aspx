@@ -31,7 +31,7 @@
                     <ItemStyle Width="8%" />
                     <ItemTemplate>
                         <asp:Button ID="btnVerDetalle" runat="server" Text="Ver Detalle" CommandName="VerDetalle"
-                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-primary" OnClick="btnVerDetalle_Click" />
+                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-outline-info" OnClick="btnVerDetalle_Click" />
                     </ItemTemplate>
                 </asp:TemplateField>
 
@@ -39,19 +39,10 @@
                     <HeaderStyle Width="8%" />
                     <ItemStyle Width="8%" />
                     <ItemTemplate>
-                        <asp:Button ID="btnActualizar" runat="server" Text="Actualizar" CommandName="Actualizar"
-                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-outline-warning" />
+                        <asp:Button ID="btnRepetir" runat="server" Text="Repetir Entrenamiento" CommandName="Repetir"
+                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-outline-success" />
                     </ItemTemplate>
-                </asp:TemplateField>
-
-                <asp:TemplateField>
-                    <HeaderStyle Width="8%" />
-                    <ItemStyle Width="8%" />
-                    <ItemTemplate>
-                        <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CommandName="Cancelar"
-                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-danger" />
-                    </ItemTemplate>
-                </asp:TemplateField>
+                </asp:TemplateField>    
 
             </Columns>
         </asp:GridView>
