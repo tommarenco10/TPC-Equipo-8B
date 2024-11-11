@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="Entrenamientos Programados" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="entrenamientosProgramados.aspx.cs" Inherits="TPC.entrenamientosProgramados" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -49,7 +52,8 @@
                     <ItemStyle Width="8%" />
                     <ItemTemplate>
                         <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CommandName="Cancelar"
-                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-danger" />
+                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-danger"
+                            OnClientClick="return openConfirmModal(this);" OnClick="btnCancelar_Click" />
                     </ItemTemplate>
                 </asp:TemplateField>
 
@@ -63,4 +67,41 @@
         <asp:Button ID="btnAgregar" runat="server" Text="Agregar Nuevo" CssClass="btn btn-primary" OnClick="btnAgregar_Click" />
     </div>
 
+    <!-- Modal de Confirmación -->
+    <div class="modal fade" id="confirmCancelModal" tabindex="-1" aria-labelledby="confirmCancelLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmCancelLabel">Confirmar Cancelación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas cancelar este entrenamiento?
+           
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" id="confirmCancelButton">Sí, Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Código JavaScript para el Modal -->
+    <script type="text/javascript">
+        let selectedButton = null;
+
+        function openConfirmModal(button) {
+            selectedButton = button;  // Guarda el botón "Cancelar" presionado
+            $('#confirmCancelModal').modal('show');  // Muestra el modal de confirmación
+            return false;  // Previene la ejecución inmediata del evento de servidor
+        }
+
+        document.getElementById("confirmCancelButton").addEventListener("click", function () {
+            $('#confirmCancelModal').modal('hide');  // Cierra el modal
+            __doPostBack(selectedButton.name, '');  // Llama al evento OnClick en el servidor
+        });
+    </script>
+
 </asp:Content>
+

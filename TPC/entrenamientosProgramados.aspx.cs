@@ -162,5 +162,25 @@ namespace TPC
                 Response.Redirect("Error.aspx");
             }
         }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Button btnCancelar = (Button)sender;
+                int idEntrenamiento = Convert.ToInt32(btnCancelar.CommandArgument);
+
+                EntrenamientoNegocio entrenamientoNegocio = new EntrenamientoNegocio();
+                entrenamientoNegocio.cancelarEntrenamiento(idEntrenamiento);
+
+                string script = "alert('Entrenamiento cancelado correctamente'); window.location = 'entrenamientosProgramados.aspx';";
+                ClientScript.RegisterStartupScript(this.GetType(), "AlertAndRedirect", script, true);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+        }
     }
 }

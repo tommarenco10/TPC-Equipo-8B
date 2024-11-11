@@ -235,6 +235,27 @@ namespace Negocio
             }
         }
 
+        public void cancelarEntrenamiento(int idEntrenamiento)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE entrenamiento SET IdEstadoEntrenamiento = @IdEstado WHERE IdEntrenamiento = @IdEntrenamiento");
+                datos.agregarParametro("@IdEstado", 2); // 2 = Cancelado
+                datos.agregarParametro("@IdEntrenamiento", idEntrenamiento);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
     }
 }
