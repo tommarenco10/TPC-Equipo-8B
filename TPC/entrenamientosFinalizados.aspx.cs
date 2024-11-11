@@ -23,10 +23,10 @@ namespace TPC
             {
                 if (!IsPostBack)
                 {
-                    int idEstadoProgramado = 1;
+                    int idEstadoFinalizado = 3;
                     listaEntrenamientosProgramados = negocioEntrenamiento.listarPorFechaAscendente();
                     listaEntrenamientosProgramados = listaEntrenamientosProgramados
-                        .Where(entrenamiento => entrenamiento.Estado.IdEstado == idEstadoProgramado)
+                        .Where(entrenamiento => entrenamiento.Estado.IdEstado == idEstadoFinalizado)
                         .ToList();
                     Session["listaEntrenamientosProgramados"] = listaEntrenamientosProgramados;
 

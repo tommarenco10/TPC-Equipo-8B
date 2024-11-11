@@ -91,84 +91,102 @@ namespace TPC
 
             try
             {
-                IEnumerable<dynamic> listaEstados;
-
-                if ((int)Session["tipoPagina"] == 1)
+                if (validarAccion())
                 {
-                    listaEstados = negocioEJ.listar();
-                }
-                else
-                {
-                    listaEstados = negocioEE.listar();
-                }
+                    IEnumerable<dynamic> listaEstados;
 
-                string nombreEstado = txtNombreEstado.Text;
-                bool existeEstado = listaEstados.Any(x => x.NombreEstado.Equals(nombreEstado, StringComparison.OrdinalIgnoreCase));
-
-                if (string.IsNullOrEmpty(nombreEstado))
-                {
-                    lblMensaje.Text = "Por favor, complete la casilla de nombre.";
-                    lblMensaje.ForeColor = System.Drawing.Color.Red;
-                    lblMensaje.Visible = true;
-                }
-
-                else if (existeEstado)
-                {
-                    lblMensaje.Text = "El estado ya existe. Por favor, ingrese un nombre diferente.";
-                    lblMensaje.ForeColor = System.Drawing.Color.Red;
-                    lblMensaje.Visible = true;
-                }
-
-                else
-                {
                     if ((int)Session["tipoPagina"] == 1)
                     {
-                        estadoJugador.NombreEstado = nombreEstado;
-
-                        if (string.IsNullOrEmpty(txtIdEstado.Text))
-                        {
-                            negocioEJ.agregar(estadoJugador);
-                            lblMensaje.Text = "Estado agregado exitosamente.";
-                            lblMensaje.ForeColor = System.Drawing.Color.Green;
-                            lblMensaje.Visible = true;
-                        }
-                        else
-                        {
-                            estadoJugador.IdEstado = int.Parse(txtIdEstado.Text);
-                            negocioEJ.modificar(estadoJugador);
-                            lblMensaje.Text = "Estado modificado exitosamente.";
-                            lblMensaje.ForeColor = System.Drawing.Color.Green;
-                            lblMensaje.Visible = true;
-                            btnGuardarModificacion.Enabled = false;
-                        }
+                        listaEstados = negocioEJ.listar();
                     }
-                    else if ((int)Session["tipoPagina"] == 2)
+                    else
                     {
-
-                        estadoEntrenamiento.NombreEstado = nombreEstado;
-
-                        if (string.IsNullOrEmpty(txtIdEstado.Text))
-                        {
-                            negocioEE.agregar(estadoEntrenamiento);
-                            lblMensaje.Text = "Estado agregado exitosamente.";
-                            lblMensaje.ForeColor = System.Drawing.Color.Green;
-                            lblMensaje.Visible = true;
-                        }
-                        else
-                        {
-                            estadoEntrenamiento.IdEstado = int.Parse(txtIdEstado.Text);
-                            negocioEE.modificar(estadoEntrenamiento);
-                            lblMensaje.Text = "Estado modificado exitosamente.";
-                            lblMensaje.ForeColor = System.Drawing.Color.Green;
-                            lblMensaje.Visible = true;
-                            btnGuardarModificacion.Enabled = false;
-                        }
+                        listaEstados = negocioEE.listar();
                     }
 
-                    txtIdEstado.Text = string.Empty;
-                    txtNombreEstado.Text = string.Empty;
-                    cargarDataGridView();
+                    string nombreEstado = txtNombreEstado.Text;
+                    bool existeEstado = listaEstados.Any(x => x.NombreEstado.Equals(nombreEstado, StringComparison.OrdinalIgnoreCase));
+
+                    if (string.IsNullOrEmpty(nombreEstado))
+                    {
+                        lblMensaje.Text = "Por favor, complete la casilla de nombre.";
+                        lblMensaje.ForeColor = System.Drawing.Color.Red;
+                        lblMensaje.Visible = true;
+                    }
+
+                    else if (existeEstado)
+                    {
+                        lblMensaje.Text = "El estado ya existe. Por favor, ingrese un nombre diferente.";
+                        lblMensaje.ForeColor = System.Drawing.Color.Red;
+                        lblMensaje.Visible = true;
+                    }
+
+                    else
+                    {
+                        lblMensaje.ForeColor = System.Drawing.Color.Green;
+                        lblMensaje.Visible = true;
+
+                        if ((int)Session["tipoPagina"] == 1)
+                        {
+                            estadoJugador.NombreEstado = nombreEstado;
+
+                            if (string.IsNullOrEmpty(txtIdEstado.Text))
+                            {
+                                negocioEJ.agregar(estadoJugador);
+                                lblMensaje.Text = "Estado agregado exitosamente.";
+                                lblMensaje.ForeColor = System.Drawing.Color.Green;
+                                lblMensaje.Visible = true;
+                            }
+                            else
+                            {
+                                estadoJugador.IdEstado = int.Parse(txtIdEstado.Text);
+                                negocioEJ.modificar(estadoJugador);
+                                lblMensaje.Text = "Estado modificado exitosamente.";
+
+                                btnGuardarModificacion.Enabled = false;
+                            }
+                        }
+                        else if ((int)Session["tipoPagina"] == 2)
+                        {
+
+                            estadoEntrenamiento.NombreEstado = nombreEstado;
+
+                            if (string.IsNullOrEmpty(txtIdEstado.Text))
+                            {
+                                negocioEE.agregar(estadoEntrenamiento);
+                                lblMensaje.Text = "Estado agregado exitosamente.";
+                            }
+                            else
+                            {
+                                estadoEntrenamiento.IdEstado = int.Parse(txtIdEstado.Text);
+                                negocioEE.modificar(estadoEntrenamiento);
+                                lblMensaje.Text = "Estado modificado exitosamente.";
+                                btnGuardarModificacion.Enabled = false;
+                            }
+                        }
+
+                        txtIdEstado.Text = string.Empty;
+                        txtNombreEstado.Text = string.Empty;
+                        cargarDataGridView();
+                    }
                 }
+                else
+                {
+                    lblMensaje.ForeColor = System.Drawing.Color.Red;
+                    lblMensaje.Visible = true;
+                    if ((int)Session["IdEstadoSeleccionado"] != 1 &&
+                        (int)Session["IdEstadoSeleccionado"] != 2 &&
+                        (int)Session["IdEstadoSeleccionado"] != 3 &&
+                        (int)Session["IdEstadoSeleccionado"] != 4)
+                    {
+                        lblMensaje.Text = "No se puede realizar la modificación. El estado aún tiene registros asociados.";
+                    }
+                    else
+                    {
+                        lblMensaje.Text = "No se puede realizar la modificación. El estado es clave para el funcionamiento del programa.";
+                    }
+                }
+
             }
             catch (Exception ex)
             {
@@ -248,7 +266,7 @@ namespace TPC
             }
         }
 
-        protected bool validarEliminacion()
+        protected bool validarAccion()
         {
             EntrenamientoNegocio negocioEntrenamiento = new EntrenamientoNegocio();
             JugadorNegocio negocioJugador = new JugadorNegocio();
@@ -257,7 +275,10 @@ namespace TPC
 
             try
             {
-                if ((int)Session["IdEstadoSeleccionado"] != 1)
+                if ((int)Session["IdEstadoSeleccionado"] != 1 &&
+                    (int)Session["IdEstadoSeleccionado"] != 2 &&
+                    (int)Session["IdEstadoSeleccionado"] != 3 &&
+                    (int)Session["IdEstadoSeleccionado"] != 4)
                 {
                     IEnumerable<dynamic> lista;
 
@@ -317,14 +338,15 @@ namespace TPC
         {
             try
             {
-                if (validarEliminacion())
+                if (validarAccion())
                 {
                     if ((int)Session["tipoPagina"] == 1)
                     {
                         EstadoJugadorNegocio negocioEJ = new EstadoJugadorNegocio();
                         negocioEJ.eliminar((int)Session["IdEstadoSeleccionado"]);
                     }
-                    else if ((int)Session["tipoPagina"] == 2) {
+                    else if ((int)Session["tipoPagina"] == 2)
+                    {
                         EstadoEntrenamientoNegocio negocioEE = new EstadoEntrenamientoNegocio();
                         negocioEE.eliminar((int)Session["IdEstadoSeleccionado"]);
                     }
@@ -339,12 +361,17 @@ namespace TPC
                 else
                 {
                     btnGuardarEliminacion.Enabled = false;
+                    lblMensaje.ForeColor = System.Drawing.Color.Red;
                     lblMensaje.Visible = true;
-                    if ((int)Session["IdEstadoSeleccionado"] != 1)
+                    if ((int)Session["IdEstadoSeleccionado"] != 1 &&
+                        (int)Session["IdEstadoSeleccionado"] != 2 &&
+                        (int)Session["IdEstadoSeleccionado"] != 3 &&
+                        (int)Session["IdEstadoSeleccionado"] != 4)
                     {
                         lblMensaje.Text = "No se puede realizar la eliminación. El estado aún tiene registros asociados.";
                     }
-                    else {
+                    else
+                    {
                         lblMensaje.Text = "No se puede realizar la eliminación. El estado es clave para el funcionamiento del programa.";
                     }
                 }
