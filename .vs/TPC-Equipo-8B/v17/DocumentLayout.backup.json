@@ -1,12 +1,54 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc-equipo-8b\\tpc\\gestionentrenamiento.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\gestionentrenamiento.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|c:\\users\\santi\\onedrive\\desktop\\repositorio - github\\tpc-equipo-8b\\tpc\\index.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{8D7D0B34-DAD0-4982-8CDA-8C3F2D4C3491}|TPC\\TPC.csproj|solutionrelative:tpc\\index.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "gestionEntrenamiento.aspx",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\TPC\\gestionEntrenamiento.aspx",
+              "RelativeDocumentMoniker": "TPC\\gestionEntrenamiento.aspx",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\TPC\\gestionEntrenamiento.aspx",
+              "RelativeToolTip": "TPC\\gestionEntrenamiento.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-11-12T21:47:32.511Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "index.aspx",
+              "DocumentMoniker": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\TPC\\index.aspx",
+              "RelativeDocumentMoniker": "TPC\\index.aspx",
+              "ToolTip": "C:\\Users\\santi\\OneDrive\\Desktop\\Repositorio - GitHub\\TPC-Equipo-8B\\TPC\\index.aspx",
+              "RelativeToolTip": "TPC\\index.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-11-12T20:34:06.591Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
