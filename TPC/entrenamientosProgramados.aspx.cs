@@ -117,10 +117,9 @@ namespace TPC
                     listaJugadores.Add(jugador.IdJugador); // Agregar cada IdJugador a la lista
                 }
                 Session["jugadoresSeleccionados"] = listaJugadores;
-
                 Session["entrenamientoSeleccionado"] = entrenamientoSeleccionado;
 
-                Response.Redirect("entrenamientoVistaPrevia.aspx?id=2"); //FUNCION VER DETALLE
+                Response.Redirect("entrenamientoVistaPrevia.aspx?id=3"); //FUNCION VER DETALLE
             }
             catch (ThreadAbortException) { }
             catch (Exception ex)
@@ -145,15 +144,17 @@ namespace TPC
                 {
                     listaJugadores.Add(jugador.IdJugador); // Agregar cada IdJugador a la lista
                 }
-                Session["jugadoresSeleccionados"] = listaJugadores;
-                Session["idEntrenamientoSeleccionado"] = entrenamientoSeleccionado.IdEntrenamiento;
-                Session["categoriaSeleccionada"] = entrenamientoSeleccionado.Categoria.IdCategoria;
-                Session["fechaHoraEntrenamiento"] = entrenamientoSeleccionado.FechaHora;
-                Session["duracionEntrenamiento"] = entrenamientoSeleccionado.Duracion.ToString();
-                Session["descripcionEntrenamiento"] = entrenamientoSeleccionado.Descripcion;
-                Session["observacionesEntrenamiento"] = entrenamientoSeleccionado.Observaciones;
 
-                Response.Redirect("entrenamientoVistaPrevia.aspx?id=3"); //FUNCION ACTUALIZAR
+                Session["jugadoresSeleccionados"] = listaJugadores;
+                Session["entrenamientoSeleccionado"] = entrenamientoSeleccionado;
+                //Session["idEntrenamientoSeleccionado"] = entrenamientoSeleccionado.IdEntrenamiento;
+                //Session["categoriaSeleccionada"] = entrenamientoSeleccionado.Categoria.IdCategoria;
+                //Session["fechaHoraEntrenamiento"] = entrenamientoSeleccionado.FechaHora;
+                //Session["duracionEntrenamiento"] = entrenamientoSeleccionado.Duracion.ToString();
+                //Session["descripcionEntrenamiento"] = entrenamientoSeleccionado.Descripcion;
+                //Session["observacionesEntrenamiento"] = entrenamientoSeleccionado.Observaciones;
+
+                Response.Redirect("gestionEntrenamiento.aspx?id=2"); //FUNCION ACTUALIZAR
             }
             catch (ThreadAbortException) { }
             catch (Exception ex)
