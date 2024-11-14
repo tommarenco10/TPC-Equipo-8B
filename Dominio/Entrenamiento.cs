@@ -18,5 +18,15 @@ namespace Dominio
         public EstadoEntrenamiento Estado { get; set; }
         public List<Jugador> JugadoresPresentes { get; set; }
         public string Observaciones { get; set; }
+
+        public Entrenamiento()
+        {
+            Categoria = new Categoria();
+            JugadoresCitados = new List<Jugador>();
+            Estado = new EstadoEntrenamiento();
+            JugadoresPresentes = new List<Jugador>();
+        }
     }
+
+
 }

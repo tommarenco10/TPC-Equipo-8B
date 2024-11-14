@@ -14,8 +14,10 @@ namespace TPC
 {
     public partial class gestionEntrenamiento : System.Web.UI.Page
     {
-        private List<Jugador> listaJugadores;
         public int tipoPagina;
+        private Entrenamiento entrenamiento;
+
+        private List<Jugador> listaJugadores;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,84 +26,109 @@ namespace TPC
 
             try
             {
+                // VALIDO EN TODAS LAS CARGAS
                 if (Session["tipoPagina"] != null)
                 {
                     tipoPagina = (int)Session["tipoPagina"];
                 }
 
+                // 1era EJECUCIÓN
                 if (!IsPostBack)
                 {
+                    // CONFIGURACIONES INICIALES
 
-                    if (Session["jugadoresSeleccionados"] != null)
-                    { 
-                        Session["auxLista"] = new List<int>((List<int>)Session["jugadoresSeleccionados"]);
-                    }
+                    // GUARDA EL ENTRENAMIENTO QUE RECIBE DE SESSION
+                    entrenamiento = (Entrenamiento)Session["entrenamientoSeleccionado"];
 
-
+                    // GUARDA EL TIPO DE PÁGINA
                     tipoPagina = Convert.ToInt32(Request.QueryString["id"]);
                     Session["tipoPagina"] = tipoPagina;
 
+                    // GUARDA LA LISTA DE JUGADORES COMPLETA
                     listaJugadores = negocioJugador.listar();
                     Session["listaJugadores"] = listaJugadores;
 
+                    // PRECARGA DDL DE CATEGORIAS PARA ELEGIR JUGADORES
                     List<Categoria> listaCategorias = negocioCategoria.listar();
                     ddlCategoria.DataSource = listaCategorias;
                     ddlCategoria.DataTextField = "NombreCategoria";
                     ddlCategoria.DataValueField = "IdCategoria";
                     ddlCategoria.DataBind();
+                    ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", "0"));
                     ddlJugadoresAdicionales.DataSource = listaCategorias;
                     ddlJugadoresAdicionales.DataTextField = "NombreCategoria";
                     ddlJugadoresAdicionales.DataValueField = "IdCategoria";
                     ddlJugadoresAdicionales.DataBind();
-                    // Opción para seleccionar
-                    ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", "0"));
                     ddlJugadoresAdicionales.Items.Insert(0, new ListItem("Seleccione una categoría", "0"));
 
-                    //RECUPERAR DATOS
+                    // CONFIGURACIONES SEGÚN TIPO DE PÁGINA
 
-                    // Categoria Seleccionada
-                    if (Session["categoriaSeleccionada"] != null)
+                    // SI TIPO DE PÁGINA 1: AGREGAR - VUELTA DESDE VISTA PREVIA
+                    if ((int)Session["tipoPagina"] == 1)
                     {
-                        int idCategoriaSeleccionada = (int)Session["categoriaSeleccionada"];
-                        ddlCategoria.SelectedValue = idCategoriaSeleccionada.ToString();
+
                     }
 
-                    // Fecha y Hora del Entrenamiento
-                    if (Session["fechaHoraEntrenamiento"] != null)
+                    // SI TIPO DE PÁGINA 2: MODIFICAR - INGRESO PROGRAMADO O VUELTA DESDE VISTA PREVIA
+                    else if ((int)Session["tipoPagina"] == 2)
                     {
-                        DateTime fechaHoraEntrenamiento = (DateTime)Session["fechaHoraEntrenamiento"];
-
-                        txtFechaEntrenamiento.Text = fechaHoraEntrenamiento.ToString("yyyy-MM-dd");
-                        txtHoraEntrenamiento.Text = fechaHoraEntrenamiento.ToString("HH:mm");
+                        //BACKUP DE JUGADORES EN CASO DE MODIFICACIÓN
+                        Session["auxLista"] = new List<int>((List<int>)Session["jugadoresSeleccionados"]);
                     }
+
+                    // OTRO CASO: AGREGAR - INGRESO NAVBAR, PROGRAMADO, O INESPERADO
                     else
                     {
+                        // ARRANQUE VACÍO: REMOVE DE LOS SESSION
+                        Session.Remove("jugadoresSeleccionados");
+                        Session.Remove("auxLista");
+                        Session.Remove("entrenamientoSeleccionado");
                         txtFechaEntrenamiento.Text = string.Empty;
                         txtHoraEntrenamiento.Text = string.Empty;
+                        txtDuracion.Text = "00:00";
+                        txtDescripcion.Text = string.Empty;
+                    }
+
+                    // RECUPERACIÓN DE DATOS
+
+                    if (entrenamiento != null)
+                    {
+                        // Fecha y Hora del Entrenamiento
+                        DateTime fechaHoraEntrenamiento = entrenamiento.FechaHora;
+                        txtFechaEntrenamiento.Text = fechaHoraEntrenamiento.ToString("yyyy-MM-dd");
+                        txtHoraEntrenamiento.Text = fechaHoraEntrenamiento.ToString("HH:mm");
+                        // Categoría Principal del Entrenamiento
+                        int idCategoriaSeleccionada = entrenamiento.Categoria.IdCategoria;
+                        ddlCategoria.SelectedValue = idCategoriaSeleccionada.ToString();
+                        // Duración del Entrenamiento
+                        txtDuracion.Text = entrenamiento.Duracion.ToString();
+                        // Descripción del Entrenamiento
+                        txtDescripcion.Text = entrenamiento.Descripcion.ToString();
+                        // Jugadores Citados
                     }
                 }
-
             }
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
-        }
+        } 
 
-        protected void btnPreseleccionar_Click(object sender, EventArgs e)
+        protected void cargaDGVJugadores(object sender, EventArgs e)
         {
             try
             {
-                int idCategoriaSeleccionada = int.Parse(ddlCategoria.SelectedValue);
+                bool btnPreseleccionar = sender is Button;
 
                 List<Jugador> listaFiltrada = new List<Jugador>();
-
                 listaJugadores = (List<Jugador>)Session["listaJugadores"];
+                int idCategoriaSeleccionada = btnPreseleccionar
+                    ? int.Parse(ddlCategoria.SelectedValue)
+                        : int.Parse(ddlJugadoresAdicionales.SelectedValue);
 
                 if (listaJugadores != null)
                 {
-
                     foreach (Jugador jugador in listaJugadores)
                     {
                         if (jugador.Categoria.IdCategoria == idCategoriaSeleccionada)
@@ -118,67 +145,28 @@ namespace TPC
                 List<int> jugadoresSeleccionados = Session["jugadoresSeleccionados"] != null
                     ? (List<int>)Session["jugadoresSeleccionados"]
                     : new List<int>();
+
                 foreach (GridViewRow row in dgvEntrenamiento.Rows)
                 {
                     CheckBox chkCitado = (CheckBox)row.FindControl("chkCitado");
-                    chkCitado.Checked = true;
                     int idJugador = Convert.ToInt32(dgvEntrenamiento.DataKeys[row.RowIndex].Value);
-                    // Agregar el jugador a la lista de jugadores seleccionados si no está ya en la lista
-                    if (!jugadoresSeleccionados.Contains(idJugador))
+
+                    if (jugadoresSeleccionados.Contains(idJugador) || btnPreseleccionar)
                     {
-                        jugadoresSeleccionados.Add(idJugador);
-                    }
-                }
+                        chkCitado.Checked = true;
 
-                Session["jugadoresSeleccionados"] = jugadoresSeleccionados;
-            }
-            catch (Exception ex)
-            {
-                Session.Add("error", ex.ToString());
-                Response.Redirect("Error.aspx");
-            }
-        }
-
-        protected void ddlJugadoresAdicionales_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                int idCategoriaSeleccionada = int.Parse(ddlJugadoresAdicionales.SelectedValue);
-
-                List<Jugador> listaFiltrada = new List<Jugador>();
-
-                listaJugadores = (List<Jugador>)Session["listaJugadores"];
-
-                if (listaJugadores != null)
-                {
-
-                    foreach (Jugador jugador in listaJugadores)
-                    {
-                        if (jugador.Categoria.IdCategoria == idCategoriaSeleccionada)
+                        if (btnPreseleccionar && !jugadoresSeleccionados.Contains(idJugador))
                         {
-                            listaFiltrada.Add(jugador);
+                            jugadoresSeleccionados.Add(idJugador);
                         }
                     }
                 }
 
-                dgvEntrenamiento.DataSource = listaFiltrada;
-                dgvEntrenamiento.DataBind();
-
-                // Restaurar el estado de los checkboxes de los jugadores seleccionados 
-                List<int> jugadoresSeleccionados = (List<int>)Session["jugadoresSeleccionados"];
-                if (jugadoresSeleccionados != null)
+                if (btnPreseleccionar)
                 {
-                    foreach (GridViewRow row in dgvEntrenamiento.Rows)
-                    {
-                        CheckBox chkCitado = (CheckBox)row.FindControl("chkCitado");
-                        int idJugador = Convert.ToInt32(dgvEntrenamiento.DataKeys[row.RowIndex].Value);
-
-                        if (jugadoresSeleccionados.Contains(idJugador))
-                        {
-                            chkCitado.Checked = true;
-                        }
-                    }
+                    Session["jugadoresSeleccionados"] = jugadoresSeleccionados;
                 }
+
             }
             catch (Exception ex)
             {
@@ -224,49 +212,189 @@ namespace TPC
             }
         }
 
-        protected void btnMostrarSeleccionados_Click(object sender, EventArgs e)
+        protected bool validaciones()
         {
+            int idCategoriaSeleccionada;
+            DateTime fechaHoraEntrenamiento;
             DateTime fechaEntrenamiento;
             DateTime horaEntrenamiento;
+            TimeSpan duracionEntrenamiento;
+            string descripcionEntrenamiento;
 
             try
             {
-                int idCategoriaSeleccionada = int.Parse(ddlCategoria.SelectedValue);
-                Session["categoriaSeleccionada"] = idCategoriaSeleccionada;
+                //VALIDAR CATEGORIA
+                if (int.Parse(ddlCategoria.SelectedValue) == 0)
+                {
+                    lblError.CssClass = "alert alert-warning";
+                    lblError.Text = "Por favor, seleccione una categoría.";
+                    return false;
+                }
+                else
+                {
+                    idCategoriaSeleccionada = int.Parse(ddlCategoria.SelectedValue);
+                    //Session["categoriaSeleccionada"] = idCategoriaSeleccionada;
+                }
 
+                //VALIDAR FECHA Y HORA
                 if (string.IsNullOrEmpty(txtFechaEntrenamiento.Text) || string.IsNullOrEmpty(txtHoraEntrenamiento.Text))
                 {
                     lblError.CssClass = "alert alert-warning";
                     lblError.Text = "Por favor, complete los campos de fecha y hora.";
-                    return;
+                    return false;
                 }
 
                 else if (!DateTime.TryParse(txtFechaEntrenamiento.Text, out fechaEntrenamiento))
                 {
                     lblError.CssClass = "alert alert-danger";
                     lblError.Text = "Fecha no válida. Por favor, ingrese una fecha válida.";
-                    return;
+                    return false;
                 }
 
                 else if (!DateTime.TryParse(txtHoraEntrenamiento.Text, out horaEntrenamiento))
                 {
                     lblError.CssClass = "alert alert-danger";
                     lblError.Text = "Hora no válida. Por favor, ingrese una hora válida.";
-                    return;
+                    return false;
                 }
 
                 else if (fechaEntrenamiento.Date < DateTime.Today)
                 {
                     lblError.CssClass = "alert alert-danger";
                     lblError.Text = "Fecha no válida. La fecha seleccionada no puede ser en el pasado.";
-                    return;
+                    return false;
+                }
+
+                else if (fechaEntrenamiento.Date == DateTime.Today && fechaEntrenamiento.TimeOfDay <= DateTime.Now.TimeOfDay)
+                {
+                    lblError.CssClass = "alert alert-danger";
+                    lblError.Text = "Hora no válida. La hora de entrenamiento no puede ser en el pasado.";
+                    return false;
                 }
 
                 else
                 {
-                    DateTime fechaHoraEntrenamiento = fechaEntrenamiento.Date.Add(horaEntrenamiento.TimeOfDay);
-                    Session["fechaHoraEntrenamiento"] = fechaHoraEntrenamiento;
-                    Response.Redirect("entrenamientoVistaPrevia.aspx?id=1", false); //FUNCION AGREGADO
+                    fechaHoraEntrenamiento = fechaEntrenamiento.Date.Add(horaEntrenamiento.TimeOfDay);
+                    //Session["fechaHoraEntrenamiento"] = fechaHoraEntrenamiento;
+                }
+
+                //VALIDAR DURACIÓN
+                if (string.IsNullOrEmpty(txtDuracion.Text))
+                {
+                    lblError.CssClass = "alert alert-warning";
+                    lblError.Text = "Por favor, complete el campo de duración.";
+                    return false;
+                }
+                else if (!TimeSpan.TryParse(txtDuracion.Text, out duracionEntrenamiento))
+                {
+                    lblError.CssClass = "alert alert-danger";
+                    lblError.Text = "Duración no válida. Por favor, ingrese una duración válida.";
+                    return false;
+                }
+
+                //VALIDAR DESCRIPCIÓN
+                if (string.IsNullOrEmpty(txtDuracion.Text))
+                {
+                    lblError.CssClass = "alert alert-warning";
+                    lblError.Text = "Por favor, complete el campo de duración.";
+                    return false;
+                }
+                else
+                {
+                    descripcionEntrenamiento = txtDescripcion.Text.ToString();
+                }
+
+                //GUARDADO DEL OBJETO VALIDADO EN SESSION
+
+                entrenamiento = (Entrenamiento)Session["entrenamientoSeleccionado"];
+
+                if (entrenamiento == null)
+                {
+                    entrenamiento = new Entrenamiento();
+                }
+                if (entrenamiento.Categoria == null)
+                {
+                    entrenamiento.Categoria = new Categoria();
+                }
+                
+                entrenamiento.Categoria.IdCategoria = idCategoriaSeleccionada;
+                entrenamiento.FechaHora = fechaHoraEntrenamiento;
+                entrenamiento.Duracion = duracionEntrenamiento;
+                entrenamiento.Descripcion = descripcionEntrenamiento;
+                Session["entrenamientoSeleccionado"] = entrenamiento;
+                return true;
+            }
+            catch (ThreadAbortException) { return false; }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+                return false;
+            }
+        }
+
+        protected void btnVistaPrevia_Click(object sender, EventArgs e)
+        {
+
+            if (validaciones())
+            {
+                if ((int)Session["tipoPagina"] != 2)
+                {
+                    Response.Redirect("entrenamientoVistaPrevia.aspx?id=1");
+                }
+                else
+                {
+                    Response.Redirect("entrenamientoVistaPrevia.aspx?id=2");
+                }
+            }
+        }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            Entrenamiento entrenamiento = new Entrenamiento();
+            EntrenamientoNegocio entrenamientoNegocio = new EntrenamientoNegocio();
+            AsistenciaNegocio asistenciaNegocio = new AsistenciaNegocio();
+            JugadorNegocio jugadorNegocio = new JugadorNegocio();
+
+            try
+            {
+                if (validaciones())
+                {
+
+                    Button botonPresionado = (Button)sender;
+
+                    entrenamiento = (Entrenamiento)Session["entrenamientoSeleccionado"];
+                    entrenamiento.Estado = new EstadoEntrenamiento { IdEstado = 1 }; // PROGRAMADO POR DEFAULT
+                    entrenamiento.Observaciones = string.Empty;
+
+                    List<int> jugadoresSeleccionadosIds = (List<int>)Session["jugadoresSeleccionados"];
+
+                    if (jugadoresSeleccionadosIds != null && jugadoresSeleccionadosIds.Count > 0)
+                    {
+                        entrenamiento.JugadoresCitados = jugadorNegocio.ObtenerJugadoresPorIds(jugadoresSeleccionadosIds);
+                    }
+                    else
+                    {
+                        entrenamiento.JugadoresCitados = new List<Jugador>();
+                    }
+
+                    if (botonPresionado.ID == "btnAgregar")
+                    {
+                        entrenamientoNegocio.agregarEntrenamiento(entrenamiento);
+                        int idNuevoEntrenamiento = entrenamientoNegocio.obtenerUltimoEntrenamiento();
+                        asistenciaNegocio.AgregarAsistenciaMultiple(idNuevoEntrenamiento, jugadoresSeleccionadosIds);
+                    }
+                    else if (botonPresionado.ID == "btnModificar")
+                    {
+                        entrenamientoNegocio.modificarEntrenamiento(entrenamiento);
+                        asistenciaNegocio.ActualizarAsistencias(entrenamiento.IdEntrenamiento, jugadoresSeleccionadosIds);
+                    }
+
+                    string script = botonPresionado.ID == "btnAgregar"
+                        ? "alert('Entrenamiento agregado correctamente'); window.location = 'entrenamientoVistaPrevia.aspx?id=1';"
+                        : "alert('Entrenamiento modificado correctamente'); window.location = 'entrenamientoVistaPrevia.aspx?id=2';";
+
+                    ClientScript.RegisterStartupScript(this.GetType(), "AlertAndRedirect", script, true);
                 }
             }
             catch (ThreadAbortException) { }
@@ -277,15 +405,10 @@ namespace TPC
             }
         }
 
-        protected void btnAgregar_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("entrenamientoVistaPrevia.aspx?id=3");
-        }
-
-        protected void btnVolver_Click(object sender, EventArgs e)
+        protected void btnVolverSinGuardar_Click(object sender, EventArgs e)
         {
             Session["jugadoresSeleccionados"] = Session["auxLista"];
-            Response.Redirect("entrenamientoVistaPrevia.aspx?id=3");
+            Response.Redirect("entrenamientoVistaPrevia.aspx?id=2");
         }
     }
 }
