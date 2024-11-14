@@ -81,6 +81,18 @@ namespace Negocio
         }
 
 
+        public static bool validaTextoVacio(Object control)
+        {
+            if (control is TextBox)
+            {
+                if (string.IsNullOrEmpty(((TextBox)control).Text))
+                    return false;
+                else
+                    return true;
+
+            }
+            return false;
+        }
 
     }
 }

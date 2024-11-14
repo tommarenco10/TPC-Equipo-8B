@@ -15,29 +15,50 @@ namespace TPC
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!(Session["user"] == null))
+            {
+                Response.Redirect("index.aspx");
+            }
         }
 
         protected void btnLogIn_Click(object sender, EventArgs e)
         {
             UsuarioNegocio nuevo = new UsuarioNegocio();
             Usuario login = new Usuario();
-            login.Nombre = txtUserName.Text;
-            login.Contraseña =txtPass.Text;
+            
 
-            if (nuevo.loguear(login))
+            try
             {
-                Session.Add("user", login);
-                Response.Redirect(default);
+
+                if(Seguridad.validaTextoVacio(txtUserName.Text)|| Seguridad.validaTextoVacio(txtPass.Text))
+                {
+                    Session.Add("error", "Debes completar los campos requeridos.");
+                    Response.Redirect("Error.aspx");
+                }
+          
+                login.Nombre = txtUserName.Text;
+                login.Contraseña = txtPass.Text;
+                if (nuevo.loguear(login))
+                {
+                    Session.Add("user", login);
+                    Response.Redirect("index.aspx",false);
+                    //return;
+                }
+                else
+                {
+                    txtPass.CssClass = "form-control is-invalid";
+                    lbError.Text = "Usuario o contraseña incorrecta.";
+                    lbError.Visible = true;
+                    UpdatePanel1.Update();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                // Manejo de error en caso de login fallido
-                txtPass.CssClass = "form-control is-invalid";
-                lbError.Text = "Usuario o contraseña incorrecta.";
-                lbError.Visible = true;
-                UpdatePanel1.Update();
-            }
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx",false);
+            } 
+
+
         }
     }
 }

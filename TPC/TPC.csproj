@@ -78,6 +78,7 @@
     <Content Include="Error.aspx" />
     <Content Include="Estilos\estilos.css" />
     <Content Include="gestionEntrenamiento.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="index.aspx" />
     <Content Include="info.aspx" />
     <Content Include="ingreso.aspx" />
@@ -156,6 +157,9 @@
     </Compile>
     <Compile Include="gestionEntrenamiento.aspx.designer.cs">
       <DependentUpon>gestionEntrenamiento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>

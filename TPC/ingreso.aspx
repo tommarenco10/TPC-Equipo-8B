@@ -16,12 +16,12 @@
                             <ContentTemplate>
                                 <div class="mb-3">
                                     <label for="txtUser" class="form-label">Nombre de usuario</label>
-                                    <asp:TextBox runat="server" CssClass="form-control" ID="txtUserName" />
+                                    <asp:TextBox runat="server" CssClass="form-control" ID="txtUserName"/>
                                     <asp:RequiredFieldValidator ErrorMessage="Este campo es requerido" ControlToValidate="txtUserName" Class="error-input" runat="server" />
                                 </div>
                                 <div class="mb-3">
                                     <label for="txtPass" class="form-label">Contraseña</label>
-                                    <asp:TextBox TextMode="Password" CssClass="form-control" ID="txtPass" runat="server" EnableViewState="true" />
+                                    <asp:TextBox TextMode="Password" CssClass="form-control" ID="txtPass" runat="server" EnableViewState="true"/>
                                     <asp:RequiredFieldValidator ErrorMessage="Este campo es requerido" ControlToValidate="txtPass" runat="server" Class="error-input" />
                                 </div>
                                 <asp:Label Text="" ID="lbError" runat="server" ForeColor="Red" />

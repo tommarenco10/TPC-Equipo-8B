@@ -34,3 +34,25 @@ footer {
     border-color: red;
     background-color: #f8d7da;
 }
+
+
+
+.welcome-message {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+
+.success-message {
+    color: green;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+
+.error-message {
+    color: red;
+    font-size: 1.4em;
+    font-weight: bold;
+}
