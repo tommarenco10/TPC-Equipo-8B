@@ -118,7 +118,7 @@
     <br />
     <br />
     <asp:Button ID="btnModificar" CssClass="btn btn-warning" runat="server" Text="Guardar Modificación" OnClick="btnGuardar_Click" />
-    <asp:Button ID="btnVolverSinGuardar" CssClass="btn btn-danger" runat="server" Text="Volver sin guardar" OnClick="btnVolverSinGuardar_Click" />
+    <asp:Button ID="btnVolverSinGuardar" CssClass="btn btn-danger" runat="server" Text="Cancelar Cambios" OnClick="btnVolverSinGuardar_Click" />
     <% } %>
 
     <asp:Label ID="lblError" runat="server"></asp:Label>

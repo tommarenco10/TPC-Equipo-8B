@@ -55,16 +55,17 @@
 
     <section>
         <br />
-        <% if (tipoPagina == 2 || tipoPagina == 3)
+        <% if (tipoPagina == 3)
             { %>
         <asp:Button ID="btnVolverListado" runat="server" CssClass="btn btn-primary" Text="Volver a Listado" OnClick="btnVolverListado_Click" />
-        <%       if (tipoPagina == 2)
-                 { %>
-        <asp:Button ID="btnModificar" runat="server" CssClass="btn btn-warning" Text="Seguir Modificando" OnClick="btnModificar_Click" />
         <% }
-                }
+            else if (tipoPagina == 2)
+            { %>
+        <asp:Button ID="btnModificar" runat="server" CssClass="btn btn-warning" Text="Seguir Modificando" OnClick="btnModificar_Click" />
+        <asp:Button ID="btnSalirSinModificar" runat="server" CssClass="btn btn-danger" Text="Salir sin Modificar" OnClick="btnVolverListado_Click" />
+        <% }
             else
-            {%>
+            { %>
         <asp:Button ID="btnVolverAgregar" runat="server" CssClass="btn btn-primary" Text="Volver" OnClick="btnVolverAgregar_Click" />
         <% } %>
 

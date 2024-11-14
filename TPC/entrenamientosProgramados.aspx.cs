@@ -101,12 +101,12 @@ namespace TPC
             Response.Redirect("gestionEntrenamiento.aspx");
         }
 
-        protected void btnVerDetalle_Click(object sender, EventArgs e)
+        protected void btnAccion_Click(object sender, EventArgs e)
         {
             try
             {
-                Button btnVerDetalle = (Button)sender;
-                int idEntrenamiento = Convert.ToInt32(btnVerDetalle.CommandArgument);
+                Button btn = (Button)sender;
+                int idEntrenamiento = Convert.ToInt32(btn.CommandArgument);
 
                 EntrenamientoNegocio negocioEntrenamiento = new EntrenamientoNegocio();
                 Entrenamiento entrenamientoSeleccionado = negocioEntrenamiento.ObtenerEntrenamientoPorId(idEntrenamiento);
@@ -114,47 +114,19 @@ namespace TPC
                 List<int> listaJugadores = new List<int>();
                 foreach (Jugador jugador in entrenamientoSeleccionado.JugadoresCitados)
                 {
-                    listaJugadores.Add(jugador.IdJugador); // Agregar cada IdJugador a la lista
+                    listaJugadores.Add(jugador.IdJugador);
                 }
                 Session["jugadoresSeleccionados"] = listaJugadores;
                 Session["entrenamientoSeleccionado"] = entrenamientoSeleccionado;
 
-                Response.Redirect("entrenamientoVistaPrevia.aspx?id=3"); //FUNCION VER DETALLE
-            }
-            catch (ThreadAbortException) { }
-            catch (Exception ex)
-            {
-                Session.Add("error", ex.ToString());
-                Response.Redirect("Error.aspx");
-            }
-        }
-
-        protected void btnActualizar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Button btnActualizar = (Button)sender;
-                int idEntrenamiento = Convert.ToInt32(btnActualizar.CommandArgument);
-
-                EntrenamientoNegocio negocioEntrenamiento = new EntrenamientoNegocio();
-                Entrenamiento entrenamientoSeleccionado = negocioEntrenamiento.ObtenerEntrenamientoPorId(idEntrenamiento);
-
-                List<int> listaJugadores = new List<int>();
-                foreach (Jugador jugador in entrenamientoSeleccionado.JugadoresCitados)
+                if (btn.ID == "btnVerDetalle")
                 {
-                    listaJugadores.Add(jugador.IdJugador); // Agregar cada IdJugador a la lista
+                    Response.Redirect("entrenamientoVistaPrevia.aspx?id=3"); //FUNCION VER DETALLE
                 }
-
-                Session["jugadoresSeleccionados"] = listaJugadores;
-                Session["entrenamientoSeleccionado"] = entrenamientoSeleccionado;
-                //Session["idEntrenamientoSeleccionado"] = entrenamientoSeleccionado.IdEntrenamiento;
-                //Session["categoriaSeleccionada"] = entrenamientoSeleccionado.Categoria.IdCategoria;
-                //Session["fechaHoraEntrenamiento"] = entrenamientoSeleccionado.FechaHora;
-                //Session["duracionEntrenamiento"] = entrenamientoSeleccionado.Duracion.ToString();
-                //Session["descripcionEntrenamiento"] = entrenamientoSeleccionado.Descripcion;
-                //Session["observacionesEntrenamiento"] = entrenamientoSeleccionado.Observaciones;
-
-                Response.Redirect("gestionEntrenamiento.aspx?id=2"); //FUNCION ACTUALIZAR
+                else if (btn.ID == "btnActualizar")
+                {
+                    Response.Redirect("gestionEntrenamiento.aspx?id=2"); //FUNCION ACTUALIZAR
+                }
             }
             catch (ThreadAbortException) { }
             catch (Exception ex)

@@ -34,7 +34,7 @@
                     <ItemStyle Width="8%" />
                     <ItemTemplate>
                         <asp:Button ID="btnVerDetalle" runat="server" Text="Ver Detalle" CommandName="VerDetalle"
-                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-outline-info" OnClick="btnVerDetalle_Click" />
+                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-outline-info" OnClick="btnAccion_Click" />
                     </ItemTemplate>
                 </asp:TemplateField>
 
@@ -43,7 +43,7 @@
                     <ItemStyle Width="8%" />
                     <ItemTemplate>
                         <asp:Button ID="btnActualizar" runat="server" Text="Actualizar" CommandName="Actualizar"
-                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-outline-warning" OnClick="btnActualizar_Click" />
+                            CommandArgument='<%# Eval("IdEntrenamiento") %>' CssClass="btn btn-outline-warning" OnClick="btnAccion_Click" />
                     </ItemTemplate>
                 </asp:TemplateField>
 
