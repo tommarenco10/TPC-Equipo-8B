@@ -3,6 +3,20 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+
+# Ignorar los archivos de configuración de Visual Studio
+.vs/
+.vsconfig/
+# Ignorar archivos específicos de configuración de proyectos
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignorar archivos JSON específicos de Visual Studio
+*.json
+
+
 # User-specific files
 *.rsuser
 *.suo
