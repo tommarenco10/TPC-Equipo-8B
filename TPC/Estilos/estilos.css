@@ -28,3 +28,9 @@ footer {
     color: #333;
     margin-bottom: 20px;
 }
+
+
+.error-input {
+    border-color: red;
+    background-color: #f8d7da;
+}

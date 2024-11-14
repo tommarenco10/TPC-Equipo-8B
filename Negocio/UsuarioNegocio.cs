@@ -161,14 +161,14 @@ namespace Negocio
             AccesoDatos datos=new AccesoDatos();
             try
             {
-                datos.setearConsulta("Select id,IdTipoUsuario,Email from Usuario Where Nombre=@nombre AND Contraseña=@contraseña");
+                datos.setearConsulta("Select IdUsuario,IdTipoUsuario,Email from Usuario Where Nombre=@nombre AND Contraseña=@contraseña");
                 datos.agregarParametro("@nombre",usuario.Nombre);
                 datos.agregarParametro("@contraseña", usuario.Contraseña);
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
-                    usuario.IdUsuario = (int)datos.Lector["id"];
-                    usuario.Tipo = (TipoUsuario)(int)datos.Lector["IdTipoUsuario"];
+                    usuario.IdUsuario = (long)datos.Lector["IdUsuario"];
+                    usuario.Tipo = (TipoUsuario)(byte)datos.Lector["IdTipoUsuario"];
                     usuario.Email = (string)datos.Lector["Email"];
                     return true;
                 }

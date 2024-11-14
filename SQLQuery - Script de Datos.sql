@@ -1,5 +1,8 @@
 use Gestion_Clubes
 go
+
+SELECT * FROM Usuario;
+
 SET DATEFORMAT 'DMY'
 
 INSERT INTO Categoria
@@ -34,3 +37,5 @@ VALUES
 ('2024-11-12', '2:00:00', '1', 'Entrenamiento Táctico', '', '1'),
 ('2024-11-12', '2:00:00', '2', 'Entrenamiento Táctico', '', '1'),
 ('2024-11-12', '2:00:00', '3', 'Entrenamiento Táctico', '', '2')
+
+
