@@ -5,6 +5,6 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <asp:Label ID="lblError" runat="server" Text="Error indeterminado"></asp:Label>
+    <asp:Label ID="lblError" runat="server" Text="Error indeterminado" CssClass="error-message"></asp:Label>
 
 </asp:Content>

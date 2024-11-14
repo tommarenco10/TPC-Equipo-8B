@@ -20,7 +20,7 @@ namespace TPC
             {
                 Usuario logueado = (Usuario)Session["user"];
                 lblBienvenida.Text = $"Hola {logueado.Nombre}, bienvenido a la Plataforma de Gestión del Club de Fútbol!";
-                litContent.Text = "<p class='titulo'>Inicio de sesión exitoso!</p>";
+                litContent.Text = "<p class='success-message'>Inicio de sesión exitoso!</p>";
             }
         }
     }
