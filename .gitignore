@@ -4,8 +4,72 @@
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
 
-# Ignorar los archivos de configuración de Visual Studio
+# Carpetas de compilación
+bin/
+obj/
+artifacts/
+
+# Cache de Visual Studio
 .vs/
+
+# Archivos temporales
+*.tmp
+*.temp
+*.log
+*.tlog
+*.cache
+
+# Configuración específica del usuario
+*.suo
+*.user
+*.userosscache
+*.rsuser
+
+# Archivos de bloqueo o configuración temporal
+project.lock.json
+project.fragment.lock.json
+
+
+# Salida de publicación web
+*.Publish.xml
+*.pubxml
+*.publishproj
+PublishScripts/
+
+# Archivos de dependencias
+node_modules/
+bower_components/
+
+# Archivos temporales del cliente
+wwwroot/
+
+# Archivos relacionados con Razor
+*.RazorCoreCompile.cache
+*.RazorCoreCompile.state
+
+# Datos locales
+App_Data/
+
+
+
+
+# Archivos de bases de datos SQL locales
+*.mdf
+*.ldf
+*.ndf
+
+
+
+# Archivos de configuración específicos del entorno
+*.swp
+*.bak
+*.orig
+
+# Configuración de Rider o IDE JetBrains
+.idea/
+*.sln.iml
+
+# Ignorar los archivos de configuración de Visual Studio
 .vsconfig/
 # Ignorar archivos específicos de configuración de proyectos
 *.user
