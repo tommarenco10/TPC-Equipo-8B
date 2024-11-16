@@ -341,6 +341,34 @@ namespace Negocio
             }
         }
 
+        public List<int> listarIdPorEntrenamiento(int idEntrenamiento)
+        {
+            List<int> lista = new List<int>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta(@"SELECT j.IdJugador FROM Jugador j
+                              INNER JOIN Asistencia a ON a.IdJugador = j.IdJugador
+                              WHERE a.IdEntrenamiento = @IdEntrenamiento");
+                datos.agregarParametro("@IdEntrenamiento", idEntrenamiento);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    int jugador = Convert.ToInt32(datos.Lector["IdJugador"]);
+
+                    lista.Add(jugador);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public List<Jugador> listarPresentesPorEntrenamiento(int idEntrenamiento)
         {
             List<Jugador> lista = new List<Jugador>();

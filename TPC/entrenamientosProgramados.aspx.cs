@@ -141,10 +141,18 @@ namespace TPC
             try
             {
                 Button btnCancelar = (Button)sender;
-                int idEntrenamiento = Convert.ToInt32(btnCancelar.CommandArgument);
+                int idEntrenamientoCancelado = Convert.ToInt32(btnCancelar.CommandArgument);
 
                 EntrenamientoNegocio entrenamientoNegocio = new EntrenamientoNegocio();
-                entrenamientoNegocio.cancelarEntrenamiento(idEntrenamiento);
+                AsistenciaNegocio asistenciaNegocio = new AsistenciaNegocio();
+                JugadorNegocio jugadorNegocio = new JugadorNegocio();
+
+                Entrenamiento  entrenamientoCancelado = entrenamientoNegocio.ObtenerEntrenamientoPorId(idEntrenamientoCancelado);
+                List<int> jugadoresSeleccionadosIds = jugadorNegocio.listarIdPorEntrenamiento(idEntrenamientoCancelado);
+
+                asistenciaNegocio.EliminarAsistenciaMultiple(idEntrenamientoCancelado, jugadoresSeleccionadosIds);
+
+                entrenamientoNegocio.cancelarEntrenamiento(idEntrenamientoCancelado);
 
                 string script = "alert('Entrenamiento cancelado correctamente'); window.location = 'entrenamientosProgramados.aspx';";
                 ClientScript.RegisterStartupScript(this.GetType(), "AlertAndRedirect", script, true);

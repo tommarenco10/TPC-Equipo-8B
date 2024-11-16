@@ -60,7 +60,7 @@
         <br />
         <% if (tipoPagina == 3)
             { %>
-        <asp:Button ID="btnVolverListado" runat="server" CssClass="btn btn-primary" Text="Volver a Listado"/>
+        <asp:Button ID="btnVolverListado" runat="server" CssClass="btn btn-primary" Text="Volver a Listado" OnClick="btnVolverListado_Click"/>
         <% }
             else if (tipoPagina == 2)
             { %>
