@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="Vista Previa" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="entrenamientoVistaPrevia.aspx.cs" Inherits="TPC.entrenamientoVistaPrevia" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -57,12 +60,13 @@
         <br />
         <% if (tipoPagina == 3)
             { %>
-        <asp:Button ID="btnVolverListado" runat="server" CssClass="btn btn-primary" Text="Volver a Listado" OnClick="btnVolverListado_Click" />
+        <asp:Button ID="btnVolverListado" runat="server" CssClass="btn btn-primary" Text="Volver a Listado"/>
         <% }
             else if (tipoPagina == 2)
             { %>
         <asp:Button ID="btnModificar" runat="server" CssClass="btn btn-warning" Text="Seguir Modificando" OnClick="btnModificar_Click" />
-        <asp:Button ID="btnSalirSinModificar" runat="server" CssClass="btn btn-danger" Text="Salir" OnClick="btnVolverListado_Click" />
+        <asp:Button ID="btnSalirSinModificar" runat="server" CssClass="btn btn-danger" Text="Salir"
+            OnClientClick="event.preventDefault(); mostrarModalCancelacionVP(); return false;" />
         <% }
             else
             { %>
@@ -74,4 +78,34 @@
         <asp:Label ID="lblMensaje" runat="server" Visible="false"></asp:Label>
 
     </section>
+
+    <!-- Modal de Cancelación -->
+    <div class="modal fade" id="cancelacionModalVP" tabindex="-1" aria-labelledby="cancelacionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cancelacionModalLabel">Salir de Modificación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Está seguro de que desea salir del menú de modificación?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <asp:Button ID="btnModalSalir" class="btn btn-danger" runat="server" Text="Si, Salir" OnClick="btnVolverListado_Click" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Código JavaScript para Modal -->
+    <script type="text/javascript">
+
+        function mostrarModalCancelacionVP() {
+            var modalElement = new bootstrap.Modal(document.getElementById('cancelacionModalVP'));
+            modalElement.show();
+        }
+
+    </script>
+
 </asp:Content>

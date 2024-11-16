@@ -108,7 +108,7 @@
     <% if (tipoPagina != 2)
         {%>
     <asp:Button ID="btnAgregar" runat="server" Text="Agregar" CssClass="btn btn-success"
-         OnClientClick="event.preventDefault(); mostrarModal('Agregar Entrenamiento', '¿Está seguro de que desea agregar el entrenamiento?'); return false;"/>
+        OnClientClick="event.preventDefault(); mostrarModalConfirmacion('Agregar Entrenamiento', '¿Está seguro de que desea agregar el entrenamiento?'); return false;" />
     <% } %>
 
     <asp:Button ID="btnVistaPrevia" CssClass="btn btn-secondary" runat="server" Text="Ver Vista Previa" OnClick="btnVistaPrevia_Click" />
@@ -117,8 +117,10 @@
         { %>
     <br />
     <br />
-    <asp:Button ID="btnModificar" CssClass="btn btn-warning" runat="server" Text="Guardar Modificación" OnClick="btnGuardar_Click" />
-    <asp:Button ID="btnVolverSinGuardar" CssClass="btn btn-danger" runat="server" Text="Cancelar Cambios" OnClick="btnVolverSinGuardar_Click" />
+    <asp:Button ID="btnModificar" CssClass="btn btn-warning" runat="server" Text="Guardar Modificación"
+        OnClientClick="event.preventDefault(); mostrarModalConfirmacion('Modificar Entrenamiento', '¿Está seguro de que desea modificar el entrenamiento?'); return false;" />
+    <asp:Button ID="btnVolverSinGuardar" CssClass="btn btn-danger" runat="server" Text="Cancelar Cambios"
+        OnClientClick="event.preventDefault(); mostrarModalCancelacion(); return false;" />
     <% } %>
 
     <asp:Label ID="lblError" runat="server"></asp:Label>
@@ -128,29 +130,55 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmacionModalLabel">Confirmación</h5>
+                    <h5 class="modal-title" id="confirmacionModalLabel">Título</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
-                    ¿Estás seguro de que deseas realizar esta acción?
+                    Cuerpo
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <asp:Button ID="btnGuardar" class="btn btn-success" runat="server" Text="Si, Guardar" OnClick="btnGuardar_Click"/>
+                    <asp:Button ID="btnModalGuardar" class="btn btn-success" runat="server" Text="Si, Guardar" OnClick="btnGuardar_Click" />
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Código JavaScript para el Modal -->
+    <!-- Modal de Cancelación -->
+    <div class="modal fade" id="cancelacionModal" tabindex="-1" aria-labelledby="cancelacionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cancelacionModalLabel">Cancelar Cambios</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas salir sin guardar los cambios?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <asp:Button ID="btnModalSalir" class="btn btn-danger" runat="server" Text="Si, Salir" OnClick="btnVolverSinGuardar_Click" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Código JavaScript para Modales -->
     <script type="text/javascript">
-        function mostrarModal(titulo, mensaje) {
+
+        function mostrarModalConfirmacion(titulo, mensaje) {
             document.getElementById('confirmacionModalLabel').innerText = titulo;
             document.querySelector('#confirmacionModal .modal-body').innerText = mensaje;
 
             var modalElement = new bootstrap.Modal(document.getElementById('confirmacionModal'));
             modalElement.show();
         }
+
+        function mostrarModalCancelacion() {
+            var modalElement = new bootstrap.Modal(document.getElementById('cancelacionModal'));
+            modalElement.show();
+        }
+
     </script>
 
 </asp:Content>

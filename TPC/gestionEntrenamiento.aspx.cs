@@ -388,7 +388,6 @@ namespace TPC
                         asistenciaNegocio.AgregarAsistenciaMultiple(idNuevoEntrenamiento, jugadoresSeleccionadosIds);
                     }
 
-
                     string script = (int)Session["tipoPagina"] == 2
                         ? "alert('Entrenamiento modificado correctamente'); window.location = 'entrenamientoVistaPrevia.aspx?id=2';"
                         : "alert('Entrenamiento agregado correctamente'); window.location = 'entrenamientoVistaPrevia.aspx?id=1';";
