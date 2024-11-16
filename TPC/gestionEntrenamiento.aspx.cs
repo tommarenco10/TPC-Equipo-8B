@@ -113,7 +113,7 @@ namespace TPC
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
-        } 
+        }
 
         protected void cargaDGVJugadores(object sender, EventArgs e)
         {
@@ -217,7 +217,7 @@ namespace TPC
             int idCategoriaSeleccionada;
             DateTime fechaHoraEntrenamiento;
             DateTime fechaEntrenamiento;
-            DateTime horaEntrenamiento;
+            TimeSpan horaEntrenamiento;
             TimeSpan duracionEntrenamiento;
             string descripcionEntrenamiento;
 
@@ -251,7 +251,7 @@ namespace TPC
                     return false;
                 }
 
-                else if (!DateTime.TryParse(txtHoraEntrenamiento.Text, out horaEntrenamiento))
+                else if (!TimeSpan.TryParse(txtHoraEntrenamiento.Text, out horaEntrenamiento))
                 {
                     lblError.CssClass = "alert alert-danger";
                     lblError.Text = "Hora no válida. Por favor, ingrese una hora válida.";
@@ -265,17 +265,15 @@ namespace TPC
                     return false;
                 }
 
-                else if (fechaEntrenamiento.Date == DateTime.Today && fechaEntrenamiento.TimeOfDay <= DateTime.Now.TimeOfDay)
+                else if (fechaEntrenamiento.Date == DateTime.Today && horaEntrenamiento <= DateTime.Now.TimeOfDay)
                 {
                     lblError.CssClass = "alert alert-danger";
                     lblError.Text = "Hora no válida. La hora de entrenamiento no puede ser en el pasado.";
                     return false;
                 }
-
                 else
                 {
-                    fechaHoraEntrenamiento = fechaEntrenamiento.Date.Add(horaEntrenamiento.TimeOfDay);
-                    //Session["fechaHoraEntrenamiento"] = fechaHoraEntrenamiento;
+                    fechaHoraEntrenamiento = fechaEntrenamiento.Date.Add(horaEntrenamiento);
                 }
 
                 //VALIDAR DURACIÓN
@@ -316,7 +314,7 @@ namespace TPC
                 {
                     entrenamiento.Categoria = new Categoria();
                 }
-                
+
                 entrenamiento.Categoria.IdCategoria = idCategoriaSeleccionada;
                 entrenamiento.FechaHora = fechaHoraEntrenamiento;
                 entrenamiento.Duracion = duracionEntrenamiento;

@@ -24,6 +24,7 @@ namespace TPC
                 if (!IsPostBack)
                 {
                     int idEstadoProgramado = 1;
+
                     listaEntrenamientosProgramados = negocioEntrenamiento.listarPorFechaAscendente();
                     listaEntrenamientosProgramados = listaEntrenamientosProgramados
                         .Where(entrenamiento => entrenamiento.Estado.IdEstado == idEstadoProgramado)
@@ -38,6 +39,8 @@ namespace TPC
 
                     // Opción para seleccionar
                     ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", "0"));
+
+                    negocioEntrenamiento.actualizarEstadosPorFecha(idEstadoProgramado);
                 }
 
                 if (dgvEntrenamientos.Rows.Count == 0)

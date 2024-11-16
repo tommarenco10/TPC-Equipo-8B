@@ -257,5 +257,59 @@ namespace Negocio
             }
         }
 
+        public void actualizarEstadosPorFecha(int idEstado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                List<Entrenamiento> listaEntrenamientos = listar();
+                listaEntrenamientos = listaEntrenamientos
+                    .Where(entrenamiento => entrenamiento.Estado.IdEstado == idEstado)
+                    .ToList();
+
+                DateTime ahora = DateTime.Now;
+
+                foreach (Entrenamiento entrenamiento in listaEntrenamientos)
+                {
+                    DateTime fechaHoraInicio = entrenamiento.FechaHora;
+                    DateTime fechaHoraFin = fechaHoraInicio.Add(entrenamiento.Duracion);
+
+                    int nuevoEstado;
+
+                    if (ahora < fechaHoraInicio)
+                    {
+                        nuevoEstado = 1; // "Programado"
+                    }
+                    else if (ahora >= fechaHoraInicio && ahora <= fechaHoraFin)
+                    {
+                        nuevoEstado = 4; // "En Curso"
+                    }
+                    else
+                    {
+                        nuevoEstado = 3; // "Finalizado"
+                    }
+
+                    if (entrenamiento.Estado.IdEstado != nuevoEstado)
+                    {
+                        datos.setearConsulta("UPDATE entrenamiento SET IdEstadoEntrenamiento = @IdEstado WHERE IdEntrenamiento = @IdEntrenamiento");
+                        datos.agregarParametro("@IdEstado", nuevoEstado);
+                        datos.agregarParametro("@IdEntrenamiento", entrenamiento.IdEntrenamiento);
+
+                        datos.ejecutarAccion();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
+
 }

@@ -12,7 +12,7 @@ namespace TPC
 {
     public partial class entrenamientosFinalizados : System.Web.UI.Page
     {
-        private List<Entrenamiento> listaEntrenamientosProgramados;
+        private List<Entrenamiento> listaEntrenamientosFinalizados;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,12 +23,15 @@ namespace TPC
             {
                 if (!IsPostBack)
                 {
+                    int idEstadoProgramado = 1;
+                    int idEstadoEnCurso = 4;
                     int idEstadoFinalizado = 3;
-                    listaEntrenamientosProgramados = negocioEntrenamiento.listarPorFechaAscendente();
-                    listaEntrenamientosProgramados = listaEntrenamientosProgramados
+
+                    listaEntrenamientosFinalizados = negocioEntrenamiento.listarPorFechaAscendente();
+                    listaEntrenamientosFinalizados = listaEntrenamientosFinalizados
                         .Where(entrenamiento => entrenamiento.Estado.IdEstado == idEstadoFinalizado)
                         .ToList();
-                    Session["listaEntrenamientosProgramados"] = listaEntrenamientosProgramados;
+                    Session["listaEntrenamientosFinalizados"] = listaEntrenamientosFinalizados;
 
                     List<Categoria> listaCategorias = negocioCategoria.listar();
                     ddlCategoria.DataSource = listaCategorias;
@@ -38,6 +41,9 @@ namespace TPC
 
                     // Opción para seleccionar
                     ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", "0"));
+
+                    negocioEntrenamiento.actualizarEstadosPorFecha(idEstadoProgramado);
+                    negocioEntrenamiento.actualizarEstadosPorFecha(idEstadoEnCurso);
                 }
 
                 if (dgvEntrenamientos.Rows.Count == 0)
@@ -64,12 +70,12 @@ namespace TPC
 
                 List<Entrenamiento> listaFiltrada = new List<Entrenamiento>();
 
-                listaEntrenamientosProgramados = (List<Entrenamiento>)Session["listaEntrenamientosProgramados"];
+                listaEntrenamientosFinalizados = (List<Entrenamiento>)Session["listaEntrenamientosFinalizados"];
 
-                if (listaEntrenamientosProgramados != null)
+                if (listaEntrenamientosFinalizados != null)
                 {
 
-                    foreach (Entrenamiento entrenamiento in listaEntrenamientosProgramados)
+                    foreach (Entrenamiento entrenamiento in listaEntrenamientosFinalizados)
                     {
                         if (entrenamiento.Categoria.IdCategoria == idCategoriaSeleccionada)
                         {
