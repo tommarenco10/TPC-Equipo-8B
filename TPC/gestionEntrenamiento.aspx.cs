@@ -360,9 +360,6 @@ namespace TPC
             {
                 if (validaciones())
                 {
-
-                    Button botonPresionado = (Button)sender;
-
                     entrenamiento = (Entrenamiento)Session["entrenamientoSeleccionado"];
                     entrenamiento.Estado = new EstadoEntrenamiento { IdEstado = 1 }; // PROGRAMADO POR DEFAULT
                     entrenamiento.Observaciones = string.Empty;
@@ -378,21 +375,23 @@ namespace TPC
                         entrenamiento.JugadoresCitados = new List<Jugador>();
                     }
 
-                    if (botonPresionado.ID == "btnAgregar")
+
+                    if ((int)Session["tipoPagina"] == 2)
+                    {
+                        entrenamientoNegocio.modificarEntrenamiento(entrenamiento);
+                        asistenciaNegocio.ActualizarAsistencias(entrenamiento.IdEntrenamiento, jugadoresSeleccionadosIds);
+                    }
+                    else
                     {
                         entrenamientoNegocio.agregarEntrenamiento(entrenamiento);
                         int idNuevoEntrenamiento = entrenamientoNegocio.obtenerUltimoEntrenamiento();
                         asistenciaNegocio.AgregarAsistenciaMultiple(idNuevoEntrenamiento, jugadoresSeleccionadosIds);
                     }
-                    else if (botonPresionado.ID == "btnModificar")
-                    {
-                        entrenamientoNegocio.modificarEntrenamiento(entrenamiento);
-                        asistenciaNegocio.ActualizarAsistencias(entrenamiento.IdEntrenamiento, jugadoresSeleccionadosIds);
-                    }
 
-                    string script = botonPresionado.ID == "btnAgregar"
-                        ? "alert('Entrenamiento agregado correctamente'); window.location = 'entrenamientoVistaPrevia.aspx?id=1';"
-                        : "alert('Entrenamiento modificado correctamente'); window.location = 'entrenamientoVistaPrevia.aspx?id=2';";
+
+                    string script = (int)Session["tipoPagina"] == 2
+                        ? "alert('Entrenamiento modificado correctamente'); window.location = 'entrenamientoVistaPrevia.aspx?id=2';"
+                        : "alert('Entrenamiento agregado correctamente'); window.location = 'entrenamientoVistaPrevia.aspx?id=1';";
 
                     ClientScript.RegisterStartupScript(this.GetType(), "AlertAndRedirect", script, true);
                 }

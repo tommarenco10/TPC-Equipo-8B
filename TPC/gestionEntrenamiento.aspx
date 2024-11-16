@@ -108,11 +108,11 @@
     <% if (tipoPagina != 2)
         {%>
     <asp:Button ID="btnAgregar" runat="server" Text="Agregar" CssClass="btn btn-success"
-        OnClientClick="return openConfirmModal(this);" OnClick="btnGuardar_Click" />
+         OnClientClick="event.preventDefault(); mostrarModal('Agregar Entrenamiento', '¿Está seguro de que desea agregar el entrenamiento?'); return false;"/>
     <% } %>
 
     <asp:Button ID="btnVistaPrevia" CssClass="btn btn-secondary" runat="server" Text="Ver Vista Previa" OnClick="btnVistaPrevia_Click" />
-    
+
     <% if (tipoPagina == 2)
         { %>
     <br />
@@ -124,20 +124,19 @@
     <asp:Label ID="lblError" runat="server"></asp:Label>
 
     <!-- Modal de Confirmación -->
-    <div class="modal fade" id="confirmGuardarModal" tabindex="-1" aria-labelledby="confirmGuardarLabel" aria-hidden="true">
+    <div class="modal fade" id="confirmacionModal" tabindex="-1" aria-labelledby="confirmacionModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmGuardarLabel">Confirmar Guardado</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="confirmacionModalLabel">Confirmación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
-                    ¿Estás seguro de que deseas guardar el entrenamiento?
-       
+                    ¿Estás seguro de que deseas realizar esta acción?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-success" id="confirmGuardarButton">Sí, Guardar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <asp:Button ID="btnGuardar" class="btn btn-success" runat="server" Text="Si, Guardar" OnClick="btnGuardar_Click"/>
                 </div>
             </div>
         </div>
@@ -145,18 +144,13 @@
 
     <!-- Código JavaScript para el Modal -->
     <script type="text/javascript">
-        let selectedButton = null;
+        function mostrarModal(titulo, mensaje) {
+            document.getElementById('confirmacionModalLabel').innerText = titulo;
+            document.querySelector('#confirmacionModal .modal-body').innerText = mensaje;
 
-        function openGuardarModal(button) {
-            selectedButton = button;  // Guarda el botón "Cancelar" presionado
-            $('#confirmGuardarModal').modal('show');  // Muestra el modal de confirmación
-            return false;  // Previene la ejecución inmediata del evento de servidor
+            var modalElement = new bootstrap.Modal(document.getElementById('confirmacionModal'));
+            modalElement.show();
         }
-
-        document.getElementById("confirmGuardarButton").addEventListener("click", function () {
-            $('#confirmGuardarModal').modal('hide');  // Cierra el modal
-            __doPostBack(selectedButton.name, '');  // Llama al evento OnClick en el servidor
-        });
     </script>
 
 </asp:Content>

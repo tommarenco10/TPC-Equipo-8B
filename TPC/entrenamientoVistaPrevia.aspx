@@ -62,7 +62,7 @@
             else if (tipoPagina == 2)
             { %>
         <asp:Button ID="btnModificar" runat="server" CssClass="btn btn-warning" Text="Seguir Modificando" OnClick="btnModificar_Click" />
-        <asp:Button ID="btnSalirSinModificar" runat="server" CssClass="btn btn-danger" Text="Salir sin Modificar" OnClick="btnVolverListado_Click" />
+        <asp:Button ID="btnSalirSinModificar" runat="server" CssClass="btn btn-danger" Text="Salir" OnClick="btnVolverListado_Click" />
         <% }
             else
             { %>
