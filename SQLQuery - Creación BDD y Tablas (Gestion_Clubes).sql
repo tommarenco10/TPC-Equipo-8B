@@ -115,6 +115,7 @@ GO
 
 create table Usuario (
 	IdUsuario bigint primary key identity(1,1),
+	IdPersona bigint foreign key references persona(IdPersona),
 	Nombre varchar(50) not null,
 	Contraseña varchar(50) not null,
 	Email varchar (50) not null,

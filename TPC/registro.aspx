@@ -64,20 +64,27 @@
                     ValidationExpression="^\d+$" />
             </div>
 
-            <div class="col-md-6">
-                <label for="txtEmail" class="form-label">Email:</label>
-                <asp:TextBox runat="server" CssClass="form-control" type="email" ID="txtEmail" />
-                <asp:RequiredFieldValidator ErrorMessage="Este campo es obligatorio" ControlToValidate="txtEmail" CssClass="text-danger" runat="server" />
-                <asp:RegularExpressionValidator ControlToValidate="txtEmail" ErrorMessage="Ingrese un correo válido" CssClass="text-danger" runat="server"
-                    ValidationExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
+            <div class="col-md-4">
+                <label for="txtFechaNacimiento" class="form-label">Fecha de Nacimiento:</label>
+                <asp:TextBox runat="server" CssClass="form-control" type="date" ID="txtFechaNacimiento" />
+                <asp:RequiredFieldValidator ErrorMessage="Este campo es obligatorio" ControlToValidate="txtFechaNacimiento" CssClass="text-danger" runat="server" />          
             </div>
 
-            <!-- Otros Campos -->
-
-            <div class="col-12">
-                <asp:Button Text="Confirmar" CssClass="btn btn-primary" ID="btnConfirmar" runat="server" Enabled="false" />
-            </div>
+        <div class="col-md-6">
+            <label for="txtEmail" class="form-label">Email:</label>
+            <asp:TextBox runat="server" CssClass="form-control" type="email" ID="txtEmail" />
+            <asp:RequiredFieldValidator ErrorMessage="Este campo es obligatorio" ControlToValidate="txtEmail" CssClass="text-danger" runat="server" />
+            <asp:RegularExpressionValidator ControlToValidate="txtEmail" ErrorMessage="Ingrese un correo válido" CssClass="text-danger" runat="server"
+                ValidationExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
         </div>
+
+        <!-- Otros Campos -->
+
+        <div class="col-12">
+            <asp:Button Text="Confirmar" CssClass="btn btn-primary" ID="btnConfirmar" runat="server" Enabled="false" OnClick="btnConfirmar_Click" />
+        </div>
+        </div>
+   
     </section>
 
 </asp:Content>

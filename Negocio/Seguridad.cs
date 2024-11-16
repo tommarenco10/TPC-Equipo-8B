@@ -86,10 +86,23 @@ namespace Negocio
             if (control is TextBox)
             {
                 if (string.IsNullOrEmpty(((TextBox)control).Text))
-                    return false;
-                else
                     return true;
+                else
+                    return false;
 
+            }
+            return false;
+        }
+
+
+        public static bool validaTextosVacios(List<String> textos)
+        {
+
+            foreach (var textbox in textos)
+            {
+                if(string.IsNullOrEmpty(textbox)){
+                        return true;
+                    }
             }
             return false;
         }
