@@ -77,6 +77,7 @@
     <Content Include="entrenamientoVistaPrevia.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="Estilos\estilos.css" />
+    <Content Include="gestionAsistencia.aspx" />
     <Content Include="gestionEntrenamiento.aspx" />
     <Content Include="Global.asax" />
     <Content Include="index.aspx" />
@@ -150,6 +151,13 @@
     </Compile>
     <Compile Include="Error.aspx.designer.cs">
       <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="gestionAsistencia.aspx.cs">
+      <DependentUpon>gestionAsistencia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="gestionAsistencia.aspx.designer.cs">
+      <DependentUpon>gestionAsistencia.aspx</DependentUpon>
     </Compile>
     <Compile Include="gestionEntrenamiento.aspx.cs">
       <DependentUpon>gestionEntrenamiento.aspx</DependentUpon>

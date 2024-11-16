@@ -99,11 +99,6 @@ namespace TPC
             }
         }
 
-        protected void btnAgregar_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("gestionEntrenamiento.aspx");
-        }
-
         protected void btnAccion_Click(object sender, EventArgs e)
         {
             try
@@ -165,6 +160,11 @@ namespace TPC
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
+        }
+
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("gestionEntrenamiento.aspx");
         }
     }
 }

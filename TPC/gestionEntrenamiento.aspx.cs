@@ -104,7 +104,6 @@ namespace TPC
                         txtDuracion.Text = entrenamiento.Duracion.ToString();
                         // Descripción del Entrenamiento
                         txtDescripcion.Text = entrenamiento.Descripcion.ToString();
-                        // Jugadores Citados
                     }
                 }
             }
