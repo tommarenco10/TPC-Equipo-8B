@@ -32,6 +32,9 @@ namespace TPC
             AccesoDatos datos = new AccesoDatos();
             Usuario usuario = new Usuario();
             Persona persona = new Persona();
+            UsuarioNegocio usuarioNegocio   = new UsuarioNegocio(); 
+            PersonaNegocio personaNegocio   =new PersonaNegocio();  
+
 
             try
             {
@@ -83,14 +86,11 @@ namespace TPC
                         persona.Apellidos = txtApellido.Text;
                         //persona.DNI = txtDNI.Text;
                         persona.FechaNacimiento = fechaNacimiento;
-                        
-
+                        usuario.IdPersona = personaNegocio.agregar(persona);
                         usuario.Nombre = txtUserName.Text;
                         usuario.Email = txtEmail.Text;
                         usuario.Contraseña = txtPassword.Text;
-
-
-                    
+                        usuarioNegocio.agregar(usuario); 
                         Response.Redirect("index.aspx", false);
                     }
                     else

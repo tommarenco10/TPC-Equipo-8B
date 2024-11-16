@@ -46,13 +46,14 @@ namespace Negocio
             }
         }
 
-        public void agregar(Persona persona)
+        public int agregar(Persona persona)
         {
             AccesoDatos datos = new AccesoDatos();
+            int idPersona = 0; 
 
             try
             {
-               
+            
                 datos.setearConsulta("INSERT INTO Persona (Nombres, Apellidos, Edad, FechaNacimiento, Email, UrlImagen) VALUES (@Nombres, @Apellidos, @Edad, @FechaNacimiento, @Email, @UrlImagen)");
                 datos.agregarParametro("@Nombres", persona.Nombres);
                 datos.agregarParametro("@Apellidos", persona.Apellidos);
@@ -61,6 +62,16 @@ namespace Negocio
                 datos.agregarParametro("@Email", persona.Email);
                 datos.agregarParametro("@UrlImagen", persona.UrlImagen);
                 datos.ejecutarAccion();
+
+                
+                datos.setearConsulta("SELECT SCOPE_IDENTITY()"); 
+                SqlDataReader lector = datos.ejecutarLectura();
+                if (lector.Read())
+                {
+                    idPersona = Convert.ToInt32(lector[0]); 
+                }
+
+                return idPersona; 
             }
             catch (Exception ex)
             {
