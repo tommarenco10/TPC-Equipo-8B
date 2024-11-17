@@ -116,6 +116,36 @@ namespace Negocio
             }
         }
 
+        public void ActualizarEstadoAsistenciaMultiple(int IdEntrenamiento, List<int> jugadoresPresentesIds)
+        {
+            foreach (var idJugador in jugadoresPresentesIds)
+            {
+                ActualizarEstadoAsistenciaSimple(IdEntrenamiento, idJugador);
+            }
+        }
+        public void ActualizarEstadoAsistenciaSimple(int IdEntrenamiento, int IdJugadorPresente)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE Asistencia SET Asistio = 1 WHERE IdEntrenamiento = @idEntrenamiento AND IdJugador = @idJugador");
+
+                datos.agregarParametro("@idEntrenamiento", IdEntrenamiento);
+                datos.agregarParametro("@idJugador", IdJugadorPresente);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
         //NO UTILIZADAS
         public List<Asistencia> listar()
         {

@@ -20,7 +20,7 @@
             <br />
 
             <h5>Jugadores Citados</h5>
-
+            
             <asp:GridView ID="dgvJugadores" CssClass="table table-dark table-hover" runat="server" AutoGenerateColumns="false" DataKeyNames="IdJugador">
                 <Columns>
                     <asp:BoundField DataField="IdJugador" Visible="false" />
@@ -32,8 +32,7 @@
                     <asp:BoundField HeaderText="Estado" DataField="estadoJugador.NombreEstado" />
                     <asp:TemplateField HeaderText="Asistió?">
                         <ItemTemplate>
-                            <asp:CheckBox ID="chkAsistencia" runat="server" AutoPostBack="true"
-                                OnCheckedChanged="chkAsistencia_CheckedChanged" />
+                            <asp:CheckBox ID="chkAsistencia" runat="server" AutoPostBack="true" OnCheckedChanged="chkAsistencia_CheckedChanged" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
@@ -47,12 +46,13 @@
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="btnPreseleccionar" EventName="Click" />
         </Triggers>
+
     </asp:UpdatePanel>
 
     <br />
     <br />
-    <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success" Text="Guardar" />
-    <asp:Button ID="btnSalirSinGuardar" runat="server" CssClass="btn btn-danger" Text="Salir" />
+    <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success" Text="Guardar" OnClick="btnGuardar_Click"/>
+    <asp:Button ID="btnSalirSinGuardar" runat="server" CssClass="btn btn-danger" Text="Salir" OnClick="btnSalirSinGuardar_Click"/>
 
     <br />
     <br />

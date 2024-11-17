@@ -185,6 +185,7 @@ namespace TPC
 
                 CheckBox chk = (CheckBox)sender;
                 GridViewRow row = (GridViewRow)chk.NamingContainer;
+
                 int idJugador = Convert.ToInt32(dgvEntrenamiento.DataKeys[row.RowIndex].Value);
 
                 List<int> jugadoresSeleccionados = (List<int>)Session["jugadoresSeleccionados"];

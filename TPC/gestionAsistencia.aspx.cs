@@ -3,6 +3,7 @@ using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -55,7 +56,7 @@ namespace TPC
                 }
             }
 
-            if (Session["jugadoresPresentes"] != null)
+            /*if (Session["jugadoresPresentes"] != null)
             {
                 List<int> jugadoresPresentes = (List<int>)Session["jugadoresPresentes"];
 
@@ -66,14 +67,13 @@ namespace TPC
 
                     chkAsistencia.Checked = jugadoresPresentes.Contains(idJugador);
                 }
-            }
+            }*/
         }
 
         protected void btnPreseleccionar_Click(object sender, EventArgs e)
         {
             try
             {
-                // Inicializar o recuperar la lista de jugadores presentes
                 List<int> jugadoresPresentes = Session["jugadoresPresentes"] != null
                     ? (List<int>)Session["jugadoresPresentes"]
                     : new List<int>();
@@ -83,7 +83,6 @@ namespace TPC
                     CheckBox chkAsistencia = (CheckBox)row.FindControl("chkAsistencia");
                     int idJugador = Convert.ToInt32(dgvJugadores.DataKeys[row.RowIndex].Value);
 
-                    // Marcar el CheckBox y agregar el jugador a la lista
                     chkAsistencia.Checked = true;
 
                     if (!jugadoresPresentes.Contains(idJugador))
@@ -92,11 +91,7 @@ namespace TPC
                     }
                 }
 
-                // Actualizar la lista en la sesión
                 Session["jugadoresPresentes"] = jugadoresPresentes;
-
-                lblMensaje.CssClass = "alert alert-success";
-                lblMensaje.Text = "Todos los jugadores han sido preseleccionados.";
             }
             catch (Exception ex)
             {
@@ -109,19 +104,15 @@ namespace TPC
         {
             try
             {
-                // Recuperar o inicializar la lista de jugadores presentes
                 List<int> jugadoresPresentes = Session["jugadoresPresentes"] != null
                     ? (List<int>)Session["jugadoresPresentes"]
                     : new List<int>();
 
-                // Identificar la fila que disparó el evento
                 CheckBox chkPresente = (CheckBox)sender;
                 GridViewRow row = (GridViewRow)chkPresente.NamingContainer;
 
-                // Obtener el ID del jugador de la fila
                 int idJugador = Convert.ToInt32(dgvJugadores.DataKeys[row.RowIndex].Value);
 
-                // Agregar o quitar el jugador de la lista según el estado del CheckBox
                 if (chkPresente.Checked)
                 {
                     if (!jugadoresPresentes.Contains(idJugador))
@@ -131,13 +122,9 @@ namespace TPC
                 }
                 else
                 {
-                    if (jugadoresPresentes.Contains(idJugador))
-                    {
-                        jugadoresPresentes.Remove(idJugador);
-                    }
+                    jugadoresPresentes.Remove(idJugador);
                 }
 
-                // Guardar la lista actualizada en la sesión
                 Session["jugadoresPresentes"] = jugadoresPresentes;
             }
             catch (Exception ex)
@@ -152,14 +139,12 @@ namespace TPC
 
             try
             {
-                // Limpiar todos los CheckBoxes
                 foreach (GridViewRow row in dgvJugadores.Rows)
                 {
                     CheckBox chkAsistencia = (CheckBox)row.FindControl("chkAsistencia");
                     chkAsistencia.Checked = false;
                 }
 
-                // Vaciar la lista en la sesión
                 Session["jugadoresPresentes"] = new List<int>();
 
                 lblMensaje.CssClass = "alert alert-info";
@@ -170,6 +155,46 @@ namespace TPC
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
+        }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            Entrenamiento entrenamiento = new Entrenamiento();
+            EntrenamientoNegocio entrenamientoNegocio = new EntrenamientoNegocio();
+            AsistenciaNegocio asistenciaNegocio = new AsistenciaNegocio();
+            JugadorNegocio jugadorNegocio = new JugadorNegocio();
+            try
+            {
+                entrenamiento = (Entrenamiento)Session["entrenamientoSeleccionado"];
+                List<int> jugadoresPresentesIds = (List<int>)Session["jugadoresPresentes"];
+
+                if (jugadoresPresentesIds != null && jugadoresPresentesIds.Count > 0)
+                {
+                    entrenamiento.JugadoresPresentes = jugadorNegocio.ObtenerJugadoresPorIds(jugadoresPresentesIds);
+                }
+                else
+                {
+                    entrenamiento.JugadoresPresentes = new List<Jugador>();
+                }
+
+                asistenciaNegocio.ActualizarEstadoAsistenciaMultiple(entrenamiento.IdEntrenamiento, jugadoresPresentesIds);
+
+                string script = "alert('Asistencia guardada correctamente'); window.location = 'entrenamientosFinalizados.aspx';";
+                ClientScript.RegisterStartupScript(this.GetType(), "AlertAndRedirect", script, true);
+
+            }
+            catch (ThreadAbortException) { }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+
+        }
+
+        protected void btnSalirSinGuardar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("entrenamientosFinalizados.aspx");
         }
     }
 }
