@@ -30,7 +30,12 @@ namespace TPC
             try
             {
 
-                if(Seguridad.validaTextoVacio(txtUserName.Text)|| Seguridad.validaTextoVacio(txtPass.Text))
+                List <TextBox> textboxs= new List <TextBox>();
+                textboxs.Add(txtUserName);
+                textboxs.Add(txtPass);
+
+
+                if (Seguridad.validaTextosVacios(textboxs))
                 {
                     Session.Add("error", "Debes completar los campos requeridos.");
                     Response.Redirect("Error.aspx");

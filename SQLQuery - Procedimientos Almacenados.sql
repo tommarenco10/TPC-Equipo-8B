@@ -293,9 +293,9 @@ BEGIN
             DECLARE @IdPersona BIGINT;
 
             -- Corrige el nombre de la columna de IdEntrandor a IdEntrenador
-            SELECT @IdPersona = IdPersona FROM Entrenador WHERE IdEntrenador = @IdEntrenador;
+            SELECT @IdPersona = IdPersona FROM Entrenador WHERE IdEntrandor = @IdEntrenador;
 
-            DELETE FROM Entrenador WHERE IdEntrenador = @IdEntrenador;
+            DELETE FROM Entrenador WHERE IdEntrandor = @IdEntrenador;
 
             DELETE FROM Persona WHERE IdPersona = @IdPersona;
 
@@ -307,6 +307,7 @@ BEGIN
     END CATCH
 END;
 
+GO
 
 CREATE OR ALTER PROCEDURE sp_AgregarPersona
     @Nombres NVARCHAR(100),
@@ -328,6 +329,42 @@ BEGIN
 
     SET @IdPersona = SCOPE_IDENTITY();
 END;
+
+GO
+
+CREATE PROCEDURE ComprobarUsuarioExistente
+    @NombreUsuario NVARCHAR(50),
+    @Dni NVARCHAR(20),
+    @Email NVARCHAR(100),
+    @Resultado INT OUTPUT
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM Usuario WHERE Nombre = @NombreUsuario)
+    BEGIN
+        PRINT 'Nombre de usuario ya registrado.'
+        SET @Resultado = 1
+        RETURN
+    END
+
+    IF EXISTS (SELECT 1 FROM persona WHERE DNI = @Dni)
+    BEGIN
+        PRINT 'DNI ya registrado.'
+        SET @Resultado = 2
+        RETURN
+    END
+
+    IF EXISTS (SELECT 1 FROM Usuario WHERE Email = @Email)
+    BEGIN
+        PRINT 'Correo electrónico ya registrado.'
+        SET @Resultado = 3
+        RETURN
+    END
+
+    SET @Resultado = 0 -- 0: Todos los datos están disponibles
+END
+
+
+
 
 
 

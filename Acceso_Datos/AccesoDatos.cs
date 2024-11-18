@@ -70,5 +70,14 @@ namespace Acceso_Datos
             if (conexion != null)
                 conexion.Close();
         }
+
+
+        public void abrirConexion()
+        {
+            if (conexion.State == System.Data.ConnectionState.Closed)
+            {
+                conexion.Open();
+            }
+        }
     }
 }

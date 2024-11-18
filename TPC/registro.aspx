@@ -59,10 +59,11 @@
 
             <div class="col-md-4">
                 <label for="txtDNI" class="form-label">DNI:</label>
-                <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtDNI" />
-                <asp:RequiredFieldValidator ErrorMessage="Este campo es obligatorio" ControlToValidate="txtDNI" CssClass="text-danger" runat="server" />
+                <asp:TextBox runat="server" CssClass="form-control"  ID="txtDNI" />
+               <asp:RequiredFieldValidator ErrorMessage="Este campo es obligatorio" ControlToValidate="txtDNI" CssClass="text-danger" runat="server" />
                 <asp:RegularExpressionValidator ControlToValidate="txtDNI" ErrorMessage="Solo se permiten números" CssClass="text-danger" runat="server" ValidationExpression="^\d+$" />
-                <%--<asp:RangeValidator ErrorMessage="Por favor ingrese un DNI valido" CssClass="text-danger" ControlToValidate="txtDNI" MinimumValue="10000000" MaximumValue="100000000"  runat="server" />--%>
+                <asp:RangeValidator ErrorMessage="Por favor, ingrese un DNI válido (10,000,000 a 100,000,000)" CssClass="text-danger" ControlToValidate="txtDNI" MinimumValue="10000000" MaximumValue="100000000" runat="server" Type="Integer" />
+                <span class="text-danger" id="errDNI"></span>
             </div>
 
             <div class="col-md-4">
@@ -118,6 +119,13 @@
                     <img id="imgPreview" src="/Images/placeholder.png" alt="Vista previa" class="preview-image" />
                 </div>
             </div>
+
+
+
+
+             <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
+
+
 
             <!-- Otros Campos -->
 
