@@ -22,13 +22,11 @@ namespace TPC
 
                 if (!IsPostBack)
                 {
-                    if (Request.QueryString["IdJugador"] != null)
+                    if (Session["idJugador"] != null)
                     {
-                        int idJugador = Convert.ToInt32(Request.QueryString["IdJugador"]);
-                        Session["idJugador"] = idJugador;
-                        CargarJugador(idJugador);
+                        CargarJugador((int)Session["idJugador"]);
                     }
-
+                    
                     int tipoPagina = Convert.ToInt32(Request.QueryString["tipoPagina"]);
                     Session["tipoPagina"] = tipoPagina;
                     configuracionesTipoPagina((int)Session["tipoPagina"]);
@@ -163,21 +161,21 @@ namespace TPC
                 }
 
                 //GUARDADO DEL OBJETO VALIDADO EN SESSION
-
-                incidencia = (Incidencia)Session["incidenciaSelecccionada"];
+                if (Session["incidenciaSelecccionada"] != null)
+                {
+                    incidencia = (Incidencia)Session["incidenciaSelecccionada"];
+                }
 
                 if (incidencia == null)
                 {
                     incidencia = new Incidencia();
                 }
 
-                incidencia.IdJugador = (int)Session["idJugador"];
                 incidencia.IdEstadoJugador = idTipoIncidencia;
                 incidencia.Descripcion = descripcionIncidencia;
-                incidencia.Estado = true; //ABIERTA POR DEFECTO
                 incidencia.FechaRegistro = fechaRegistro;
                 incidencia.FechaResolución = fechaResolucion;
-                Session["incidenciaSelecccionada"] = incidencia;
+                Session["incidenciaSeleccionada"] = incidencia;
                 return true;
             }
             catch (ThreadAbortException) { return false; }
@@ -191,22 +189,29 @@ namespace TPC
 
         protected void btnGuardarIncidencia_Click(object sender, EventArgs e)
         {
+            Incidencia incidencia = new Incidencia();
+            IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
+
             try
             {
                 if (validaciones())
                 {
-                    Incidencia incidencia = new Incidencia
-                    {
-                        IdJugador = Convert.ToInt32(Request.QueryString["idJugador"]),
-                        Descripcion = txtDescripcion.Text,
-                        FechaRegistro = Convert.ToDateTime(txtFechaRegistro.Text),
-                        FechaResolución = Convert.ToDateTime(txtFechaResolucion.Text),
-                        IdEstadoJugador = Convert.ToInt32(ddlTipoIncidencia.SelectedValue),
-                        Estado = true
-                    };
+                    incidencia = (Incidencia)Session["incidenciaSeleccionada"];
+                    int idJugador = (int)Session["idJugador"];
+                    incidencia.IdJugador = idJugador;
+                    incidencia.Estado = true; //ABIERTA POR DEFECTO                   
 
-                    IncidenciaNegocio negocioIncidencia = new IncidenciaNegocio();
-                    negocioIncidencia.agregar(incidencia);
+                    if ((int)Session["tipoPagina"] == 2) { }
+                    else
+                    {
+                        incidenciaNegocio.agregar(incidencia);
+                    }
+
+                    string script = (int)Session["tipoPagina"] == 2
+                        ? "alert('Incidencia modificada correctamente'); window.location = 'PlantillaJugadores.aspx';"
+                        : "alert('Incidencia agregada correctamente'); window.location = 'PlantillaJugadores.aspx';";
+
+                    ClientScript.RegisterStartupScript(this.GetType(), "AlertAndRedirect", script, true);
                 }
             }
             catch (Exception ex)
@@ -218,15 +223,15 @@ namespace TPC
 
         protected void ddlTipoIncidencia_SelectedIndexChanged(object sender, EventArgs e)
         {
-            pnlObservaciones.Visible = ddlTipoIncidencia.SelectedValue == "1"; // Mostrar solo para lesiones
+            pnlObservaciones.Visible = ddlTipoIncidencia.SelectedValue == "2"; // Mostrar solo para lesiones
         }
 
         protected void btnAgregarObservacion_Click(object sender, EventArgs e)
         {
             try
             {
-                List<ObservacionConFecha> observaciones = Session["Observaciones"] != null
-                    ? (List<ObservacionConFecha>)Session["Observaciones"]
+                List<ObservacionConFecha> observaciones = Session["listaObservaciones"] != null
+                    ? (List<ObservacionConFecha>)Session["listaObservaciones"]
                     : new List<ObservacionConFecha>();
 
                 observaciones.Add(new ObservacionConFecha
@@ -235,7 +240,7 @@ namespace TPC
                     Descripcion = txtDescripcionObservacion.Text
                 });
 
-                Session["Observaciones"] = observaciones;
+                Session["listaObservaciones"] = observaciones;
 
                 gvObservaciones.DataSource = observaciones;
                 gvObservaciones.DataBind();
@@ -247,6 +252,6 @@ namespace TPC
             }
         }
 
-    
+
     }
 }

@@ -53,13 +53,13 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("INSERT INTO incidencia VALUES (@IdJugador, @IdEstadoJugador, @Descripcion, @Estado, @FechaRegistro, @FechaResolucion)");
+                datos.setearConsulta("INSERT INTO incidencia VALUES (@IdJugador, @IdEstadoJugador, @Descripcion, @FechaRegistro, @FechaResolucion, @Estado)");
                 datos.agregarParametro("@IdJugador", nuevo.IdJugador);
                 datos.agregarParametro("@IdEstadoJugador", nuevo.IdEstadoJugador);
                 datos.agregarParametro("@Descripcion", nuevo.Descripcion);
-                datos.agregarParametro("@Estado", nuevo.Estado);
                 datos.agregarParametro("@FechaRegistro", nuevo.FechaRegistro);
                 datos.agregarParametro("@FechaResolucion", nuevo.FechaResolución);
+                datos.agregarParametro("@Estado", nuevo.Estado);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)

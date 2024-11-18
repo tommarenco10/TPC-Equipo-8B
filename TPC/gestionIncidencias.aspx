@@ -81,12 +81,15 @@
 
         <asp:Label runat="server" AssociatedControlID="txtDescripcion" Text="Descripción:" CssClass="fw-bold"></asp:Label><br />
         <asp:TextBox ID="txtDescripcion" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox><br />
-
-        <div class="col-md-4">
-            <asp:Button ID="btnGuardarIncidencia" runat="server" Text="Guardar Incidencia" CssClass="btn btn-primary mt-3" OnClick="btnGuardarIncidencia_Click" />
+        <div class="row my-3">
+            <div class="col-md-4">
+                <asp:Button ID="btnGuardarIncidencia" runat="server" Text="Guardar Incidencia" CssClass="btn btn-primary mt-3" OnClick="btnGuardarIncidencia_Click" />
+            </div>
         </div>
-        <div class="col-md-8">
-            <asp:Label ID="lblError" runat="server"></asp:Label>
+        <div class="row my-3">
+            <div class="col-md-8">
+                <asp:Label ID="lblError" runat="server"></asp:Label>
+            </div>
         </div>
 
     </asp:Panel>

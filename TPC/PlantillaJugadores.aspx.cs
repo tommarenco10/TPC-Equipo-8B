@@ -72,10 +72,7 @@ namespace TPC
             {
                 Button btn = (Button)sender;
                 int idJugador = Convert.ToInt32(btn.CommandArgument);
-
-                JugadorNegocio negocioJugador = new JugadorNegocio();
-                Jugador jugadorSeleccionado = negocioJugador.ObtenerJugadorPorId(idJugador);
-                Session["jugadorSeleccionado"] = jugadorSeleccionado;
+                Session["idJugador"] = idJugador;
 
                 if (btn.ID == "btnModificar")
                 {
@@ -83,7 +80,7 @@ namespace TPC
                 }
                 else if (btn.ID == "btnIncidencia")
                 {
-                    Response.Redirect("gestionIncidencias.aspx?IdJugador=" + idJugador, false);
+                    Response.Redirect("gestionIncidencias.aspx", false);
                 }
             }
             catch (ThreadAbortException) { }
