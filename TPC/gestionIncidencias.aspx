@@ -19,6 +19,10 @@
                     <asp:Label ID="lblPosicion" runat="server" Text="Posición:" CssClass="fw-bold"></asp:Label>
                     <asp:TextBox ID="txtPosicion" runat="server" CssClass="form-control w-100 custom-bg-darker"></asp:TextBox>
                 </div>
+                <div class="mb-3">
+                    <asp:Label ID="lblCategoria" runat="server" Text="Categoría:" CssClass="fw-bold"></asp:Label>
+                    <asp:TextBox ID="txtCategoria" runat="server" CssClass="form-control w-100 custom-bg-darker"></asp:TextBox>
+                </div>
             </div>
 
             <div class="col-6 d-flex justify-content-center">
@@ -64,7 +68,7 @@
         <div class="row mb-3">
             <div class="col-md-4">
                 <asp:Label runat="server" AssociatedControlID="ddlTipoIncidencia" Text="Tipo de Incidencia:" CssClass="fw-bold"></asp:Label><br />
-                <asp:DropDownList ID="ddlTipoIncidencia" runat="server" CssClass="form-select" OnSelectedIndexChanged="ddlTipoIncidencia_SelectedIndexChanged" AutoPostBack="true">
+                <asp:DropDownList ID="ddlTipoIncidencia" runat="server" CssClass="form-select">
                 </asp:DropDownList><br />
             </div>
 
@@ -78,12 +82,16 @@
                 <asp:TextBox ID="txtFechaResolucion" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
             </div>
         </div>
-
-        <asp:Label runat="server" AssociatedControlID="txtDescripcion" Text="Descripción:" CssClass="fw-bold"></asp:Label><br />
-        <asp:TextBox ID="txtDescripcion" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox><br />
+        <div>
+            <asp:Label runat="server" AssociatedControlID="txtDescripcion" Text="Descripción:" CssClass="fw-bold"></asp:Label><br />
+            <asp:TextBox ID="txtDescripcion" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox><br />
+        </div>
         <div class="row my-3">
-            <div class="col-md-4">
-                <asp:Button ID="btnGuardarIncidencia" runat="server" Text="Guardar Incidencia" CssClass="btn btn-primary mt-3" OnClick="btnGuardarIncidencia_Click" />
+            <div class="col-md-2">
+                <asp:Button ID="btnGuardarIncidencia" runat="server" Text="Agregar Incidencia" CssClass="btn btn-primary mt-3" OnClick="btnGuardarIncidencia_Click" />
+            </div>
+            <div class="col-md-2">
+                <asp:Button ID="btnActualizarIncidencia" runat="server" Text="Actualizar Incidencia" CssClass="btn btn-warning mt-3" OnClick="btnActualizarIncidencia_Click" />
             </div>
         </div>
         <div class="row my-3">
@@ -114,7 +122,7 @@
 
         <br />
 
-        <asp:GridView ID="gvObservaciones" runat="server" CssClass="table table-striped mt-3" AutoGenerateColumns="false">
+        <asp:GridView ID="dgvObservaciones" runat="server" CssClass="table table-striped mt-3" AutoGenerateColumns="false">
             <Columns>
                 <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
                 <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />

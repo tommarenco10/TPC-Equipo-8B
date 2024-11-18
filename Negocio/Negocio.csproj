@@ -51,6 +51,7 @@
     <Compile Include="IncidenciaNegocio.cs" />
     <Compile Include="JugadorNegocio.cs" />
     <Compile Include="NotificacionNegocio.cs" />
+    <Compile Include="ObservacionesConFechaNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReporteNegocio.cs" />
     <Compile Include="Seguridad.cs" />

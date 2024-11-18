@@ -81,6 +81,7 @@
     <Content Include="gestionEntrenamiento.aspx" />
     <Content Include="gestionIncidencias.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="incidenciasActualizables.aspx" />
     <Content Include="index.aspx" />
     <Content Include="info.aspx" />
     <Content Include="ingreso.aspx" />
@@ -176,6 +177,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="incidenciasActualizables.aspx.cs">
+      <DependentUpon>incidenciasActualizables.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="incidenciasActualizables.aspx.designer.cs">
+      <DependentUpon>incidenciasActualizables.aspx</DependentUpon>
     </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>

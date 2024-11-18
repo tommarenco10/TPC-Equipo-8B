@@ -26,7 +26,7 @@ namespace TPC
                     {
                         CargarJugador((int)Session["idJugador"]);
                     }
-                    
+
                     int tipoPagina = Convert.ToInt32(Request.QueryString["tipoPagina"]);
                     Session["tipoPagina"] = tipoPagina;
                     configuracionesTipoPagina((int)Session["tipoPagina"]);
@@ -69,6 +69,7 @@ namespace TPC
                 txtAltura.Text = altura.ToString("N2") + " m";
                 txtPeso.Text = jugador.Peso.ToString("N1") + " kg";
                 imgJugador.ImageUrl = jugador.UrlImagen;
+                txtCategoria.Text = jugador.Categoria.NombreCategoria;
             }
             catch (Exception ex)
             {
@@ -81,14 +82,17 @@ namespace TPC
         {
             try
             {
+                txtNombreApellido.Enabled = false;
+                txtPosicion.Enabled = false;
+                txtFechaNacimiento.Enabled = false;
+                txtNacionalidad.Enabled = false;
+                txtAltura.Enabled = false;
+                txtPeso.Enabled = false;
+                txtCategoria.Enabled = false;
+
                 if (tipoPagina != 2)
                 {
-                    txtNombreApellido.Enabled = false;
-                    txtPosicion.Enabled = false;
-                    txtFechaNacimiento.Enabled = false;
-                    txtNacionalidad.Enabled = false;
-                    txtAltura.Enabled = false;
-                    txtPeso.Enabled = false;
+                    pnlObservaciones.Visible = ddlTipoIncidencia.SelectedValue == "2"; // Mostrar solo para lesiones
                 }
             }
             catch (Exception ex)
@@ -171,7 +175,7 @@ namespace TPC
                     incidencia = new Incidencia();
                 }
 
-                incidencia.IdEstadoJugador = idTipoIncidencia;
+                incidencia.EstadoJugador.IdEstado = idTipoIncidencia;
                 incidencia.Descripcion = descripcionIncidencia;
                 incidencia.FechaRegistro = fechaRegistro;
                 incidencia.FechaResolución = fechaResolucion;
@@ -191,6 +195,7 @@ namespace TPC
         {
             Incidencia incidencia = new Incidencia();
             IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
+            JugadorNegocio jugadorNegocio = new JugadorNegocio();
 
             try
             {
@@ -205,6 +210,8 @@ namespace TPC
                     else
                     {
                         incidenciaNegocio.agregar(incidencia);
+                        jugadorNegocio.actualizarEstadoPorNuevaIncidencia(idJugador, incidencia);
+                        //jugadorNegocio.actualizarEstadoPorFechaYGravedadIncidencia(idJugador);
                     }
 
                     string script = (int)Session["tipoPagina"] == 2
@@ -221,9 +228,21 @@ namespace TPC
             }
         }
 
-        protected void ddlTipoIncidencia_SelectedIndexChanged(object sender, EventArgs e)
+        protected void cargaDGVObservaciones(object sender, EventArgs e)
         {
-            pnlObservaciones.Visible = ddlTipoIncidencia.SelectedValue == "2"; // Mostrar solo para lesiones
+            try
+            {
+                List<ObservacionConFecha> listaObservaciones = new List<ObservacionConFecha>();
+                listaObservaciones = (List<ObservacionConFecha>)Session["listaObservaciones"];
+
+                dgvObservaciones.DataSource = listaObservaciones;
+                dgvObservaciones.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
         }
 
         protected void btnAgregarObservacion_Click(object sender, EventArgs e)
@@ -242,8 +261,8 @@ namespace TPC
 
                 Session["listaObservaciones"] = observaciones;
 
-                gvObservaciones.DataSource = observaciones;
-                gvObservaciones.DataBind();
+                dgvObservaciones.DataSource = observaciones;
+                dgvObservaciones.DataBind();
             }
             catch (Exception ex)
             {
@@ -252,6 +271,9 @@ namespace TPC
             }
         }
 
-
+        protected void btnActualizarIncidencia_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("incidenciasActualizables.aspx");
+        }
     }
 }

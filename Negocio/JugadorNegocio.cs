@@ -390,6 +390,10 @@ namespace Negocio
             {
                 throw ex;
             }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
 
         public List<int> listarIdPorEntrenamiento(int idEntrenamiento)
@@ -417,6 +421,10 @@ namespace Negocio
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
 
@@ -471,7 +479,65 @@ namespace Negocio
             {
                 throw ex;
             }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
 
+        public void actualizarEstadoPorNuevaIncidencia(int idJugador, Incidencia incidencia)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE jugador SET IdEstadoJugador = @IdEstadoJugador WHERE IdJugador = @IdJugador");
+                datos.agregarParametro("@IdEstadoJugador", incidencia.EstadoJugador.IdEstado);
+                datos.agregarParametro("@IdJugador", idJugador);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
+        public void actualizarEstadoPorFechaYGravedadIncidencia(int idJugador)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            int IdEstadoJugador;
+            DateTime FechaResolucion;
+
+            try
+            {
+                datos.setearConsulta("SELECT TOP (1) IdEstadoJugador, FechaResolucion FROM Incidencia WHERE Estado = 1 AND IdJugador = @IdJugador ORDER BY FechaResolucion DESC, CASE WHEN IdEstadoJugador = 3 THEN 1 WHEN IdEstadoJugador = 4 THEN 2 WHEN IdEstadoJugador = 2 THEN 3 WHEN IdEstadoJugador = 1 THEN 4 ELSE 5 END ASC");
+                datos.agregarParametro("@IdJugador", idJugador);
+                datos.ejecutarAccion();
+                if (datos.Lector.Read())
+                {
+                    IdEstadoJugador = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
+                    FechaResolucion = datos.Lector["FechaResolucion"] != DBNull.Value ? (DateTime)datos.Lector["FechaResolucion"] : DateTime.MinValue;
+                
+                
+                
+                
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
     }
 }

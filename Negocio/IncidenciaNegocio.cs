@@ -26,7 +26,46 @@ namespace Negocio
 
                     aux.IdIncidencia = datos.Lector["IdIncidencia"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdIncidencia"]) : 0;
                     aux.IdJugador = datos.Lector["IdJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdJugador"]) : 0;
-                    aux.IdEstadoJugador = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
+                    aux.EstadoJugador.IdEstado = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
+                    aux.Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : string.Empty;
+                    aux.Estado = datos.Lector["Estado"] != DBNull.Value ? (bool)datos.Lector["Estado"] : true;
+                    aux.FechaRegistro = datos.Lector["FechaRegistro"] != DBNull.Value ? (DateTime)datos.Lector["FechaRegistro"] : DateTime.MinValue;
+                    aux.FechaResolución = datos.Lector["FechaResolucion"] != DBNull.Value ? (DateTime)datos.Lector["FechaResolucion"] : DateTime.MinValue;
+                    lista.Add(aux);
+                }
+
+                return lista;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public List<Incidencia> listarPorJugador(int idJugador)
+        {
+            List<Incidencia> lista = new List<Incidencia>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT IdIncidencia, IdJugador, I.IdEstadoJugador, EJ.nombre AS EstadoJugador, Descripcion, Estado, FechaRegistro, FechaResolucion FROM incidencia AS I INNER JOIN EstadoJugador AS EJ ON EJ.IdEstadoJugador = I.IdEstadoJugador WHERE IdJugador = @IdJugador");
+                datos.agregarParametro("@IdJugador", idJugador);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Incidencia aux = new Incidencia();
+
+                    aux.IdIncidencia = datos.Lector["IdIncidencia"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdIncidencia"]) : 0;
+                    aux.IdJugador = datos.Lector["IdJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdJugador"]) : 0;
+                    aux.EstadoJugador.IdEstado = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
+                    aux.EstadoJugador.NombreEstado = datos.Lector["EstadoJugador"] != DBNull.Value ? (string)datos.Lector["EstadoJugador"] : string.Empty;
                     aux.Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : string.Empty;
                     aux.Estado = datos.Lector["Estado"] != DBNull.Value ? (bool)datos.Lector["Estado"] : true;
                     aux.FechaRegistro = datos.Lector["FechaRegistro"] != DBNull.Value ? (DateTime)datos.Lector["FechaRegistro"] : DateTime.MinValue;
@@ -55,7 +94,7 @@ namespace Negocio
             {
                 datos.setearConsulta("INSERT INTO incidencia VALUES (@IdJugador, @IdEstadoJugador, @Descripcion, @FechaRegistro, @FechaResolucion, @Estado)");
                 datos.agregarParametro("@IdJugador", nuevo.IdJugador);
-                datos.agregarParametro("@IdEstadoJugador", nuevo.IdEstadoJugador);
+                datos.agregarParametro("@IdEstadoJugador", nuevo.EstadoJugador.IdEstado);
                 datos.agregarParametro("@Descripcion", nuevo.Descripcion);
                 datos.agregarParametro("@FechaRegistro", nuevo.FechaRegistro);
                 datos.agregarParametro("@FechaResolucion", nuevo.FechaResolución);
@@ -80,7 +119,7 @@ namespace Negocio
             {
                 datos.setearConsulta("UPDATE incidencia SET IdJugador = @IdJugador, IdEstadoJugador = @IdEstadoJugador, Descripcion = @Descripcion, Estado = @Estado, FechaRegistro = @FechaRegistro, FechaResolucion = @FechaResolucion WHERE IdIncidencia = @IdIncidencia");
                 datos.agregarParametro("@IdJugador", modificado.IdJugador);
-                datos.agregarParametro("@IdEstadoJugador", modificado.IdEstadoJugador);
+                datos.agregarParametro("@IdEstadoJugador", modificado.EstadoJugador.IdEstado);
                 datos.agregarParametro("@Descripcion", modificado.Descripcion);
                 datos.agregarParametro("@Estado", modificado.Estado);
                 datos.agregarParametro("@FechaRegistro", modificado.FechaRegistro);

@@ -65,7 +65,7 @@
 
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:Button ID="btnIncidencia" runat="server" Text="Añadir Incidencia" CommandName="Incidencia"
+                            <asp:Button ID="btnIncidencia" runat="server" Text="Gestión Incidencias" CommandName="Incidencia"
                                 CommandArgument='<%# Eval("IdJugador") %>' OnClick="btnAccion_Click" CssClass="btn btn-outline-info" />
                         </ItemTemplate>
                     </asp:TemplateField>

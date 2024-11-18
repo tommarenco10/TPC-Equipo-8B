@@ -18,6 +18,7 @@ namespace Dominio
         public Jugador()
         {
             LugarNacimiento = new LugarNacimiento();
+            Categoria = new Categoria();
         }
     }
 }

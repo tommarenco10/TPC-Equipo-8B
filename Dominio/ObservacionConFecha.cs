@@ -8,6 +8,7 @@ namespace Dominio
 {
     public class ObservacionConFecha
     {
+        public int IdObservacion {  get; set; }
         public DateTime Fecha { get; set; }
         public string Descripcion { get; set; }
     }
