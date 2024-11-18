@@ -13,7 +13,8 @@ namespace TPC
     public partial class registro : System.Web.UI.Page
     {
         Seguridad comprobaciones;
-        List<string> formulario;
+        List<TextBox> formulario;
+        string rutaImagen;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,6 +25,7 @@ namespace TPC
                 DateTime maxDate = DateTime.Now.AddYears(-10);  
                 txtFechaNacimiento.Attributes.Add("min", minDate.ToString("yyyy-MM-dd"));
                 txtFechaNacimiento.Attributes.Add("max", maxDate.ToString("yyyy-MM-dd"));
+                //imgNuevoPerfil.ImageUrl = "https://static.vecteezy.com/system/resources/previews/024/983/914/non_2x/simple-user-default-icon-free-png.png";
             }
         }
 
@@ -42,19 +44,19 @@ namespace TPC
                 if (txtPassword.Text == txtConfirmPassword.Text)
                 {
                    
-                    formulario = new List<string>
+                    formulario = new List<TextBox>
                     {
-                        txtNombre.Text,
-                        txtApellido.Text,
-                        txtEmail.Text,
-                        txtDNI.Text,
-                        txtPassword.Text,
-                        txtConfirmPassword.Text,
-                        txtUserName.Text,
-                        txtFechaNacimiento.Text
+                        txtNombre,
+                        txtApellido,
+                        txtEmail,
+                        txtDNI,
+                        txtPassword,
+                        txtConfirmPassword,
+                        txtUserName,
+                        txtFechaNacimiento
                     };
 
-                    if (Seguridad.validaTextosVacios(formulario))
+                    if (!(Seguridad.validaTextosVacios(formulario)))
                     {
                         
                         if (string.IsNullOrEmpty(txtFechaNacimiento.Text))
@@ -86,23 +88,20 @@ namespace TPC
                         persona.Apellidos = txtApellido.Text;
                         //persona.DNI = txtDNI.Text;
                         persona.FechaNacimiento = fechaNacimiento;
+                        persona.Email = txtEmail.Text;
                         usuario.IdPersona = personaNegocio.agregar(persona);
                         usuario.Nombre = txtUserName.Text;
                         usuario.Email = txtEmail.Text;
                         usuario.Contraseña = txtPassword.Text;
+                        usuario.Tipo = TipoUsuario.Hincha;
                         usuarioNegocio.agregar(usuario); 
-                        Response.Redirect("index.aspx", false);
+                        Response.Redirect("index.aspx", false);//Podria cambiar el mensaje de bienvenida segun si me registro o si inicio sesion.
                     }
-                    else
-                    {
-                        Session.Add("error", "Debes completar correctamente los campos requeridos.");
-                        Response.Redirect("Error.aspx", false);
-                        return;
-                    }
+                   
                 }
                 else
                 {
-                    Session.Add("error", "Debes completar correctamente los campos requeridos.");
+                    Session.Add("error", "Debes completar TODOS los campos.");
                     Response.Redirect("Error.aspx", false);
                     return;
                 }
@@ -114,5 +113,7 @@ namespace TPC
                 return;
             }
         }
+
+       
     }
 }

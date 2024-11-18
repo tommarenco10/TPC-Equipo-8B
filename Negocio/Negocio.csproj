@@ -50,6 +50,7 @@
     <Compile Include="EstadoJugadorNegocio.cs" />
     <Compile Include="JugadorNegocio.cs" />
     <Compile Include="NotificacionNegocio.cs" />
+    <Compile Include="PersonaNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReporteNegocio.cs" />
     <Compile Include="Seguridad.cs" />

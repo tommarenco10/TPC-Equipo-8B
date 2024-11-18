@@ -5,6 +5,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+
     <section>
         <h2 class="mb-4">Formulario de Registro</h2>
         <div class="row g-3">
@@ -67,24 +68,33 @@
             <div class="col-md-4">
                 <label for="txtFechaNacimiento" class="form-label">Fecha de Nacimiento:</label>
                 <asp:TextBox runat="server" CssClass="form-control" type="date" ID="txtFechaNacimiento" />
-                <asp:RequiredFieldValidator ErrorMessage="Este campo es obligatorio" ControlToValidate="txtFechaNacimiento" CssClass="text-danger" runat="server" />          
+                <asp:RequiredFieldValidator ErrorMessage="Este campo es obligatorio" ControlToValidate="txtFechaNacimiento" CssClass="text-danger" runat="server" />
             </div>
 
-        <div class="col-md-6">
-            <label for="txtEmail" class="form-label">Email:</label>
-            <asp:TextBox runat="server" CssClass="form-control" type="email" ID="txtEmail" />
-            <asp:RequiredFieldValidator ErrorMessage="Este campo es obligatorio" ControlToValidate="txtEmail" CssClass="text-danger" runat="server" />
-            <asp:RegularExpressionValidator ControlToValidate="txtEmail" ErrorMessage="Ingrese un correo válido" CssClass="text-danger" runat="server"
-                ValidationExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
+            <div class="col-md-6">
+                <label for="txtEmail" class="form-label">Email:</label>
+                <asp:TextBox runat="server" CssClass="form-control" type="email" ID="txtEmail" />
+                <asp:RequiredFieldValidator ErrorMessage="Este campo es obligatorio" ControlToValidate="txtEmail" CssClass="text-danger" runat="server" />
+                <asp:RegularExpressionValidator ControlToValidate="txtEmail" ErrorMessage="Ingrese un correo válido" CssClass="text-danger" runat="server"
+                    ValidationExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
+            </div>
+
+            <div class="form-group">
+                <label for="fileInput">Subir Imagen</label>
+                <input type="file" id="fileInput" class="form-control" accept="image/*" onchange="previewImage(event)" />
+            </div>
+            <div class="form-group mt-3">
+                <img id="imgPreview" src="#" alt="Vista previa" style="display: none; max-width: 100%; height: auto;" />
+            </div>
+
+            <!-- Otros Campos -->
+
+            <div class="col-12">
+                <asp:Button Text="Confirmar" CssClass="btn btn-primary" ID="btnConfirmar" runat="server" Enabled="true" OnClick="btnConfirmar_Click" />
+            </div>
         </div>
 
-        <!-- Otros Campos -->
-
-        <div class="col-12">
-            <asp:Button Text="Confirmar" CssClass="btn btn-primary" ID="btnConfirmar" runat="server" Enabled="false" OnClick="btnConfirmar_Click" />
-        </div>
-        </div>
-   
     </section>
+
 
 </asp:Content>

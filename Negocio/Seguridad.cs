@@ -95,17 +95,18 @@ namespace Negocio
         }
 
 
-        public static bool validaTextosVacios(List<String> textos)
+        public static bool validaTextosVacios(List<TextBox> textboxes)
         {
-
-            foreach (var textbox in textos)
+            foreach (var textbox in textboxes)
             {
-                if(string.IsNullOrEmpty(textbox)){
-                        return true;
-                    }
+                if (string.IsNullOrWhiteSpace(textbox.Text))
+                {
+                    return true;
+                }
             }
             return false;
         }
+
 
     }
 }
