@@ -8,18 +8,50 @@
     <h2>Registrar Incidencia para Jugador</h2>
     <asp:Panel ID="pnlJugador" runat="server" CssClass="card p-3 my-3">
         <h4>Detalles del Jugador</h4>
-        <asp:Label ID="lblNombre" runat="server" Text="Nombre:" CssClass="fw-bold"></asp:Label>
-        <asp:Label ID="lblNombreValor" runat="server"></asp:Label><br />
-        <asp:Label ID="lblApellido" runat="server" Text="Apellido:" CssClass="fw-bold"></asp:Label>
-        <asp:Label ID="lblApellidoValor" runat="server"></asp:Label><br />
-        <asp:Label ID="lblPosicion" runat="server" Text="Posición:" CssClass="fw-bold"></asp:Label>
-        <asp:Label ID="lblPosicionValor" runat="server"></asp:Label><br />
-        <asp:Label ID="lblEdad" runat="server" Text="Edad:" CssClass="fw-bold"></asp:Label>
-        <asp:Label ID="lblEdadValor" runat="server"></asp:Label><br />
-        <asp:Label ID="lblAltura" runat="server" Text="Altura:" CssClass="fw-bold"></asp:Label>
-        <asp:Label ID="lblAlturaValor" runat="server"></asp:Label><br />
-        <asp:Label ID="lblPeso" runat="server" Text="Peso:" CssClass="fw-bold"></asp:Label>
-        <asp:Label ID="lblPesoValor" runat="server"></asp:Label><br />
+        <div class="row">
+            <div class="col-6">
+                <div class="mb-3">
+                    <asp:Label ID="lblNombreApellido" runat="server" Text="Nombre:" CssClass="fw-bold"></asp:Label>
+                    <asp:TextBox ID="txtNombreApellido" runat="server" CssClass="form-control w-100"></asp:TextBox>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <asp:Label ID="lblPosicion" runat="server" Text="Posición:" CssClass="fw-bold"></asp:Label>
+                        <asp:TextBox ID="txtPosicion" runat="server" CssClass="form-control w-100"></asp:TextBox>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <asp:Label ID="lblFechaNacimiento" runat="server" Text="Fecha Nacimiento (Edad):" CssClass="fw-bold"></asp:Label>
+                        <asp:TextBox ID="txtFechaNacimiento" runat="server" CssClass="form-control w-100"></asp:TextBox>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <asp:Label ID="lblNacionalidad" runat="server" Text="Nacionalidad:" CssClass="fw-bold"></asp:Label>
+                        <asp:TextBox ID="txtNacionalidad" runat="server" CssClass="form-control w-100"></asp:TextBox>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <asp:Label ID="lblAltura" runat="server" Text="Altura:" CssClass="fw-bold"></asp:Label>
+                        <asp:TextBox ID="txtAltura" runat="server" CssClass="form-control w-100"></asp:TextBox>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <asp:Label ID="lblPeso" runat="server" Text="Peso:" CssClass="fw-bold"></asp:Label>
+                        <asp:TextBox ID="txtPeso" runat="server" CssClass="form-control w-100"></asp:TextBox>
+                    </div>
+                </div>
+            </div>
+        </div>
     </asp:Panel>
 
     <asp:Panel ID="pnlIncidencia" runat="server" CssClass="card p-3 my-3">
@@ -35,13 +67,18 @@
         <asp:Label runat="server" AssociatedControlID="txtDescripcion" Text="Descripción:" CssClass="fw-bold"></asp:Label><br />
         <asp:TextBox ID="txtDescripcion" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox><br />
 
-        <asp:Label runat="server" AssociatedControlID="txtFechaRegistro" Text="Fecha de Registro:" CssClass="fw-bold"></asp:Label><br />
-        <asp:TextBox ID="txtFechaRegistro" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox><br />
+        <div class="row mt-3">
+            <div class="col">
+                <asp:Label runat="server" AssociatedControlID="txtFechaRegistro" Text="Fecha de Registro:" CssClass="fw-bold"></asp:Label><br />
+                <asp:TextBox ID="txtFechaRegistro" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+            </div>
+            <div class="col">
+                <asp:Label runat="server" AssociatedControlID="txtFechaResolucion" Text="Fecha Estimada de Resolución:" CssClass="fw-bold"></asp:Label><br />
+                <asp:TextBox ID="txtFechaResolucion" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+            </div>
+        </div>
 
-        <asp:Label runat="server" AssociatedControlID="txtFechaResolucion" Text="Fecha Estimada de Resolución:" CssClass="fw-bold"></asp:Label><br />
-        <asp:TextBox ID="txtFechaResolucion" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox><br />
-
-        <asp:Button ID="btnGuardarIncidencia" runat="server" Text="Guardar Incidencia" CssClass="btn btn-primary" OnClick="btnGuardarIncidencia_Click" />
+        <asp:Button ID="btnGuardarIncidencia" runat="server" Text="Guardar Incidencia" CssClass="btn btn-primary mt-3" OnClick="btnGuardarIncidencia_Click" />
     </asp:Panel>
 
     <asp:Panel ID="pnlObservaciones" runat="server" CssClass="card p-3 my-3" Visible="false">
@@ -52,15 +89,16 @@
         <asp:Label runat="server" AssociatedControlID="txtDescripcionObservacion" Text="Descripción:" CssClass="fw-bold"></asp:Label><br />
         <asp:TextBox ID="txtDescripcionObservacion" runat="server" CssClass="form-control"></asp:TextBox><br />
 
-        <asp:Button ID="btnAgregarObservacion" runat="server" Text="Agregar Observación" CssClass="btn btn-secondary" OnClick="btnAgregarObservacion_Click" /><br />
+        <asp:Button ID="btnAgregarObservacion" runat="server" Text="Agregar Observación" CssClass="btn btn-secondary mt-3" OnClick="btnAgregarObservacion_Click" /><br />
         <br />
 
-        <asp:GridView ID="gvObservaciones" runat="server" CssClass="table table-striped" AutoGenerateColumns="false">
+        <asp:GridView ID="gvObservaciones" runat="server" CssClass="table table-striped mt-3" AutoGenerateColumns="false">
             <Columns>
                 <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
                 <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
             </Columns>
         </asp:GridView>
     </asp:Panel>
+
 
 </asp:Content>

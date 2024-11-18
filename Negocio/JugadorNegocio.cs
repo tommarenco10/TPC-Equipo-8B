@@ -115,12 +115,10 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta($"SELECT J.IdJugador, P.Nombre, P.Apellido, J.Altura, J.Peso, J.Posicion, c.IdCategoria, c.Nombre AS NombreCategoria, ej.IdEstadoJugador, ej.Nombre AS EstadoJugador " +
-                                     $"FROM Jugador J " +
-                                     $"LEFT JOIN Persona P ON J.IdPersona = P.IdPersona " +
-                                     $"INNER JOIN Categoria c ON c.IdCategoria = J.IdCategoria " +
-                                     $"INNER JOIN EstadoJugador ej ON ej.IdEstadoJugador = J.IdEstadoJugador " +
-                                     $"WHERE J.IdJugador = {id}");
+                datos.setearConsulta($"select j.IdJugador, p.Nombre, p.Apellido, p.FechaNacimiento, p.pais, p.provincia, p.ciudad, p.Email, j.Altura, j.peso, j.posicion, c.IdCategoria, c.nombre as NombreCategoria, ej.IdEstadoJugador, ej.nombre as EstadoJugador, p.UrlImagen " +
+                      $"FROM Jugador J LEFT JOIN Persona P ON J.IdPersona = P.IdPersona INNER JOIN Categoria c ON c.IdCategoria = J.IdCategoria " +
+                      $"INNER JOIN EstadoJugador ej ON ej.IdEstadoJugador = J.IdEstadoJugador " +
+                      $"WHERE J.IdJugador = {id}");
 
                 datos.ejecutarLectura();
 
@@ -138,6 +136,11 @@ namespace Negocio
                     jugador.estadoJugador = new EstadoJugador();
                     jugador.estadoJugador.IdEstado = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
                     jugador.estadoJugador.NombreEstado = datos.Lector["EstadoJugador"] != DBNull.Value ? (string)datos.Lector["EstadoJugador"] : string.Empty;
+                    jugador.LugarNacimiento = new LugarNacimiento();
+                    jugador.LugarNacimiento.Pais = datos.Lector["pais"] != DBNull.Value ? (string)datos.Lector["pais"] : string.Empty;
+                    jugador.LugarNacimiento.Provincia = datos.Lector["provincia"] != DBNull.Value ? (string)datos.Lector["provincia"] : string.Empty;
+                    jugador.LugarNacimiento.Ciudad = datos.Lector["ciudad"] != DBNull.Value ? (string)datos.Lector["ciudad"] : string.Empty;
+                    jugador.FechaNacimiento = datos.Lector["FechaNacimiento"] != DBNull.Value ? (DateTime)datos.Lector["FechaNacimiento"] : DateTime.MinValue;
                 }
 
                 return jugador;

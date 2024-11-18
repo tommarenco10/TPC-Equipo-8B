@@ -38,12 +38,14 @@ namespace TPC
                 JugadorNegocio negocioJugador = new JugadorNegocio();
                 Jugador jugador = negocioJugador.ObtenerJugadorPorId(idJugador);
 
-                lblNombreValor.Text = jugador.Nombres;
-                lblApellidoValor.Text = jugador.Apellidos;
-                lblPosicionValor.Text = jugador.Posicion;
-                lblEdadValor.Text = jugador.Edad.ToString();
-                lblAlturaValor.Text = jugador.Altura.ToString("N2") + " m";
-                lblPesoValor.Text = jugador.Peso.ToString("N1") + " kg";
+                txtNombreApellido.Text = jugador.Apellidos + ", " + jugador.Nombres;
+                txtNacionalidad.Text = jugador.LugarNacimiento.Pais;
+                txtPosicion.Text = jugador.Posicion;
+                int edad = DateTime.Now.Year - jugador.FechaNacimiento.Year;
+                txtFechaNacimiento.Text = jugador.FechaNacimiento.ToShortDateString() + "(" + edad + ")";
+                decimal altura = (decimal)jugador.Altura / 100;
+                txtAltura.Text = altura.ToString("N2") + " m";
+                txtPeso.Text = jugador.Peso.ToString("N1") + " kg";
             }
             catch (Exception ex)
             {
