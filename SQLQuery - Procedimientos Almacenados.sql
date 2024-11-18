@@ -72,8 +72,7 @@ GO
 create or alter procedure Listar_Jugador
 as
 begin
-select j.IdJugador ,p.Nombre, p.Apellido, p.FechaNacimiento, p.pais, p.provincia, p.ciudad, p.Email,
-		j.Altura, j.peso, j.posicion, c.IdCategoria, c.nombre as NombreCategoria, ej.IdEstadoJugador ,ej.nombre as EstadoJugador, p.UrlImagen
+select j.IdJugador ,p.Nombre, p.Apellido, p.FechaNacimiento, p.pais, p.provincia, p.ciudad, p.Email, j.Altura, j.peso, j.posicion, c.IdCategoria, c.nombre as NombreCategoria, ej.IdEstadoJugador ,ej.nombre as EstadoJugador, p.UrlImagen
 from persona p
 inner join jugador j on j.IdPersona = p.IdPersona
 inner join Categoria c on c.IdCategoria = j.Idcategoria

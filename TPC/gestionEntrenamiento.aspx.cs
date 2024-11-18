@@ -291,10 +291,10 @@ namespace TPC
                 }
 
                 //VALIDAR DESCRIPCIÓN
-                if (string.IsNullOrEmpty(txtDuracion.Text))
+                if (string.IsNullOrEmpty(txtDescripcion.Text))
                 {
                     lblError.CssClass = "alert alert-warning";
-                    lblError.Text = "Por favor, complete el campo de duración.";
+                    lblError.Text = "Por favor, complete el campo de descripción.";
                     return false;
                 }
                 else

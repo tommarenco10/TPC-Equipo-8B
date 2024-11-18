@@ -115,10 +115,11 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta($"select j.IdJugador, p.Nombre, p.Apellido, p.FechaNacimiento, p.pais, p.provincia, p.ciudad, p.Email, j.Altura, j.peso, j.posicion, c.IdCategoria, c.nombre as NombreCategoria, ej.IdEstadoJugador, ej.nombre as EstadoJugador, p.UrlImagen " +
-                      $"FROM Jugador J LEFT JOIN Persona P ON J.IdPersona = P.IdPersona INNER JOIN Categoria c ON c.IdCategoria = J.IdCategoria " +
-                      $"INNER JOIN EstadoJugador ej ON ej.IdEstadoJugador = J.IdEstadoJugador " +
-                      $"WHERE J.IdJugador = {id}");
+                datos.setearConsulta($"SELECT J.IdJugador, P.Nombre, P.Apellido, P.FechaNacimiento, P.pais, P.provincia, P.ciudad," +
+                    $" P.Email, P.UrlImagen, J.Altura, J.peso, J.posicion, C.IdCategoria, C.nombre AS NombreCategoria," +
+                    $" EJ.IdEstadoJugador, EJ.nombre AS EstadoJugador FROM Jugador J LEFT JOIN Persona P ON J.IdPersona = P.IdPersona" +
+                    $" INNER JOIN Categoria C ON C.IdCategoria = J.IdCategoria INNER JOIN EstadoJugador EJ ON EJ.IdEstadoJugador = J.IdEstadoJugador" +
+                    $" WHERE J.IdJugador = {id}");
 
                 datos.ejecutarLectura();
 
@@ -127,6 +128,13 @@ namespace Negocio
                     jugador.IdJugador = datos.Lector["IdJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdJugador"]) : 0;
                     jugador.Nombres = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : string.Empty;
                     jugador.Apellidos = datos.Lector["Apellido"] != DBNull.Value ? (string)datos.Lector["Apellido"] : string.Empty;
+                    jugador.FechaNacimiento = datos.Lector["FechaNacimiento"] != DBNull.Value ? (DateTime)datos.Lector["FechaNacimiento"] : DateTime.MinValue;
+                    jugador.LugarNacimiento = new LugarNacimiento();
+                    jugador.LugarNacimiento.Pais = datos.Lector["pais"] != DBNull.Value ? (string)datos.Lector["pais"] : string.Empty;
+                    jugador.LugarNacimiento.Provincia = datos.Lector["provincia"] != DBNull.Value ? (string)datos.Lector["provincia"] : string.Empty;
+                    jugador.LugarNacimiento.Ciudad = datos.Lector["ciudad"] != DBNull.Value ? (string)datos.Lector["ciudad"] : string.Empty;
+                    jugador.Email = datos.Lector["Email"] != DBNull.Value ? (string)datos.Lector["Email"] : string.Empty;
+                    jugador.UrlImagen = datos.Lector["UrlImagen"] != DBNull.Value ? (string)datos.Lector["UrlImagen"] : string.Empty;
                     jugador.Altura = datos.Lector["Altura"] != DBNull.Value ? Convert.ToInt32(datos.Lector["Altura"]) : 0;
                     jugador.Peso = datos.Lector["Peso"] != DBNull.Value ? Convert.ToDecimal(datos.Lector["Peso"]) : 0m;
                     jugador.Posicion = datos.Lector["Posicion"] != DBNull.Value ? (string)datos.Lector["Posicion"] : string.Empty;
@@ -136,11 +144,6 @@ namespace Negocio
                     jugador.estadoJugador = new EstadoJugador();
                     jugador.estadoJugador.IdEstado = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
                     jugador.estadoJugador.NombreEstado = datos.Lector["EstadoJugador"] != DBNull.Value ? (string)datos.Lector["EstadoJugador"] : string.Empty;
-                    jugador.LugarNacimiento = new LugarNacimiento();
-                    jugador.LugarNacimiento.Pais = datos.Lector["pais"] != DBNull.Value ? (string)datos.Lector["pais"] : string.Empty;
-                    jugador.LugarNacimiento.Provincia = datos.Lector["provincia"] != DBNull.Value ? (string)datos.Lector["provincia"] : string.Empty;
-                    jugador.LugarNacimiento.Ciudad = datos.Lector["ciudad"] != DBNull.Value ? (string)datos.Lector["ciudad"] : string.Empty;
-                    jugador.FechaNacimiento = datos.Lector["FechaNacimiento"] != DBNull.Value ? (DateTime)datos.Lector["FechaNacimiento"] : DateTime.MinValue;
                 }
 
                 return jugador;

@@ -60,6 +60,15 @@ namespace TPC
         protected global::System.Web.UI.WebControls.TextBox txtPosicion;
 
         /// <summary>
+        /// Control imgJugador.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgJugador;
+
+        /// <summary>
         /// Control lblFechaNacimiento.
         /// </summary>
         /// <remarks>
@@ -150,15 +159,6 @@ namespace TPC
         protected global::System.Web.UI.WebControls.DropDownList ddlTipoIncidencia;
 
         /// <summary>
-        /// Control txtDescripcion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDescripcion;
-
-        /// <summary>
         /// Control txtFechaRegistro.
         /// </summary>
         /// <remarks>
@@ -177,6 +177,15 @@ namespace TPC
         protected global::System.Web.UI.WebControls.TextBox txtFechaResolucion;
 
         /// <summary>
+        /// Control txtDescripcion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDescripcion;
+
+        /// <summary>
         /// Control btnGuardarIncidencia.
         /// </summary>
         /// <remarks>
@@ -184,6 +193,15 @@ namespace TPC
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGuardarIncidencia;
+
+        /// <summary>
+        /// Control lblError.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblError;
 
         /// <summary>
         /// Control pnlObservaciones.

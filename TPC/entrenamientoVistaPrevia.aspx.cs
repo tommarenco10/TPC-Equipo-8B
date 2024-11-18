@@ -72,7 +72,7 @@ namespace TPC
                         txtObservaciones.Visible = true;
                     }
                 }
-                Session["tipoPagina"] = tipoPagina;
+            //Session["tipoPagina"] = tipoPagina;
             }
             catch (Exception ex)
             {
