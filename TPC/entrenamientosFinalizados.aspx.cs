@@ -122,7 +122,7 @@ namespace TPC
 
                 if (btn.ID == "btnVerDetalle")
                 {
-                    Response.Redirect("entrenamientoVistaPrevia.aspx?id=3"); //FUNCION VER DETALLE
+                    Response.Redirect("entrenamientoVistaPrevia.aspx?id=4"); //FUNCION VER DETALLE
                 }
                 else if (btn.ID == "btnAsistencia")
                 {

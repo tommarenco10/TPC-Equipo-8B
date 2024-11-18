@@ -79,6 +79,7 @@
     <Content Include="Estilos\estilos.css" />
     <Content Include="gestionAsistencia.aspx" />
     <Content Include="gestionEntrenamiento.aspx" />
+    <Content Include="gestionIncidencias.aspx" />
     <Content Include="Global.asax" />
     <Content Include="index.aspx" />
     <Content Include="info.aspx" />
@@ -165,6 +166,13 @@
     </Compile>
     <Compile Include="gestionEntrenamiento.aspx.designer.cs">
       <DependentUpon>gestionEntrenamiento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="gestionIncidencias.aspx.cs">
+      <DependentUpon>gestionIncidencias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="gestionIncidencias.aspx.designer.cs">
+      <DependentUpon>gestionIncidencias.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

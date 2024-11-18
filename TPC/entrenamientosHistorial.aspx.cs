@@ -108,7 +108,7 @@ namespace TPC
 
                 Session["entrenamientoSeleccionado"] = entrenamientoSeleccionado;
 
-                Response.Redirect("entrenamientoVistaPrevia.aspx?id=2"); //FUNCION VER DETALLE
+                Response.Redirect("entrenamientoVistaPrevia.aspx?id=4"); //FUNCION VER DETALLE
             }
             catch (ThreadAbortException) { }
             catch (Exception ex)

@@ -20,7 +20,7 @@
             <br />
 
             <h5>Jugadores Citados</h5>
-            
+
             <asp:GridView ID="dgvJugadores" CssClass="table table-dark table-hover" runat="server" AutoGenerateColumns="false" DataKeyNames="IdJugador">
                 <Columns>
                     <asp:BoundField DataField="IdJugador" Visible="false" />
@@ -35,10 +35,16 @@
                             <asp:CheckBox ID="chkAsistencia" runat="server" AutoPostBack="true" OnCheckedChanged="chkAsistencia_CheckedChanged" />
                         </ItemTemplate>
                     </asp:TemplateField>
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Button ID="btnReporte" runat="server" Text="Añadir Reporte" CommandName="Reporte"
+                                CommandArgument='<%# Eval("IdJugador") %>' CssClass="btn btn-outline-warning" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
                 </Columns>
             </asp:GridView>
 
-            <asp:Button ID="btnPreseleccionar" runat="server" CssClass="btn btn-primary ms-2" Text="Seleccionar Todo" OnClick ="btnPreseleccionar_Click" />
+            <asp:Button ID="btnPreseleccionar" runat="server" CssClass="btn btn-primary ms-2" Text="Seleccionar Todo" OnClick="btnPreseleccionar_Click" />
             <asp:Button ID="btnLimpiarSeleccion" runat="server" CssClass="btn btn-secondary ms-2" Text="Limpiar Selección" OnClick="btnLimpiarSeleccion_Click" />
 
         </ContentTemplate>
@@ -51,8 +57,8 @@
 
     <br />
     <br />
-    <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success" Text="Guardar" OnClick="btnGuardar_Click"/>
-    <asp:Button ID="btnSalirSinGuardar" runat="server" CssClass="btn btn-danger" Text="Salir" OnClick="btnSalirSinGuardar_Click"/>
+    <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-success" Text="Guardar" OnClick="btnGuardar_Click" />
+    <asp:Button ID="btnSalirSinGuardar" runat="server" CssClass="btn btn-danger" Text="Salir" OnClick="btnSalirSinGuardar_Click" />
 
     <br />
     <br />

@@ -35,7 +35,7 @@
     </section>
 
     <section>
-        <div class="col-md-4">
+        <div>
             <label for="txtDuracion" class="form-label">Duración del Entrenamiento:</label>
             <asp:TextBox ID="txtDuracion" runat="server" CssClass="form-control" TextMode="Time" Enabled="false" />
         </div>
@@ -46,7 +46,7 @@
                 TextMode="MultiLine" Rows="4" placeholder="Describe brevemente el entrenamiento planificado..."></asp:TextBox>
         </div>
         <br />
-        <% if (tipoPagina == 2)
+        <% if (tipoPagina == 4)
             { %>
         <div class="form-group">
             <label for="txtObservaciones">Observaciones Post Entrenamiento</label>
@@ -60,7 +60,7 @@
         <br />
         <% if (tipoPagina == 3)
             { %>
-        <asp:Button ID="btnVolverListado" runat="server" CssClass="btn btn-primary" Text="Volver a Listado" OnClick="btnVolverListado_Click"/>
+        <asp:Button ID="btnVolverListado" runat="server" CssClass="btn btn-primary" Text="Volver a Listado" OnClick="btnVolverListado_Click" />
         <% }
             else if (tipoPagina == 2)
             { %>

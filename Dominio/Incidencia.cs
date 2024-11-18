@@ -8,18 +8,14 @@ namespace Dominio
 {
     public class Incidencia
     {
-        public enum EstadoIncidencia
-        {
-            Cerrada = 0,
-            Abierta = 1
-        }
 
         public int IdIncidencia { get; set; }
-        public Jugador Jugador { get; set; }
-        public EstadoJugador EstadoJugador { get; set; }
+        public int IdJugador { get; set; }
+        public int IdEstadoJugador { get; set; }
         public string Descripcion { get; set; }
-        public EstadoIncidencia Estado { get; set; }
+        public bool Estado { get; set; } // 0 - CERRADA, 1 - ABIERTA
         public DateTime FechaRegistro { get; set; }
         public DateTime FechaResolución { get; set; }
+        public List<ObservacionConFecha> Observaciones { get; set; }
     }
 }

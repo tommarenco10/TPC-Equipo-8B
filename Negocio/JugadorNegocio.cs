@@ -55,7 +55,8 @@ namespace Negocio
             }
 
         }
-        public List<Jugador> ObtenerJugadoresPorIds(List<int> ids)
+
+        public List<Jugador> ListarJugadoresPorIds(List<int> ids)
         {
             List<Jugador> lista = new List<Jugador>();
             AccesoDatos datos = new AccesoDatos();
@@ -96,6 +97,50 @@ namespace Negocio
                 }
 
                 return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public Jugador ObtenerJugadorPorId(int id)
+        {
+            Jugador jugador = new Jugador();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta($"SELECT J.IdJugador, P.Nombre, P.Apellido, J.Altura, J.Peso, J.Posicion, c.IdCategoria, c.Nombre AS NombreCategoria, ej.IdEstadoJugador, ej.Nombre AS EstadoJugador " +
+                                     $"FROM Jugador J " +
+                                     $"LEFT JOIN Persona P ON J.IdPersona = P.IdPersona " +
+                                     $"INNER JOIN Categoria c ON c.IdCategoria = J.IdCategoria " +
+                                     $"INNER JOIN EstadoJugador ej ON ej.IdEstadoJugador = J.IdEstadoJugador " +
+                                     $"WHERE J.IdJugador = {id}");
+
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    jugador.IdJugador = datos.Lector["IdJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdJugador"]) : 0;
+                    jugador.Nombres = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : string.Empty;
+                    jugador.Apellidos = datos.Lector["Apellido"] != DBNull.Value ? (string)datos.Lector["Apellido"] : string.Empty;
+                    jugador.Altura = datos.Lector["Altura"] != DBNull.Value ? Convert.ToInt32(datos.Lector["Altura"]) : 0;
+                    jugador.Peso = datos.Lector["Peso"] != DBNull.Value ? Convert.ToDecimal(datos.Lector["Peso"]) : 0m;
+                    jugador.Posicion = datos.Lector["Posicion"] != DBNull.Value ? (string)datos.Lector["Posicion"] : string.Empty;
+                    jugador.Categoria = new Categoria();
+                    jugador.Categoria.IdCategoria = datos.Lector["IdCategoria"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdCategoria"]) : 0;
+                    jugador.Categoria.NombreCategoria = datos.Lector["NombreCategoria"] != DBNull.Value ? (string)datos.Lector["NombreCategoria"] : string.Empty;
+                    jugador.estadoJugador = new EstadoJugador();
+                    jugador.estadoJugador.IdEstado = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
+                    jugador.estadoJugador.NombreEstado = datos.Lector["EstadoJugador"] != DBNull.Value ? (string)datos.Lector["EstadoJugador"] : string.Empty;
+                }
+
+                return jugador;
             }
             catch (Exception ex)
             {

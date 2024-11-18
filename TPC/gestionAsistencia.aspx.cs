@@ -44,7 +44,7 @@ namespace TPC
                 {
                     List<int> jugadoresSeleccionados = (List<int>)Session["jugadoresSeleccionados"];
                     JugadorNegocio negocioJugador = new JugadorNegocio();
-                    List<Jugador> listaJugadores = negocioJugador.ObtenerJugadoresPorIds(jugadoresSeleccionados);
+                    List<Jugador> listaJugadores = negocioJugador.ListarJugadoresPorIds(jugadoresSeleccionados);
                     dgvJugadores.DataSource = listaJugadores;
                     dgvJugadores.DataBind();
                 }
@@ -170,7 +170,7 @@ namespace TPC
 
                 if (jugadoresPresentesIds != null && jugadoresPresentesIds.Count > 0)
                 {
-                    entrenamiento.JugadoresPresentes = jugadorNegocio.ObtenerJugadoresPorIds(jugadoresPresentesIds);
+                    entrenamiento.JugadoresPresentes = jugadorNegocio.ListarJugadoresPorIds(jugadoresPresentesIds);
                 }
                 else
                 {

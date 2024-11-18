@@ -129,3 +129,11 @@ create table Notificacion(
 	Mensaje varchar (300) not null,
 	FechaEnvio date not null,
 )
+
+GO
+
+CREATE TABLE Observacion(
+	IdObservacion bigint primary key identity(1,1),
+	Fecha date not null,
+	Descripcion varchar(200) not null
+)

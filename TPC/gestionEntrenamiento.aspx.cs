@@ -366,7 +366,7 @@ namespace TPC
 
                     if (jugadoresSeleccionadosIds != null && jugadoresSeleccionadosIds.Count > 0)
                     {
-                        entrenamiento.JugadoresCitados = jugadorNegocio.ObtenerJugadoresPorIds(jugadoresSeleccionadosIds);
+                        entrenamiento.JugadoresCitados = jugadorNegocio.ListarJugadoresPorIds(jugadoresSeleccionadosIds);
                     }
                     else
                     {

@@ -56,7 +56,7 @@ namespace TPC
                     {
                         List<int> jugadoresSeleccionados = (List<int>)Session["jugadoresSeleccionados"];
                         JugadorNegocio negocioJugador = new JugadorNegocio();
-                        List<Jugador> listaJugadores = negocioJugador.ObtenerJugadoresPorIds(jugadoresSeleccionados);
+                        List<Jugador> listaJugadores = negocioJugador.ListarJugadoresPorIds(jugadoresSeleccionados);
                         dgvJugadoresSeleccionados.DataSource = listaJugadores;
                         dgvJugadoresSeleccionados.DataBind();
                     }
@@ -67,7 +67,7 @@ namespace TPC
                         lblMensaje.Visible = true;
                     }
 
-                    if ((int)Session["tipoPagina"] == 2)
+                    if ((int)Session["tipoPagina"] == 4)
                     {
                         txtObservaciones.Visible = true;
                     }

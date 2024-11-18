@@ -3,6 +3,7 @@ using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -34,15 +35,6 @@ namespace TPC
             }
         }
 
-        protected void dgv_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (dgvJugadores.SelectedDataKey != null)
-            {
-                var IdJugador = dgvJugadores.SelectedDataKey.Value.ToString();
-                Response.Redirect("ConfigJugador.aspx?IdJugador=" + IdJugador, false);
-            }
-        }
-
         protected void txtboxFiltroNombre_TextChanged(object sender, EventArgs e)
         {
             List<Jugador> lista = (List<Jugador>)Session["listajugadores"];
@@ -58,7 +50,7 @@ namespace TPC
                 JugadorNegocio negocio = new JugadorNegocio();
                 List<Jugador> jugador = negocio.FiltroAvanzado(ddlCategoria.SelectedItem.ToString(), ddlEstadoJugador.SelectedItem.ToString());
                 dgvJugadores.DataSource = jugador;
-                dgvJugadores.DataBind();    
+                dgvJugadores.DataBind();
             }
             catch (Exception ex)
             {
@@ -73,5 +65,37 @@ namespace TPC
             dgvJugadores.DataSource = filtro;
             dgvJugadores.DataBind();
         }
+
+        protected void btnAccion_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Button btn = (Button)sender;
+                int idJugador = Convert.ToInt32(btn.CommandArgument);
+
+                JugadorNegocio negocioJugador = new JugadorNegocio();
+                Jugador jugadorSeleccionado = negocioJugador.ObtenerJugadorPorId(idJugador);
+                Session["jugadorSeleccionado"] = jugadorSeleccionado;
+
+                if (btn.ID == "btnModificar")
+                {
+                    Response.Redirect("ConfigJugador.aspx?IdJugador=" + idJugador, false);
+                }
+                else if (btn.ID == "btnIncidencia")
+                {
+                    Response.Redirect("gestionIncidencias.aspx?IdJugador=" + idJugador, false);
+                }
+            }
+            catch (ThreadAbortException) { }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+        }
+
+
+
+
     }
 }

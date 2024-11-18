@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="PlantillaJugadores.aspx.cs" Inherits="TPC.PlanillaJugadores" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="PlantillaJugadores.aspx.cs" Inherits="TPC.PlanillaJugadores" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -16,7 +16,7 @@
     <div class="row">
         <div class="mb-3">
             <asp:Label Text="Posicion:" runat="server" />
-            <asp:TextBox runat="server" CssClass="col-6" ID="txtboxFiltroPosicion" AutoPostBack="true" OnTextChanged="txtboxFiltroPosicion_TextChanged"/>
+            <asp:TextBox runat="server" CssClass="col-6" ID="txtboxFiltroPosicion" AutoPostBack="true" OnTextChanged="txtboxFiltroPosicion_TextChanged" />
         </div>
     </div>
     <div class="row">
@@ -41,21 +41,35 @@
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <asp:UpdatePanel runat="server" ID="updatePanel">
         <ContentTemplate>
-            <asp:GridView runat="server" ID="dgvJugadores" CssClass="table table-dark form-check-input" AutoGenerateColumns="false" DataKeyNames="IdJugador" OnSelectedIndexChanged="dgv_SelectedIndexChanged">
+            <asp:GridView runat="server" ID="dgvJugadores" CssClass="table table-dark table-hover" AutoGenerateColumns="false" DataKeyNames="IdJugador">
                 <Columns>
                     <asp:BoundField HeaderText="Nombre" DataField="Nombres" />
                     <asp:BoundField HeaderText="Apellido" DataField="Apellidos" />
+                    <asp:BoundField HeaderText="Posicion" DataField="Posicion" />
                     <asp:BoundField HeaderText="Fecha de nacimiento" DataField="FechaNacimiento" />
                     <asp:BoundField HeaderText="Pais" DataField="LugarNacimiento.Pais" />
-                    <asp:BoundField HeaderText="Provincia" DataField="LugarNacimiento.Provincia" />
-                    <asp:BoundField HeaderText="Ciudad" DataField="LugarNacimiento.Ciudad" />
-                    <asp:BoundField HeaderText="Email" DataField="Email" />
-                    <asp:BoundField HeaderText="Altura" DataField="Altura" />
-                    <asp:BoundField HeaderText="Peso" DataField="Peso" />
-                    <asp:BoundField HeaderText="Posicion" DataField="Posicion" />
+                    <asp:BoundField HeaderText="Provincia" DataField="LugarNacimiento.Provincia" Visible="false" />
+                    <asp:BoundField HeaderText="Ciudad" DataField="LugarNacimiento.Ciudad" Visible="false" />
+                    <asp:BoundField HeaderText="Email" DataField="Email" Visible="false" />
+                    <asp:BoundField HeaderText="Altura" DataField="Altura" Visible="false" />
+                    <asp:BoundField HeaderText="Peso" DataField="Peso" Visible="false" />
                     <asp:BoundField HeaderText="Categoria" DataField="Categoria.NombreCategoria" />
                     <asp:BoundField HeaderText="Estado del Jugador" DataField="EstadoJugador.NombreEstado" />
-                    <asp:CommandField ShowSelectButton="true" SelectText="Modificar" HeaderText="Modificar" />
+
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Button ID="btnModificar" runat="server" Text="Modificar" CommandName="Modificar"
+                                CommandArgument='<%# Eval("IdJugador") %>' OnClick="btnAccion_Click" CssClass="btn btn-outline-warning" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Button ID="btnIncidencia" runat="server" Text="Añadir Incidencia" CommandName="Incidencia"
+                                CommandArgument='<%# Eval("IdJugador") %>' OnClick="btnAccion_Click" CssClass="btn btn-outline-info" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
                 </Columns>
             </asp:GridView>
         </ContentTemplate>

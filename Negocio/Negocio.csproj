@@ -48,6 +48,7 @@
     <Compile Include="EntrenamientoNegocio.cs" />
     <Compile Include="EstadoEntrenamientoNegocio.cs" />
     <Compile Include="EstadoJugadorNegocio.cs" />
+    <Compile Include="IncidenciaNegocio.cs" />
     <Compile Include="JugadorNegocio.cs" />
     <Compile Include="NotificacionNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

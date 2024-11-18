@@ -93,7 +93,6 @@
                         { %>
                     <asp:CheckBox Text="Confirmar eliminacion" ID="chkboxConfirmado" runat="server" />
                     <asp:Button Text="Eliminar" CssClass="btn btn-outline-danger" OnClick="BtnEliminarConfirmado_Click" runat="server" />
-
                     <% } %>
                 </ContentTemplate>
             </asp:UpdatePanel>

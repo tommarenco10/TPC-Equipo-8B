@@ -61,7 +61,6 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
-
         }
 
         public void modificar(EstadoEntrenamiento modificado)
