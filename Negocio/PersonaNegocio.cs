@@ -3,6 +3,7 @@ using Dominio;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Web.UI.WebControls;
 
 namespace Negocio
 {
@@ -49,29 +50,32 @@ namespace Negocio
         public int agregar(Persona persona)
         {
             AccesoDatos datos = new AccesoDatos();
-            int idPersona = 0; 
+            int idPersona = 0;
 
             try
             {
-            
-                datos.setearConsulta("INSERT INTO Persona (Nombres, Apellidos, Edad, FechaNacimiento, Email, UrlImagen) VALUES (@Nombres, @Apellidos, @Edad, @FechaNacimiento, @Email, @UrlImagen)");
+                datos.setearSP("sp_AgregarPersona");
+
                 datos.agregarParametro("@Nombres", persona.Nombres);
                 datos.agregarParametro("@Apellidos", persona.Apellidos);
-                datos.agregarParametro("@Edad", persona.Edad);
                 datos.agregarParametro("@FechaNacimiento", persona.FechaNacimiento);
+                datos.agregarParametro("@DNI", persona.DNI);
                 datos.agregarParametro("@Email", persona.Email);
                 datos.agregarParametro("@UrlImagen", persona.UrlImagen);
-                datos.ejecutarAccion();
+                datos.agregarParametro("@Pais", persona.LugarNacimiento.Pais);
+                datos.agregarParametro("@Provincia", persona.LugarNacimiento.Provincia);
+                datos.agregarParametro("@Ciudad", persona.LugarNacimiento.Ciudad);
 
-                
-                datos.setearConsulta("SELECT SCOPE_IDENTITY()"); 
-                SqlDataReader lector = datos.ejecutarLectura();
-                if (lector.Read())
+                SqlParameter parametroSalida = new SqlParameter
                 {
-                    idPersona = Convert.ToInt32(lector[0]); 
-                }
+                    ParameterName = "@IdPersona",
+                    SqlDbType = System.Data.SqlDbType.Int,
+                    Direction = System.Data.ParameterDirection.Output
+                };
+                datos.comando.Parameters.Add(parametroSalida);
 
-                return idPersona; 
+                datos.ejecutarAccion();
+                idPersona = Convert.ToInt32(parametroSalida.Value);
             }
             catch (Exception ex)
             {
@@ -81,7 +85,10 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
+
+            return idPersona;
         }
+
 
         public void modificar(Persona persona)
         {
@@ -129,6 +136,5 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-
-        }
+    }
     }

@@ -6,7 +6,7 @@ namespace Acceso_Datos
     public class AccesoDatos
     {
         public SqlConnection conexion { get; }
-        private SqlCommand comando;
+        public SqlCommand comando { get; set;}
         private SqlDataReader lector;
 
         public SqlDataReader Lector

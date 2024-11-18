@@ -56,3 +56,11 @@ footer {
     font-size: 1.4em;
     font-weight: bold;
 }
+
+.preview-image {
+    width: 12rem; /* Establecer un ancho fijo */
+    height: 12rem; /* Establecer una altura fija */
+    object-fit: cover; /* La imagen se ajusta y recorta si es necesario */
+    border: 1px solid #ccc; /* Borde alrededor de la imagen */
+    border-radius: 5px; /* Bordes redondeados */
+}

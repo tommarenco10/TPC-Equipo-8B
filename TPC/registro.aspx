@@ -5,7 +5,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-
+    <asp:ScriptManager runat="server" />
     <section>
         <h2 class="mb-4">Formulario de Registro</h2>
         <div class="row g-3">
@@ -46,7 +46,7 @@
                 <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtNombre" />
                 <asp:RequiredFieldValidator ErrorMessage="Este campo es obligatorio" ControlToValidate="txtNombre" CssClass="text-danger" runat="server" />
                 <asp:RegularExpressionValidator ControlToValidate="txtNombre" ErrorMessage="Solo se permiten letras y espacios" CssClass="text-danger" runat="server"
-                    ValidationExpression="^[a-zA-Z\s]*$" />
+                    ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$" />
             </div>
 
             <div class="col-md-4">
@@ -54,15 +54,15 @@
                 <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtApellido" />
                 <asp:RequiredFieldValidator ErrorMessage="Este campo es obligatorio" ControlToValidate="txtApellido" CssClass="text-danger" runat="server" />
                 <asp:RegularExpressionValidator ControlToValidate="txtApellido" ErrorMessage="Solo se permiten letras y espacios" CssClass="text-danger" runat="server"
-                    ValidationExpression="^[a-zA-Z\s]*$" />
+                    ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$" />
             </div>
 
             <div class="col-md-4">
                 <label for="txtDNI" class="form-label">DNI:</label>
                 <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtDNI" />
                 <asp:RequiredFieldValidator ErrorMessage="Este campo es obligatorio" ControlToValidate="txtDNI" CssClass="text-danger" runat="server" />
-                <asp:RegularExpressionValidator ControlToValidate="txtDNI" ErrorMessage="Solo se permiten números" CssClass="text-danger" runat="server"
-                    ValidationExpression="^\d+$" />
+                <asp:RegularExpressionValidator ControlToValidate="txtDNI" ErrorMessage="Solo se permiten números" CssClass="text-danger" runat="server" ValidationExpression="^\d+$" />
+                <%--<asp:RangeValidator ErrorMessage="Por favor ingrese un DNI valido" CssClass="text-danger" ControlToValidate="txtDNI" MinimumValue="10000000" MaximumValue="100000000"  runat="server" />--%>
             </div>
 
             <div class="col-md-4">
@@ -79,12 +79,44 @@
                     ValidationExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
             </div>
 
-            <div class="form-group">
-                <label for="fileInput">Subir Imagen</label>
-                <input type="file" id="fileInput" class="form-control" accept="image/*" onchange="previewImage(event)" />
-            </div>
-            <div class="form-group mt-3">
-                <img id="imgPreview" src="#" alt="Vista previa" style="display: none; max-width: 100%; height: auto;" />
+
+            <asp:UpdatePanel runat="server">
+                <ContentTemplate>
+                    <div class="col-md-4">
+                        <label for="ddlPais" class="form-label">País:</label>
+                        <asp:DropDownList runat="server" CssClass="form-select" ID="ddlPais" OnSelectedIndexChanged="ddlPais_SelectedIndexChanged" AutoPostBack="true">
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ErrorMessage="Este campo es obligatorio" ControlToValidate="ddlPais" InitialValue="" CssClass="text-danger" runat="server" />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="ddlProvincia" class="form-label">Provincia:</label>
+                        <asp:DropDownList runat="server" CssClass="form-select" ID="ddlProvincia" OnSelectedIndexChanged="ddlProvincia_SelectedIndexChanged" AutoPostBack="true">
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ErrorMessage="Este campo es obligatorio" ControlToValidate="ddlProvincia" InitialValue="" CssClass="text-danger" runat="server" />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="ddlCiudad" class="form-label">Ciudad:</label>
+                        <asp:DropDownList runat="server" CssClass="form-select" ID="ddlCiudad">
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ErrorMessage="Este campo es obligatorio" ControlToValidate="ddlCiudad" InitialValue="" CssClass="text-danger" runat="server" />
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+
+
+            <div class="row g-3">
+                <!-- Campo para subir la imagen -->
+                <div class="col-md-6">
+                    <label for="fileInput" class="form-label">Subir Imagen</label>
+                    <asp:FileUpload runat="server" ID="fileInput" CssClass="form-control" accept="image/*" OnChange="previewImage(event)" />
+                </div>
+
+                <!-- Vista previa de la imagen, centrada y con tamaño limitado -->
+                <div class="col-md-6 d-flex justify-content-center align-items-center mt-3">
+                    <img id="imgPreview" src="/Images/placeholder.png" alt="Vista previa" class="preview-image" />
+                </div>
             </div>
 
             <!-- Otros Campos -->
