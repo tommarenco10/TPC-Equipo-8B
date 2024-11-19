@@ -16,8 +16,9 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("INSERT INTO Observacion (Fecha, Descripcion) VALUES (@Fecha, @Descripcion)");
+                datos.setearConsulta("INSERT INTO Observacion (IdIncidencia, Fecha, Descripcion) VALUES (@IdIncidencia, @Fecha, @Descripcion)");
 
+                datos.agregarParametro("@IdIncidencia", nuevo.IdIncidencia);
                 datos.agregarParametro("@Fecha", nuevo.Fecha);
                 datos.agregarParametro("@Descripcion", nuevo.Descripcion);
 
@@ -33,14 +34,14 @@ namespace Negocio
             }
         }
 
-        public List<ObservacionConFecha> listarPorIncidencia(int idIncidencia)
+        public List<ObservacionConFecha> listarAscendentePorIncidencia(int idIncidencia)
         {
             List<ObservacionConFecha> lista = new List<ObservacionConFecha>();
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setearConsulta("SELECT IdObservacion, Fecha, Descripcion FROM Observacion WHERE IdObservacion = @id");
+                datos.setearConsulta("SELECT IdObservacion, IdIncidencia, Fecha, Descripcion FROM Observacion WHERE IdIncidencia = @id ORDER BY Fecha ASC");
                 datos.agregarParametro("@id", idIncidencia);
                 datos.ejecutarLectura();
 
@@ -49,6 +50,7 @@ namespace Negocio
                     ObservacionConFecha aux = new ObservacionConFecha();
 
                     aux.IdObservacion = datos.Lector["IdObservacion"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdObservacion"]) : 0;
+                    aux.IdIncidencia = datos.Lector["IdIncidencia"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdIncidencia"]) : 0;
                     aux.Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : string.Empty;
                     aux.Fecha = datos.Lector["Fecha"] != DBNull.Value ? (DateTime)datos.Lector["Fecha"] : DateTime.MinValue;
 

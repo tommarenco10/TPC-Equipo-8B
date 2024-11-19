@@ -112,7 +112,7 @@ namespace Negocio
                     
                     //LISTAS DE OBSERVACIONES
                     ObservacionesConFechaNegocio observacionesNegocio = new ObservacionesConFechaNegocio();
-                    aux.Observaciones = observacionesNegocio.listarPorIncidencia(aux.IdIncidencia);
+                    aux.Observaciones = observacionesNegocio.listarAscendentePorIncidencia(aux.IdIncidencia);
                     return aux;
                 }
                 else

@@ -100,33 +100,47 @@
         </div>
     </div>
 
-    <asp:Panel ID="pnlObservaciones" runat="server" CssClass="card p-3 my-3 bg-light" Visible="false">
-        <h4>Observaciones (Evolución de la Lesión)</h4>
-        <br />
-        <div class="row mb-1">
-            <div class="col-md-2">
-                <asp:Label runat="server" AssociatedControlID="txtFechaObservacion" Text="Fecha:" CssClass="fw-bold"></asp:Label><br />
-                <asp:TextBox ID="txtFechaObservacion" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox><br />
-            </div>
-            <div class="col-md-10">
-                <asp:Label runat="server" AssociatedControlID="txtDescripcionObservacion" Text="Descripción:" CssClass="fw-bold"></asp:Label><br />
-                <asp:TextBox ID="txtDescripcionObservacion" runat="server" CssClass="form-control"></asp:TextBox><br />
-            </div>
-        </div>
+    <asp:ScriptManager runat="server" />
 
-        <div class="col-md-4">
-            <asp:Button ID="btnAgregarObservacion" runat="server" Text="Agregar Observación" CssClass="btn btn-secondary mt-3" OnClick="btnAgregarObservacion_Click" /><br />
-        </div>
+    <asp:UpdatePanel runat="server" UpdateMode="Always">
+        <ContentTemplate>
+            <asp:Panel ID="pnlObservaciones" runat="server" CssClass="card p-3 my-3 bg-light" Visible="false">
+                <h4>Observaciones (Evolución de la Lesión)</h4>
+                <br />
+                <div class="row mb-1">
+                    <div class="col-md-2">
+                        <asp:Label runat="server" AssociatedControlID="txtFechaObservacion" Text="Fecha:" CssClass="fw-bold"></asp:Label><br />
+                        <asp:TextBox ID="txtFechaObservacion" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox><br />
+                    </div>
+                    <div class="col-md-10">
+                        <asp:Label runat="server" AssociatedControlID="txtDescripcionObservacion" Text="Descripción:" CssClass="fw-bold"></asp:Label><br />
+                        <asp:TextBox ID="txtDescripcionObservacion" runat="server" CssClass="form-control"></asp:TextBox><br />
+                    </div>
+                </div>
 
-        <br />
+                <div class="row my-1">
+                    <div class="col-md-2">
+                        <asp:Button ID="btnAgregarObservacion" runat="server" Text="Agregar Observación" CssClass="btn btn-secondary mt-3" OnClick="btnAgregarObservacion_Click" /><br />
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center ms-2">
+                        <asp:Label ID="lblErrorObs" runat="server" CssClass="text-danger"></asp:Label>
+                    </div>
+                </div>
 
-        <asp:GridView ID="dgvObservaciones" runat="server" CssClass="table table-striped mt-3" AutoGenerateColumns="false">
-            <Columns>
-                <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
-                <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
-            </Columns>
-        </asp:GridView>
-    </asp:Panel>
+                <asp:GridView ID="dgvObservaciones" runat="server" CssClass="table table-striped mt-3" AutoGenerateColumns="false">
+                    <Columns>
+                        <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
+                        <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
+                    </Columns>
+                </asp:GridView>
+            </asp:Panel>
+        </ContentTemplate>
+
+        <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="btnAgregarObservacion" EventName="Click" />
+        </Triggers>
+
+    </asp:UpdatePanel>
 
     <asp:Button ID="btnModificar" runat="server" Text="Modificar" CssClass="btn btn-warning mt-3" OnClick="btnModificar_Click" />
     <asp:Button ID="btnActualizarIncidencia" runat="server" Text="Actualizar Incidencia" CssClass="btn btn-warning mt-3" OnClick="btnActualizarIncidencia_Click" />

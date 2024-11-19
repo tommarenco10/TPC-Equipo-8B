@@ -134,6 +134,7 @@ GO
 
 CREATE TABLE Observacion(
 	IdObservacion bigint primary key identity(1,1),
+	IdIncidencia int foreign key references incidencia (IdIncidencia),
 	Fecha date not null,
 	Descripcion varchar(200) not null
 )

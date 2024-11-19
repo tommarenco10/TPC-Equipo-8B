@@ -3,6 +3,7 @@ using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Threading;
 using System.Web;
@@ -16,7 +17,6 @@ namespace TPC
     {
         public int tipoPagina;
         private Incidencia incidencia;
-        private List<ObservacionesConFechaNegocio> listaObservaciones;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -54,6 +54,7 @@ namespace TPC
                     }
 
                     configuracionesTipoPagina((int)Session["tipoPagina"]);
+                    cargaDGVObservaciones();
 
                     List<EstadoJugador> listaEstados = negocioEstado.listar();
                     ddlTipoIncidencia.DataSource = listaEstados;
@@ -80,6 +81,7 @@ namespace TPC
                     }
                 }
                 configuracionesTipoPagina((int)Session["tipoPagina"]);
+                
             }
             catch (Exception ex)
             {
@@ -173,6 +175,34 @@ namespace TPC
             }
         }
 
+        protected void cargaDGVObservaciones()
+        {
+            List<ObservacionConFecha> listaObservaciones = new List<ObservacionConFecha>();
+            List<ObservacionConFecha> listaFiltrada = new List<ObservacionConFecha>();
+            ObservacionesConFechaNegocio observacionesConFechaNegocio = new ObservacionesConFechaNegocio();
+            int idIncidencia = 0;
+            if ((Incidencia)Session["incidenciaSeleccionada"] != null)
+            {
+                incidencia = (Incidencia)Session["incidenciaSeleccionada"];
+                idIncidencia = incidencia.IdIncidencia;
+            }
+            listaObservaciones = observacionesConFechaNegocio.listarAscendentePorIncidencia(idIncidencia);
+
+            if (listaObservaciones != null)
+            {
+                foreach (ObservacionConFecha observacion in listaObservaciones)
+                {
+                    if (observacion.IdIncidencia == idIncidencia)
+                    {
+                        listaFiltrada.Add(observacion);
+                    }
+                }
+            }
+
+            dgvObservaciones.DataSource = listaFiltrada;
+            dgvObservaciones.DataBind();
+        }
+
         protected bool validaciones()
         {
             int idTipoIncidencia;
@@ -227,7 +257,7 @@ namespace TPC
                 if (string.IsNullOrEmpty(txtDescripcion.Text))
                 {
                     lblError.CssClass = "alert alert-warning";
-                    lblError.Text = "Por favor, complete el campo de duración.";
+                    lblError.Text = "Por favor, complete el campo de descripción.";
                     return false;
                 }
                 else
@@ -299,41 +329,55 @@ namespace TPC
             }
         }
 
-        protected void cargaDGVObservaciones(object sender, EventArgs e)
-        {
-            try
-            {
-                List<ObservacionConFecha> listaObservaciones = new List<ObservacionConFecha>();
-                listaObservaciones = (List<ObservacionConFecha>)Session["listaObservaciones"];
-
-                dgvObservaciones.DataSource = listaObservaciones;
-                dgvObservaciones.DataBind();
-            }
-            catch (Exception ex)
-            {
-                Session.Add("error", ex.ToString());
-                Response.Redirect("Error.aspx");
-            }
-        }
-
         protected void btnAgregarObservacion_Click(object sender, EventArgs e)
         {
             try
             {
-                List<ObservacionConFecha> observaciones = Session["listaObservaciones"] != null
-                    ? (List<ObservacionConFecha>)Session["listaObservaciones"]
-                    : new List<ObservacionConFecha>();
+                DateTime fechaObservacion;
+                string descripcion;
 
-                observaciones.Add(new ObservacionConFecha
+                //VALIDAR FECHAS
+                if (string.IsNullOrEmpty(txtFechaObservacion.Text))
                 {
-                    Fecha = Convert.ToDateTime(txtFechaObservacion.Text),
-                    Descripcion = txtDescripcionObservacion.Text
-                });
+                    lblErrorObs.CssClass = "alert alert-warning";
+                    lblErrorObs.Text = "Por favor, complete el campo de fecha de observacion.";
+                    return;
+                }
 
-                Session["listaObservaciones"] = observaciones;
+                else if (!DateTime.TryParse(txtFechaObservacion.Text, out fechaObservacion))
+                {
+                    lblErrorObs.CssClass = "alert alert-danger";
+                    lblErrorObs.Text = "Fecha de observación no válida. Por favor, ingrese una fecha válida.";
+                    return;
+                }
 
-                dgvObservaciones.DataSource = observaciones;
-                dgvObservaciones.DataBind();
+                //VALIDAR DESCRIPCIÓN
+                if (string.IsNullOrEmpty(txtDescripcionObservacion.Text))
+                {
+                    lblErrorObs.CssClass = "alert alert-warning";
+                    lblErrorObs.Text = "Por favor, complete el campo de descripción.";
+                    return;
+                }
+                else
+                {
+                    descripcion = txtDescripcionObservacion.Text.ToString();
+                }
+
+                if ((Incidencia)Session["incidenciaSeleccionada"] != null)
+                {
+                    incidencia = (Incidencia)Session["incidenciaSeleccionada"];
+                    ObservacionConFecha observacion = new ObservacionConFecha();
+                    observacion.IdIncidencia = incidencia.IdIncidencia;
+                    observacion.Fecha = fechaObservacion;
+                    observacion.Descripcion = descripcion;
+                    ObservacionesConFechaNegocio observacionNegocio = new ObservacionesConFechaNegocio();
+                    observacionNegocio.agregar(observacion);
+                    cargaDGVObservaciones();
+                }
+                else
+                {
+                    Incidencia incidencia = new Incidencia();
+                }
             }
             catch (Exception ex)
             {
