@@ -1,6 +1,7 @@
 ﻿using Dominio;
 using System;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace TPC
 {
@@ -21,11 +22,12 @@ namespace TPC
                                     <p>Hinchas y socios podrán seguir de cerca las actividades del club, con acceso en tiempo real a las actualizaciones sobre los equipos, entrenamientos y sorteos exclusivos.</p>
                                     <p>¡Unite a nosotros y descubrí cómo potenciamos cada aspecto del fútbol!</p>";
                     }
-                    else
+                    else 
                     {
                         Usuario logueado = (Usuario)Session["user"];
                         lblBienvenida.Text = $"Hola {logueado.Nombre}, bienvenido a la Plataforma de Gestión del Club de Fútbol!";
                         litContent.Text = "<p class='success-message'>Inicio de sesión exitoso!</p>";
+                        
                     }
                 }
                 else
@@ -35,7 +37,7 @@ namespace TPC
                     lblBienvenida.Text = $"Hola {logueado.Nombre}, {nombre_real} bienvenido a la Plataforma de Gestión del Club de Fútbol!";
                     litContent.Text = "<p class='success-message'>REGISTRO EXITOSO!</p>";
                     Session["registro_nuevo"] = null;
-                   
+                    
                 }
             }
 

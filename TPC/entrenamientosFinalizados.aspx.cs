@@ -7,6 +7,7 @@ using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
 
 namespace TPC
 {
@@ -60,6 +61,7 @@ namespace TPC
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
+
         }
 
         protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
@@ -100,7 +102,7 @@ namespace TPC
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
-        }    
+        }
 
         protected void btnAccion_Click(object sender, EventArgs e)
         {
@@ -127,7 +129,7 @@ namespace TPC
                 else if (btn.ID == "btnAsistencia")
                 {
                     Response.Redirect("gestionAsistencia.aspx"); //FUNCION ACTUALIZAR
-                }      
+                }
             }
             catch (ThreadAbortException) { }
             catch (Exception ex)

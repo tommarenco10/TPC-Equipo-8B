@@ -25,36 +25,37 @@ namespace TPC
         {
             UsuarioNegocio nuevo = new UsuarioNegocio();
             Usuario login = new Usuario();
-            
 
             try
             {
-
-                List <TextBox> textboxs= new List <TextBox>();
+                List<TextBox> textboxs = new List<TextBox>();
                 textboxs.Add(txtUserName);
                 textboxs.Add(txtPass);
-
 
                 if (Seguridad.validaTextosVacios(textboxs))
                 {
                     Session.Add("error", "Debes completar los campos requeridos.");
                     Response.Redirect("Error.aspx");
                 }
-          
+
                 login.Nombre = txtUserName.Text;
                 login.Contraseña = txtPass.Text;
+
                 if (nuevo.loguear(login))
                 {
                     Session.Add("user", login);
                     Session["userId"] = login.IdUsuario;
                     Session["userName"] = login.Nombre;
                     Session["userType"] = (int)login.Tipo;
-                    Persona persona = new Persona();
+
                     PersonaNegocio personaNegocio = new PersonaNegocio();
-                    persona=personaNegocio.obtenerPorId((int)login.IdPersona);
-                    Session["userProfileImage"] = persona.UrlImagen;
-                    Response.Redirect("index.aspx",false);
-                    //return;
+                    Persona persona = personaNegocio.obtenerPorId((int)login.IdPersona);
+
+                    // Verifica si la URL de la imagen es null o vacía y asigna una imagen por defecto
+                    string urlImagen = string.IsNullOrEmpty(persona.UrlImagen) ? "/Images/placeholder.png" : persona.UrlImagen;
+                    Session["userProfileImage"] = urlImagen;
+
+                    Response.Redirect("index.aspx", false);
                 }
                 else
                 {
@@ -67,10 +68,8 @@ namespace TPC
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
-                Response.Redirect("Error.aspx",false);
-            } 
-
-
+                Response.Redirect("Error.aspx", false);
+            }
         }
     }
 }

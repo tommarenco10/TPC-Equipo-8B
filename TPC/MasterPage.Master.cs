@@ -11,17 +11,16 @@ namespace TPC
 {
     public partial class MasterPage : System.Web.UI.MasterPage
     {
-        Seguridad comprobaciones;
         protected void Page_Load(object sender, EventArgs e)
         {
-       
+            this.DataBind();//Sin el databind nunca carga las imagenes al inicio de sesion.
         }
 
         public bool esAdmin()
         {
             if (sesionActiva())
             {
-                return comprobaciones.esAdmin((Usuario)Session["user"]);
+                return Seguridad.esAdmin((Usuario)Session["user"]);
             }
             else return false;
         }
@@ -31,7 +30,7 @@ namespace TPC
         {
             if (sesionActiva())
             {
-                return comprobaciones.esEntrenador((Usuario)Session["user"]);
+                return Seguridad.esEntrenador((Usuario)Session["user"]);
             }
             else return false;
 
@@ -42,7 +41,7 @@ namespace TPC
         {
             if (sesionActiva())
             {
-                return comprobaciones.esMedico((Usuario)Session["user"]);
+                return Seguridad.esMedico((Usuario)Session["user"]);
             }
             else return false;
         }
@@ -54,7 +53,7 @@ namespace TPC
         {
             if (sesionActiva())
             {
-                return comprobaciones.esSocio((Usuario)Session["user"]);
+                return Seguridad.esSocio((Usuario)Session["user"]);
             }
             else return false;
         }
@@ -70,5 +69,22 @@ namespace TPC
             else return false;
         }
 
+        protected void CerrarSesion_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.Abandon();
+            Response.Redirect("index.aspx",false);
+        }
+
+
+        protected string GetImageUrl()
+        {
+            return Session["userProfileImage"] != null ? Session["userProfileImage"].ToString() : "~/Images/placeholder.png";
+        }
+
+        protected void editarPerfil_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditarPerfil.aspx",false);
+        }
     }
 }

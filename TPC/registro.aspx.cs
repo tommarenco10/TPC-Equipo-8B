@@ -13,8 +13,6 @@ namespace TPC
 {
     public partial class registro : System.Web.UI.Page
     {
-        Seguridad comprobaciones;
-        List<TextBox> formulario;
         LugarNacimientoNegocio lugarNacimientoNegocio = new LugarNacimientoNegocio();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -34,6 +32,8 @@ namespace TPC
         {
             try
             {
+                // *** Validaciones Iniciales ***
+
                 // Validar contraseñas
                 if (txtPassword.Text != txtConfirmPassword.Text)
                 {
@@ -42,8 +42,19 @@ namespace TPC
                 }
 
                 // Validar campos vacíos
-                var formulario = new List<TextBox> { txtNombre, txtApellido, txtEmail, txtDNI, txtPassword, txtConfirmPassword, txtUserName, txtFechaNacimiento };
-                if (Seguridad.validaTextosVacios(formulario))
+                var camposRequeridos = new List<TextBox>
+        {
+            txtNombre,
+            txtApellido,
+            txtEmail,
+            txtDNI,
+            txtPassword,
+            txtConfirmPassword,
+            txtUserName,
+            txtFechaNacimiento
+        };
+
+                if (Seguridad.validaTextosVacios(camposRequeridos))
                 {
                     MostrarError("Debes completar todos los campos.");
                     return;
@@ -56,13 +67,14 @@ namespace TPC
                     return;
                 }
 
-                // Validar imagen
+                // Validar si se seleccionó un archivo
                 if (!fileInput.HasFile)
                 {
                     MostrarError("No seleccionaste una imagen.");
                     return;
                 }
 
+                // Validar el archivo (tipo, tamaño, etc.)
                 var validacionArchivo = Seguridad.ValidarArchivo(fileInput.PostedFile);
                 if (!validacionArchivo.isValid)
                 {
@@ -70,23 +82,31 @@ namespace TPC
                     return;
                 }
 
-                // Guardar imagen
-                string rutaImagen = Server.MapPath("./Images/");
-                string fileName = "profile-" + txtUserName.Text + Path.GetExtension(fileInput.FileName);
-                fileInput.SaveAs(rutaImagen + fileName);
-
-
+                // Validar datos existentes (nombre de usuario, DNI o email)
                 var comprobacion = Seguridad.ComprobarDatosExistentes(txtUserName.Text, txtDNI.Text, txtEmail.Text);
-
-                
                 if (!comprobacion.isSuccess)
                 {
-                    lblError.Text = comprobacion.mensaje; 
-                    lblError.Visible = true; 
-                    return; 
+                    MostrarError(comprobacion.mensaje);
+                    return;
                 }
 
+                // *** Guardar Imagen ***
 
+                // Ruta física para almacenar la imagen
+                string rutaCarpeta = Server.MapPath("~/Images/");
+                // Nombre único para evitar conflictos
+                string nombreArchivo = "profile-" + txtUserName.Text + "-" + Guid.NewGuid() + Path.GetExtension(fileInput.FileName);
+                string rutaCompleta = Path.Combine(rutaCarpeta, nombreArchivo);
+
+                // Guardar la imagen físicamente en el servidor
+                fileInput.SaveAs(rutaCompleta);
+
+                // Ruta relativa para guardar en base de datos o sesión
+                string rutaRelativa = "Images/" + nombreArchivo;
+
+                // *** Crear Objetos Persona y Usuario ***
+
+                // Crear y configurar el objeto Persona
                 Persona persona = new Persona
                 {
                     DNI = txtDNI.Text,
@@ -100,39 +120,48 @@ namespace TPC
                         Provincia = ddlProvincia.SelectedValue,
                         Ciudad = ddlCiudad.SelectedValue
                     },
-                    UrlImagen = "Images/" + fileName
+                    UrlImagen = rutaRelativa // Asignar la ruta relativa de la imagen
                 };
 
+                // Guardar Persona en la base de datos y obtener su ID
                 PersonaNegocio personaNegocio = new PersonaNegocio();
+                int idPersona = personaNegocio.agregar(persona);
+
+                // Crear y configurar el objeto Usuario
                 Usuario usuario = new Usuario
                 {
                     Nombre = txtUserName.Text,
-                    IdPersona = personaNegocio.agregar(persona),
+                    IdPersona = idPersona,
                     Email = txtEmail.Text,
                     Contraseña = txtPassword.Text,
                     Tipo = TipoUsuario.Hincha
                 };
 
+                // Guardar Usuario en la base de datos
                 UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
                 usuarioNegocio.agregar(usuario);
 
-                // Redirigir
-                Session.Add("user", usuario);
-                Session.Add("registro_nuevo", persona.Nombres.ToString() + " " + persona.Apellidos.ToString());
+                // *** Configurar Sesión y Redirigir ***
+
+                // Agregar información del usuario a la sesión
+                Session["user"] = usuario;
+                Session["registro_nuevo"] = $"{persona.Nombres} {persona.Apellidos}";
                 Session["userId"] = usuario.IdUsuario;
                 Session["userName"] = usuario.Nombre;
                 Session["userType"] = (int)usuario.Tipo;
-                Session["userProfileImage"] = persona.UrlImagen;
+                Session["userProfileImage"] = rutaRelativa;
+
+                // Redirigir al usuario a la página principal
                 Response.Redirect("index.aspx", false);
             }
             catch (Exception ex)
             {
-                MostrarError("Hubo un error en tu solicitud.");
+                // Mostrar mensaje de error genérico
+                MostrarError("Hubo un error en tu solicitud: " + ex.Message);
             }
         }
 
-       
-        
+
         private void MostrarError(string mensaje)
         {
             Session.Add("error", mensaje);

@@ -162,7 +162,7 @@ namespace Negocio
             AccesoDatos datos=new AccesoDatos();
             try
             {
-                datos.setearConsulta("Select IdUsuario,IdTipoUsuario,Email from Usuario Where Nombre=@nombre AND Contraseña=@contraseña");
+                datos.setearConsulta("Select IdUsuario,IdPersona,IdTipoUsuario,Email from Usuario Where Nombre=@nombre AND Contraseña=@contraseña");
                 datos.agregarParametro("@nombre",usuario.Nombre);
                 datos.agregarParametro("@contraseña", usuario.Contraseña);
                 datos.ejecutarLectura();
@@ -171,6 +171,7 @@ namespace Negocio
                     usuario.IdUsuario = (long)datos.Lector["IdUsuario"];
                     usuario.Tipo = (TipoUsuario)(byte)datos.Lector["IdTipoUsuario"];
                     usuario.Email = (string)datos.Lector["Email"];
+                    usuario.IdPersona = (long)datos.Lector["IdPersona"];
                     return true;
                 }
                 return false;

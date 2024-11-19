@@ -17,32 +17,32 @@ namespace Negocio
     public class Seguridad
     {
 
-        public bool sesionActiva(Object user)
+        public static bool sesionActiva(Object user)
         {
             return user is Usuario usuario && usuario != null;
         }
 
-        public bool esAdmin(Object user)
+        public static bool esAdmin(Object user)
         {
             return user is Usuario usuario && usuario.Tipo == TipoUsuario.Administrador;
         }
 
-        public bool esEntrenador(Object user)
+        public static bool esEntrenador(Object user)
         {
             return user is Usuario usuario && usuario.Tipo == TipoUsuario.CuerpoTecnico;
         }
 
-        public bool esMedico(Object user)
+        public static bool esMedico(Object user)
         {
             return user is Usuario usuario && usuario.Tipo == TipoUsuario.CuerpoMedico;
         }
 
-        public bool esSocio(Object user)
+        public static bool esSocio(Object user)
         {
             return user is Usuario usuario && usuario.Tipo == TipoUsuario.Socio;
         }
 
-        public bool esHincha(Object user)
+        public static bool esHincha(Object user)
         {
             return user is Usuario usuario && usuario.Tipo == TipoUsuario.Hincha;
         }

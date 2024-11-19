@@ -59,8 +59,8 @@
 
             <div class="col-md-4">
                 <label for="txtDNI" class="form-label">DNI:</label>
-                <asp:TextBox runat="server" CssClass="form-control"  ID="txtDNI" />
-               <asp:RequiredFieldValidator ErrorMessage="Este campo es obligatorio" ControlToValidate="txtDNI" CssClass="text-danger" runat="server" />
+                <asp:TextBox runat="server" CssClass="form-control" ID="txtDNI" />
+                <asp:RequiredFieldValidator ErrorMessage="Este campo es obligatorio" ControlToValidate="txtDNI" CssClass="text-danger" runat="server" />
                 <asp:RegularExpressionValidator ControlToValidate="txtDNI" ErrorMessage="Solo se permiten números" CssClass="text-danger" runat="server" ValidationExpression="^\d+$" />
                 <asp:RangeValidator ErrorMessage="Por favor, ingrese un DNI válido (10,000,000 a 100,000,000)" CssClass="text-danger" ControlToValidate="txtDNI" MinimumValue="10000000" MaximumValue="100000000" runat="server" Type="Integer" />
                 <span class="text-danger" id="errDNI"></span>
@@ -111,7 +111,8 @@
                 <!-- Campo para subir la imagen -->
                 <div class="col-md-6">
                     <label for="fileInput" class="form-label">Subir Imagen</label>
-                    <asp:FileUpload runat="server" ID="fileInput" CssClass="form-control" accept="image/*" OnChange="previewImage(event)" />
+                    <asp:FileUpload ID="fileInput" runat="server" CssClass="form-control mb-2" OnChange="validarTamanoArchivo(this)" />
+                    <asp:Label ID="Label1" runat="server" CssClass="text-danger" Text=""></asp:Label>
                 </div>
 
                 <!-- Vista previa de la imagen, centrada y con tamaño limitado -->
@@ -123,7 +124,7 @@
 
 
 
-             <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
+            <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
 
 
 
