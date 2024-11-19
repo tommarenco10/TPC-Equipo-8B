@@ -86,21 +86,19 @@
             <asp:Label runat="server" AssociatedControlID="txtDescripcion" Text="Descripción:" CssClass="fw-bold"></asp:Label><br />
             <asp:TextBox ID="txtDescripcion" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox><br />
         </div>
-        <div class="row my-3">
-            <div class="col-md-2">
-                <asp:Button ID="btnGuardarIncidencia" runat="server" Text="Agregar Incidencia" CssClass="btn btn-primary mt-3" OnClick="btnGuardarIncidencia_Click" />
-            </div>
-            <div class="col-md-2">
-                <asp:Button ID="btnActualizarIncidencia" runat="server" Text="Actualizar Incidencia" CssClass="btn btn-warning mt-3" OnClick="btnActualizarIncidencia_Click" />
-            </div>
-        </div>
-        <div class="row my-3">
-            <div class="col-md-8">
-                <asp:Label ID="lblError" runat="server"></asp:Label>
-            </div>
-        </div>
-
     </asp:Panel>
+
+    <div class="row my-3">
+        <div class="col-md-2">
+            <asp:Button ID="btnGuardarIncidencia" runat="server" Text="Agregar Incidencia" CssClass="btn btn-primary mt-3" OnClick="btnGuardarIncidencia_Click" />
+        </div>
+        <div class="col-md-2">
+            <asp:Button ID="btnResumen" runat="server" Text="Resumen de Incidencias" CssClass="btn btn-secondary mt-3" OnClick="btnResumen_Click" />
+        </div>
+        <div class="col-md-6 d-flex align-items-center ms-4">
+            <asp:Label ID="lblError" runat="server" CssClass="text-danger"></asp:Label>
+        </div>
+    </div>
 
     <asp:Panel ID="pnlObservaciones" runat="server" CssClass="card p-3 my-3 bg-light" Visible="false">
         <h4>Observaciones (Evolución de la Lesión)</h4>
@@ -130,5 +128,8 @@
         </asp:GridView>
     </asp:Panel>
 
+    <asp:Button ID="btnModificar" runat="server" Text="Modificar" CssClass="btn btn-warning mt-3" OnClick="btnModificar_Click" />
+    <asp:Button ID="btnActualizarIncidencia" runat="server" Text="Actualizar Incidencia" CssClass="btn btn-warning mt-3" OnClick="btnActualizarIncidencia_Click" />
+    <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-danger mt-3" OnClick="btnVolver_Click" />
 
 </asp:Content>
