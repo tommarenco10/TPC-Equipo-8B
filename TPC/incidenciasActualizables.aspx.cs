@@ -3,6 +3,7 @@ using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -13,15 +14,16 @@ namespace TPC
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
+            List<Incidencia> listaIncidencias = new List<Incidencia>();
+
             if (!IsPostBack)
             {
                 if (Session["idJugador"] != null)
                 {
                     CargarJugador((int)Session["idJugador"]);
+                    listaIncidencias = incidenciaNegocio.listarPorJugador((int)Session["idJugador"]);
                 }
-                
-                IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
-                List<Incidencia> listaIncidencias = incidenciaNegocio.listarPorJugador((int)Session["idJugador"]);
                 dgvIncidencias.DataSource = listaIncidencias;
                 dgvIncidencias.DataBind();
             }
@@ -72,7 +74,37 @@ namespace TPC
 
         protected void btnAccion_Click(object sender, EventArgs e)
         {
+            try
+            {
+                Button btn = (Button)sender;
+                int idIncidencia = Convert.ToInt32(btn.CommandArgument);
 
+                IncidenciaNegocio negocioIncidencia = new IncidenciaNegocio();
+                Incidencia incidenciaSeleccionada = negocioIncidencia.ObtenerIncidenciaPorId(idIncidencia);
+
+                List<int> listaObservaciones = new List<int>();
+                foreach (ObservacionConFecha observacion in incidenciaSeleccionada.Observaciones)
+                {
+                    listaObservaciones.Add(observacion.IdObservacion);
+                }
+                Session["listaDeObservaciones"] = listaObservaciones;
+                Session["incidenciaSeleccionada"] = incidenciaSeleccionada;
+
+                if (btn.ID == "btnVerDetalle")
+                {
+                    Response.Redirect("gestionIncidencias.aspx?id=2"); //FUNCION VER DETALLE
+                }
+                else if (btn.ID == "btnActualizar")
+                {
+                    Response.Redirect("gestionIncidencias.aspx?id=3"); //FUNCION ACTUALIZAR
+                }
+            }
+            catch (ThreadAbortException) { }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
         }
 
 

@@ -86,6 +86,50 @@ namespace Negocio
             }
         }
 
+        public Incidencia ObtenerIncidenciaPorId(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT IdIncidencia, IdJugador, I.IdEstadoJugador, EJ.nombre AS EstadoJugador, Descripcion, Estado, FechaRegistro, FechaResolucion FROM incidencia I INNER JOIN EstadoJugador EJ ON I.IdEstadoJugador = EJ.IdEstadoJugador WHERE IdIncidencia = @id");
+                datos.agregarParametro("@id", id);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    Incidencia aux = new Incidencia();
+
+                    aux.IdIncidencia = datos.Lector["IdIncidencia"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdIncidencia"]) : 0;
+                    aux.IdJugador = datos.Lector["IdJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdJugador"]) : 0;
+                    aux.EstadoJugador = new EstadoJugador();
+                    aux.EstadoJugador.IdEstado = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
+                    aux.EstadoJugador.NombreEstado = datos.Lector["EstadoJugador"] != DBNull.Value ? (string)datos.Lector["EstadoJugador"] : string.Empty;
+                    aux.Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : string.Empty;
+                    aux.Estado = datos.Lector["Estado"] != DBNull.Value ? (bool)datos.Lector["Estado"] : false;
+                    aux.FechaRegistro = datos.Lector["FechaRegistro"] != DBNull.Value ? (DateTime)datos.Lector["FechaRegistro"] : DateTime.MinValue;
+                    aux.FechaResolución = datos.Lector["FechaResolucion"] != DBNull.Value ? (DateTime)datos.Lector["FechaResolucion"] : DateTime.MinValue;
+                    
+                    //LISTAS DE OBSERVACIONES
+                    ObservacionesConFechaNegocio observacionesNegocio = new ObservacionesConFechaNegocio();
+                    aux.Observaciones = observacionesNegocio.listarPorIncidencia(aux.IdIncidencia);
+                    return aux;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
         public void agregar(Incidencia nuevo)
         {
             AccesoDatos datos = new AccesoDatos();

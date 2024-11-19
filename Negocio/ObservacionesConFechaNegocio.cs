@@ -33,6 +33,42 @@ namespace Negocio
             }
         }
 
+        public List<ObservacionConFecha> listarPorIncidencia(int idIncidencia)
+        {
+            List<ObservacionConFecha> lista = new List<ObservacionConFecha>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT IdObservacion, Fecha, Descripcion FROM Observacion WHERE IdObservacion = @id");
+                datos.agregarParametro("@id", idIncidencia);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    ObservacionConFecha aux = new ObservacionConFecha();
+
+                    aux.IdObservacion = datos.Lector["IdObservacion"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdObservacion"]) : 0;
+                    aux.Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : string.Empty;
+                    aux.Fecha = datos.Lector["Fecha"] != DBNull.Value ? (DateTime)datos.Lector["Fecha"] : DateTime.MinValue;
+
+                    lista.Add(aux);
+                }
+
+                return lista;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
         public List<ObservacionConFecha> listarPorFechaAscendente()
         {
             List<ObservacionConFecha> lista = new List<ObservacionConFecha>();
