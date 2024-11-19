@@ -19,71 +19,35 @@ namespace Negocio
 
         public bool sesionActiva(Object user)
         {
-
-            Usuario usuario = user != null ? (Usuario)user : null;
-
-            if (usuario != null)
-            {
-                return true;
-
-            }
-            else { return false; }
+            return user is Usuario usuario && usuario != null;
         }
-
 
         public bool esAdmin(Object user)
         {
-            Usuario usuario = user != null ? (Usuario)user : null;
-            if (usuario != null && usuario.Tipo == TipoUsuario.Administrador)
-            {
-                return true;
-            }
-            else { return false; }
+            return user is Usuario usuario && usuario.Tipo == TipoUsuario.Administrador;
         }
-
 
         public bool esEntrenador(Object user)
         {
-            Usuario usuario = user != null ? (Usuario)user : null;
-            if (usuario != null && usuario.Tipo == TipoUsuario.CuerpoTecnico)
-            {
-                return true;
-            }
-            else { return false; }
+            return user is Usuario usuario && usuario.Tipo == TipoUsuario.CuerpoTecnico;
         }
 
-
-        public bool esMedico(Usuario user)
+        public bool esMedico(Object user)
         {
-            Usuario usuario = user != null ? (Usuario)user : null;
-            if (usuario != null && usuario.Tipo == TipoUsuario.CuerpoMedico)
-            {
-                return true;
-            }
-            else { return false; }
+            return user is Usuario usuario && usuario.Tipo == TipoUsuario.CuerpoMedico;
         }
 
-
-        public bool esSocio(Usuario user)
+        public bool esSocio(Object user)
         {
-            Usuario usuario = user != null ? (Usuario)user : null;
-            if (usuario != null && usuario.Tipo == TipoUsuario.Socio)
-            {
-                return true;
-            }
-            else { return false; }
+            return user is Usuario usuario && usuario.Tipo == TipoUsuario.Socio;
         }
 
-
-        public bool esHincha(Usuario user)
+        public bool esHincha(Object user)
         {
-            Usuario usuario = user != null ? (Usuario)user : null;
-            if (usuario != null && usuario.Tipo == TipoUsuario.Hincha)
-            {
-                return true;
-            }
-            else { return false; }
+            return user is Usuario usuario && usuario.Tipo == TipoUsuario.Hincha;
         }
+
+
 
 
         public static (bool isValid, string mensaje) ValidarArchivo(HttpPostedFile archivo, int tamañoMaximoMB = 2)

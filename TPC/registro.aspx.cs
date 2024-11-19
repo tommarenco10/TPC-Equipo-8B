@@ -121,7 +121,7 @@ namespace TPC
                 Session.Add("registro_nuevo", persona.Nombres.ToString() + " " + persona.Apellidos.ToString());
                 Session["userId"] = usuario.IdUsuario;
                 Session["userName"] = usuario.Nombre;
-                Session["userType"] = usuario.Tipo;
+                Session["userType"] = (int)usuario.Tipo;
                 Session["userProfileImage"] = persona.UrlImagen;
                 Response.Redirect("index.aspx", false);
             }

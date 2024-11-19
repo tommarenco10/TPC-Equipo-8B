@@ -48,7 +48,7 @@ namespace TPC
                     Session.Add("user", login);
                     Session["userId"] = login.IdUsuario;
                     Session["userName"] = login.Nombre;
-                    Session["userType"] = login.Tipo;
+                    Session["userType"] = (int)login.Tipo;
                     Persona persona = new Persona();
                     PersonaNegocio personaNegocio = new PersonaNegocio();
                     persona=personaNegocio.obtenerPorId((int)login.IdPersona);
