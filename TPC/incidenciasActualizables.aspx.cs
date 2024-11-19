@@ -16,16 +16,24 @@ namespace TPC
         {
             IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
             List<Incidencia> listaIncidencias = new List<Incidencia>();
-
-            if (!IsPostBack)
+            try
             {
-                if (Session["idJugador"] != null)
+                if (!IsPostBack)
                 {
-                    CargarJugador((int)Session["idJugador"]);
-                    listaIncidencias = incidenciaNegocio.listarPorJugador((int)Session["idJugador"]);
+                    if (Session["idJugador"] != null)
+                    {
+                        CargarJugador((int)Session["idJugador"]);
+                        listaIncidencias = incidenciaNegocio.listarPorJugador((int)Session["idJugador"]);
+                    }
+                    dgvIncidencias.DataSource = listaIncidencias;
+                    dgvIncidencias.DataBind();
+                    
                 }
-                dgvIncidencias.DataSource = listaIncidencias;
-                dgvIncidencias.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
             }
         }
 

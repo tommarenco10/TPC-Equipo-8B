@@ -8,27 +8,47 @@ using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TPC
 {
     public partial class gestionIncidencias : System.Web.UI.Page
     {
+        public int tipoPagina;
         private Incidencia incidencia;
+        private List<ObservacionesConFechaNegocio> listaObservaciones;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
+            ObservacionesConFechaNegocio observacionesNegocio = new ObservacionesConFechaNegocio();
+            EstadoJugadorNegocio negocioEstado = new EstadoJugadorNegocio();
+
             try
             {
-                EstadoJugadorNegocio negocioEstado = new EstadoJugadorNegocio();
+                // VALIDO EN TODAS LAS CARGAS
+                if (Session["tipoPagina"] != null)
+                {
+                    tipoPagina = (int)Session["tipoPagina"];
+                }
 
+                // 1era EJECUCIÓN
                 if (!IsPostBack)
                 {
+                    // CONFIGURACIONES INICIALES
+
+                    // GUARDA LA INCIDENCIA QUE RECIBE DE SESSION
+                    incidencia = (Incidencia)Session["incidenciaSeleccionada"];
+
+                    // GUARDA EL TIPO DE PÁGINA
+                    tipoPagina = Convert.ToInt32(Request.QueryString["id"]);
+                    Session["tipoPagina"] = tipoPagina;
+
                     if (Session["idJugador"] != null)
                     {
                         CargarJugador((int)Session["idJugador"]);
                     }
 
-                    int tipoPagina = Convert.ToInt32(Request.QueryString["tipoPagina"]);
-                    Session["tipoPagina"] = tipoPagina;
                     configuracionesTipoPagina((int)Session["tipoPagina"]);
 
                     List<EstadoJugador> listaEstados = negocioEstado.listar();
@@ -37,11 +57,22 @@ namespace TPC
                     ddlTipoIncidencia.DataValueField = "IdEstado";
                     ddlTipoIncidencia.DataBind();
                     ddlTipoIncidencia.Items.Insert(0, new ListItem("Seleccione un tipo", "0"));
-
                     ListItem item = ddlTipoIncidencia.Items.FindByValue("1");
                     if (item != null)
                     {
                         item.Text = "Disponible/Recuperado";
+                    }
+
+                    if (incidencia != null)
+                    {
+                        // Fechas
+                        txtFechaRegistro.Text = incidencia.FechaRegistro.ToString("yyyy-MM-dd");
+                        txtFechaResolucion.Text = incidencia.FechaResolución.ToString("yyyy-MM-dd");
+                        // Tipo de Incidencia
+                        int idTipoIncidencia = incidencia.EstadoJugador.IdEstado;
+                        ddlTipoIncidencia.SelectedValue = idTipoIncidencia.ToString();
+                        // Descripción
+                        txtDescripcion.Text = incidencia.Descripcion.ToString();
                     }
                 }
                 configuracionesTipoPagina((int)Session["tipoPagina"]);
@@ -90,7 +121,32 @@ namespace TPC
                 txtPeso.Enabled = false;
                 txtCategoria.Enabled = false;
 
-                if (tipoPagina != 2)
+                // SI TIPO DE PÁGINA 1: AGREGAR
+                if ((int)Session["tipoPagina"] == 1)
+                {
+                    Session.Remove("incidenciaSeleccionada");
+
+                }
+
+                // SI TIPO DE PÁGINA 2: VER DETALLE
+                else if ((int)Session["tipoPagina"] == 2)
+                {
+                    ddlTipoIncidencia.Enabled = false;
+                    txtFechaRegistro.Enabled = false;
+                    txtFechaResolucion.Enabled = false;
+                    txtDescripcion.Enabled = false;
+                    ddlTipoIncidencia.CssClass = "form-select custom - bg - darker";
+                    txtFechaRegistro.CssClass = "form-control custom - bg - darker";
+                    txtFechaResolucion.CssClass = "form-control custom - bg - darker";
+                    txtDescripcion.CssClass = "form-control custom - bg - darker";
+                    txtFechaObservacion.Enabled = false;
+                    txtDescripcionObservacion.Enabled = false;
+                    txtFechaObservacion.CssClass = "form-control custom - bg - darker";
+                    txtDescripcionObservacion.CssClass = "form-control custom - bg - darker";
+                    btnAgregarObservacion.Visible = false;
+                }
+
+                if ((int)Session["tipoPagina"] != 1)
                 {
                     pnlObservaciones.Visible = ddlTipoIncidencia.SelectedValue == "2"; // Mostrar solo para lesiones
                 }

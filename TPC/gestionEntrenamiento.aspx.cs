@@ -16,7 +16,6 @@ namespace TPC
     {
         public int tipoPagina;
         private Entrenamiento entrenamiento;
-
         private List<Jugador> listaJugadores;
 
         protected void Page_Load(object sender, EventArgs e)
