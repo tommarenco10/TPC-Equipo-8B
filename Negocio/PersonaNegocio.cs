@@ -136,5 +136,51 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+
+
+        public Persona obtenerPorId(int idPersona)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Persona persona = null;
+
+            try
+            {
+                datos.setearConsulta("SELECT IdPersona, Nombre, Apellido, FechaNacimiento, Pais, Provincia, Ciudad, Email, UrlImagen, DNI FROM Persona WHERE IdPersona = @IdPersona");
+                datos.agregarParametro("@IdPersona", idPersona);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    persona = new Persona
+                    {
+                        Id = datos.Lector["IdPersona"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdPersona"]) : 0,
+                        Nombres = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : string.Empty,
+                        Apellidos = datos.Lector["Apellido"] != DBNull.Value ? (string)datos.Lector["Apellido"] : string.Empty,
+                        FechaNacimiento = datos.Lector["FechaNacimiento"] != DBNull.Value ? Convert.ToDateTime(datos.Lector["FechaNacimiento"]) : DateTime.MinValue,
+                        DNI = datos.Lector["DNI"] != DBNull.Value ? (string)datos.Lector["DNI"] : string.Empty,
+                        Email = datos.Lector["Email"] != DBNull.Value ? (string)datos.Lector["Email"] : string.Empty,
+                        UrlImagen = datos.Lector["UrlImagen"] != DBNull.Value ? (string)datos.Lector["UrlImagen"] : string.Empty,
+                        LugarNacimiento = new LugarNacimiento
+                        {
+                            Pais = datos.Lector["Pais"] != DBNull.Value ? (string)datos.Lector["Pais"] : string.Empty,
+                            Provincia = datos.Lector["Provincia"] != DBNull.Value ? (string)datos.Lector["Provincia"] : string.Empty,
+                            Ciudad = datos.Lector["Ciudad"] != DBNull.Value ? (string)datos.Lector["Ciudad"] : string.Empty
+                        }
+                    };
+                }
+
+                return persona;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
     }

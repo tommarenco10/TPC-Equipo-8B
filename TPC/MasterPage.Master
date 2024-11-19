@@ -67,6 +67,31 @@
                             <a class="nav-link active" runat="server" href="registro.aspx">Registrate!</a>
                         </div>
 
+
+                        <%if (Session["user"] != null)
+                            {%>
+                        <div class="navbar-nav ms-auto">
+                            <asp:LoginView runat="server">
+                                <LoggedInTemplate>
+                                    <div class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src='<%# Session["UserProfileImage"] ?? "https://via.placeholder.com/40" %>' class="rounded-circle" alt="Profile" width="40" height="40">
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="profileDropdown">
+                                            <li><a class="dropdown-item" href="Perfil.aspx">Editar Perfil</a></li>
+                                            <li><a class="dropdown-item" href="Logout.aspx">Cerrar Sesión</a></li>
+                                        </ul>
+                                    </div>
+                                </LoggedInTemplate>
+                                <AnonymousTemplate>
+                                    <a class="nav-link active" runat="server" href="ingreso.aspx">Ingresar</a>
+                                    <a class="nav-link active" runat="server" href="registro.aspx">Registrate!</a>
+                                </AnonymousTemplate>
+                            </asp:LoginView>
+                        </div>
+
+                        <%} %>
+
                     </div>
 
                 </div>
