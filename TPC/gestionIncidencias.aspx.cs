@@ -52,12 +52,16 @@ namespace TPC
                 {
                     // CONFIGURACIONES INICIALES
 
-                    // GUARDA LA INCIDENCIA QUE RECIBE DE SESSION
-                    incidencia = (Incidencia)Session["incidenciaSeleccionada"];
-
                     // GUARDA EL TIPO DE PÁGINA
                     tipoPagina = Convert.ToInt32(Request.QueryString["id"]);
                     Session["tipoPagina"] = tipoPagina;
+
+                    // GUARDA LA INCIDENCIA QUE RECIBE DE SESSION
+                    incidencia = (Incidencia)Session["incidenciaSeleccionada"];
+                    if ((int)Session["tipoPagina"] != 2 && (int)Session["tipoPagina"] != 3)
+                    {
+                        Session.Remove("incidenciaSeleccionada");
+                    }
 
                     if (Session["idJugador"] != null)
                     {
@@ -136,15 +140,24 @@ namespace TPC
                 txtPeso.Enabled = false;
                 txtCategoria.Enabled = false;
 
-                // SI TIPO DE PÁGINA 1: AGREGAR
-                if ((int)Session["tipoPagina"] == 1)
-                {
-                    Session.Remove("incidenciaSeleccionada");
+                // TIPO DE PÁGINA 1 O NULL: AGREGAR, 2: VER DETALLE, 3: MODIFICAR
 
+                if ((int)Session["tipoPagina"] != 1)
+                {
+                    pnlObservaciones.Visible = ddlTipoIncidencia.SelectedValue == "2"; // Mostrar solo para lesiones
                 }
 
-                // SI TIPO DE PÁGINA 2: VER DETALLE
-                else if ((int)Session["tipoPagina"] == 2)
+                if ((int)Session["tipoPagina"] != 2)
+                {
+                    btnModificar.Visible = false;
+                }
+
+                if ((int)Session["tipoPagina"] != 3)
+                {
+                    btnActualizarIncidencia.Visible = false;
+                }
+
+                if ((int)Session["tipoPagina"] == 2)
                 {
                     ddlTipoIncidencia.Enabled = false;
                     txtFechaRegistro.Enabled = false;
@@ -161,10 +174,12 @@ namespace TPC
                     btnAgregarObservacion.Visible = false;
                 }
 
-                if ((int)Session["tipoPagina"] != 1)
+                if ((int)Session["tipoPagina"] == 2 || (int)Session["tipoPagina"] == 3)
                 {
-                    pnlObservaciones.Visible = ddlTipoIncidencia.SelectedValue == "2"; // Mostrar solo para lesiones
+                    btnGuardarIncidencia.Visible = false;
+                    btnResumen.Visible = false;
                 }
+
             }
             catch (Exception ex)
             {
@@ -342,9 +357,31 @@ namespace TPC
             }
         }
 
-        protected void btnActualizarIncidencia_Click(object sender, EventArgs e)
+        protected void btnResumen_Click(object sender, EventArgs e)
         {
             Response.Redirect("incidenciasActualizables.aspx");
+        }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            if ((int)Session["tipoPagina"] == 2 || (int)Session["tipoPagina"] == 3)
+            {
+                Response.Redirect("incidenciasActualizables.aspx");
+            }
+            else
+            {
+                Response.Redirect("PlantillaJugadores.aspx");
+            }
+        }
+
+        protected void btnActualizarIncidencia_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnModificar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("gestionIncidencias.aspx?id=3"); //FUNCION ACTUALIZAR
         }
     }
 }
