@@ -19,6 +19,22 @@ namespace TPC
             EntrenamientoNegocio negocioEntrenamiento = new EntrenamientoNegocio();
             CategoriaNegocio negocioCategoria = new CategoriaNegocio();
 
+
+            if (Session["user"] != null)
+            {
+                Usuario logueado = (Usuario)Session["user"];
+                if (!(Seguridad.esEntrenador(logueado) || Seguridad.esAdmin(logueado)))
+                {
+                    Session.Add("error", "Se necesitan permisos especiales para usar esta funcionalidad.");
+                    Response.Redirect("Error.aspx");
+                }
+            }
+            else
+            {
+                Session.Add("error", "Se necesitan permisos especiales para usar esta funcionalidad.");
+                Response.Redirect("Error.aspx");
+            }
+
             try
             {
                 if (!IsPostBack)
@@ -57,7 +73,11 @@ namespace TPC
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
+
+
+
         }
+
 
         protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -145,7 +165,7 @@ namespace TPC
                 AsistenciaNegocio asistenciaNegocio = new AsistenciaNegocio();
                 JugadorNegocio jugadorNegocio = new JugadorNegocio();
 
-                Entrenamiento  entrenamientoCancelado = entrenamientoNegocio.ObtenerEntrenamientoPorId(idEntrenamientoCancelado);
+                Entrenamiento entrenamientoCancelado = entrenamientoNegocio.ObtenerEntrenamientoPorId(idEntrenamientoCancelado);
                 List<int> jugadoresSeleccionadosIds = jugadorNegocio.listarIdPorEntrenamiento(idEntrenamientoCancelado);
 
                 asistenciaNegocio.EliminarAsistenciaMultiple(idEntrenamientoCancelado, jugadoresSeleccionadosIds);

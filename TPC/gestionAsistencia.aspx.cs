@@ -14,6 +14,26 @@ namespace TPC
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
+
+
+            if (Session["user"] != null)
+            {
+                Usuario logueado = (Usuario)Session["user"];
+                if (!(Seguridad.esEntrenador(logueado) || Seguridad.esAdmin(logueado)))
+                {
+                    Session.Add("error", "Se necesitan permisos especiales para usar esta funcionalidad.");
+                    Response.Redirect("Error.aspx");
+                }
+            }
+            else
+            {
+                Session.Add("error", "Se necesitan permisos especiales para usar esta funcionalidad.");
+                Response.Redirect("Error.aspx");
+            }
+
+
+
             if (!IsPostBack)
             {
                 CategoriaNegocio negocioCategoria = new CategoriaNegocio();

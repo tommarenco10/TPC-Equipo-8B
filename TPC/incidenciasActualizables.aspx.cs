@@ -16,23 +16,43 @@ namespace TPC
         {
             IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
             List<Incidencia> listaIncidencias = new List<Incidencia>();
-            try
+
+
+
+            if (Session["user"] != null)
             {
-                if (!IsPostBack)
+                Usuario logueado = (Usuario)Session["user"];
+                if (Seguridad.esEntrenador(logueado) || Seguridad.esAdmin(logueado))
                 {
-                    if (Session["idJugador"] != null)
+                    try
                     {
-                        CargarJugador((int)Session["idJugador"]);
-                        listaIncidencias = incidenciaNegocio.listarPorJugador((int)Session["idJugador"]);
+                        if (!IsPostBack)
+                        {
+                            if (Session["idJugador"] != null)
+                            {
+                                CargarJugador((int)Session["idJugador"]);
+                                listaIncidencias = incidenciaNegocio.listarPorJugador((int)Session["idJugador"]);
+                            }
+                            dgvIncidencias.DataSource = listaIncidencias;
+                            dgvIncidencias.DataBind();
+
+                        }
                     }
-                    dgvIncidencias.DataSource = listaIncidencias;
-                    dgvIncidencias.DataBind();
-                    
+                    catch (Exception ex)
+                    {
+                        Session.Add("error", ex.ToString());
+                        Response.Redirect("Error.aspx");
+                    }
+                }
+                else
+                {
+                    Session.Add("error", "Se necesitan permisos especiales para usar esta funcionalidad.");
+                    Response.Redirect("Error.aspx");
                 }
             }
-            catch (Exception ex)
+            else
             {
-                Session.Add("error", ex.ToString());
+                Session.Add("error", "Se necesitan permisos especiales para usar esta funcionalidad.");
                 Response.Redirect("Error.aspx");
             }
         }

@@ -35,11 +35,14 @@ namespace TPC
 
         void Application_Error(object sender, EventArgs e)
         {
-            //Exception ex = Server.GetLastError();
-            //Session.Add("error", ex.ToString());
-            //Server.Transfer("Error.aspx");
-          
+            Exception exc = Server.GetLastError();
+            if (HttpContext.Current.Session != null)
+            {
+                Session.Add("error", exc.ToString());
+            }
+            Server.Transfer("Error.aspx");
         }
+
 
         protected void Session_End(object sender, EventArgs e)
         {

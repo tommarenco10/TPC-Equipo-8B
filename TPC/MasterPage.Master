@@ -26,7 +26,6 @@
 
                     <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                         <div class="navbar-nav">
-
                             <a class="nav-link active" runat="server" href="info.aspx">Sobre nosotros</a>
 
                             <div class="nav-item dropdown">
@@ -34,10 +33,13 @@
                                     Entrenamientos
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-dark">
+                                    <%if (esEntrenador() || esAdmin())
+                                        {%>
                                     <li><a class="dropdown-item" href="gestionEntrenamiento.aspx">Agendar Entrenamientos </a></li>
-                                    <li><a class="dropdown-item" href="entrenamientosProgramados.aspx">Entrenamientos Programados </a></li>
-                                    <li><a class="dropdown-item" href="entrenamientosFinalizados.aspx">Entrenamientos Finalizados </a></li>
                                     <li><a class="dropdown-item" href="entrenamientosHistorial.aspx">Historial de Entrenamientos </a></li>
+                                    <li><a class="dropdown-item" href="entrenamientosProgramados.aspx">Entrenamientos Programados </a></li>
+                                    <%}%>
+                                    <li><a class="dropdown-item" href="entrenamientosFinalizados.aspx">Entrenamientos Finalizados </a></li> 
                                 </ul>
                             </div>
 
@@ -49,6 +51,8 @@
                                 <a class="nav-link active" runat="server" href="CuerpoTecnico.aspx">Cuerpo Tecnico</a>
                             </div>
 
+                            <%if (esAdmin())
+                                {  %>
                             <div class="nav-item dropdown">
                                 <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     Configuraciones
@@ -59,14 +63,36 @@
                                     <li><a class="dropdown-item" href="">Categorías </a></li>
                                 </ul>
                             </div>
-
+                            <%} %>
                         </div>
 
+                        <% if (sesionActiva())
+                            {
+
+                        %>
+                        <div class="navbar-nav ms-auto">
+                            <div class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <!-- Cargar la imagen del perfil -->
+                                    <asp:Image runat="server"
+                                        ID="ImagenPerfil"
+                                        CssClass="profile-image"
+                                        ImageUrl='<%# GetImageUrl() %>'
+                                        AlternateText="Profile" />
+                                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="profileDropdown">
+                                        <li><asp:linkbutton text="text" runat="server" CssClass="dropdown-item" OnClick="editarPerfil_Click">Editar Perfil</asp:LinkButton></li>
+                                        <li><asp:LinkButton runat="server" CssClass="dropdown-item" OnClick="CerrarSesion_Click">Cerrar Sesión</asp:LinkButton></li>
+                                    </ul>
+                            </div>
+                        </div>
+                        <% }
+                            else
+                            { %>
                         <div class="navbar-nav ms-auto">
                             <a class="nav-link active" runat="server" href="ingreso.aspx">Ingresar</a>
                             <a class="nav-link active" runat="server" href="registro.aspx">Registrate!</a>
                         </div>
-
+                        <% } %>
                     </div>
 
                 </div>

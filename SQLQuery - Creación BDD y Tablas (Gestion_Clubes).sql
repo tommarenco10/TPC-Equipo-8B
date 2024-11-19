@@ -20,6 +20,11 @@ GO
 alter table persona
 add UrlImagen varchar(300)
 
+GO
+
+ALTER TABLE persona
+ADD DNI VARCHAR(20) NOT NULL;
+
 create table Categoria(
 	IdCategoria tinyint primary key identity(1,1),
 	nombre varchar (30) not null,
@@ -115,6 +120,7 @@ GO
 
 create table Usuario (
 	IdUsuario bigint primary key identity(1,1),
+	IdPersona bigint foreign key references persona(IdPersona),
 	Nombre varchar(50) not null,
 	Contraseña varchar(50) not null,
 	Email varchar (50) not null,
@@ -138,3 +144,21 @@ CREATE TABLE Observacion(
 	Fecha date not null,
 	Descripcion varchar(200) not null
 )
+
+
+CREATE TABLE Pais (
+    IdPais INT PRIMARY KEY IDENTITY(1,1),
+    Nombre VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Provincia (
+    IdProvincia INT PRIMARY KEY IDENTITY(1,1),
+    IdPais INT FOREIGN KEY REFERENCES Pais(IdPais),
+    Nombre VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Ciudad (
+    IdCiudad INT PRIMARY KEY IDENTITY(1,1),
+    IdProvincia INT FOREIGN KEY REFERENCES Provincia(IdProvincia),
+    Nombre VARCHAR(100) NOT NULL
+);

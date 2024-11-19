@@ -112,11 +112,12 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("INSERT INTO Usuario (Nombre, Contraseña, Email, IdTipoUsuario) VALUES (@Nombre, @Contraseña, @Email, @IdTipoUsuario)");
+                datos.setearConsulta("INSERT INTO Usuario (Nombre, Contraseña, Email, IdTipoUsuario,IdPersona) VALUES (@Nombre, @Contraseña, @Email, @IdTipoUsuario,@IdPersona)");
                 datos.agregarParametro("@Nombre", usuario.Nombre);
                 datos.agregarParametro("@Contraseña", usuario.Contraseña);
                 datos.agregarParametro("@Email", usuario.Email);
                 datos.agregarParametro("@IdTipoUsuario", usuario.Tipo);
+                datos.agregarParametro("@IdPersona", usuario.IdPersona);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -161,7 +162,7 @@ namespace Negocio
             AccesoDatos datos=new AccesoDatos();
             try
             {
-                datos.setearConsulta("Select IdUsuario,IdTipoUsuario,Email from Usuario Where Nombre=@nombre AND Contraseña=@contraseña");
+                datos.setearConsulta("Select IdUsuario,IdPersona,IdTipoUsuario,Email from Usuario Where Nombre=@nombre AND Contraseña=@contraseña");
                 datos.agregarParametro("@nombre",usuario.Nombre);
                 datos.agregarParametro("@contraseña", usuario.Contraseña);
                 datos.ejecutarLectura();
@@ -170,6 +171,7 @@ namespace Negocio
                     usuario.IdUsuario = (long)datos.Lector["IdUsuario"];
                     usuario.Tipo = (TipoUsuario)(byte)datos.Lector["IdTipoUsuario"];
                     usuario.Email = (string)datos.Lector["Email"];
+                    usuario.IdPersona = (long)datos.Lector["IdPersona"];
                     return true;
                 }
                 return false;

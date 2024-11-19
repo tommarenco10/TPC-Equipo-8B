@@ -15,13 +15,28 @@ namespace TPC
         public int tipoPagina;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (Session["user"] != null)
             {
-                tipoPagina = Convert.ToInt32(Request.QueryString["id"]);
-                Session["tipoPagina"] = tipoPagina;
+                if (Seguridad.esAdmin(Session["user"]))
+                {
+                    if (!IsPostBack)
+                    {
+                        tipoPagina = Convert.ToInt32(Request.QueryString["id"]);
+                        Session["tipoPagina"] = tipoPagina;
 
-                cargarDataGridView();
+                        cargarDataGridView();
+                    }
+
+                }
             }
+            else
+            {
+
+                Session.Add("error", "Necesitas ser administrador para acceder.");
+                Response.Redirect("Error.aspx", false);
+
+            }
+           
         }
 
         protected void dgvEstados_RowCommand(object sender, GridViewCommandEventArgs e)

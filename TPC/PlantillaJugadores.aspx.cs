@@ -16,24 +16,32 @@ namespace TPC
         {
             JugadorNegocio negocio = new JugadorNegocio();
             Session.Add("listaJugadores", negocio.ListarJugador());
+
+            bool esAdministrador = ((MasterPage)this.Master).esAdmin();
+            bool esEntrenador = ((MasterPage)this.Master).esEntrenador();
+
+            if (!(esAdministrador || esEntrenador))
+            {
+                EliminarColumnas(); // Eliminar columnas antes de enlazar los datos
+            }
+
             dgvJugadores.DataSource = Session["listaJugadores"];
             dgvJugadores.DataBind();
 
             if (!IsPostBack)
             {
                 CategoriaNegocio negocioCategoria = new CategoriaNegocio();
-
                 ddlCategoria.DataSource = negocioCategoria.listar();
                 ddlCategoria.DataTextField = "NombreCategoria";
                 ddlCategoria.DataBind();
 
                 EstadoJugadorNegocio negocioEJ = new EstadoJugadorNegocio();
-
                 ddlEstadoJugador.DataSource = negocioEJ.listar();
                 ddlEstadoJugador.DataTextField = "NombreEstado";
                 ddlEstadoJugador.DataBind();
             }
         }
+
 
         protected void txtboxFiltroNombre_TextChanged(object sender, EventArgs e)
         {
@@ -93,6 +101,20 @@ namespace TPC
 
 
 
+
+        private void EliminarColumnas()
+        {
+            // Eliminar las últimas dos columnas (Modificar y Gestión Incidencias)
+            // Asegúrate de eliminar en el orden correcto (de atrás hacia adelante)
+            if (dgvJugadores.Columns.Count > 0)
+            {
+                dgvJugadores.Columns.RemoveAt(dgvJugadores.Columns.Count - 1);  // Eliminar la columna "Gestión Incidencias"
+            }
+            if (dgvJugadores.Columns.Count > 0)
+            {
+                dgvJugadores.Columns.RemoveAt(dgvJugadores.Columns.Count - 1);  // Eliminar la columna "Modificar"
+            }
+        }
 
     }
 }

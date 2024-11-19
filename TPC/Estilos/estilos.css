@@ -58,6 +58,44 @@ footer {
 }
 
 .custom-bg-darker {
-    background-color: #d6d8db; /* Gris más oscuro */
-    color: #212529; /* Texto oscuro para buen contraste */
+    background-color: #d6d8db;  
+    color: #212529;     
+}
+
+.preview-image {
+    width: 12rem;   
+    height: 12rem;  
+    object-fit: cover;  
+    border: 1px solid #ccc;     
+    border-radius: 5px;     
+}
+
+
+
+
+
+.navbar .profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;     
+    object-fit: cover;  
+    border: 2px solid #ffffff;  
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);   
+    margin-right: 8px;  
+    transition: transform 0.2s ease-in-out;     
+}
+
+    .navbar .profile-image:hover {
+        transform: scale(1.1);  
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);   
+    }
+
+.navbar .dropdown-menu-dark {
+    background-color: #343a40;  
+    border-radius: 8px; 
+    border: 1px solid #444;     
+}
+
+#profileDropdown::after {
+    display: none !important;
 }

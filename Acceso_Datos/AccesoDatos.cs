@@ -6,7 +6,7 @@ namespace Acceso_Datos
     public class AccesoDatos
     {
         public SqlConnection conexion { get; }
-        private SqlCommand comando;
+        public SqlCommand comando { get; set;}
         private SqlDataReader lector;
 
         public SqlDataReader Lector
@@ -16,7 +16,7 @@ namespace Acceso_Datos
 
         public AccesoDatos()
         {
-            conexion = new SqlConnection("server=.\\SQLEXPRESS09; database=Gestion_Clubes; integrated security=true");
+            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=Gestion_Clubes; integrated security=true; TrustServerCertificate=True");
             comando = new SqlCommand();
             comando.Connection = conexion;
         }
@@ -69,6 +69,15 @@ namespace Acceso_Datos
         {
             if (conexion != null)
                 conexion.Close();
+        }
+
+
+        public void abrirConexion()
+        {
+            if (conexion.State == System.Data.ConnectionState.Closed)
+            {
+                conexion.Open();
+            }
         }
     }
 }

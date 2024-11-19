@@ -23,6 +23,26 @@ namespace TPC
             JugadorNegocio negocioJugador = new JugadorNegocio();
             CategoriaNegocio negocioCategoria = new CategoriaNegocio();
 
+
+
+            if (Session["user"] != null)
+            {
+                Usuario logueado = (Usuario)Session["user"];
+                if (!(Seguridad.esEntrenador(logueado) || Seguridad.esAdmin(logueado)))
+                {
+                    Session.Add("error", "Se necesitan permisos especiales para usar esta funcionalidad.");
+                    Response.Redirect("Error.aspx");
+                }
+            }
+            else
+            {
+                Session.Add("error", "Se necesitan permisos especiales para usar esta funcionalidad.");
+                Response.Redirect("Error.aspx");
+            }
+
+
+
+
             try
             {
                 // VALIDO EN TODAS LAS CARGAS
