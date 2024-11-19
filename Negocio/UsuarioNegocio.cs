@@ -112,11 +112,12 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("INSERT INTO Usuario (Nombre, Contraseña, Email, IdTipoUsuario) VALUES (@Nombre, @Contraseña, @Email, @IdTipoUsuario)");
+                datos.setearConsulta("INSERT INTO Usuario (Nombre, Contraseña, Email, IdTipoUsuario,IdPersona) VALUES (@Nombre, @Contraseña, @Email, @IdTipoUsuario,@IdPersona)");
                 datos.agregarParametro("@Nombre", usuario.Nombre);
                 datos.agregarParametro("@Contraseña", usuario.Contraseña);
                 datos.agregarParametro("@Email", usuario.Email);
                 datos.agregarParametro("@IdTipoUsuario", usuario.Tipo);
+                datos.agregarParametro("@IdPersona", usuario.IdPersona);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)

@@ -2,44 +2,51 @@ USE Gestion_Clubes
 
 GO
 
-create or alter procedure Agregar_Jugador 
-@Nombre varchar(30),
-@Apellido varchar(30),
-@FechaNacimiento date,
-@Pais varchar(20),
-@Provincia varchar(30),
-@Ciudad varchar(30),
-@Email varchar(30),
-@Altura tinyint,
-@Peso decimal,
-@Posicion varchar(15),
-@IdCategoria tinyint,
-@IdEstadoJugador tinyint,
-@UrlImagen varchar(300)
-as
-begin
-	begin try
-		begin transaction
-			insert into persona values (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad,@Email, @UrlImagen)
-			declare @IdPersona bigint
-			set @IdPersona = SCOPE_IDENTITY()
-			insert into jugador values (@IdPersona, @Altura, @Peso, @Posicion, @IdCategoria, @IdEstadoJugador)
-		commit transaction
-	end try
-	begin catch
-		rollback transaction
-		raiserror('error en los parametros',16,10)
-	end catch
-end
-
+CREATE OR ALTER PROCEDURE Agregar_Jugador 
+    @Nombre VARCHAR(30),
+    @Apellido VARCHAR(30),
+    @FechaNacimiento DATE,
+    @Pais VARCHAR(20),
+    @Provincia VARCHAR(30),
+    @Ciudad VARCHAR(30),
+    @Email VARCHAR(30),
+    @Altura TINYINT,
+    @Peso DECIMAL,
+    @Posicion VARCHAR(15),
+    @IdCategoria TINYINT,
+    @IdEstadoJugador TINYINT,
+    @UrlImagen VARCHAR(300),
+    @DNI VARCHAR(20) -- Agregar parámetro DNI
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
+            INSERT INTO persona (Nombre, Apellido, FechaNacimiento, Pais, Provincia, Ciudad, Email, UrlImagen, DNI)
+            VALUES (@Nombre, @Apellido, @FechaNacimiento, @Pais, @Provincia, @Ciudad, @Email, @UrlImagen, @DNI);
+            
+            DECLARE @IdPersona BIGINT;
+            SET @IdPersona = SCOPE_IDENTITY();
+            
+            INSERT INTO jugador (IdPersona, Altura, Peso, Posicion, IdCategoria, IdEstadoJugador)
+            VALUES (@IdPersona, @Altura, @Peso, @Posicion, @IdCategoria, @IdEstadoJugador);
+        
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        RAISERROR('Error en los parámetros', 16, 10);
+    END CATCH
+END
 GO
 
-create or alter procedure Eliminar_Jugador 
-@IdJugador bigint 
-as
-begin
-	delete from jugador where IdJugador = @IdJugador
-end
+-- Procedimiento para eliminar jugador
+CREATE OR ALTER PROCEDURE Eliminar_Jugador 
+    @IdJugador BIGINT
+AS
+BEGIN
+    DELETE FROM jugador WHERE IdJugador = @IdJugador;
+END
+GO
 
 GO
 
@@ -95,25 +102,27 @@ create or alter procedure Modificar_Jugador
 @Posicion varchar(15),
 @IdCategoria tinyint,
 @IdEstadoJugador tinyint,
-@UrlImagen varchar(300)
+@UrlImagen varchar(300),
+@DNI varchar(20)  -- Agregar parámetro DNI
 as
 begin 
-	begin try
-		begin transaction
-			update persona 
-			set Nombre = @Nombre, Apellido = @Apellido, FechaNacimiento = @FechaNacimiento, pais = @Pais, provincia = @Provincia, ciudad = @Ciudad, Email = @Email, UrlImagen = @UrlImagen
-			where IdPersona = @IdJugador
+    begin try
+        begin transaction
+            update persona 
+            set Nombre = @Nombre, Apellido = @Apellido, FechaNacimiento = @FechaNacimiento, pais = @Pais, provincia = @Provincia, ciudad = @Ciudad, Email = @Email, UrlImagen = @UrlImagen, DNI = @DNI  -- Actualizar DNI
+            where IdPersona = @IdJugador
 
-			update jugador 
-			set Altura = @Altura, peso = @Peso, posicion = @Posicion, Idcategoria = @IdCategoria, IdEstadoJugador = @IdEstadoJugador
-			where IdJugador = @IdJugador
-		commit transaction
-	end try
-	begin catch
-		rollback transaction
-		raiserror('error en los parametros', 16,10)
-	end catch
+            update jugador 
+            set Altura = @Altura, peso = @Peso, posicion = @Posicion, Idcategoria = @IdCategoria, IdEstadoJugador = @IdEstadoJugador
+            where IdJugador = @IdJugador
+        commit transaction
+    end try
+    begin catch
+        rollback transaction
+        raiserror('error en los parametros', 16,10)
+    end catch
 end
+
 
 GO
 
@@ -277,22 +286,85 @@ CREATE OR ALTER PROCEDURE Eliminar_Entrenador
     @IdEntrenador INT
 AS
 BEGIN
-	begin try
-		begin transaction 
-			
-			declare @idpersona bigint
+    BEGIN TRY
+        BEGIN TRANSACTION 
+            
+            DECLARE @IdPersona BIGINT;
 
-			select @idpersona = IdPersona from entrenador where IdEntrandor = @IdEntrenador
+            -- Corrige el nombre de la columna de IdEntrandor a IdEntrenador
+            SELECT @IdPersona = IdPersona FROM Entrenador WHERE IdEntrandor = @IdEntrenador;
 
-			DELETE FROM Entrenador
-			WHERE IdEntrandor = @IdEntrenador;
+            DELETE FROM Entrenador WHERE IdEntrandor = @IdEntrenador;
 
-			delete persona 
-			where IdPersona = @idpersona
+            DELETE FROM Persona WHERE IdPersona = @IdPersona;
 
-		commit transaction
-	end try
-	begin catch
-		rollback transaction
-	end catch
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        RAISERROR('Error en los parámetros', 16, 10);
+    END CATCH
 END;
+
+GO
+
+CREATE OR ALTER PROCEDURE sp_AgregarPersona
+    @Nombres NVARCHAR(100),
+    @Apellidos NVARCHAR(100),
+    @FechaNacimiento DATE,
+    @DNI NVARCHAR(20), 
+    @Email NVARCHAR(100),
+    @UrlImagen NVARCHAR(300),
+    @Pais NVARCHAR(50),
+    @Provincia NVARCHAR(50),
+    @Ciudad NVARCHAR(50),
+    @IdPersona INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO Persona (Nombre, Apellido, FechaNacimiento, DNI, Email, UrlImagen, Pais, Provincia, Ciudad)
+    VALUES (@Nombres, @Apellidos, @FechaNacimiento, @DNI, @Email, @UrlImagen, @Pais, @Provincia, @Ciudad);
+
+    SET @IdPersona = SCOPE_IDENTITY();
+END;
+
+GO
+
+CREATE PROCEDURE ComprobarUsuarioExistente
+    @NombreUsuario NVARCHAR(50),
+    @Dni NVARCHAR(20),
+    @Email NVARCHAR(100),
+    @Resultado INT OUTPUT
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM Usuario WHERE Nombre = @NombreUsuario)
+    BEGIN
+        PRINT 'Nombre de usuario ya registrado.'
+        SET @Resultado = 1
+        RETURN
+    END
+
+    IF EXISTS (SELECT 1 FROM persona WHERE DNI = @Dni)
+    BEGIN
+        PRINT 'DNI ya registrado.'
+        SET @Resultado = 2
+        RETURN
+    END
+
+    IF EXISTS (SELECT 1 FROM Usuario WHERE Email = @Email)
+    BEGIN
+        PRINT 'Correo electrónico ya registrado.'
+        SET @Resultado = 3
+        RETURN
+    END
+
+    SET @Resultado = 0 -- 0: Todos los datos están disponibles
+END
+
+
+
+
+
+
+

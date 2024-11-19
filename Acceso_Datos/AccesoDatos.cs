@@ -6,7 +6,7 @@ namespace Acceso_Datos
     public class AccesoDatos
     {
         public SqlConnection conexion { get; }
-        private SqlCommand comando;
+        public SqlCommand comando { get; set;}
         private SqlDataReader lector;
 
         public SqlDataReader Lector
@@ -69,6 +69,15 @@ namespace Acceso_Datos
         {
             if (conexion != null)
                 conexion.Close();
+        }
+
+
+        public void abrirConexion()
+        {
+            if (conexion.State == System.Data.ConnectionState.Closed)
+            {
+                conexion.Open();
+            }
         }
     }
 }
