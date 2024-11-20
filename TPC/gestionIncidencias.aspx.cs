@@ -39,8 +39,6 @@ namespace TPC
                 Response.Redirect("Error.aspx");
             }
 
-
-
             try
             {
                 // VALIDO EN TODAS LAS CARGAS
@@ -335,7 +333,7 @@ namespace TPC
                     string script = (int)Session["tipoPagina"] == 2
                         ? "alert('Incidencia modificada correctamente'); window.location = 'PlantillaJugadores.aspx';"
                         : "alert('Incidencia agregada correctamente'); window.location = 'PlantillaJugadores.aspx';";
-
+                    Session.Remove("incidenciaSeleccionada");
                     ClientScript.RegisterStartupScript(this.GetType(), "AlertAndRedirect", script, true);
                 }
             }

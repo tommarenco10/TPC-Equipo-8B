@@ -75,3 +75,14 @@ C:\Users\Administrator\Desktop\TOMI\TPC-Equipo-8B\Negocio\obj\Debug\Negocio.cspr
 C:\Users\Administrator\Desktop\TOMI\TPC-Equipo-8B\Negocio\obj\Debug\Negocio.csproj.Up2Date
 C:\Users\Administrator\Desktop\TOMI\TPC-Equipo-8B\Negocio\obj\Debug\Negocio.dll
 C:\Users\Administrator\Desktop\TOMI\TPC-Equipo-8B\Negocio\obj\Debug\Negocio.pdb
+C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC luego del merge\TPC-Equipo-8B\Negocio\bin\Debug\Negocio.dll
+C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC luego del merge\TPC-Equipo-8B\Negocio\bin\Debug\Negocio.pdb
+C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC luego del merge\TPC-Equipo-8B\Negocio\bin\Debug\Acceso_Datos.dll
+C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC luego del merge\TPC-Equipo-8B\Negocio\bin\Debug\Dominio.dll
+C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC luego del merge\TPC-Equipo-8B\Negocio\bin\Debug\Acceso_Datos.pdb
+C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC luego del merge\TPC-Equipo-8B\Negocio\bin\Debug\Dominio.pdb
+C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC luego del merge\TPC-Equipo-8B\Negocio\obj\Debug\Negocio.csproj.AssemblyReference.cache
+C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC luego del merge\TPC-Equipo-8B\Negocio\obj\Debug\Negocio.csproj.CoreCompileInputs.cache
+C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC luego del merge\TPC-Equipo-8B\Negocio\obj\Debug\Negocio.csproj.Up2Date
+C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC luego del merge\TPC-Equipo-8B\Negocio\obj\Debug\Negocio.dll
+C:\Users\santi\OneDrive\Desktop\Repositorio - GitHub\TPC luego del merge\TPC-Equipo-8B\Negocio\obj\Debug\Negocio.pdb

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Incidencias" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="incidenciasActualizables.aspx.cs" Inherits="TPC.incidenciasActualizables" %>
+﻿<%@ Page Title="Incidencias" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="incidenciasActualizables.aspx.cs" Inherits="TPC.incidenciasActualizables" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

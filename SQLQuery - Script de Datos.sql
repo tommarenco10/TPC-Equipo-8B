@@ -3,17 +3,17 @@ GO
 
 INSERT INTO Categoria (nombre) VALUES ('Primera'), ('Reserva'), ('Juvenil');
 INSERT INTO EstadoJugador (nombre) VALUES ('Disponible'), ('Lesionado'), ('Suspendido'), ('Citado a la Selección');
-INSERT INTO EstadoEntrenamiento (nombre) VALUES ('Programado'), ('En Curso'), ('Finalizado'), ('Cancelado'), ('Desconocido');
+INSERT INTO EstadoEntrenamiento (nombre) VALUES ('Programado'), ('Cancelado'), ('Finalizado'), ('En Curso'), ('Desconocido');
 
 -- Inserción de personas
-INSERT INTO persona (Nombre, Apellido, FechaNacimiento, pais, provincia, ciudad, email, DNI)
+INSERT INTO persona (Nombre, Apellido, FechaNacimiento, pais, provincia, ciudad, email, UrlImagen, DNI)
 VALUES
-('Lionel', 'Messi', '1987-06-24', 'Argentina', 'Santa Fe', 'Rosario', 'messi@gmail.com', '20-12345678-9'),
-('Emiliano', 'Martinez', '1992-09-02', 'Argentina', 'Buenos Aires', 'Mar del Plata', 'miraquetecomo@gmail.com', '20-23456789-0'),
-('Ángel', 'Di María', '1988-02-14', 'Argentina', 'Santa Fe', 'Rosario', 'fideo@gmail.com', '20-34567890-1'),
-('Federico', 'Mancuello', '1989-03-26', 'Argentina', 'Santa Fe', 'Reconquista', 'mancu@gmail.com', '20-45678901-2'),
-('Alejandro', 'Garnacho', '2004-07-01', 'España', 'Madrid', 'Madrid', 'bichito@siuuu.com', '20-56789012-3'),
-('Tomas', 'Parmo', '2008-01-08', 'Argentina', 'Buenos Aires', 'Capital Federal', 'tomiparmo@gmail.com', '20-67890123-4');
+('Lionel', 'Messi', '1987-06-24', 'Argentina', 'Santa Fe', 'Rosario', 'messi@gmail.com', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCPcW8CnGQhOEvHKhbBzZeqlLsn9byNDBcNQ&s' , '20-12345678-9'),
+('Emiliano', 'Martinez', '1992-09-02', 'Argentina', 'Buenos Aires', 'Mar del Plata', 'miraquetecomo@gmail.com', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIO-NxhnNljF9PGXcomusBUs8yctMPk4ucGQ&s' , '20-23456789-0'),
+('Ángel', 'Di María', '1988-02-14', 'Argentina', 'Santa Fe', 'Rosario', 'fideo@gmail.com', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9uL8hbJfev8GPWgOVkvpPO-ZBxugFVOGdHQ&s' , '20-34567890-1'),
+('Federico', 'Mancuello', '1989-03-26', 'Argentina', 'Santa Fe', 'Reconquista', 'mancu@gmail.com', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSroL7PhRSJXz3eVvnvLTPrtrccsO750xID8Q&s' , '20-45678901-2'),
+('Alejandro', 'Garnacho', '2004-07-01', 'España', 'Madrid', 'Madrid', 'bichito@siuuu.com', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTEvUFtCprHvlSxCv4QUZzxKsZjpTj40I5Xw&s' , '20-56789012-3'),
+('Tomas', 'Parmo', '2008-01-08', 'Argentina', 'Buenos Aires', 'Capital Federal', 'tomiparmo@gmail.com', '' , '20-67890123-4');
 
 -- Inserción de jugadores
 INSERT INTO jugador (IdPersona, Altura, peso, posicion, IdCategoria, IdEstadoJugador)
@@ -58,6 +58,7 @@ VALUES
 (1, 'Córdoba'), 
 (2, 'São Paulo'), 
 (3, 'Santiago');
+
 INSERT INTO Ciudad (IdProvincia, Nombre) 
 VALUES 
 (1, 'La Plata'),
