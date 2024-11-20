@@ -12,21 +12,23 @@ namespace TPC
 {
     public partial class PlanillaJugadores : System.Web.UI.Page
     {
+
+        List<Jugador> lista;
+
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            JugadorNegocio negocio = new JugadorNegocio();
-            Session.Add("listaJugadores", negocio.ListarJugador());
 
             bool esAdministrador = ((MasterPage)this.Master).esAdmin();
             bool esEntrenador = ((MasterPage)this.Master).esEntrenador();
+           
+
 
             if (!(esAdministrador || esEntrenador))
             {
                 EliminarColumnas(); // Eliminar columnas antes de enlazar los datos
             }
-
-            dgvJugadores.DataSource = Session["listaJugadores"];
-            dgvJugadores.DataBind();
 
             if (!IsPostBack)
             {
@@ -39,14 +41,30 @@ namespace TPC
                 ddlEstadoJugador.DataSource = negocioEJ.listar();
                 ddlEstadoJugador.DataTextField = "NombreEstado";
                 ddlEstadoJugador.DataBind();
+                JugadorNegocio negocio = new JugadorNegocio();
+                lista = negocio.listar();
+                Session["listaJugadores"] = lista; 
+                dgvJugadores.DataSource = lista;
+                dgvJugadores.DataBind();
+
             }
+            else
+            { 
+                lista = (List<Jugador>)Session["listaJugadores"];
+
+            }
+        
         }
 
 
         protected void txtboxFiltroNombre_TextChanged(object sender, EventArgs e)
         {
-            List<Jugador> lista = (List<Jugador>)Session["listajugadores"];
-            List<Jugador> filtro = lista.FindAll(x => x.Apellidos.ToUpper().Contains(txtboxFiltroNombre.Text.ToUpper()));
+            if (lista == null && Session["listaJugadores"] != null)
+            {
+                lista = (List<Jugador>)Session["listaJugadores"];
+            }
+
+            List<Jugador> filtro = lista.FindAll(x => x.Apellidos.ToUpper().Contains(txtboxFiltroNombre.Text.ToUpper())||x.Nombres.ToUpper().Contains(txtboxFiltroNombre.Text.ToUpper()));
             dgvJugadores.DataSource = filtro;
             dgvJugadores.DataBind();
         }
@@ -68,7 +86,10 @@ namespace TPC
 
         protected void txtboxFiltroPosicion_TextChanged(object sender, EventArgs e)
         {
-            List<Jugador> lista = (List<Jugador>)Session["listajugadores"];
+            if (lista == null && Session["listaJugadores"] != null)
+            {
+                lista = (List<Jugador>)Session["listaJugadores"];
+            }
             List<Jugador> filtro = lista.FindAll(x => x.Posicion.ToUpper().Contains(txtboxFiltroPosicion.Text.ToUpper()));
             dgvJugadores.DataSource = filtro;
             dgvJugadores.DataBind();

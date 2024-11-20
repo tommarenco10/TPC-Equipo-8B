@@ -38,8 +38,10 @@
     <div>
         <asp:Button Text="Buscar" ID="FiltroAvanzado" CssClass="btn btn-primary" runat="server" OnClick="FiltroAvanzado_Click" />
     </div>
+
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <asp:UpdatePanel runat="server" ID="updatePanel">
+
         <ContentTemplate>
             <asp:GridView runat="server" ID="dgvJugadores" CssClass="table table-dark table-hover" AutoGenerateColumns="false" DataKeyNames="IdJugador">
                 <Columns>
@@ -69,10 +71,11 @@
                                 CommandArgument='<%# Eval("IdJugador") %>' OnClick="btnAccion_Click" CssClass="btn btn-outline-info" />
                         </ItemTemplate>
                     </asp:TemplateField>
-
                 </Columns>
             </asp:GridView>
         </ContentTemplate>
+
+
     </asp:UpdatePanel>
 
 </asp:Content>

@@ -13,7 +13,14 @@ namespace TPC
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.DataBind();//Sin el databind nunca carga las imagenes al inicio de sesion.
+            if (!IsPostBack)
+            {
+                if (sesionActiva())
+                {
+                    ImagenPerfil.DataBind();
+                }
+
+            }
         }
 
         public bool esAdmin()
