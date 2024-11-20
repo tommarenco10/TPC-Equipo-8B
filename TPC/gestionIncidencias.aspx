@@ -88,18 +88,6 @@
         </div>
     </asp:Panel>
 
-    <div class="row my-3">
-        <div class="col-md-2">
-            <asp:Button ID="btnGuardarIncidencia" runat="server" Text="Agregar Incidencia" CssClass="btn btn-primary mt-3" OnClick="btnGuardarIncidencia_Click" />
-        </div>
-        <div class="col-md-2">
-            <asp:Button ID="btnResumen" runat="server" Text="Resumen de Incidencias" CssClass="btn btn-secondary mt-3" OnClick="btnResumen_Click" />
-        </div>
-        <div class="col-md-6 d-flex align-items-center ms-4">
-            <asp:Label ID="lblError" runat="server" CssClass="text-danger"></asp:Label>
-        </div>
-    </div>
-
     <asp:ScriptManager runat="server" />
 
     <asp:UpdatePanel runat="server" UpdateMode="Always">
@@ -120,7 +108,7 @@
 
                 <div class="row my-1">
                     <div class="col-md-2">
-                        <asp:Button ID="btnAgregarObservacion" runat="server" Text="Agregar Observación" CssClass="btn btn-secondary mt-3" OnClick="btnAgregarObservacion_Click" /><br />
+                        <asp:Button ID="btnAgregarObservacion" runat="server" Text="Agregar Observación" CssClass="btn btn-secondary my-2" OnClick="btnAgregarObservacion_Click" /><br />
                     </div>
                     <div class="col-md-6 d-flex align-items-center ms-2">
                         <asp:Label ID="lblErrorObs" runat="server" CssClass="text-danger"></asp:Label>
@@ -142,8 +130,19 @@
 
     </asp:UpdatePanel>
 
-    <asp:Button ID="btnModificar" runat="server" Text="Modificar" CssClass="btn btn-warning mt-3" OnClick="btnModificar_Click" />
-    <asp:Button ID="btnActualizarIncidencia" runat="server" Text="Actualizar Incidencia" CssClass="btn btn-warning mt-3" OnClick="btnActualizarIncidencia_Click" />
-    <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-danger mt-3" OnClick="btnVolver_Click" />
+    <div class="my-3 d-flex align-items-center">
+        <div class="d-flex">
+            <asp:Button ID="btnModificar" runat="server" Text="Habilitar Modificación" CssClass="btn btn-outline-warning me-3" OnClick="btnModificar_Click" />
+            <asp:Button ID="btnResumen" runat="server" Text="Resumen de Incidencias" CssClass="btn btn-info me-3" OnClick="btnResumen_Click" />
+        </div>
+        <div class="ms-4 d-flex align-items-center">
+            <asp:Label ID="lblError" runat="server" CssClass="text-danger"></asp:Label>
+        </div>
+    </div>
+    <div class="d-flex">
+        <asp:Button ID="btnGuardarIncidencia" runat="server" Text="Guardar Incidencia" CssClass="btn btn-primary me-3" OnClick="btnGuardarIncidencia_Click" />
+        <asp:Button ID="btnActualizarIncidencia" runat="server" Text="Guardar Actualización" CssClass="btn btn-warning me-3" OnClick="btnGuardarIncidencia_Click" />
+        <asp:Button ID="btnVolver" runat="server" Text="Volver a Plantilla" CssClass="btn btn-danger" OnClick="btnVolver_Click" />
+    </div>
 
 </asp:Content>

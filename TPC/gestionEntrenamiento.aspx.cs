@@ -392,7 +392,6 @@ namespace TPC
                         entrenamiento.JugadoresCitados = new List<Jugador>();
                     }
 
-
                     if ((int)Session["tipoPagina"] == 2)
                     {
                         entrenamientoNegocio.modificarEntrenamiento(entrenamiento);

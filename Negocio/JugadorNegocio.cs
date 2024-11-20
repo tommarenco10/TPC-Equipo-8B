@@ -283,40 +283,6 @@ namespace Negocio
             }
         }
 
-        public void ModificarJugador(Jugador modificado)
-        {
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                datos.setearSP("Modificar_Jugador");
-
-                datos.agregarParametro("@IdJugador", modificado.IdJugador);
-                datos.agregarParametro("@Nombre", modificado.Nombres);
-                datos.agregarParametro("@Apellido", modificado.Apellidos);
-                datos.agregarParametro("@FechaNacimiento", modificado.FechaNacimiento);
-                datos.agregarParametro("@Pais", modificado.LugarNacimiento.Pais);
-                datos.agregarParametro("@Provincia", modificado.LugarNacimiento.Provincia);
-                datos.agregarParametro("@Ciudad", modificado.LugarNacimiento.Ciudad);
-                datos.agregarParametro("@Email", modificado.Email);
-                datos.agregarParametro("@Altura", modificado.Altura);
-                datos.agregarParametro("@Peso", modificado.Peso);
-                datos.agregarParametro("@Posicion", modificado.Posicion);
-                datos.agregarParametro("@IdCategoria", modificado.Categoria.IdCategoria);
-                datos.agregarParametro("@IdEstadoJugador", modificado.estadoJugador.IdEstado);
-
-                datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-
         public void EliminarJugador(int id)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -338,6 +304,7 @@ namespace Negocio
             }
         }
 
+        //FUNCIONALIDADES PARA ENTRENAMIENTO
 
         public List<Jugador> listarPorEntrenamiento(int idEntrenamiento)
         {
@@ -485,6 +452,8 @@ namespace Negocio
             }
         }
 
+
+        //ACTUALIZACIONES DE ESTADO
         public void actualizarEstadoPorNuevaIncidencia(int idJugador, Incidencia incidencia)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -508,25 +477,33 @@ namespace Negocio
 
         }
 
-        public void actualizarEstadoPorFechaYGravedadIncidencia(int idJugador)
+        public int ObtenerEstadoPrioritarioPorJugador(int idJugador)
         {
             AccesoDatos datos = new AccesoDatos();
-            int IdEstadoJugador;
-            DateTime FechaResolucion;
 
             try
             {
-                datos.setearConsulta("SELECT TOP (1) IdEstadoJugador, FechaResolucion FROM Incidencia WHERE Estado = 1 AND IdJugador = @IdJugador ORDER BY FechaResolucion DESC, CASE WHEN IdEstadoJugador = 3 THEN 1 WHEN IdEstadoJugador = 4 THEN 2 WHEN IdEstadoJugador = 2 THEN 3 WHEN IdEstadoJugador = 1 THEN 4 ELSE 5 END ASC");
+                datos.setearConsulta(@"SELECT TOP (1) IdEstadoJugador 
+                               FROM incidencia 
+                               WHERE Estado = 1 AND IdJugador = @IdJugador 
+                               ORDER BY FechaResolucion DESC, 
+                                        CASE WHEN IdEstadoJugador = 3 THEN 1 
+                                             WHEN IdEstadoJugador = 4 THEN 2 
+                                             WHEN IdEstadoJugador = 2 THEN 3 
+                                             WHEN IdEstadoJugador = 1 THEN 4 
+                                             ELSE 5 
+                                        END ASC");
                 datos.agregarParametro("@IdJugador", idJugador);
-                datos.ejecutarAccion();
+                datos.ejecutarLectura();
+
                 if (datos.Lector.Read())
                 {
-                    IdEstadoJugador = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
-                    FechaResolucion = datos.Lector["FechaResolucion"] != DBNull.Value ? (DateTime)datos.Lector["FechaResolucion"] : DateTime.MinValue;
-                
-                
-                
-                
+                    return Convert.ToInt32(datos.Lector["IdEstadoJugador"]);
+                }
+                else
+                {
+                    // Si no hay incidencias activas, el jugador está disponible
+                    return 1; // Id del estado "Disponible"
                 }
             }
             catch (Exception ex)
@@ -537,7 +514,73 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
-
         }
+
+        public void ActualizarEstadoJugador(int idJugador)
+        {
+            // Obtener el estado prioritario de las incidencias
+            int estadoPrioritario = ObtenerEstadoPrioritarioPorJugador(idJugador);
+
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE jugador SET IdEstadoJugador = @IdEstadoJugador WHERE IdJugador = @IdJugador");
+                datos.agregarParametro("@IdEstadoJugador", estadoPrioritario);
+                datos.agregarParametro("@IdJugador", idJugador);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
+
+
+
+        //SIN USAR
+        public void ModificarJugador(Jugador modificado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearSP("Modificar_Jugador");
+
+                datos.agregarParametro("@IdJugador", modificado.IdJugador);
+                datos.agregarParametro("@Nombre", modificado.Nombres);
+                datos.agregarParametro("@Apellido", modificado.Apellidos);
+                datos.agregarParametro("@FechaNacimiento", modificado.FechaNacimiento);
+                datos.agregarParametro("@Pais", modificado.LugarNacimiento.Pais);
+                datos.agregarParametro("@Provincia", modificado.LugarNacimiento.Provincia);
+                datos.agregarParametro("@Ciudad", modificado.LugarNacimiento.Ciudad);
+                datos.agregarParametro("@Email", modificado.Email);
+                datos.agregarParametro("@Altura", modificado.Altura);
+                datos.agregarParametro("@Peso", modificado.Peso);
+                datos.agregarParametro("@Posicion", modificado.Posicion);
+                datos.agregarParametro("@IdCategoria", modificado.Categoria.IdCategoria);
+                datos.agregarParametro("@IdEstadoJugador", modificado.estadoJugador.IdEstado);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
+
     }
 }

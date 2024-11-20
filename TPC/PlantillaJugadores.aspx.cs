@@ -88,7 +88,7 @@ namespace TPC
                 }
                 else if (btn.ID == "btnIncidencia")
                 {
-                    Response.Redirect("gestionIncidencias.aspx", false);
+                    Response.Redirect("incidenciasActualizables.aspx", false);
                 }
             }
             catch (ThreadAbortException) { }
