@@ -15,6 +15,9 @@ namespace TPC
         protected void Page_Load(object sender, EventArgs e)
         {
             JugadorNegocio negocio = new JugadorNegocio();
+            IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
+            incidenciaNegocio.actualizarEstadosPorFecha();
+            negocio.actualizarEstadoDeTodosLosJugadores();
             Session.Add("listaJugadores", negocio.ListarJugador());
 
             bool esAdministrador = ((MasterPage)this.Master).esAdmin();

@@ -454,28 +454,6 @@ namespace Negocio
 
 
         //ACTUALIZACIONES DE ESTADO
-        public void actualizarEstadoPorNuevaIncidencia(int idJugador, Incidencia incidencia)
-        {
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                datos.setearConsulta("UPDATE jugador SET IdEstadoJugador = @IdEstadoJugador WHERE IdJugador = @IdJugador");
-                datos.agregarParametro("@IdEstadoJugador", incidencia.EstadoJugador.IdEstado);
-                datos.agregarParametro("@IdJugador", idJugador);
-
-                datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-
-        }
 
         public int ObtenerEstadoPrioritarioPorJugador(int idJugador)
         {
@@ -502,8 +480,7 @@ namespace Negocio
                 }
                 else
                 {
-                    // Si no hay incidencias activas, el jugador está disponible
-                    return 1; // Id del estado "Disponible"
+                    return 1;
                 }
             }
             catch (Exception ex)
@@ -518,7 +495,6 @@ namespace Negocio
 
         public void ActualizarEstadoJugador(int idJugador)
         {
-            // Obtener el estado prioritario de las incidencias
             int estadoPrioritario = ObtenerEstadoPrioritarioPorJugador(idJugador);
 
             AccesoDatos datos = new AccesoDatos();
@@ -541,7 +517,15 @@ namespace Negocio
             }
         }
 
+        public void actualizarEstadoDeTodosLosJugadores() {
+            JugadorNegocio negocioJugador = new JugadorNegocio();
+            List<Jugador> listaJugadores = negocioJugador.listar();
 
+            foreach (Jugador jugador in listaJugadores)
+            {
+                ActualizarEstadoJugador(jugador.IdJugador);
+            }
+        }
 
 
 
@@ -580,6 +564,28 @@ namespace Negocio
             }
         }
 
+        public void actualizarEstadoPorNuevaIncidencia(int idJugador, Incidencia incidencia)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE jugador SET IdEstadoJugador = @IdEstadoJugador WHERE IdJugador = @IdJugador");
+                datos.agregarParametro("@IdEstadoJugador", incidencia.EstadoJugador.IdEstado);
+                datos.agregarParametro("@IdJugador", idJugador);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
 
 
     }
