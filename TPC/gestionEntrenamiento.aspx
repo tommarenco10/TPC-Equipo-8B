@@ -7,74 +7,71 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
+
+    <% if (tipoPagina == 2)
+        {%>
+    <h1>Modificar Entrenamiento</h1>
+    <% }
+        else
+        { %>
+    <h1>Agendar Entrenamiento</h1>
+    <% }%>
+    <br />
+    <br />
+
+    <h3>Detalles Generales</h3>
+    <br />
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label for="txtFechaEntrenamiento" class="form-label">Fecha de Entrenamiento:</label>
+            <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="txtFechaEntrenamiento" />
+        </div>
+
+        <div class="col-md-4">
+            <label for="txtHoraEntrenamiento" class="form-label">Hora de Entrenamiento:</label>
+            <asp:TextBox runat="server" CssClass="form-control" TextMode="Time" ID="txtHoraEntrenamiento" />
+        </div>
+
+        <div class="col-md-4">
+            <label for="txtDuracion" class="form-label">Duración del Entrenamiento:</label>
+            <asp:TextBox runat="server" CssClass="form-control" TextMode="Time" ID="txtDuracion" />
+        </div>
+    </div>
+
+    <br />
+
     <asp:ScriptManager runat="server" />
 
     <asp:UpdatePanel runat="server" UpdateMode="Always">
         <ContentTemplate>
-
-            <section>
-                <% if (tipoPagina == 2)
-                    {%>
-                <h1>Modificar Entrenamiento</h1>
-                <% }
-                    else
-                    { %>
-                <h1>Agendar Entrenamiento</h1>
-                <% }%>
-                <br />
-                <br />
-
-                <h3>Detalles Generales</h3>
-                <br />
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="txtFechaEntrenamiento" class="form-label">Fecha de Entrenamiento:</label>
-                        <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="txtFechaEntrenamiento" />
-                    </div>
-
-                    <div class="col-md-4">
-                        <label for="txtHoraEntrenamiento" class="form-label">Hora de Entrenamiento:</label>
-                        <asp:TextBox runat="server" CssClass="form-control" TextMode="Time" ID="txtHoraEntrenamiento" />
-                    </div>
-
-                    <div class="col-md-4">
-                        <label for="txtDuracion" class="form-label">Duración del Entrenamiento:</label>
-                        <asp:TextBox runat="server" CssClass="form-control" TextMode="Time" ID="txtDuracion" />
-                    </div>
+            <div class="col-md-6">
+                <label for="ddlCategoria" class="form-label">Categoría:</label>
+                <div class="d-flex">
+                    <asp:DropDownList runat="server" CssClass="form-control" ID="ddlCategoria" AutoPostBack="true" />
+                    <asp:Button ID="btnPreseleccionar" runat="server" CssClass="btn btn-primary ms-2" Text="Preseleccionar Categoría" OnClick="cargaDGVJugadores" />
                 </div>
+            </div>
 
-                <br />
+            <br />
+            <br />
 
-                <div class="col-md-6">
-                    <label for="ddlCategoria" class="form-label">Categoría:</label>
-                    <div class="d-flex">
-                        <asp:DropDownList runat="server" CssClass="form-control" ID="ddlCategoria" AutoPostBack="true" />
-                        <asp:Button ID="btnPreseleccionar" runat="server" CssClass="btn btn-primary ms-2" Text="Preseleccionar Categoría" OnClick="cargaDGVJugadores" />
-                    </div>
+            <div class="form-group">
+                <label for="txtDescripcion">Descripción Planificada del Entrenamiento</label>
+                <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="4" placeholder="Describe brevemente el entrenamiento planificado..."></asp:TextBox>
+            </div>
+
+            <br />
+            <br />
+
+            <h5>Detalles Adicionales</h5>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="ddlJugadoresAdicionales" class="form-label">Jugadores Adicionales:</label>
+                    <asp:DropDownList runat="server" CssClass="form-control" ID="ddlJugadoresAdicionales" AutoPostBack="true" OnSelectedIndexChanged="cargaDGVJugadores">
+                    </asp:DropDownList>
                 </div>
-
-                <br />
-                <br />
-
-                <div class="form-group">
-                    <label for="txtDescripcion">Descripción Planificada del Entrenamiento</label>
-                    <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="4" placeholder="Describe brevemente el entrenamiento planificado..."></asp:TextBox>
-                </div>
-
-                <br />
-                <br />
-
-                <h5>Detalles Adicionales</h5>
-
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="ddlJugadoresAdicionales" class="form-label">Jugadores Adicionales:</label>
-                        <asp:DropDownList runat="server" CssClass="form-control" ID="ddlJugadoresAdicionales" AutoPostBack="true" OnSelectedIndexChanged="cargaDGVJugadores">
-                        </asp:DropDownList>
-                    </div>
-                </div>
-            </section>
+            </div>
 
             <asp:GridView ID="dgvEntrenamiento" CssClass="table table-dark table-hover" runat="server" AutoGenerateColumns="false" DataKeyNames="IdJugador">
                 <Columns>

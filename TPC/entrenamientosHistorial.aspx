@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Historial de Entrenamientos" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="entrenamientosHistorial.aspx.cs" Inherits="TPC.entrenamientosHistorial" %>
+﻿<%@ Page Title="Historial de Entrenamientos" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="entrenamientosHistorial.aspx.cs" Inherits="TPC.entrenamientosHistorial" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

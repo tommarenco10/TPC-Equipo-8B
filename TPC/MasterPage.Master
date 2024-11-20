@@ -72,15 +72,15 @@
                         %>
                         <div class="navbar-nav ms-auto">
                             <div class="nav-item dropdown">
-                                <button class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <!-- Cargar la imagen del perfil -->
                                     <asp:Image runat="server"
                                         ID="ImagenPerfil"
                                         CssClass="profile-image"
                                         ImageUrl='<%# GetImageUrl() %>'
-                                        AlternateText="Profile" />
+                                        AlternateText="Profile"></asp:Image></a>
                                     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="profileDropdown">
-                                        <li><asp:linkbutton text="text" runat="server" CssClass="dropdown-item" OnClick="editarPerfil_Click">Editar Perfil</asp:LinkButton></li>
+                                        <li><asp:LinkButton runat="server" CssClass="dropdown-item" OnClick="editarPerfil_Click">Editar Perfil</asp:LinkButton></li>
                                         <li><asp:LinkButton runat="server" CssClass="dropdown-item" OnClick="CerrarSesion_Click">Cerrar Sesión</asp:LinkButton></li>
                                     </ul>
                             </div>

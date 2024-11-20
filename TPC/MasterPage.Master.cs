@@ -13,7 +13,7 @@ namespace TPC
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.DataBind();//Sin el databind nunca carga las imagenes al inicio de sesion.
+            this.DataBind(); //Sin el databind nunca carga las imagenes al inicio de sesion.
         }
 
         public bool esAdmin()

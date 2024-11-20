@@ -46,7 +46,7 @@
                     <asp:BoundField HeaderText="Nombre" DataField="Nombres" />
                     <asp:BoundField HeaderText="Apellido" DataField="Apellidos" />
                     <asp:BoundField HeaderText="Posicion" DataField="Posicion" />
-                    <asp:BoundField HeaderText="Fecha de nacimiento" DataField="FechaNacimiento" />
+                    <asp:BoundField HeaderText="Fecha de nacimiento" DataField="FechaNacimiento" DataFormatString="{0:dd/MM/yyyy}" />
                     <asp:BoundField HeaderText="Pais" DataField="LugarNacimiento.Pais" />
                     <asp:BoundField HeaderText="Provincia" DataField="LugarNacimiento.Provincia" Visible="false" />
                     <asp:BoundField HeaderText="Ciudad" DataField="LugarNacimiento.Ciudad" Visible="false" />

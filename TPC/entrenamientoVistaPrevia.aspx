@@ -58,7 +58,7 @@
 
     <section>
         <br />
-        <% if (tipoPagina == 3)
+        <% if (tipoPagina == 3 || tipoPagina == 4)
             { %>
         <asp:Button ID="btnVolverListado" runat="server" CssClass="btn btn-primary" Text="Volver a Listado" OnClick="btnVolverListado_Click" />
         <% }

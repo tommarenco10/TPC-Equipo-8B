@@ -23,8 +23,6 @@ namespace TPC
             JugadorNegocio negocioJugador = new JugadorNegocio();
             CategoriaNegocio negocioCategoria = new CategoriaNegocio();
 
-
-
             if (Session["user"] != null)
             {
                 Usuario logueado = (Usuario)Session["user"];
@@ -40,11 +38,9 @@ namespace TPC
                 Response.Redirect("Error.aspx");
             }
 
-
-
-
             try
             {
+
                 // VALIDO EN TODAS LAS CARGAS
                 if (Session["tipoPagina"] != null)
                 {
@@ -74,6 +70,7 @@ namespace TPC
                     ddlCategoria.DataValueField = "IdCategoria";
                     ddlCategoria.DataBind();
                     ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", "0"));
+
                     ddlJugadoresAdicionales.DataSource = listaCategorias;
                     ddlJugadoresAdicionales.DataTextField = "NombreCategoria";
                     ddlJugadoresAdicionales.DataValueField = "IdCategoria";
