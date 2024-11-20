@@ -22,7 +22,7 @@ namespace TPC
 
             bool esAdministrador = ((MasterPage)this.Master).esAdmin();
             bool esEntrenador = ((MasterPage)this.Master).esEntrenador();
-           
+
 
 
             if (!(esAdministrador || esEntrenador))
@@ -43,56 +43,77 @@ namespace TPC
                 ddlEstadoJugador.DataBind();
                 JugadorNegocio negocio = new JugadorNegocio();
                 lista = negocio.listar();
-                Session["listaJugadores"] = lista; 
+                Session["listaJugadores"] = lista;
                 dgvJugadores.DataSource = lista;
                 dgvJugadores.DataBind();
 
             }
             else
-            { 
+            {
                 lista = (List<Jugador>)Session["listaJugadores"];
 
             }
-        
+
         }
 
 
         protected void txtboxFiltroNombre_TextChanged(object sender, EventArgs e)
         {
-            if (lista == null && Session["listaJugadores"] != null)
-            {
-                lista = (List<Jugador>)Session["listaJugadores"];
-            }
-
-            List<Jugador> filtro = lista.FindAll(x => x.Apellidos.ToUpper().Contains(txtboxFiltroNombre.Text.ToUpper())||x.Nombres.ToUpper().Contains(txtboxFiltroNombre.Text.ToUpper()));
-            dgvJugadores.DataSource = filtro;
-            dgvJugadores.DataBind();
+            aplicarFiltros();
         }
 
-        protected void FiltroAvanzado_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                JugadorNegocio negocio = new JugadorNegocio();
-                List<Jugador> jugador = negocio.FiltroAvanzado(ddlCategoria.SelectedItem.ToString(), ddlEstadoJugador.SelectedItem.ToString());
-                dgvJugadores.DataSource = jugador;
-                dgvJugadores.DataBind();
-            }
-            catch (Exception ex)
-            {
-                Session.Add("error", ex.ToString());
-            }
-        }
+
 
         protected void txtboxFiltroPosicion_TextChanged(object sender, EventArgs e)
         {
-            if (lista == null && Session["listaJugadores"] != null)
+            aplicarFiltros();
+        }
+
+
+        protected void aplicarFiltros()
+        {
+
+            List<Jugador> listaFiltrada = lista;
+            bool conCambios=false;
+
+            if (!string.IsNullOrWhiteSpace(txtboxFiltroNombre.Text))
             {
-                lista = (List<Jugador>)Session["listaJugadores"];
+                listaFiltrada = listaFiltrada.FindAll(x => x.Apellidos.ToUpper().Contains(txtboxFiltroNombre.Text.ToUpper()) || x.Nombres.ToUpper().Contains(txtboxFiltroNombre.Text.ToUpper()));
+                conCambios = true;
+
             }
-            List<Jugador> filtro = lista.FindAll(x => x.Posicion.ToUpper().Contains(txtboxFiltroPosicion.Text.ToUpper()));
-            dgvJugadores.DataSource = filtro;
+
+
+            if (!string.IsNullOrWhiteSpace(txtboxFiltroPosicion.Text))
+            {
+                listaFiltrada = listaFiltrada.FindAll(x => x.Posicion.ToUpper().Contains(txtboxFiltroPosicion.Text.ToUpper()));
+                conCambios = true;
+            }
+
+
+            if (ddlCategoria.SelectedIndex > 0)
+            {
+                string seleccionado = ddlCategoria.SelectedIndex.ToString();
+                listaFiltrada = listaFiltrada.FindAll(x => x.Categoria.NombreCategoria == seleccionado);
+                conCambios = true;
+            }
+
+            if (ddlEstadoJugador.SelectedIndex > 0)
+            {
+                string seleccionado = ddlEstadoJugador.SelectedIndex.ToString();
+                listaFiltrada = listaFiltrada.FindAll(x => x.estadoJugador.NombreEstado == seleccionado);
+                conCambios = true;
+            }
+
+
+            if (!conCambios)
+            {
+                listaFiltrada = lista;
+            }
+
+            dgvJugadores.DataSource = listaFiltrada;
             dgvJugadores.DataBind();
+
         }
 
         protected void btnAccion_Click(object sender, EventArgs e)
@@ -120,10 +141,8 @@ namespace TPC
             }
         }
 
+        protected void EliminarColumnas()
 
-
-
-        private void EliminarColumnas()
         {
             // Eliminar las últimas dos columnas (Modificar y Gestión Incidencias)
             // Asegúrate de eliminar en el orden correcto (de atrás hacia adelante)
@@ -137,5 +156,14 @@ namespace TPC
             }
         }
 
+        protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            aplicarFiltros();
+        }
+
+        protected void ddlEstadoJugador_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            aplicarFiltros();
+        }
     }
 }

@@ -19,30 +19,31 @@
             <asp:TextBox runat="server" CssClass="col-6" ID="txtboxFiltroPosicion" AutoPostBack="true" OnTextChanged="txtboxFiltroPosicion_TextChanged" />
         </div>
     </div>
-    <div class="row">
-        <div class="col-4">
-            <div class="mb-3">
-                <asp:Label Text="Categoria:" runat="server" />
-                <asp:DropDownList runat="server" CssClass="btn btn-outline-dark dropdown-toggle" ID="ddlCategoria">
-                </asp:DropDownList>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="mb-3">
-                <asp:Label Text="Estado del jugador:" runat="server" />
-                <asp:DropDownList runat="server" CssClass="btn btn-outline-dark dropdown-toggle" ID="ddlEstadoJugador">
-                </asp:DropDownList>
-            </div>
-        </div>
-    </div>
-    <div>
-        <asp:Button Text="Buscar" ID="FiltroAvanzado" CssClass="btn btn-primary" runat="server" OnClick="FiltroAvanzado_Click" />
-    </div>
+
 
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <asp:UpdatePanel runat="server" ID="updatePanel">
 
         <ContentTemplate>
+
+            <div class="row">
+                <div class="col-4">
+                    <div class="mb-3">
+                        <asp:Label Text="Categoria:" runat="server" />
+                        <asp:DropDownList runat="server" CssClass="btn btn-outline-dark dropdown-toggle" ID="ddlCategoria" OnSelectedIndexChanged="ddlCategoria_SelectedIndexChanged" AutoPostBack="true">
+                        </asp:DropDownList>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="mb-3">
+                        <asp:Label Text="Estado del jugador:" runat="server" />
+                        <asp:DropDownList runat="server" CssClass="btn btn-outline-dark dropdown-toggle" ID="ddlEstadoJugador" OnSelectedIndexChanged="ddlEstadoJugador_SelectedIndexChanged" AutoPostBack="true">
+                        </asp:DropDownList>
+                    </div>
+                </div>
+            </div>
+
+
             <asp:GridView runat="server" ID="dgvJugadores" CssClass="table table-dark table-hover" AutoGenerateColumns="false" DataKeyNames="IdJugador">
                 <Columns>
                     <asp:BoundField HeaderText="Nombre" DataField="Nombres" />
