@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Estados" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ConfigEstados.aspx.cs" Inherits="TPC.ConfigEstados" %>
+﻿<%@ Page Title="Estados" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ConfigEstados.aspx.cs" Inherits="TPC.ConfigEstados" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

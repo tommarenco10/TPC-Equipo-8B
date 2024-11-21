@@ -2,7 +2,9 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -12,54 +14,59 @@ namespace TPC
     public partial class ConfigWeb : System.Web.UI.Page
     {
         public bool ConfirmarEliminacion { get; set; }
+        public int tipoPagina;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["user"] != null)
+            {
+                if (Seguridad.esAdmin(Session["user"]))
+                {
+                    if (!IsPostBack)
+                    {
+                        tipoPagina = Convert.ToInt32(Request.QueryString["id"]);
+                        Session["tipoPagina"] = tipoPagina;
+                    }
+                }
+            }
+            else
+            {
+                Session.Add("error", "Necesitas ser administrador para acceder.");
+                Response.Redirect("Error.aspx", false);
+            }
             try
             {
-                txtboxId.Enabled = false;
                 ConfirmarEliminacion = false;
+
+                // VALIDO EN TODAS LAS CARGAS
+                if (Session["tipoPagina"] != null)
+                {
+                    tipoPagina = (int)Session["tipoPagina"];
+                }
 
                 if (!IsPostBack)
                 {
-                    CategoriaNegocio negocio = new CategoriaNegocio();
+                    // CONFIGURACIONES INICIALES
 
+                    // GUARDA EL TIPO DE PÁGINA
+                    tipoPagina = Convert.ToInt32(Request.QueryString["id"]);
+                    Session["tipoPagina"] = tipoPagina;
+
+                    if (tipoPagina == 1 || tipoPagina == 2)
+                    {
+                        if (Session["idJugador"] != null)
+                        {
+                            CargarJugador((int)Session["idJugador"]);
+                        }
+                    }
+
+                    //CARGA DDL
+                    CategoriaNegocio negocio = new CategoriaNegocio();
                     ddlCategoria.DataSource = negocio.listar();
                     ddlCategoria.DataValueField = "IdCategoria";
                     ddlCategoria.DataTextField = "NombreCategoria";
                     ddlCategoria.DataBind();
-
-                    EstadoJugadorNegocio negocioEJ = new EstadoJugadorNegocio();
-
-                    ddlEstadoJugador.DataSource = negocioEJ.listar();
-                    ddlEstadoJugador.DataValueField = "IdEstadoJugador";
-                    ddlEstadoJugador.DataTextField = "NombreEstado";
-                    ddlEstadoJugador.DataBind();
-                }
-
-                if (Request.QueryString["IdJugador"] != null && !IsPostBack)
-                {
-                    List<Jugador> lista = new List<Jugador>();
-                    JugadorNegocio negocio = new JugadorNegocio();
-                    lista = negocio.ListarJugador();
-
-                    int id = int.Parse(Request.QueryString["IdJugador"].ToString());
-                    txtboxId.Text = id.ToString();
-
-                    Jugador jugador = new Jugador();
-                    jugador = lista.Find(x => x.IdJugador == id);
-
-                    txtboxNombre.Text = jugador.Nombres.ToString();
-                    txtboxApellido.Text = jugador.Apellidos.ToString();
-                    txtboxFechaNac.Text = jugador.FechaNacimiento.ToString();
-                    txtboxPais.Text = jugador.LugarNacimiento.Pais.ToString();
-                    txtboxProvincia.Text = jugador.LugarNacimiento.Provincia.ToString();
-                    txtboxCiudad.Text = jugador.LugarNacimiento.Ciudad.ToString();
-                    txtboxEmail.Text = jugador.Email.ToString();
-                    txtboxAltura.Text = jugador.Altura.ToString();
-                    txtboxPeso.Text = jugador.Peso.ToString();
-                    txtboxPosicion.Text = jugador.Posicion.ToString();
-                    ddlCategoria.SelectedValue = jugador.Categoria.IdCategoria.ToString();
-                    ddlEstadoJugador.SelectedValue = jugador.estadoJugador.IdEstado.ToString();
+                    ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", "0"));
                 }
 
             }
@@ -68,82 +75,232 @@ namespace TPC
                 Session.Add("error", ex.ToString());
             }
 
+        }
+
+        private void CargarJugador(int idJugador)
+        {
+            try
+            {
+                JugadorNegocio negocioJugador = new JugadorNegocio();
+                Jugador jugador = negocioJugador.ObtenerJugadorPorId(idJugador);
+                txtId.Text = jugador.IdJugador.ToString();
+                txtNombre.Text = jugador.Nombres.ToString();
+                txtApellido.Text = jugador.Apellidos.ToString();
+                txtFechaNacimiento.Text = jugador.FechaNacimiento.ToString();
+                txtPais.Text = jugador.LugarNacimiento.Pais.ToString();
+                txtProvincia.Text = jugador.LugarNacimiento.Provincia.ToString();
+                txtCiudad.Text = jugador.LugarNacimiento.Ciudad.ToString();
+                txtEmail.Text = jugador.Email.ToString();
+                txtAltura.Text = jugador.Altura.ToString();
+                txtPeso.Text = jugador.Peso.ToString();
+                txtPosicion.Text = jugador.Posicion.ToString();
+                ddlCategoria.SelectedValue = jugador.Categoria.IdCategoria.ToString();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+        }
+
+        protected bool validaciones()
+        {
+            int idCategoria;
+            DateTime fechaNacimiento;
+            string nombre, apellido, pais, provincia, ciudad, email, posicion;
+            int altura;
+            decimal peso;
+            string urlImagen;
+
+            try
+            {
+                //VALIDAR CATEGORIA
+                if (int.Parse(ddlCategoria.SelectedValue) == 0)
+                {
+                    lblError.CssClass = "alert alert-warning";
+                    lblError.Text = "Por favor, seleccione una categoría.";
+                    return false;
+                }
+                else
+                {
+                    idCategoria = int.Parse(ddlCategoria.SelectedValue);
+                }
+
+                //VALIDAR FECHAS
+                if (string.IsNullOrEmpty(txtFechaNacimiento.Text))
+                {
+                    lblError.CssClass = "alert alert-warning";
+                    lblError.Text = "Por favor, complete la fecha de nacimiento.";
+                    return false;
+                }
+
+                else if (!DateTime.TryParse(txtFechaNacimiento.Text, out fechaNacimiento))
+                {
+                    lblError.CssClass = "alert alert-danger";
+                    lblError.Text = "Fecha no válida. Por favor, ingrese una fecha válida.";
+                    return false;
+                }
+
+                else if (fechaNacimiento.Date >= DateTime.Today)
+                {
+                    lblError.CssClass = "alert alert-danger";
+                    lblError.Text = "Fecha no válida. La fecha seleccionada debe ser en el pasado.";
+                    return false;
+                }
+
+                //VALIDAR STRING
+                if (string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtApellido.Text) || string.IsNullOrEmpty(txtPais.Text)
+                     || string.IsNullOrEmpty(txtProvincia.Text) || string.IsNullOrEmpty(txtCiudad.Text) || string.IsNullOrEmpty(txtEmail.Text)
+                      || string.IsNullOrEmpty(txtPosicion.Text))
+                {
+                    lblError.CssClass = "alert alert-warning";
+                    lblError.Text = "Por favor, complete todos los campos.";
+                    return false;
+                }
+                else if (txtNombre.Text.Length > 30)
+                {
+                    lblError.CssClass = "alert alert-warning";
+                    lblError.Text = "Algunos campos superan el largo máximo.";
+                    return false;
+                }
+                else
+                {
+                    nombre = txtNombre.Text.ToString();
+                    apellido = txtApellido.Text.ToString();
+                    pais = txtPais.Text.ToString();
+                    provincia = txtProvincia.Text.ToString();
+                    ciudad = txtCiudad.Text.ToString();
+                    email = txtEmail.Text.ToString();
+                    posicion = txtPosicion.Text.ToString();
+                }
+
+                if (txtUrlImagen.Text.Length > 300)
+                {
+                    lblError.CssClass = "alert alert-warning";
+                    lblError.Text = "La URL para la imagen supera el largo máximo.";
+                    return false;
+                }
+                else { 
+                    urlImagen = txtUrlImagen.Text.ToString();
+                }
+
+                //VALIDAR ENTEROS
+                if (string.IsNullOrWhiteSpace(txtAltura.Text) || string.IsNullOrWhiteSpace(txtPeso.Text))
+                {
+                    lblError.CssClass = "alert alert-warning";
+                    lblError.Text = "La altura y el peso no pueden estar vacíos.";
+                    return false;
+                }
+
+                if (!int.TryParse(txtAltura.Text, out altura))
+                {
+                    lblError.CssClass = "alert alert-warning";
+                    lblError.Text = "La altura ingresada no es un número entero válido.";
+                    return false;
+                }
+
+                if (!decimal.TryParse(txtPeso.Text, out peso))
+                {
+                    lblError.CssClass = "alert alert-warning";
+                    lblError.Text = "El peso ingresado no es un número decimal válido.";
+                    return false;
+                }
+
+                if (altura < 100 || altura > 240)
+                {
+                    lblError.CssClass = "alert alert-warning";
+                    lblError.Text = "La altura seleccionada no está dentro del rango válido.";
+                    return false;
+                }
+
+                if (peso < 20 || peso > 150)
+                {
+                    lblError.CssClass = "alert alert-warning";
+                    lblError.Text = "El peso seleccionada no está dentro del rango válido.";
+                    return false;
+                }
+
+                //GUARDADO DEL OBJETO VALIDADO EN SESSION
+
+                Jugador jugador = (Jugador)Session["jugadorSeleccionado"];
+
+                if (jugador == null)
+                {
+                    jugador = new Jugador();
+                }
+                if (jugador.Categoria == null)
+                {
+                    jugador.Categoria = new Categoria();
+                }
+
+                jugador.Categoria.IdCategoria = idCategoria;
+                jugador.FechaNacimiento = fechaNacimiento;
+                jugador.Nombres = nombre;
+                jugador.Apellidos = apellido;
+                jugador.LugarNacimiento.Pais = pais;
+                jugador.LugarNacimiento.Provincia = provincia;
+                jugador.LugarNacimiento.Ciudad = ciudad;
+                jugador.Email = email;
+                jugador.Posicion = posicion;
+                jugador.Altura = altura;
+                jugador.Peso = peso;
+                jugador.DNI = txtDNI.ToString();
+                jugador.UrlImagen = urlImagen;
+                Session["jugadorSeleccionado"] = jugador;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+                return false;
+            }
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             try
             {
-                Jugador jugador = new Jugador();
-                JugadorNegocio negocio = new JugadorNegocio();
+                if (validaciones())
+                {
+                    Jugador jugador = new Jugador();
+                    JugadorNegocio negocio = new JugadorNegocio();
 
-                jugador.Nombres = txtboxNombre.Text;
-                jugador.Apellidos = txtboxApellido.Text;
-                jugador.FechaNacimiento = DateTime.Parse(txtboxFechaNac.Text);
+                    jugador = (Jugador)Session["jugadorSeleccionado"];
+                    jugador.estadoJugador = new EstadoJugador();
+                    jugador.estadoJugador.IdEstado = 1; // DISPONIBLE POR DEFECTO
 
-                jugador.LugarNacimiento = new LugarNacimiento();
-                jugador.LugarNacimiento.Pais = txtboxPais.Text;
-                jugador.LugarNacimiento.Provincia = txtboxProvincia.Text;
-                jugador.LugarNacimiento.Ciudad = txtboxCiudad.Text;
-
-                jugador.Email = txtboxEmail.Text;
-                jugador.Altura = int.Parse(txtboxAltura.Text);
-                jugador.Peso = decimal.Parse(txtboxPeso.Text);
-                jugador.Posicion = txtboxPosicion.Text;
-
-                jugador.Categoria = new Categoria();
-                jugador.Categoria.IdCategoria = int.Parse(ddlCategoria.SelectedValue);
-                jugador.Categoria.NombreCategoria = ddlCategoria.Text;
-
-                jugador.estadoJugador = new EstadoJugador();
-                jugador.estadoJugador.IdEstado = int.Parse(ddlEstadoJugador.SelectedValue);
-                jugador.estadoJugador.NombreEstado = ddlCategoria.Text;
-
-                negocio.AgregarConSP(jugador);
-                Response.Redirect("PlantillaJugadores.aspx", false);
+                    negocio.AgregarConSP(jugador);
+                    Response.Redirect("PlantillaJugadores.aspx", false);
+                }
+                else { lblError.Text = "No valido"; }
 
             }
+            catch (ThreadAbortException) { }
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
             }
-
         }
 
         protected void btnModificar_Click(object sender, EventArgs e)
         {
             try
             {
-                Jugador jugador = new Jugador();
-                JugadorNegocio negocio = new JugadorNegocio();
+                if (validaciones())
+                {
+                    Jugador jugador = new Jugador();
+                    JugadorNegocio negocio = new JugadorNegocio();
 
-                jugador.IdJugador = int.Parse(txtboxId.Text);
-                jugador.Nombres = txtboxNombre.Text;
-                jugador.Apellidos = txtboxApellido.Text;
-                jugador.FechaNacimiento = DateTime.Parse(txtboxFechaNac.Text);
+                    jugador = (Jugador)Session["jugadorSeleccionado"];
+                    jugador.estadoJugador = new EstadoJugador();
+                    jugador.estadoJugador.IdEstado = 1; // DISPONIBLE POR DEFECTO
 
-                jugador.LugarNacimiento = new LugarNacimiento();
-                jugador.LugarNacimiento.Pais = txtboxPais.Text;
-                jugador.LugarNacimiento.Provincia = txtboxProvincia.Text;
-                jugador.LugarNacimiento.Ciudad = txtboxCiudad.Text;
-
-                jugador.Email = txtboxEmail.Text;
-                jugador.Altura = int.Parse(txtboxAltura.Text);
-                jugador.Peso = decimal.Parse(txtboxPeso.Text);
-                jugador.Posicion = txtboxPosicion.Text;
-
-                jugador.Categoria = new Categoria();
-                jugador.Categoria.IdCategoria = int.Parse(ddlCategoria.SelectedValue);
-                jugador.Categoria.NombreCategoria = ddlCategoria.Text;
-
-                jugador.estadoJugador = new EstadoJugador();
-                jugador.estadoJugador.IdEstado = int.Parse(ddlEstadoJugador.SelectedValue);
-                jugador.estadoJugador.NombreEstado = ddlCategoria.Text;
-
-                negocio.AgregarConSP(jugador);
-                Response.Redirect("PlantillaJugadores.aspx", false);
-
+                    negocio.ModificarJugador(jugador);
+                    Response.Redirect("PlantillaJugadores.aspx", false);
+                }
             }
+            catch (ThreadAbortException) { }
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
@@ -162,13 +319,27 @@ namespace TPC
                 if (chkboxConfirmado.Checked)
                 {
                     JugadorNegocio negocio = new JugadorNegocio();
-                    negocio.EliminarJugador(int.Parse(txtboxId.Text));
+                    negocio.EliminarJugador(int.Parse(txtId.Text));
                     Response.Redirect("PlantillaJugadores.aspx");
                 }
             }
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
+            }
+        }
+
+        protected void txtUrlImagen_TextChanged(object sender, EventArgs e)
+        {
+            string urlImagen = txtUrlImagen.Text;
+
+            if (!string.IsNullOrWhiteSpace(urlImagen))
+            {
+                imgPerfil.ImageUrl = urlImagen;
+            }
+            else
+            {
+                imgPerfil.ImageUrl = "https://via.placeholder.com/160";
             }
         }
     }

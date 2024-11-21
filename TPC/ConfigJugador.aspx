@@ -1,102 +1,139 @@
-﻿<%@ Page Title="Gestión Plantilla" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ConfigJugador.aspx.cs" Inherits="TPC.ConfigWeb" %>
+﻿<%@ Page Title="Gestión Plantilla" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ConfigJugador.aspx.cs" Inherits="TPC.ConfigWeb" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <section>
-        <h3>En esta pagina podras gestionar la plantilla del club agregando, modificando o eliminando jugadores en casos de ventas, compras o si un jugador se encuentra disponible o no. </h3>
-        <p>Agregar: si completas todos los campos se realizara el alta de un nuevo jugador</p>
-        <p>Modificar: se cargaran todos los datos del jugador que hayas seleccionado previamente y podras modificar los campos, una vez hecho dale a modificar!</p>
-        <p>Eliminar: se eliminara el jugador que hayas seleccionado previamente, por favor tener precaucion a la hora de utilizar esta opcion.</p>
-        <p>Cancelar: si estas en esta pagina y te arrepentis de lo que estas haciendo, simplemente utiliza esta opcion!</p>
-        <div class="row">
-            <div class="col-6">
-                <div class="mb-3">
-                    <label for="txtId" class="form-label">Id:</label>
-                    <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtboxId" />
-                </div>
-                <div class="mb-3">
-                    <label for="txtNombre" class="form-label">Nombre:</label>
-                    <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtboxNombre" />
-                    <asp:Label for="txtDNI" CssClass="form-label text-danger" ID="lblDniAviso" runat="server" Text="Por favor, ingrese un Nombre" Visible="false"></asp:Label>
+    <asp:ScriptManager ID="ScriptManager1" runat="server" />
+    <asp:UpdatePanel ID="updatePanel" runat="server">
+        <ContentTemplate>
+
+            <asp:Panel runat="server" CssClass="container border rounded shadow-lg p-4 position-relative">
+                <div class="position-absolute top-0 end-0 p-3">
+                    <asp:Image runat="server" ID="imgPerfil" CssClass="rounded-circle border border-2"
+                        Width="160px" Height="160px" ImageUrl="https://via.placeholder.com/160" />
                 </div>
 
-                <div class="mb-3">
-                    <label for="txtApellido" class="form-label">Apellido:</label>
-                    <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtboxApellido" />
-                </div>
-
-                <div class="mb-3">
-                    <label for="txtFechaNac" class="form-label">Fecha de nacimiento:</label>
-                    <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="txtboxFechaNac" />
-                </div>
-
-                <div class="mb-3">
-                    <label for="txtpais" class="form-label">Pais:</label>
-                    <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtboxPais" />
-                </div>
-
-                <div class="mb-3">
-                    <label for="txtprovincia" class="form-label">Provincia:</label>
-                    <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtboxProvincia" />
-                </div>
-
-                <div class="mb-3">
-                    <label for="txtCiudad" class="form-label">Ciudad:</label>
-                    <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtboxCiudad" />
-                </div>
-            </div>
-
-            <div class="col-6">
-
-                <div class="mb-3">
-                    <label for="txtEmail" class="form-label">Email:</label>
-                    <asp:TextBox runat="server" CssClass="form-control" TextMode="Email" ID="txtboxEmail" />
-                </div>
-
-                <div class="mb-3">
-                    <label for="txtAltura" class="form-label">Altura:</label>
-                    <asp:TextBox runat="server" CssClass="form-control" TextMode="Number" ID="txtboxAltura" />
-                </div>
-
-                <div class="mb-3">
-                    <label for="txtPeso" class="form-label">Peso:</label>
-                    <asp:TextBox runat="server" CssClass="form-control" TextMode="number" ID="txtboxPeso" />
-                </div>
-
-                <div class="mb-3">
-                    <label for="txtPosicion" class="form-label">Posicion:</label>
-                    <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtboxPosicion" />
-                </div>
-
-                <div class="mb-3">
-                    <label for="txtCategoria" class="form-label">Categoria:</label>
-                    <asp:DropDownList runat="server" CssClass="btn btn-outline-dark dropdown-toggle" ID="ddlCategoria">
-                    </asp:DropDownList>
-                    <label for="txtEstadoJugador" class="form-label">Estado del jugador:</label>
-                    <asp:DropDownList runat="server" CssClass="btn btn-outline-dark dropdown-toggle" ID="ddlEstadoJugador">
-                    </asp:DropDownList>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-12">
-            <asp:ScriptManager ID="ScriptManager1" runat="server" />
-            <asp:UpdatePanel ID="updatePanel" runat="server">
-                <ContentTemplate>
-                    <asp:Button Text="Agregar" CssClass="btn btn-primary" ID="btnAgregar" runat="server" OnClick="btnAgregar_Click" />
-                    <asp:Button Text="Modificar" CssClass="btn btn-warning" ID="btnModificar" runat="server" OnClick="btnModificar_Click" />
-                    <asp:Button Text="Eliminar" CssClass="btn btn-danger" ID="btnEliminar" runat="server" OnClick="btnEliminar_Click" />
-                    <%if (ConfirmarEliminacion)
+                <h4 class="text-center mb-4">
+                    <% if (tipoPagina == 1)
                         { %>
-                    <asp:CheckBox Text="Confirmar eliminacion" ID="chkboxConfirmado" runat="server" />
-                    <asp:Button Text="Eliminar" CssClass="btn btn-outline-danger" OnClick="BtnEliminarConfirmado_Click" runat="server" />
-                    <% } %>
-                </ContentTemplate>
-            </asp:UpdatePanel>
-        </div>
-    </section>
+            Eliminar Jugador
+            <% }
+                else if (tipoPagina == 2)
+                { %>
+            Modificar Jugador
+            <% }
+                else
+                { %>
+            Agregar Jugador
+            <% } %>
+                </h4>
+
+                <div class="row g-3">
+                    <div class="col-12 col-md-1">
+                        <label for="txtId" class="form-label fw-bold">ID:</label>
+                        <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtId" Enabled="false" />
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label for="txtNombre" class="form-label fw-bold">Nombre:</label>
+                        <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtNombre" />
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label for="txtApellido" class="form-label fw-bold">Apellido:</label>
+                        <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtApellido" />
+                    </div>
+                </div>
+
+                <div class="row g-3 mt-3">
+                    <div class="col-12 col-md-3">
+                        <label for="txtDNI" class="form-label fw-bold">DNI:</label>
+                        <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtDNI" MinLength="7" MaxLength="8" />
+                        <asp:RegularExpressionValidator runat="server"
+                            ControlToValidate="txtDNI"
+                            CssClass="text-danger"
+                            ValidationExpression="^\d{7,8}$"
+                            ErrorMessage="El DNI debe tener entre 7 y 8 dígitos numéricos."
+                            Display="Dynamic" />
+                    </div>
+                    <div class="col-12 col-md-5">
+                        <label for="txtPosicion" class="form-label fw-bold">Posición:</label>
+                        <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtPosicion" />
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label for="ddlCategoria" class="form-label fw-bold">Categoría:</label>
+                        <asp:DropDownList runat="server" CssClass="form-select" ID="ddlCategoria">
+                        </asp:DropDownList>
+                    </div>
+                </div>
+
+                <div class="row g-3 mt-3">
+                    <div class="col-12 col-md-3">
+                        <label for="txtFechaNacimiento" class="form-label fw-bold">Fecha de Nacimiento:</label>
+                        <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="txtFechaNacimiento" />
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label for="txtCiudad" class="form-label fw-bold">Ciudad:</label>
+                        <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtCiudad" />
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label for="txtProvincia" class="form-label fw-bold">Provincia:</label>
+                        <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtProvincia" />
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label for="txtPais" class="form-label fw-bold">País:</label>
+                        <asp:TextBox runat="server" CssClass="form-control" type="text" ID="txtPais" />
+                    </div>
+                </div>
+
+                <div class="row g-3 mt-3">
+                    <div class="col-12 col-md-8">
+                        <label for="txtEmail" class="form-label fw-bold">Email:</label>
+                        <asp:TextBox runat="server" CssClass="form-control" TextMode="Email" ID="txtEmail" />
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <label for="txtAltura" class="form-label fw-bold">Altura (cm):</label>
+                        <asp:TextBox runat="server" CssClass="form-control" TextMode="Number" ID="txtAltura" />
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <label for="txtPeso" class="form-label fw-bold">Peso (kg):</label>
+                        <asp:TextBox runat="server" CssClass="form-control" TextMode="number" ID="txtPeso" />
+                    </div>
+                </div>
+
+                <div class="row g-3 mt-3">
+                    <div class="col-12">
+                        <label for="txtUrlImagen" class="form-label fw-bold">URL Imagen:</label>
+                        <asp:TextBox runat="server" CssClass="form-control" ID="txtUrlImagen" AutoPostBack="true" OnTextChanged="txtUrlImagen_TextChanged" />
+                    </div>
+                </div>
+
+            </asp:Panel>
+
+            <div class="col-12 mt-3">
+                <% if (tipoPagina == 1)
+                    { %>
+                <asp:Button Text="Eliminar" CssClass="btn btn-danger" ID="btnEliminar" runat="server" OnClick="btnEliminar_Click" />
+                <% }
+                    else if (tipoPagina == 2)
+                    { %>
+                <asp:Button Text="Modificar" CssClass="btn btn-warning" ID="btnModificar" runat="server" OnClick="btnModificar_Click" />
+                <% }
+                    else
+                    { %>
+                <asp:Button Text="Agregar" CssClass="btn btn-primary" ID="btnAgregar" runat="server" OnClick="btnAgregar_Click" CausesValidation="false"/>
+                <% } %>
+
+                <%if (ConfirmarEliminacion)
+                    { %>
+                <asp:CheckBox Text="Confirmar eliminacion" ID="chkboxConfirmado" runat="server" />
+                <asp:Button Text="Eliminar" CssClass="btn btn-outline-danger" OnClick="BtnEliminarConfirmado_Click" runat="server" />
+                <% } %>
+
+                <asp:Label ID="lblError" runat="server"></asp:Label>
+            </div>
+        </ContentTemplate>
+
+    </asp:UpdatePanel>
 
 </asp:Content>

@@ -52,13 +52,13 @@ namespace TPC
                 {
                     // CONFIGURACIONES INICIALES
 
-                    // GUARDA EL ENTRENAMIENTO QUE RECIBE DE SESSION
-                    entrenamiento = (Entrenamiento)Session["entrenamientoSeleccionado"];
-
                     // GUARDA EL TIPO DE PÁGINA
+                    Session.Remove("tipoPagina");
                     tipoPagina = Convert.ToInt32(Request.QueryString["id"]);
                     Session["tipoPagina"] = tipoPagina;
 
+                    // VALIDO EN TODAS LAS CARGAS
+  
                     // GUARDA LA LISTA DE JUGADORES COMPLETA
                     listaJugadores = negocioJugador.listar();
                     Session["listaJugadores"] = listaJugadores;
@@ -105,9 +105,12 @@ namespace TPC
                         txtDescripcion.Text = string.Empty;
                     }
 
+                    // GUARDA EL ENTRENAMIENTO QUE RECIBE DE SESSION
+                    entrenamiento = (Entrenamiento)Session["entrenamientoSeleccionado"];
+
                     // RECUPERACIÓN DE DATOS
 
-                    if (entrenamiento != null)
+                    if (entrenamiento != null && Session["tipoPagina"] != null)
                     {
                         // Fecha y Hora del Entrenamiento
                         DateTime fechaHoraEntrenamiento = entrenamiento.FechaHora;

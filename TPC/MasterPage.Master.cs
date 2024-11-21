@@ -13,7 +13,13 @@ namespace TPC
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.DataBind(); //Sin el databind nunca carga las imagenes al inicio de sesion.
+            if (!IsPostBack)
+            {
+                if (sesionActiva())
+                {
+                    ImagenPerfil.DataBind(); //Sin el databind nunca carga las imagenes al inicio de sesion.
+                }
+            }
         }
 
         public bool esAdmin()
@@ -73,7 +79,7 @@ namespace TPC
         {
             Session.Clear();
             Session.Abandon();
-            Response.Redirect("index.aspx",false);
+            Response.Redirect("index.aspx", false);
         }
 
 
@@ -84,7 +90,7 @@ namespace TPC
 
         protected void editarPerfil_Click(object sender, EventArgs e)
         {
-            Response.Redirect("EditarPerfil.aspx",false);
+            Response.Redirect("EditarPerfil.aspx", false);
         }
     }
 }

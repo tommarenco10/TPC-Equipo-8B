@@ -26,17 +26,13 @@ namespace TPC
 
                         cargarDataGridView();
                     }
-
                 }
             }
             else
             {
-
                 Session.Add("error", "Necesitas ser administrador para acceder.");
                 Response.Redirect("Error.aspx", false);
-
             }
-           
         }
 
         protected void dgvEstados_RowCommand(object sender, GridViewCommandEventArgs e)

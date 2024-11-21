@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="PlantillaJugadores.aspx.cs" Inherits="TPC.PlanillaJugadores" EnableEventValidation="false" %>
+﻿<%@ Page Title="Plantilla" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="PlantillaJugadores.aspx.cs" Inherits="TPC.PlanillaJugadores" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -36,8 +36,9 @@
         </div>
     </div>
     <div>
-        <asp:Button Text="Buscar" ID="FiltroAvanzado" CssClass="btn btn-primary" runat="server" OnClick="FiltroAvanzado_Click" />
+        <asp:Button Text="Buscar" ID="FiltroAvanzado" CssClass="btn btn-primary mb-3" runat="server" OnClick="FiltroAvanzado_Click" />
     </div>
+
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <asp:UpdatePanel runat="server" ID="updatePanel">
         <ContentTemplate>
@@ -67,6 +68,13 @@
                         <ItemTemplate>
                             <asp:Button ID="btnIncidencia" runat="server" Text="Gestión Incidencias" CommandName="Incidencia"
                                 CommandArgument='<%# Eval("IdJugador") %>' OnClick="btnAccion_Click" CssClass="btn btn-outline-info" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar"
+                                CommandArgument='<%# Eval("IdJugador") %>' OnClick="btnAccion_Click" CssClass="btn btn-danger" />
                         </ItemTemplate>
                     </asp:TemplateField>
 

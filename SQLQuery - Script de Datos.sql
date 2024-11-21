@@ -26,11 +26,11 @@ VALUES
 (6, 171, 70, 'Mediocampista', 3, 4);
 
 -- Inserción de entrenamientos
-INSERT INTO entrenamiento (FechaHora, Duracion, IdCategoria, Descripcion, Observaciones, IdEstadoEntrenamiento)
+/*INSERT INTO entrenamiento (FechaHora, Duracion, IdCategoria, Descripcion, Observaciones, IdEstadoEntrenamiento)
 VALUES
-('2024-11-12', '2:00:00', 1, 'Entrenamiento Táctico', '', 1),
-('2024-11-12', '2:00:00', 2, 'Entrenamiento Táctico', '', 1),
-('2024-11-12', '2:00:00', 3, 'Entrenamiento Táctico', '', 2);
+('2024-11-12 19:00:00:000', '2:00:00', 1, 'Entrenamiento Táctico', '', 1),
+('2024-11-12 16:00:00:000', '1:00:00', 2, 'Entrenamiento Técnico', '', 1),
+('2024-11-12 14:00:00:000', '3:00:00', 3, 'Entrenamiento Físico', '', 2);*/
 
 -- Inserción de tipo de usuario
 INSERT INTO TipoUsuario (nombre)
