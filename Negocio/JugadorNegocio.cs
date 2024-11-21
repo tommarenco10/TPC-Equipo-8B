@@ -19,7 +19,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("Select J.IdJugador, P.Nombre, P.Apellido, J.Altura, J.Peso, J.Posicion, c.IdCategoria, c.nombre as NombreCategoria, ej.IdEstadoJugador, ej.nombre as EstadoJugador From Jugador J Left Join Persona P on J.IdPersona = P.IdPersona inner join Categoria c on c.IdCategoria = j.Idcategoria inner join EstadoJugador ej on ej.IdEstadoJugador = j.IdEstadoJugador");
+                datos.setearConsulta("Select P.Email,P.pais,P.provincia,P.ciudad,P.Email,J.IdJugador,J.IdPersona,P.Nombre, P.Apellido, p.FechaNacimiento,J.Altura, J.Peso, J.Posicion, c.IdCategoria, c.nombre as NombreCategoria, ej.IdEstadoJugador, ej.nombre as EstadoJugador From Jugador J Left Join Persona P on J.IdPersona = P.IdPersona inner join Categoria c on c.IdCategoria = j.Idcategoria inner join EstadoJugador ej on ej.IdEstadoJugador = j.IdEstadoJugador");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -38,7 +38,11 @@ namespace Negocio
                     aux.estadoJugador = new EstadoJugador();
                     aux.estadoJugador.IdEstado = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
                     aux.estadoJugador.NombreEstado = datos.Lector["EstadoJugador"] != DBNull.Value ? (string)datos.Lector["EstadoJugador"] : string.Empty;
-
+                    aux.FechaNacimiento = datos.Lector["FechaNacimiento"] != DBNull.Value ? (DateTime)datos.Lector["FechaNacimiento"] : DateTime.MinValue;
+                    aux.LugarNacimiento.Pais= datos.Lector["pais"] != DBNull.Value ? (string)datos.Lector["pais"] : string.Empty;
+                    aux.LugarNacimiento.Provincia = datos.Lector["provincia"] != DBNull.Value ? (string)datos.Lector["provincia"] : string.Empty;
+                    aux.LugarNacimiento.Ciudad = datos.Lector["ciudad"] != DBNull.Value ? (string)datos.Lector["ciudad"] : string.Empty;
+                    aux.Email = datos.Lector["Email"] != DBNull.Value ? (string)datos.Lector["Email"] : string.Empty;
                     lista.Add(aux);
                 }
 

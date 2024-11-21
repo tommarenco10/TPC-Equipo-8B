@@ -13,14 +13,12 @@ namespace TPC
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                if (sesionActiva())
-                {
-                    ImagenPerfil.DataBind();
-                }
 
+            if (sesionActiva())
+            {
+                   ImagenPerfil.ImageUrl = GetImageUrl();
             }
+
         }
 
         public bool esAdmin()

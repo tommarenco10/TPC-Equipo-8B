@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,5 +18,11 @@ namespace Dominio
         public LugarNacimiento LugarNacimiento { get; set; }
         public string Email { get; set; }
         public string UrlImagen { get; set; }
+
+
+        public Persona()
+        {
+            LugarNacimiento = new LugarNacimiento();
+        }
     }
 }

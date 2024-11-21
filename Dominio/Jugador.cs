@@ -15,10 +15,5 @@ namespace Dominio
         public EstadoJugador estadoJugador { get; set; }
         public Categoria Categoria { get; set; }
 
-        public Jugador()
-        {
-            LugarNacimiento = new LugarNacimiento();
-            Categoria = new Categoria();
-        }
     }
 }
