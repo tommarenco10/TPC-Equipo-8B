@@ -135,6 +135,14 @@ namespace TPC
             }
         }
 
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PlantillaJugadores.aspx");
+        }
 
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("gestionIncidencias.aspx?id=1"); //FUNCION AGREGAR
+        }
     }
 }

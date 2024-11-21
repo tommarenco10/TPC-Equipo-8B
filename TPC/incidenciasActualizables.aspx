@@ -62,17 +62,20 @@
         </div>
     </asp:Panel>
 
-
-    <asp:Label ID="lblMensaje" runat="server" CssClass="text-danger" Text="El jugador seleccionado no tiene incidencias abiertas registradas." Visible="false"></asp:Label>
-
+    <div class="my-3">
+        <asp:Button ID="btnAgregar" runat="server" Text="Agregar Nueva" CssClass="btn btn-primary me-3" OnClick="btnAgregar_Click" />
+        <asp:Button ID="btnVolver" runat="server" Text="Volver a Plantilla" CssClass="btn btn-danger me-3" OnClick="btnVolver_Click" />
+        <asp:Label ID="lblMensaje" runat="server" CssClass="text-danger" Text="El jugador seleccionado no tiene incidencias abiertas registradas." Visible="false"></asp:Label>
+    </div>
+    <br />
     <section>
-        <div class="mb-3">
+        <div class="my-3">
             <h3>Lista de Incidencias Registradas</h3>
         </div>
         <asp:GridView ID="dgvIncidencias" CssClass="table table-dark table-hover" runat="server" AutoGenerateColumns="false" DataKeyNames="IdIncidencia" OnRowDataBound="dgvIncidencias_RowDataBound">
             <Columns>
                 <asp:BoundField DataField="IdIncidencia" Visible="false" />
-                <asp:BoundField HeaderText="Fecha" DataField="FechaRegistro" DataFormatString="{0:dd/MM/yyyy}" HtmlEncode="false"/>
+                <asp:BoundField HeaderText="Fecha" DataField="FechaRegistro" DataFormatString="{0:dd/MM/yyyy}" HtmlEncode="false" />
                 <asp:BoundField HeaderText="Tipo" DataField="EstadoJugador.NombreEstado" />
                 <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
                 <asp:BoundField HeaderText="Estado" DataField="Estado" />

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Entrenamientos Programados" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="entrenamientosProgramados.aspx.cs" Inherits="TPC.entrenamientosProgramados" %>
+﻿<%@ Page Title="Entrenamientos Programados" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="entrenamientosProgramados.aspx.cs" Inherits="TPC.entrenamientosProgramados" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

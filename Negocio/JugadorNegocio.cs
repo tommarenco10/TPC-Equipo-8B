@@ -69,6 +69,29 @@ namespace Negocio
         }
 
 
+        public List<Jugador> ListarJugador()
+        {
+            List<Jugador> lista = new List<Jugador>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearSP("Listar_Jugador");
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    lista.Add(MapearJugador(datos.Lector));
+                }
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return lista;
+        }
+
 
         public List<Jugador> ListarJugadores()
         {
@@ -107,6 +130,7 @@ namespace Negocio
             return lista;
         }
 
+
         public List<Jugador> ListarJugadoresPorIds(List<int> ids)
         {
             List<Jugador> lista = new List<Jugador>();
@@ -138,7 +162,6 @@ namespace Negocio
 
             return lista;
         }
-
 
 
         public Jugador ObtenerJugadorPorId(int id)
@@ -179,6 +202,7 @@ namespace Negocio
             }
         }
 
+
         public void AgregarConSP(Jugador nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -211,29 +235,6 @@ namespace Negocio
                 datos.cerrarConexion();
             }
 
-        }
-
-        public List<Jugador> ListarJugador()
-        {
-            List<Jugador> lista = new List<Jugador>();
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                datos.setearSP("Listar_Jugador");
-                datos.ejecutarLectura();
-
-                while (datos.Lector.Read())
-                {
-                    lista.Add(MapearJugador(datos.Lector));
-                }
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-
-            return lista;
         }
 
 
@@ -321,6 +322,7 @@ namespace Negocio
             }
         }
 
+        //FUNCIONALIDADES PARA ENTRENAMIENTO
 
         public List<Jugador> listarPorEntrenamiento(int idEntrenamiento)
         {
@@ -360,7 +362,6 @@ namespace Negocio
         }
 
 
-
         public List<int> listarIdPorEntrenamiento(int idEntrenamiento)
         {
             List<int> lista = new List<int>();
@@ -392,6 +393,7 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
 
         public List<Jugador> listarPresentesPorEntrenamiento(int idEntrenamiento)
         {
@@ -431,6 +433,83 @@ namespace Negocio
         }
 
 
+        //ACTUALIZACIONES DE ESTADO
+
+        public int ObtenerEstadoPrioritarioPorJugador(int idJugador)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta(@"SELECT TOP (1) IdEstadoJugador 
+                               FROM incidencia 
+                               WHERE Estado = 1 AND IdJugador = @IdJugador 
+                               ORDER BY FechaResolucion DESC, 
+                                        CASE WHEN IdEstadoJugador = 3 THEN 1 
+                                             WHEN IdEstadoJugador = 4 THEN 2 
+                                             WHEN IdEstadoJugador = 2 THEN 3 
+                                             WHEN IdEstadoJugador = 1 THEN 4 
+                                             ELSE 5 
+                                        END ASC");
+                datos.agregarParametro("@IdJugador", idJugador);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    return Convert.ToInt32(datos.Lector["IdEstadoJugador"]);
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
+        public void ActualizarEstadoJugador(int idJugador)
+        {
+            int estadoPrioritario = ObtenerEstadoPrioritarioPorJugador(idJugador);
+
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE jugador SET IdEstadoJugador = @IdEstadoJugador WHERE IdJugador = @IdJugador");
+                datos.agregarParametro("@IdEstadoJugador", estadoPrioritario);
+                datos.agregarParametro("@IdJugador", idJugador);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
+        public void actualizarEstadoDeTodosLosJugadores() {
+            JugadorNegocio negocioJugador = new JugadorNegocio();
+            List<Jugador> listaJugadores = negocioJugador.listar();
+
+            foreach (Jugador jugador in listaJugadores)
+            {
+                ActualizarEstadoJugador(jugador.IdJugador);
+            }
+        }
+
+
         public void actualizarEstadoPorNuevaIncidencia(int idJugador, Incidencia incidencia)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -453,43 +532,6 @@ namespace Negocio
             }
 
         }
-
-        public void actualizarEstadoPorFechaYGravedadIncidencia(int idJugador)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            int IdEstadoJugador;
-            DateTime FechaResolucion;
-
-            try
-            {
-                datos.setearConsulta("SELECT TOP (1) IdEstadoJugador, FechaResolucion FROM Incidencia WHERE Estado = 1 AND IdJugador = @IdJugador ORDER BY FechaResolucion DESC, CASE WHEN IdEstadoJugador = 3 THEN 1 WHEN IdEstadoJugador = 4 THEN 2 WHEN IdEstadoJugador = 2 THEN 3 WHEN IdEstadoJugador = 1 THEN 4 ELSE 5 END ASC");
-                datos.agregarParametro("@IdJugador", idJugador);
-                datos.ejecutarAccion();
-                if (datos.Lector.Read())
-                {
-                    IdEstadoJugador = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
-                    FechaResolucion = datos.Lector["FechaResolucion"] != DBNull.Value ? (DateTime)datos.Lector["FechaResolucion"] : DateTime.MinValue;
-                
-                
-                
-                
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-
-    }
-
-
-
-
-
 
 
         private Jugador MapearJugador(SqlDataReader lector)
@@ -526,16 +568,5 @@ namespace Negocio
 
             return jugador;
         }
-
-
-
-
-
-
-
-
-
-
-
     }
 }

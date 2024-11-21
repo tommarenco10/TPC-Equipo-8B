@@ -14,9 +14,6 @@ namespace TPC
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-
-
             if (Session["user"] != null)
             {
                 Usuario logueado = (Usuario)Session["user"];
@@ -31,8 +28,6 @@ namespace TPC
                 Session.Add("error", "Se necesitan permisos especiales para usar esta funcionalidad.");
                 Response.Redirect("Error.aspx");
             }
-
-
 
             if (!IsPostBack)
             {

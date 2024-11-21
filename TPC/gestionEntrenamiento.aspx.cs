@@ -23,8 +23,6 @@ namespace TPC
             JugadorNegocio negocioJugador = new JugadorNegocio();
             CategoriaNegocio negocioCategoria = new CategoriaNegocio();
 
-
-
             if (Session["user"] != null)
             {
                 Usuario logueado = (Usuario)Session["user"];
@@ -40,11 +38,9 @@ namespace TPC
                 Response.Redirect("Error.aspx");
             }
 
-
-
-
             try
             {
+
                 // VALIDO EN TODAS LAS CARGAS
                 if (Session["tipoPagina"] != null)
                 {
@@ -56,13 +52,13 @@ namespace TPC
                 {
                     // CONFIGURACIONES INICIALES
 
-                    // GUARDA EL ENTRENAMIENTO QUE RECIBE DE SESSION
-                    entrenamiento = (Entrenamiento)Session["entrenamientoSeleccionado"];
-
                     // GUARDA EL TIPO DE PÁGINA
+                    Session.Remove("tipoPagina");
                     tipoPagina = Convert.ToInt32(Request.QueryString["id"]);
                     Session["tipoPagina"] = tipoPagina;
 
+                    // VALIDO EN TODAS LAS CARGAS
+  
                     // GUARDA LA LISTA DE JUGADORES COMPLETA
                     listaJugadores = negocioJugador.listar();
                     Session["listaJugadores"] = listaJugadores;
@@ -74,6 +70,7 @@ namespace TPC
                     ddlCategoria.DataValueField = "IdCategoria";
                     ddlCategoria.DataBind();
                     ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", "0"));
+
                     ddlJugadoresAdicionales.DataSource = listaCategorias;
                     ddlJugadoresAdicionales.DataTextField = "NombreCategoria";
                     ddlJugadoresAdicionales.DataValueField = "IdCategoria";
@@ -108,9 +105,12 @@ namespace TPC
                         txtDescripcion.Text = string.Empty;
                     }
 
+                    // GUARDA EL ENTRENAMIENTO QUE RECIBE DE SESSION
+                    entrenamiento = (Entrenamiento)Session["entrenamientoSeleccionado"];
+
                     // RECUPERACIÓN DE DATOS
 
-                    if (entrenamiento != null)
+                    if (entrenamiento != null && Session["tipoPagina"] != null)
                     {
                         // Fecha y Hora del Entrenamiento
                         DateTime fechaHoraEntrenamiento = entrenamiento.FechaHora;
@@ -391,7 +391,6 @@ namespace TPC
                     {
                         entrenamiento.JugadoresCitados = new List<Jugador>();
                     }
-
 
                     if ((int)Session["tipoPagina"] == 2)
                     {

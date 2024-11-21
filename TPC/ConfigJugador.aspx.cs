@@ -320,10 +320,10 @@ namespace TPC
 
         public List<Control> ComprobarVacio()
         {
-            
+
             List<Control> nueva = new List<Control>();
 
-            
+
             nueva.Add(txtboxId);
             nueva.Add(txtboxNombre);
             nueva.Add(txtboxApellido);
@@ -333,7 +333,7 @@ namespace TPC
             nueva.Add(txtboxPeso);
             nueva.Add(txtboxPosicion);
 
-            
+
             nueva.Add(ddlPais);
             nueva.Add(ddlProvincia);
             nueva.Add(ddlCiudad);

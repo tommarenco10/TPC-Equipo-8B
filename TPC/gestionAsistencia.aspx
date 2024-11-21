@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Lista de Asistencias" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="gestionAsistencia.aspx.cs" Inherits="TPC.gestionAsistencia" %>
+﻿<%@ Page Title="Lista de Asistencias" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="gestionAsistencia.aspx.cs" Inherits="TPC.gestionAsistencia" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Gestion Cuerpo Técnico" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ConfigEntrenador.aspx.cs" Inherits="TPC.ConfigEntrenador" %>
+﻿<%@ Page Title="Gestion Cuerpo Técnico" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ConfigEntrenador.aspx.cs" Inherits="TPC.ConfigEntrenador" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

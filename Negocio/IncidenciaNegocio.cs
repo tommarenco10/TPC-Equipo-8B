@@ -182,5 +182,52 @@ namespace Negocio
             }
         }
 
+        public void actualizarEstadosPorFecha()
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                List<Incidencia> listaIncidencias = listar();
+                listaIncidencias = listaIncidencias
+                    .Where(incidencia => incidencia.Estado == true)
+                    .ToList();
+
+                DateTime ahora = DateTime.Now;
+
+                foreach (Incidencia incidencia in listaIncidencias)
+                {
+                    DateTime fechaResolucion = incidencia.FechaResolución;
+                    bool nuevoEstado;
+
+                    if (ahora >= fechaResolucion)
+                    {
+                        nuevoEstado = false; // "Cerrada"
+                    }
+                    else
+                    {
+                        nuevoEstado = true; // "Abierta"
+                    }
+
+                    if (incidencia.Estado != nuevoEstado)
+                    {
+                        datos.setearConsulta("UPDATE incidencia SET Estado = @Estado WHERE IdIncidencia = @IdIncidencia");
+                        datos.agregarParametro("@Estado", nuevoEstado);
+                        datos.agregarParametro("@IdIncidencia", incidencia.IdIncidencia);
+
+                        datos.ejecutarAccion();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }

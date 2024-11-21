@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Entrenamientos Finalizados" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="entrenamientosFinalizados.aspx.cs" Inherits="TPC.entrenamientosFinalizados" %>
+﻿<%@ Page Title="Entrenamientos Finalizados" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="entrenamientosFinalizados.aspx.cs" Inherits="TPC.entrenamientosFinalizados" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

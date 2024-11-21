@@ -43,8 +43,11 @@ namespace TPC
                     // Opción para seleccionar
                     ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", "0"));
 
-                    negocioEntrenamiento.actualizarEstadosPorFecha(idEstadoProgramado);
-                    negocioEntrenamiento.actualizarEstadosPorFecha(idEstadoEnCurso);
+                    if (negocioEntrenamiento.listar() != null)
+                    {
+                        negocioEntrenamiento.actualizarEstadosPorFecha(idEstadoProgramado);
+                        negocioEntrenamiento.actualizarEstadosPorFecha(idEstadoEnCurso);
+                    }
                 }
 
                 if (dgvEntrenamientos.Rows.Count == 0)

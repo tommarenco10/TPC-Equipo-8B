@@ -96,7 +96,7 @@ namespace TPC
                     }
                 }
                 configuracionesTipoPagina((int)Session["tipoPagina"]);
-                
+
             }
             catch (Exception ex)
             {
@@ -179,7 +179,6 @@ namespace TPC
                 if ((int)Session["tipoPagina"] == 2 || (int)Session["tipoPagina"] == 3)
                 {
                     btnGuardarIncidencia.Visible = false;
-                    btnResumen.Visible = false;
                 }
 
             }
@@ -281,9 +280,9 @@ namespace TPC
                 }
 
                 //GUARDADO DEL OBJETO VALIDADO EN SESSION
-                if (Session["incidenciaSelecccionada"] != null)
+                if (Session["incidenciaSeleccionada"] != null)
                 {
-                    incidencia = (Incidencia)Session["incidenciaSelecccionada"];
+                    incidencia = (Incidencia)Session["incidenciaSeleccionada"];
                 }
 
                 if (incidencia == null)
@@ -322,15 +321,18 @@ namespace TPC
                     incidencia.IdJugador = idJugador;
                     incidencia.Estado = true; //ABIERTA POR DEFECTO                   
 
-                    if ((int)Session["tipoPagina"] == 2) { }
+                    if ((int)Session["tipoPagina"] == 3) 
+                    {
+
+                        incidenciaNegocio.modificar(incidencia);
+                    }
                     else
                     {
                         incidenciaNegocio.agregar(incidencia);
-                        jugadorNegocio.actualizarEstadoPorNuevaIncidencia(idJugador, incidencia);
-                        //jugadorNegocio.actualizarEstadoPorFechaYGravedadIncidencia(idJugador);
+                        jugadorNegocio.ActualizarEstadoJugador(idJugador);
                     }
 
-                    string script = (int)Session["tipoPagina"] == 2
+                    string script = (int)Session["tipoPagina"] == 3
                         ? "alert('Incidencia modificada correctamente'); window.location = 'PlantillaJugadores.aspx';"
                         : "alert('Incidencia agregada correctamente'); window.location = 'PlantillaJugadores.aspx';";
                     Session.Remove("incidenciaSeleccionada");
@@ -408,19 +410,7 @@ namespace TPC
 
         protected void btnVolver_Click(object sender, EventArgs e)
         {
-            if ((int)Session["tipoPagina"] == 2 || (int)Session["tipoPagina"] == 3)
-            {
-                Response.Redirect("incidenciasActualizables.aspx");
-            }
-            else
-            {
-                Response.Redirect("PlantillaJugadores.aspx");
-            }
-        }
-
-        protected void btnActualizarIncidencia_Click(object sender, EventArgs e)
-        {
-
+            Response.Redirect("PlantillaJugadores.aspx");
         }
 
         protected void btnModificar_Click(object sender, EventArgs e)

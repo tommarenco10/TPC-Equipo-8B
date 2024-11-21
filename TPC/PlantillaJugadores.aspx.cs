@@ -19,6 +19,11 @@ namespace TPC
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            JugadorNegocio negocio = new JugadorNegocio();
+            IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
+            incidenciaNegocio.actualizarEstadosPorFecha();
+            negocio.actualizarEstadoDeTodosLosJugadores();
+            Session.Add("listaJugadores", negocio.ListarJugador());
 
             bool esAdministrador = ((MasterPage)this.Master).esAdmin();
             bool esEntrenador = ((MasterPage)this.Master).esEntrenador();
@@ -129,11 +134,15 @@ namespace TPC
 
                 if (btn.ID == "btnModificar")
                 {
-                    Response.Redirect("ConfigJugador.aspx",false);
+                    Response.Redirect("ConfigJugador.aspx?id=2", false);
                 }
                 else if (btn.ID == "btnIncidencia")
                 {
-                    Response.Redirect("gestionIncidencias.aspx", false);
+                    Response.Redirect("incidenciasActualizables.aspx", false);
+                }
+                else if (btn.ID == "btnEliminar")
+                {
+                    Response.Redirect("ConfigJugador.aspx?id=1", false);
                 }
             }
             catch (ThreadAbortException) { }

@@ -16,7 +16,7 @@ namespace TPC
 
             if (sesionActiva())
             {
-                   ImagenPerfil.ImageUrl = GetImageUrl();
+                ImagenPerfil.ImageUrl = GetImageUrl();
             }
 
         }
@@ -78,7 +78,7 @@ namespace TPC
         {
             Session.Clear();
             Session.Abandon();
-            Response.Redirect("index.aspx",false);
+            Response.Redirect("index.aspx", false);
         }
 
 
@@ -89,7 +89,7 @@ namespace TPC
 
         protected void editarPerfil_Click(object sender, EventArgs e)
         {
-            Response.Redirect("EditarPerfil.aspx",false);
+            Response.Redirect("EditarPerfil.aspx", false);
         }
     }
 }

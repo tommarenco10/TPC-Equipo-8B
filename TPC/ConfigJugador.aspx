@@ -1,10 +1,10 @@
 ﻿<%@ Page Title="Gestión Plantilla" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ConfigJugador.aspx.cs" Inherits="TPC.ConfigWeb" EnableSessionState="true" EnableEventValidation="false" %>
 
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
     <section class="container mt-4">
 
         <h3 class="mb-4">Gestión de Plantilla del Club</h3>
@@ -200,4 +200,3 @@
                 </div>
     </section>
 </asp:Content>
-
