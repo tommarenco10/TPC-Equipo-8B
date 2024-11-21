@@ -36,11 +36,14 @@ namespace TPC
                 ddlCategoria.DataSource = negocioCategoria.listar();
                 ddlCategoria.DataTextField = "NombreCategoria";
                 ddlCategoria.DataBind();
+                ddlCategoria.Items.Insert(0, new ListItem("Seleccionar", "0"));
 
                 EstadoJugadorNegocio negocioEJ = new EstadoJugadorNegocio();
                 ddlEstadoJugador.DataSource = negocioEJ.listar();
                 ddlEstadoJugador.DataTextField = "NombreEstado";
                 ddlEstadoJugador.DataBind();
+                ddlEstadoJugador.Items.Insert(0, new ListItem("Seleccionar", "0"));
+
                 JugadorNegocio negocio = new JugadorNegocio();
                 lista = negocio.listar();
                 Session["listaJugadores"] = lista;
@@ -91,16 +94,16 @@ namespace TPC
             }
 
 
-            if (ddlCategoria.SelectedIndex > 0)
+            if (ddlCategoria.SelectedIndex!= 0)
             {
-                string seleccionado = ddlCategoria.SelectedIndex.ToString();
+                string seleccionado = ddlCategoria.SelectedItem.Text;
                 listaFiltrada = listaFiltrada.FindAll(x => x.Categoria.NombreCategoria == seleccionado);
                 conCambios = true;
             }
 
-            if (ddlEstadoJugador.SelectedIndex > 0)
+            if (ddlEstadoJugador.SelectedIndex != 0)
             {
-                string seleccionado = ddlEstadoJugador.SelectedIndex.ToString();
+                string seleccionado = ddlEstadoJugador.SelectedItem.Text;
                 listaFiltrada = listaFiltrada.FindAll(x => x.estadoJugador.NombreEstado == seleccionado);
                 conCambios = true;
             }
@@ -122,11 +125,11 @@ namespace TPC
             {
                 Button btn = (Button)sender;
                 int idJugador = Convert.ToInt32(btn.CommandArgument);
-                Session["idJugador"] = idJugador;
+                Session.Add("idJugador",idJugador);
 
                 if (btn.ID == "btnModificar")
                 {
-                    Response.Redirect("ConfigJugador.aspx?IdJugador=" + idJugador, false);
+                    Response.Redirect("ConfigJugador.aspx",false);
                 }
                 else if (btn.ID == "btnIncidencia")
                 {

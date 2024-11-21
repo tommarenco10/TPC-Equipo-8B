@@ -12,6 +12,8 @@ namespace TPC
     public partial class ConfigWeb : System.Web.UI.Page
     {
         public bool ConfirmarEliminacion { get; set; }
+        LugarNacimientoNegocio lugarNacimientoNegocio = new LugarNacimientoNegocio();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -21,128 +23,128 @@ namespace TPC
 
                 if (!IsPostBack)
                 {
-                    CategoriaNegocio negocio = new CategoriaNegocio();
 
-                    ddlCategoria.DataSource = negocio.listar();
-                    ddlCategoria.DataValueField = "IdCategoria";
-                    ddlCategoria.DataTextField = "NombreCategoria";
-                    ddlCategoria.DataBind();
+                    CargarCategoriasYEstados();
+                    CargarPaises();
 
-                    EstadoJugadorNegocio negocioEJ = new EstadoJugadorNegocio();
 
-                    ddlEstadoJugador.DataSource = negocioEJ.listar();
-                    ddlEstadoJugador.DataValueField = "IdEstadoJugador";
-                    ddlEstadoJugador.DataTextField = "NombreEstado";
-                    ddlEstadoJugador.DataBind();
+                    if (Session["idJugador"] != null)
+                    {
+                        CargarDatosJugador();
+                    }
                 }
-
-                if (Request.QueryString["IdJugador"] != null && !IsPostBack)
-                {
-                    List<Jugador> lista = new List<Jugador>();
-                    JugadorNegocio negocio = new JugadorNegocio();
-                    lista = negocio.ListarJugador();
-
-                    int id = int.Parse(Request.QueryString["IdJugador"].ToString());
-                    txtboxId.Text = id.ToString();
-
-                    Jugador jugador = new Jugador();
-                    jugador = lista.Find(x => x.IdJugador == id);
-
-                    txtboxNombre.Text = jugador.Nombres.ToString();
-                    txtboxApellido.Text = jugador.Apellidos.ToString();
-                    txtboxFechaNac.Text = jugador.FechaNacimiento.ToString();
-                    txtboxPais.Text = jugador.LugarNacimiento.Pais.ToString();
-                    txtboxProvincia.Text = jugador.LugarNacimiento.Provincia.ToString();
-                    txtboxCiudad.Text = jugador.LugarNacimiento.Ciudad.ToString();
-                    txtboxEmail.Text = jugador.Email.ToString();
-                    txtboxAltura.Text = jugador.Altura.ToString();
-                    txtboxPeso.Text = jugador.Peso.ToString();
-                    txtboxPosicion.Text = jugador.Posicion.ToString();
-                    ddlCategoria.SelectedValue = jugador.Categoria.IdCategoria.ToString();
-                    ddlEstadoJugador.SelectedValue = jugador.estadoJugador.IdEstado.ToString();
-                }
-
             }
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
             }
+        }
 
+        private void CargarCategoriasYEstados()
+        {
+            var negocioCategoria = new CategoriaNegocio();
+            ddlCategoria.DataSource = negocioCategoria.listar();
+            ddlCategoria.DataValueField = "IdCategoria";
+            ddlCategoria.DataTextField = "NombreCategoria";
+            ddlCategoria.DataBind();
+            ddlCategoria.Items.Insert(0, new ListItem("Seleccionar", "0"));
+
+            var negocioEJ = new EstadoJugadorNegocio();
+            ddlEstadoJugador.DataSource = negocioEJ.listar();
+            ddlEstadoJugador.DataValueField = "IdEstado";
+            ddlEstadoJugador.DataTextField = "NombreEstado";
+            ddlEstadoJugador.DataBind();
+            ddlEstadoJugador.Items.Insert(0, new ListItem("Seleccionar", "0"));
+        }
+
+
+        private void CargarDatosJugador()
+        {
+            var negocio = new JugadorNegocio();
+            var lista = negocio.ListarJugador();
+            int id = int.Parse(Session["idJugador"].ToString());
+            var jugador = lista.FirstOrDefault(x => x.IdJugador == id);
+
+            if (jugador != null)
+            {
+                txtboxId.Text = jugador.IdJugador.ToString();
+                txtboxNombre.Text = jugador.Nombres;
+                txtboxApellido.Text = jugador.Apellidos;
+                txtFechaNacimiento.Text = jugador.FechaNacimiento.ToString("yyyy-MM-dd");
+
+                // Asignación de los valores a los DropDownList
+                ddlPais.SelectedValue = jugador.LugarNacimiento.Pais;
+                CargarProvincias(ddlPais.SelectedValue); // Cargar provincias del país seleccionado
+                ddlProvincia.SelectedValue = jugador.LugarNacimiento.Provincia;
+                CargarCiudades(ddlProvincia.SelectedValue); // Cargar ciudades de la provincia seleccionada
+                ddlCiudad.SelectedValue = jugador.LugarNacimiento.Ciudad;
+
+                txtboxEmail.Text = jugador.Email;
+                txtboxAltura.Text = jugador.Altura.ToString();
+                txtboxPeso.Text = jugador.Peso.ToString();
+                txtboxPosicion.Text = jugador.Posicion;
+                ddlCategoria.SelectedValue = jugador.Categoria.IdCategoria.ToString();
+                ddlEstadoJugador.SelectedValue = jugador.estadoJugador.IdEstado.ToString();
+            }
+        }
+
+
+        private Jugador ObtenerJugadorDesdeFormulario()
+        {
+            var jugador = new Jugador
+            {
+                Nombres = txtboxNombre.Text,
+                Apellidos = txtboxApellido.Text,
+                FechaNacimiento = DateTime.Parse(txtFechaNacimiento.Text),
+                LugarNacimiento = new LugarNacimiento
+                {
+                    Pais = ddlPais.SelectedItem.Text,
+                    Provincia = ddlProvincia.SelectedItem.Text,
+                    Ciudad = ddlCiudad.SelectedItem.Text,
+                },
+                Email = txtboxEmail.Text,
+                Altura = int.Parse(txtboxAltura.Text),
+                Peso = decimal.Parse(txtboxPeso.Text),
+                Posicion = txtboxPosicion.Text,
+                Categoria = new Categoria
+                {
+                    IdCategoria = int.Parse(ddlCategoria.SelectedValue),
+                    NombreCategoria = ddlCategoria.SelectedItem.Text
+                },
+                estadoJugador = new EstadoJugador
+                {
+                    IdEstado = int.Parse(ddlEstadoJugador.SelectedValue),
+                    NombreEstado = ddlEstadoJugador.SelectedItem.Text
+                }
+            };
+
+            return jugador;
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             try
             {
-                Jugador jugador = new Jugador();
-                JugadorNegocio negocio = new JugadorNegocio();
-
-                jugador.Nombres = txtboxNombre.Text;
-                jugador.Apellidos = txtboxApellido.Text;
-                jugador.FechaNacimiento = DateTime.Parse(txtboxFechaNac.Text);
-
-                jugador.LugarNacimiento = new LugarNacimiento();
-                jugador.LugarNacimiento.Pais = txtboxPais.Text;
-                jugador.LugarNacimiento.Provincia = txtboxProvincia.Text;
-                jugador.LugarNacimiento.Ciudad = txtboxCiudad.Text;
-
-                jugador.Email = txtboxEmail.Text;
-                jugador.Altura = int.Parse(txtboxAltura.Text);
-                jugador.Peso = decimal.Parse(txtboxPeso.Text);
-                jugador.Posicion = txtboxPosicion.Text;
-
-                jugador.Categoria = new Categoria();
-                jugador.Categoria.IdCategoria = int.Parse(ddlCategoria.SelectedValue);
-                jugador.Categoria.NombreCategoria = ddlCategoria.Text;
-
-                jugador.estadoJugador = new EstadoJugador();
-                jugador.estadoJugador.IdEstado = int.Parse(ddlEstadoJugador.SelectedValue);
-                jugador.estadoJugador.NombreEstado = ddlCategoria.Text;
-
+                var jugador = ObtenerJugadorDesdeFormulario();
+                var negocio = new JugadorNegocio();
                 negocio.AgregarConSP(jugador);
                 Response.Redirect("PlantillaJugadores.aspx", false);
-
             }
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
             }
-
         }
 
         protected void btnModificar_Click(object sender, EventArgs e)
         {
             try
             {
-                Jugador jugador = new Jugador();
-                JugadorNegocio negocio = new JugadorNegocio();
-
+                var jugador = ObtenerJugadorDesdeFormulario();
                 jugador.IdJugador = int.Parse(txtboxId.Text);
-                jugador.Nombres = txtboxNombre.Text;
-                jugador.Apellidos = txtboxApellido.Text;
-                jugador.FechaNacimiento = DateTime.Parse(txtboxFechaNac.Text);
-
-                jugador.LugarNacimiento = new LugarNacimiento();
-                jugador.LugarNacimiento.Pais = txtboxPais.Text;
-                jugador.LugarNacimiento.Provincia = txtboxProvincia.Text;
-                jugador.LugarNacimiento.Ciudad = txtboxCiudad.Text;
-
-                jugador.Email = txtboxEmail.Text;
-                jugador.Altura = int.Parse(txtboxAltura.Text);
-                jugador.Peso = decimal.Parse(txtboxPeso.Text);
-                jugador.Posicion = txtboxPosicion.Text;
-
-                jugador.Categoria = new Categoria();
-                jugador.Categoria.IdCategoria = int.Parse(ddlCategoria.SelectedValue);
-                jugador.Categoria.NombreCategoria = ddlCategoria.Text;
-
-                jugador.estadoJugador = new EstadoJugador();
-                jugador.estadoJugador.IdEstado = int.Parse(ddlEstadoJugador.SelectedValue);
-                jugador.estadoJugador.NombreEstado = ddlCategoria.Text;
-
-                negocio.AgregarConSP(jugador);
+                var negocio = new JugadorNegocio();
+                negocio.ModificarJugador(jugador);
                 Response.Redirect("PlantillaJugadores.aspx", false);
-
             }
             catch (Exception ex)
             {
@@ -161,7 +163,7 @@ namespace TPC
             {
                 if (chkboxConfirmado.Checked)
                 {
-                    JugadorNegocio negocio = new JugadorNegocio();
+                    var negocio = new JugadorNegocio();
                     negocio.EliminarJugador(int.Parse(txtboxId.Text));
                     Response.Redirect("PlantillaJugadores.aspx");
                 }
@@ -169,6 +171,99 @@ namespace TPC
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
+            }
+        }
+
+
+
+        private void CargarPaises()
+        {
+            try
+            {
+                List<string> paises = lugarNacimientoNegocio.ObtenerPaises();
+                ddlPais.DataSource = paises;
+                ddlPais.DataBind();
+                ddlPais.Items.Insert(0, new ListItem("Seleccione un país", ""));
+            }
+            catch (Exception ex)
+            {
+                MostrarError("Error al cargar países: " + ex.Message);
+            }
+        }
+
+        private void CargarProvincias(string pais)
+        {
+            try
+            {
+                List<string> provincias = lugarNacimientoNegocio.ObtenerProvincias(pais);
+                ddlProvincia.DataSource = provincias;
+                ddlProvincia.DataBind();
+                ddlProvincia.Items.Insert(0, new ListItem("Seleccione una provincia", ""));
+                ddlProvincia.Enabled = provincias.Count > 0;
+            }
+            catch (Exception ex)
+            {
+                MostrarError("Error al cargar provincias: " + ex.Message);
+            }
+        }
+
+        private void CargarCiudades(string provincia)
+        {
+            try
+            {
+                List<string> ciudades = lugarNacimientoNegocio.ObtenerCiudades(provincia);
+                ddlCiudad.DataSource = ciudades;
+                ddlCiudad.DataBind();
+                ddlCiudad.Items.Insert(0, new ListItem("Seleccione una ciudad", ""));
+            }
+            catch (Exception ex)
+            {
+                MostrarError("Error al cargar ciudades: " + ex.Message);
+            }
+        }
+
+        private void MostrarError(string mensaje)
+        {
+            Session.Add("error", mensaje);
+            Response.Redirect("Error.aspx", false);
+        }
+
+        protected void ddlPais_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                // Obtener el valor seleccionado del país
+                string paisSeleccionado = ddlPais.SelectedValue;
+
+                // Cargar las provincias basadas en el país seleccionado
+                CargarProvincias(paisSeleccionado);
+
+                // Limpiar la selección de ciudad y provincia cuando cambie el país
+                ddlProvincia.SelectedIndex = 0;
+                ddlCiudad.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MostrarError("Error al seleccionar país: " + ex.Message);
+            }
+        }
+
+        protected void ddlProvincia_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                // Obtener el valor seleccionado de la provincia
+                string provinciaSeleccionada = ddlProvincia.SelectedValue;
+
+                // Cargar las ciudades basadas en la provincia seleccionada
+                CargarCiudades(provinciaSeleccionada);
+
+                // Limpiar la selección de ciudad cuando cambie la provincia
+                ddlCiudad.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MostrarError("Error al seleccionar provincia: " + ex.Message);
             }
         }
     }
