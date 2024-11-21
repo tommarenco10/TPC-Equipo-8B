@@ -129,11 +129,15 @@ namespace TPC
 
                 if (btn.ID == "btnModificar")
                 {
-                    Response.Redirect("ConfigJugador.aspx", false);
+                    Response.Redirect("ConfigJugador.aspx?id=2", false);
                 }
                 else if (btn.ID == "btnIncidencia")
                 {
                     Response.Redirect("gestionIncidencias.aspx", false);
+                }
+                else if (btn.ID == "btnEliminar")
+                {
+                    Response.Redirect("ConfigJugador.aspx?id=1", false);
                 }
             }
             catch (ThreadAbortException) { }
