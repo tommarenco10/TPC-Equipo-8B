@@ -7,11 +7,16 @@ using Dominio;
 using Acceso_Datos;
 using System.Text.RegularExpressions;
 using System.Collections;
+using System.Web.UI.WebControls;
+using System.Data.SqlClient;
+using System.Net;
 
 namespace Negocio
 {
     public class JugadorNegocio
     {
+
+
         public List<Jugador> listar()
         {
             List<Jugador> lista = new List<Jugador>();
@@ -19,36 +24,77 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("Select P.Email,P.pais,P.provincia,P.ciudad,P.Email,J.IdJugador,J.IdPersona,P.Nombre, P.Apellido, p.FechaNacimiento,J.Altura, J.Peso, J.Posicion, c.IdCategoria, c.nombre as NombreCategoria, ej.IdEstadoJugador, ej.nombre as EstadoJugador From Jugador J Left Join Persona P on J.IdPersona = P.IdPersona inner join Categoria c on c.IdCategoria = j.Idcategoria inner join EstadoJugador ej on ej.IdEstadoJugador = j.IdEstadoJugador");
+                datos.setearConsulta(@"
+            SELECT 
+                J.IdJugador, 
+                P.Nombre, 
+                P.Apellido, 
+                P.FechaNacimiento, 
+                P.Pais, 
+                P.Provincia, 
+                P.Ciudad, 
+                P.Email, 
+                P.UrlImagen, 
+                P.DNI, 
+                J.Altura, 
+                J.Peso, 
+                J.Posicion, 
+                C.IdCategoria, 
+                C.nombre AS NombreCategoria, 
+                EJ.IdEstadoJugador, 
+                EJ.nombre AS EstadoJugador
+            FROM Jugador J 
+            LEFT JOIN Persona P ON J.IdPersona = P.IdPersona
+            INNER JOIN Categoria C ON C.IdCategoria = J.IdCategoria
+            INNER JOIN EstadoJugador EJ ON EJ.IdEstadoJugador = J.IdEstadoJugador");
+
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
-                    Jugador aux = new Jugador();
-
-                    aux.IdJugador = datos.Lector["IdJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdJugador"]) : 0;
-                    aux.Nombres = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : string.Empty;
-                    aux.Apellidos = datos.Lector["Apellido"] != DBNull.Value ? (string)datos.Lector["Apellido"] : string.Empty;
-                    aux.Altura = datos.Lector["Altura"] != DBNull.Value ? Convert.ToInt32(datos.Lector["Altura"]) : 0;
-                    aux.Peso = datos.Lector["Peso"] != DBNull.Value ? Convert.ToDecimal(datos.Lector["Peso"]) : 0m;
-                    aux.Posicion = datos.Lector["Posicion"] != DBNull.Value ? (string)datos.Lector["Posicion"] : string.Empty;
-                    aux.Categoria = new Categoria();
-                    aux.Categoria.IdCategoria = datos.Lector["IdCategoria"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdCategoria"]) : 0;
-                    aux.Categoria.NombreCategoria = datos.Lector["NombreCategoria"] != DBNull.Value ? (string)datos.Lector["NombreCategoria"] : string.Empty;
-                    aux.estadoJugador = new EstadoJugador();
-                    aux.estadoJugador.IdEstado = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
-                    aux.estadoJugador.NombreEstado = datos.Lector["EstadoJugador"] != DBNull.Value ? (string)datos.Lector["EstadoJugador"] : string.Empty;
-                    aux.FechaNacimiento = datos.Lector["FechaNacimiento"] != DBNull.Value ? (DateTime)datos.Lector["FechaNacimiento"] : DateTime.MinValue;
-                    aux.LugarNacimiento.Pais= datos.Lector["pais"] != DBNull.Value ? (string)datos.Lector["pais"] : string.Empty;
-                    aux.LugarNacimiento.Provincia = datos.Lector["provincia"] != DBNull.Value ? (string)datos.Lector["provincia"] : string.Empty;
-                    aux.LugarNacimiento.Ciudad = datos.Lector["ciudad"] != DBNull.Value ? (string)datos.Lector["ciudad"] : string.Empty;
-                    aux.Email = datos.Lector["Email"] != DBNull.Value ? (string)datos.Lector["Email"] : string.Empty;
-                    lista.Add(aux);
+                    Jugador jugador = MapearJugador(datos.Lector); // Usamos el mapeo para crear el objeto
+                    lista.Add(jugador);
                 }
 
                 return lista;
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
+
+
+        public List<Jugador> ListarJugadores()
+        {
+            List<Jugador> lista = new List<Jugador>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta(@"SELECT P.UrlImagen, P.Email, P.pais, P.provincia, P.ciudad, 
+                                   J.IdJugador, J.IdPersona, P.Nombre, P.Apellido, 
+                                   P.FechaNacimiento, J.Altura, J.Peso, J.Posicion, 
+                                   C.IdCategoria, C.nombre as NombreCategoria, 
+                                   EJ.IdEstadoJugador, EJ.nombre as EstadoJugador 
+                            FROM Jugador J 
+                            LEFT JOIN Persona P ON J.IdPersona = P.IdPersona 
+                            INNER JOIN Categoria C ON C.IdCategoria = J.IdCategoria 
+                            INNER JOIN EstadoJugador EJ ON EJ.IdEstadoJugador = J.IdEstadoJugador");
+
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Jugador aux = MapearJugador((SqlDataReader)datos.Lector);
+                    lista.Add(aux);
+                }
+            }
             catch (Exception ex)
             {
                 throw ex;
@@ -58,6 +104,7 @@ namespace Negocio
                 datos.cerrarConexion();
             }
 
+            return lista;
         }
 
         public List<Jugador> ListarJugadoresPorIds(List<int> ids)
@@ -65,89 +112,59 @@ namespace Negocio
             List<Jugador> lista = new List<Jugador>();
             AccesoDatos datos = new AccesoDatos();
 
-            // Convertir la lista de IDs a un string para usar en la consulta SQL
             string idsString = string.Join(",", ids);
 
             try
             {
-                // Ajusta la consulta para filtrar por IDs
-                datos.setearConsulta($"SELECT J.IdJugador, P.Nombre, P.Apellido, J.Altura, J.Peso, J.Posicion, c.IdCategoria, c.Nombre AS NombreCategoria, ej.IdEstadoJugador, ej.Nombre AS EstadoJugador " +
+                datos.setearConsulta($"SELECT J.IdJugador, P.Nombre, P.Apellido, P.FechaNacimiento, P.Pais, P.Provincia, P.Ciudad, " +
+                                     $"P.Email, P.UrlImagen, J.Altura, J.Peso, J.Posicion, C.IdCategoria, C.Nombre AS NombreCategoria, " +
+                                     $"EJ.IdEstadoJugador, EJ.Nombre AS EstadoJugador " +
                                      $"FROM Jugador J " +
                                      $"LEFT JOIN Persona P ON J.IdPersona = P.IdPersona " +
-                                     $"INNER JOIN Categoria c ON c.IdCategoria = J.IdCategoria " +
-                                     $"INNER JOIN EstadoJugador ej ON ej.IdEstadoJugador = J.IdEstadoJugador " +
+                                     $"INNER JOIN Categoria C ON C.IdCategoria = J.IdCategoria " +
+                                     $"INNER JOIN EstadoJugador EJ ON EJ.IdEstadoJugador = J.IdEstadoJugador " +
                                      $"WHERE J.IdJugador IN ({idsString})");
-
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
-                    Jugador aux = new Jugador();
-
-                    aux.IdJugador = datos.Lector["IdJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdJugador"]) : 0;
-                    aux.Nombres = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : string.Empty;
-                    aux.Apellidos = datos.Lector["Apellido"] != DBNull.Value ? (string)datos.Lector["Apellido"] : string.Empty;
-                    aux.Altura = datos.Lector["Altura"] != DBNull.Value ? Convert.ToInt32(datos.Lector["Altura"]) : 0;
-                    aux.Peso = datos.Lector["Peso"] != DBNull.Value ? Convert.ToDecimal(datos.Lector["Peso"]) : 0m;
-                    aux.Posicion = datos.Lector["Posicion"] != DBNull.Value ? (string)datos.Lector["Posicion"] : string.Empty;
-                    aux.Categoria = new Categoria();
-                    aux.Categoria.IdCategoria = datos.Lector["IdCategoria"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdCategoria"]) : 0;
-                    aux.Categoria.NombreCategoria = datos.Lector["NombreCategoria"] != DBNull.Value ? (string)datos.Lector["NombreCategoria"] : string.Empty;
-                    aux.estadoJugador = new EstadoJugador();
-                    aux.estadoJugador.IdEstado = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
-                    aux.estadoJugador.NombreEstado = datos.Lector["EstadoJugador"] != DBNull.Value ? (string)datos.Lector["EstadoJugador"] : string.Empty;
-
-                    lista.Add(aux);
+                    lista.Add(MapearJugador(datos.Lector));
                 }
-
-                return lista;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
             finally
             {
                 datos.cerrarConexion();
             }
+
+            return lista;
         }
+
+
 
         public Jugador ObtenerJugadorPorId(int id)
         {
-            Jugador jugador = new Jugador();
+            Jugador jugador = null;
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setearConsulta($"SELECT J.IdJugador, P.Nombre, P.Apellido, P.FechaNacimiento, P.pais, P.provincia, P.ciudad," +
-                    $" P.Email, P.UrlImagen, J.Altura, J.peso, J.posicion, C.IdCategoria, C.nombre AS NombreCategoria," +
-                    $" EJ.IdEstadoJugador, EJ.nombre AS EstadoJugador FROM Jugador J LEFT JOIN Persona P ON J.IdPersona = P.IdPersona" +
-                    $" INNER JOIN Categoria C ON C.IdCategoria = J.IdCategoria INNER JOIN EstadoJugador EJ ON EJ.IdEstadoJugador = J.IdEstadoJugador" +
-                    $" WHERE J.IdJugador = {id}");
+                datos.setearConsulta(@"SELECT J.IdJugador, P.Nombre, P.Apellido, P.FechaNacimiento, 
+                                   P.pais, P.provincia, P.ciudad, P.Email, P.UrlImagen, 
+                                   J.Altura, J.Peso, J.Posicion, C.IdCategoria, 
+                                   C.nombre AS NombreCategoria, EJ.IdEstadoJugador, 
+                                   EJ.nombre AS EstadoJugador 
+                            FROM Jugador J 
+                            LEFT JOIN Persona P ON J.IdPersona = P.IdPersona 
+                            INNER JOIN Categoria C ON C.IdCategoria = J.IdCategoria 
+                            INNER JOIN EstadoJugador EJ ON EJ.IdEstadoJugador = J.IdEstadoJugador 
+                            WHERE J.IdJugador = @IdJugador");
 
+                datos.agregarParametro("@IdJugador", id);
                 datos.ejecutarLectura();
 
                 if (datos.Lector.Read())
                 {
-                    jugador.IdJugador = datos.Lector["IdJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdJugador"]) : 0;
-                    jugador.Nombres = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : string.Empty;
-                    jugador.Apellidos = datos.Lector["Apellido"] != DBNull.Value ? (string)datos.Lector["Apellido"] : string.Empty;
-                    jugador.FechaNacimiento = datos.Lector["FechaNacimiento"] != DBNull.Value ? (DateTime)datos.Lector["FechaNacimiento"] : DateTime.MinValue;
-                    jugador.LugarNacimiento = new LugarNacimiento();
-                    jugador.LugarNacimiento.Pais = datos.Lector["pais"] != DBNull.Value ? (string)datos.Lector["pais"] : string.Empty;
-                    jugador.LugarNacimiento.Provincia = datos.Lector["provincia"] != DBNull.Value ? (string)datos.Lector["provincia"] : string.Empty;
-                    jugador.LugarNacimiento.Ciudad = datos.Lector["ciudad"] != DBNull.Value ? (string)datos.Lector["ciudad"] : string.Empty;
-                    jugador.Email = datos.Lector["Email"] != DBNull.Value ? (string)datos.Lector["Email"] : string.Empty;
-                    jugador.UrlImagen = datos.Lector["UrlImagen"] != DBNull.Value ? (string)datos.Lector["UrlImagen"] : string.Empty;
-                    jugador.Altura = datos.Lector["Altura"] != DBNull.Value ? Convert.ToInt32(datos.Lector["Altura"]) : 0;
-                    jugador.Peso = datos.Lector["Peso"] != DBNull.Value ? Convert.ToDecimal(datos.Lector["Peso"]) : 0m;
-                    jugador.Posicion = datos.Lector["Posicion"] != DBNull.Value ? (string)datos.Lector["Posicion"] : string.Empty;
-                    jugador.Categoria = new Categoria();
-                    jugador.Categoria.IdCategoria = datos.Lector["IdCategoria"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdCategoria"]) : 0;
-                    jugador.Categoria.NombreCategoria = datos.Lector["NombreCategoria"] != DBNull.Value ? (string)datos.Lector["NombreCategoria"] : string.Empty;
-                    jugador.estadoJugador = new EstadoJugador();
-                    jugador.estadoJugador.IdEstado = datos.Lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdEstadoJugador"]) : 0;
-                    jugador.estadoJugador.NombreEstado = datos.Lector["EstadoJugador"] != DBNull.Value ? (string)datos.Lector["EstadoJugador"] : string.Empty;
+                    jugador = MapearJugador((SqlDataReader)datos.Lector);
                 }
 
                 return jugador;
@@ -199,55 +216,34 @@ namespace Negocio
         public List<Jugador> ListarJugador()
         {
             List<Jugador> lista = new List<Jugador>();
+            AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                AccesoDatos datos = new AccesoDatos();
                 datos.setearSP("Listar_Jugador");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
-                    Jugador jugador = new Jugador();
-                    jugador.IdJugador = Convert.ToInt32(datos.Lector["IdJugador"]);
-                    jugador.Nombres = (string)datos.Lector["Nombre"];
-                    jugador.Apellidos = (string)datos.Lector["Apellido"];
-                    jugador.FechaNacimiento = (DateTime)datos.Lector["FechaNacimiento"];
-                    jugador.LugarNacimiento = new LugarNacimiento();
-                    jugador.LugarNacimiento.Pais = (string)datos.Lector["pais"];
-                    jugador.LugarNacimiento.Provincia = (string)datos.Lector["provincia"];
-                    jugador.LugarNacimiento.Ciudad = (string)datos.Lector["ciudad"];
-                    jugador.Email = (string)datos.Lector["email"];
-                    jugador.Altura = Convert.ToInt32(datos.Lector["Altura"]);
-                    jugador.Peso = Convert.ToDecimal(datos.Lector["Peso"]);
-                    jugador.Posicion = (string)datos.Lector["posicion"];
-                    jugador.Categoria = new Categoria();
-                    jugador.Categoria.IdCategoria = Convert.ToInt32(datos.Lector["IdCategoria"]);
-                    jugador.Categoria.NombreCategoria = (string)datos.Lector["NombreCategoria"];
-                    jugador.estadoJugador = new EstadoJugador();
-                    jugador.estadoJugador.IdEstado = Convert.ToInt32(datos.Lector["IdEstadoJugador"]);
-                    jugador.estadoJugador.NombreEstado = (string)datos.Lector["EstadoJugador"];
-
-                    lista.Add(jugador);
+                    lista.Add(MapearJugador(datos.Lector));
                 }
-
-                return lista;
             }
-            catch (Exception ex)
+            finally
             {
-                throw ex;
+                datos.cerrarConexion();
             }
 
+            return lista;
         }
+
 
         public List<Jugador> FiltroAvanzado(string categoria, string estado)
         {
-
             List<Jugador> lista = new List<Jugador>();
+            AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                AccesoDatos datos = new AccesoDatos();
                 datos.setearSP("FiltroAvanzado");
                 datos.agregarParametro("@NombreCategoria", categoria);
                 datos.agregarParametro("@NombreEstado", estado);
@@ -255,37 +251,17 @@ namespace Negocio
 
                 while (datos.Lector.Read())
                 {
-                    Jugador jugador = new Jugador();
-                    jugador.IdJugador = Convert.ToInt32(datos.Lector["IdJugador"]);
-                    jugador.Nombres = (string)datos.Lector["Nombre"];
-                    jugador.Apellidos = (string)datos.Lector["Apellido"];
-                    jugador.FechaNacimiento = (DateTime)datos.Lector["FechaNacimiento"];
-                    jugador.LugarNacimiento = new LugarNacimiento();
-                    jugador.LugarNacimiento.Pais = (string)datos.Lector["pais"];
-                    jugador.LugarNacimiento.Provincia = (string)datos.Lector["provincia"];
-                    jugador.LugarNacimiento.Ciudad = (string)datos.Lector["ciudad"];
-                    jugador.Email = (string)datos.Lector["email"];
-                    jugador.Altura = Convert.ToInt32(datos.Lector["Altura"]);
-                    jugador.Peso = Convert.ToDecimal(datos.Lector["Peso"]);
-                    jugador.Posicion = (string)datos.Lector["posicion"];
-                    jugador.Categoria = new Categoria();
-                    jugador.Categoria.IdCategoria = Convert.ToInt32(datos.Lector["IdCategoria"]);
-                    jugador.Categoria.NombreCategoria = (string)datos.Lector["NombreCategoria"];
-                    jugador.estadoJugador = new EstadoJugador();
-                    jugador.estadoJugador.IdEstado = Convert.ToInt32(datos.Lector["IdEstadoJugador"]);
-                    jugador.estadoJugador.NombreEstado = (string)datos.Lector["EstadoJugador"];
-
-                    lista.Add(jugador);
+                    lista.Add(MapearJugador(datos.Lector));
                 }
-
-                return lista;
             }
-            catch (Exception ex)
+            finally
             {
-
-                throw ex;
+                datos.cerrarConexion();
             }
+
+            return lista;
         }
+
 
         public void ModificarJugador(Jugador modificado)
         {
@@ -308,6 +284,8 @@ namespace Negocio
                 datos.agregarParametro("@Posicion", modificado.Posicion);
                 datos.agregarParametro("@IdCategoria", modificado.Categoria.IdCategoria);
                 datos.agregarParametro("@IdEstadoJugador", modificado.estadoJugador.IdEstado);
+                datos.agregarParametro("@UrlImagen", modificado.UrlImagen);
+                datos.agregarParametro("@DNI", modificado.DNI); // Agregar el parámetro DNI
 
                 datos.ejecutarAccion();
             }
@@ -320,6 +298,7 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
 
         public void EliminarJugador(int id)
         {
@@ -365,27 +344,7 @@ namespace Negocio
 
                 while (datos.Lector.Read())
                 {
-                    Jugador jugador = new Jugador();
-                    jugador.IdJugador = Convert.ToInt32(datos.Lector["IdJugador"]);
-                    jugador.Nombres = (string)datos.Lector["Nombre"];
-                    jugador.Apellidos = (string)datos.Lector["Apellido"];
-                    jugador.FechaNacimiento = (DateTime)datos.Lector["FechaNacimiento"];
-                    jugador.LugarNacimiento = new LugarNacimiento();
-                    jugador.LugarNacimiento.Pais = (string)datos.Lector["pais"];
-                    jugador.LugarNacimiento.Provincia = (string)datos.Lector["provincia"];
-                    jugador.LugarNacimiento.Ciudad = (string)datos.Lector["ciudad"];
-                    jugador.Email = (string)datos.Lector["email"];
-                    jugador.Altura = Convert.ToInt32(datos.Lector["Altura"]);
-                    jugador.Peso = Convert.ToDecimal(datos.Lector["Peso"]);
-                    jugador.Posicion = (string)datos.Lector["posicion"];
-                    jugador.Categoria = new Categoria();
-                    jugador.Categoria.IdCategoria = Convert.ToInt32(datos.Lector["IdCategoria"]);
-                    jugador.Categoria.NombreCategoria = (string)datos.Lector["NombreCategoria"];
-                    jugador.estadoJugador = new EstadoJugador();
-                    jugador.estadoJugador.IdEstado = Convert.ToInt32(datos.Lector["IdEstadoJugador"]);
-                    jugador.estadoJugador.NombreEstado = (string)datos.Lector["EstadoJugador"];
-
-                    lista.Add(jugador);
+                    lista.Add(MapearJugador(datos.Lector));
                 }
 
                 return lista;
@@ -399,6 +358,8 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+
 
         public List<int> listarIdPorEntrenamiento(int idEntrenamiento)
         {
@@ -454,27 +415,7 @@ namespace Negocio
 
                 while (datos.Lector.Read())
                 {
-                    Jugador jugador = new Jugador();
-                    jugador.IdJugador = Convert.ToInt32(datos.Lector["IdJugador"]);
-                    jugador.Nombres = (string)datos.Lector["Nombre"];
-                    jugador.Apellidos = (string)datos.Lector["Apellido"];
-                    jugador.FechaNacimiento = (DateTime)datos.Lector["FechaNacimiento"];
-                    jugador.LugarNacimiento = new LugarNacimiento();
-                    jugador.LugarNacimiento.Pais = (string)datos.Lector["pais"];
-                    jugador.LugarNacimiento.Provincia = (string)datos.Lector["provincia"];
-                    jugador.LugarNacimiento.Ciudad = (string)datos.Lector["ciudad"];
-                    jugador.Email = (string)datos.Lector["email"];
-                    jugador.Altura = Convert.ToInt32(datos.Lector["Altura"]);
-                    jugador.Peso = Convert.ToDecimal(datos.Lector["Peso"]);
-                    jugador.Posicion = (string)datos.Lector["posicion"];
-                    jugador.Categoria = new Categoria();
-                    jugador.Categoria.IdCategoria = Convert.ToInt32(datos.Lector["IdCategoria"]);
-                    jugador.Categoria.NombreCategoria = (string)datos.Lector["NombreCategoria"];
-                    jugador.estadoJugador = new EstadoJugador();
-                    jugador.estadoJugador.IdEstado = Convert.ToInt32(datos.Lector["IdEstadoJugador"]);
-                    jugador.estadoJugador.NombreEstado = (string)datos.Lector["EstadoJugador"];
-
-                    lista.Add(jugador);
+                    lista.Add(MapearJugador(datos.Lector));
                 }
 
                 return lista;
@@ -488,6 +429,7 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
 
         public void actualizarEstadoPorNuevaIncidencia(int idJugador, Incidencia incidencia)
         {
@@ -542,6 +484,58 @@ namespace Negocio
                 datos.cerrarConexion();
             }
 
+    }
+
+
+
+
+
+
+
+        private Jugador MapearJugador(SqlDataReader lector)
+        {
+            Jugador jugador = new Jugador();
+
+            jugador.IdJugador = lector["IdJugador"] != DBNull.Value ? Convert.ToInt32(lector["IdJugador"]) : 0;
+            jugador.Nombres = lector["Nombre"] != DBNull.Value ? (string)lector["Nombre"] : string.Empty;
+            jugador.Apellidos = lector["Apellido"] != DBNull.Value ? (string)lector["Apellido"] : string.Empty;
+            jugador.FechaNacimiento = lector["FechaNacimiento"] != DBNull.Value ? (DateTime)lector["FechaNacimiento"] : DateTime.MinValue;
+            jugador.DNI = lector["DNI"] != DBNull.Value ? (string)lector["DNI"] : string.Empty;
+
+            jugador.LugarNacimiento = new LugarNacimiento();
+            jugador.LugarNacimiento.Pais = lector["pais"] != DBNull.Value ? (string)lector["pais"] : string.Empty;
+            jugador.LugarNacimiento.Provincia = lector["provincia"] != DBNull.Value ? (string)lector["provincia"] : string.Empty;
+            jugador.LugarNacimiento.Ciudad = lector["ciudad"] != DBNull.Value ? (string)lector["ciudad"] : string.Empty;
+
+            jugador.Email = lector["Email"] != DBNull.Value ? (string)lector["Email"] : string.Empty;
+            jugador.UrlImagen = lector["UrlImagen"] != DBNull.Value && !string.IsNullOrWhiteSpace((string)lector["UrlImagen"])
+                ? (string)lector["UrlImagen"]
+                : "~/Images/placeholder.png"; // Ruta placeHolder
+
+            jugador.Altura = lector["Altura"] != DBNull.Value ? Convert.ToInt32(lector["Altura"]) : 0;
+            jugador.Peso = lector["Peso"] != DBNull.Value ? Convert.ToDecimal(lector["Peso"]) : 0m;
+            jugador.Posicion = lector["Posicion"] != DBNull.Value ? (string)lector["Posicion"] : string.Empty;
+
+            jugador.Categoria = new Categoria();
+            jugador.Categoria.IdCategoria = lector["IdCategoria"] != DBNull.Value ? Convert.ToInt32(lector["IdCategoria"]) : 0;
+            jugador.Categoria.NombreCategoria = lector["NombreCategoria"] != DBNull.Value ? (string)lector["NombreCategoria"] : string.Empty;
+
+            jugador.estadoJugador = new EstadoJugador();
+            jugador.estadoJugador.IdEstado = lector["IdEstadoJugador"] != DBNull.Value ? Convert.ToInt32(lector["IdEstadoJugador"]) : 0;
+            jugador.estadoJugador.NombreEstado = lector["EstadoJugador"] != DBNull.Value ? (string)lector["EstadoJugador"] : string.Empty;
+
+            return jugador;
         }
+
+
+
+
+
+
+
+
+
+
+
     }
 }

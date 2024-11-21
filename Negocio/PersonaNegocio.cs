@@ -17,7 +17,7 @@ namespace Negocio
             try
             {
                
-                datos.setearConsulta("SELECT Nombres, Apellidos, Edad, FechaNacimiento, Email, UrlImagen FROM Persona");
+                datos.setearConsulta("SELECT DNI,Nombres, Apellidos, Edad, FechaNacimiento, Email, UrlImagen FROM Persona");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -29,7 +29,8 @@ namespace Negocio
                         Edad = datos.Lector["Edad"] != DBNull.Value ? Convert.ToInt32(datos.Lector["Edad"]) : 0,
                         FechaNacimiento = datos.Lector["FechaNacimiento"] != DBNull.Value ? Convert.ToDateTime(datos.Lector["FechaNacimiento"]) : DateTime.MinValue,
                         Email = datos.Lector["Email"] != DBNull.Value ? (string)datos.Lector["Email"] : string.Empty,
-                        UrlImagen = datos.Lector["UrlImagen"] != DBNull.Value ? (string)datos.Lector["UrlImagen"] : string.Empty
+                        UrlImagen = datos.Lector["UrlImagen"] != DBNull.Value ? (string)datos.Lector["UrlImagen"] : string.Empty,
+                        DNI = datos.Lector["DNI"] != DBNull.Value ? (string)datos.Lector["DNI"] : string.Empty
                     };
 
                     lista.Add(persona);
