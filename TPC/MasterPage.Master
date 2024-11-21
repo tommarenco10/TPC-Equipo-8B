@@ -39,16 +39,34 @@
                                     <li><a class="dropdown-item" href="entrenamientosHistorial.aspx">Historial de Entrenamientos </a></li>
                                     <li><a class="dropdown-item" href="entrenamientosProgramados.aspx">Entrenamientos Programados </a></li>
                                     <%}%>
-                                    <li><a class="dropdown-item" href="entrenamientosFinalizados.aspx">Entrenamientos Finalizados </a></li> 
+                                    <li><a class="dropdown-item" href="entrenamientosFinalizados.aspx">Entrenamientos Finalizados </a></li>
                                 </ul>
                             </div>
 
-                            <div class="navbar-nav ms-auto">
-                                <a class="nav-link active" runat="server" href="PlantillaJugadores.aspx">Plantilla</a>
+                            <div class="nav-item dropdown">
+                                <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Plantilla
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <%if (esEntrenador() || esAdmin())
+                                        {%>
+                                    <li><a class="dropdown-item" href="ConfigJugador.aspx">Agregar Jugador </a></li>
+                                    <%}%>
+                                    <li><a class="dropdown-item" href="PlantillaJugadores.aspx">Buscar Jugadores </a></li>
+                                </ul>
                             </div>
 
-                            <div class="navbar-nav ms-auto">
-                                <a class="nav-link active" runat="server" href="CuerpoTecnico.aspx">Cuerpo Tecnico</a>
+                            <div class="nav-item dropdown">
+                                <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Cuerpo Técnico
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <%if (esAdmin())
+                                        {%>
+                                    <li><a class="dropdown-item" href="ConfigEntrenador.aspx">Agregar Miembro </a></li>
+                                    <%}%>
+                                    <li><a class="dropdown-item" href="CuerpoTecnico.aspx">Buscar Miembro </a></li>
+                                </ul>
                             </div>
 
                             <%if (esAdmin())
@@ -67,22 +85,22 @@
                         </div>
 
                         <% if (sesionActiva())
-                            {
-
-                        %>
+                            {%>
                         <div class="navbar-nav ms-auto">
                             <div class="nav-item dropdown">
-                                <button class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"/>
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <!-- Cargar la imagen del perfil -->
                                     <asp:Image runat="server"
                                         ID="ImagenPerfil"
                                         CssClass="profile-image"
                                         ImageUrl='<%# GetImageUrl() %>'
-                                        AlternateText="Profile" />
-                                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="profileDropdown">
-                                        <li><asp:linkbutton text="text" runat="server" CssClass="dropdown-item" OnClick="editarPerfil_Click">Editar Perfil</asp:LinkButton></li>
-                                        <li><asp:LinkButton runat="server" CssClass="dropdown-item" OnClick="CerrarSesion_Click">Cerrar Sesión</asp:LinkButton></li>
-                                    </ul>
+                                        AlternateText="Profile"></asp:Image></a>
+                                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="profileDropdown">
+                                    <li>
+                                        <asp:LinkButton Text="text" runat="server" CssClass="dropdown-item" OnClick="editarPerfil_Click">Editar Perfil</asp:LinkButton></li>
+                                    <li>
+                                        <asp:LinkButton runat="server" CssClass="dropdown-item" OnClick="CerrarSesion_Click">Cerrar Sesión</asp:LinkButton></li>
+                                </ul>
                             </div>
                         </div>
                         <% }

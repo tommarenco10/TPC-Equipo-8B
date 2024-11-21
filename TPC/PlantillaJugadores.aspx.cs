@@ -19,11 +19,6 @@ namespace TPC
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            JugadorNegocio negocio = new JugadorNegocio();
-            IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
-            incidenciaNegocio.actualizarEstadosPorFecha();
-            negocio.actualizarEstadoDeTodosLosJugadores();
-            Session.Add("listaJugadores", negocio.ListarJugador());
 
             bool esAdministrador = ((MasterPage)this.Master).esAdmin();
             bool esEntrenador = ((MasterPage)this.Master).esEntrenador();
@@ -82,7 +77,7 @@ namespace TPC
         {
 
             List<Jugador> listaFiltrada = lista;
-            bool conCambios=false;
+            bool conCambios = false;
 
             if (!string.IsNullOrWhiteSpace(txtboxFiltroNombre.Text))
             {
@@ -99,7 +94,7 @@ namespace TPC
             }
 
 
-            if (ddlCategoria.SelectedIndex!= 0)
+            if (ddlCategoria.SelectedIndex != 0)
             {
                 string seleccionado = ddlCategoria.SelectedItem.Text;
                 listaFiltrada = listaFiltrada.FindAll(x => x.Categoria.NombreCategoria == seleccionado);
@@ -130,19 +125,15 @@ namespace TPC
             {
                 Button btn = (Button)sender;
                 int idJugador = Convert.ToInt32(btn.CommandArgument);
-                Session.Add("idJugador",idJugador);
+                Session.Add("idJugador", idJugador);
 
                 if (btn.ID == "btnModificar")
                 {
-                    Response.Redirect("ConfigJugador.aspx?id=2", false);
+                    Response.Redirect("ConfigJugador.aspx", false);
                 }
                 else if (btn.ID == "btnIncidencia")
                 {
-                    Response.Redirect("incidenciasActualizables.aspx", false);
-                }
-                else if (btn.ID == "btnEliminar")
-                {
-                    Response.Redirect("ConfigJugador.aspx?id=1", false);
+                    Response.Redirect("gestionIncidencias.aspx", false);
                 }
             }
             catch (ThreadAbortException) { }
