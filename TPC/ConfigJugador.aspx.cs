@@ -87,7 +87,6 @@ namespace TPC
                 txtboxPosicion.Text = jugador.Posicion;
                 ddlCategoria.SelectedValue = jugador.Categoria.IdCategoria.ToString();
                 ddlEstadoJugador.SelectedValue = jugador.estadoJugador.IdEstado.ToString();
-                imgPreview.Src =jugador.UrlImagen;
 
                 Session.Add("jugadorSeleccionado", jugador);
             }
@@ -157,7 +156,7 @@ namespace TPC
                 return jugador;
             }
             catch (Exception ex)
-            {                
+            {
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
                 return null;
@@ -166,149 +165,201 @@ namespace TPC
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
-{
-    try
-    {
-        var jugador = ObtenerJugadorDesdeFormulario();
-        var negocio = new JugadorNegocio();
-        negocio.AgregarConSP(jugador);
-        Response.Redirect("PlantillaJugadores.aspx", false);
-    }
-    catch (Exception ex)
-    {
-        Session.Add("error", ex.ToString());
-    }
-}
-
-protected void btnModificar_Click(object sender, EventArgs e)
-{
-    try
-    {
-        var jugador = ObtenerJugadorDesdeFormulario();
-        jugador.IdJugador = int.Parse(txtboxId.Text);
-        var negocio = new JugadorNegocio();
-        negocio.ModificarJugador(jugador);
-        Response.Redirect("PlantillaJugadores.aspx", false);
-    }
-    catch (Exception ex)
-    {
-        Session.Add("error", ex.ToString());
-    }
-}
-
-protected void btnEliminar_Click(object sender, EventArgs e)
-{
-    ConfirmarEliminacion = true;
-}
-
-protected void BtnEliminarConfirmado_Click(object sender, EventArgs e)
-{
-    try
-    {
-        if (chkboxConfirmado.Checked)
         {
-            var negocio = new JugadorNegocio();
-            negocio.EliminarJugador(int.Parse(txtboxId.Text));
-            Response.Redirect("PlantillaJugadores.aspx");
+            try
+            {
+                var jugador = ObtenerJugadorDesdeFormulario();
+                var negocio = new JugadorNegocio();
+                negocio.AgregarConSP(jugador);
+                Response.Redirect("PlantillaJugadores.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+            }
         }
-    }
-    catch (Exception ex)
-    {
-        Session.Add("error", ex.ToString());
-    }
-}
+
+        protected void btnModificar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var jugador = ObtenerJugadorDesdeFormulario();
+                jugador.IdJugador = int.Parse(txtboxId.Text);
+                var negocio = new JugadorNegocio();
+                negocio.ModificarJugador(jugador);
+                Response.Redirect("PlantillaJugadores.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+            }
+        }
+
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            ConfirmarEliminacion = true;
+        }
+
+        protected void BtnEliminarConfirmado_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //if (chkboxConfirmado.Checked)
+                //{
+                //    var negocio = new JugadorNegocio();
+                //    negocio.EliminarJugador(int.Parse(txtboxId.Text));
+                //    Response.Redirect("PlantillaJugadores.aspx");
+                //}
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+            }
+        }
 
 
 
-private void CargarPaises()
-{
-    try
-    {
-        List<string> paises = lugarNacimientoNegocio.ObtenerPaises();
-        ddlPais.DataSource = paises;
-        ddlPais.DataBind();
-        ddlPais.Items.Insert(0, new ListItem("Seleccione un país", ""));
-    }
-    catch (Exception ex)
-    {
-        MostrarError("Error al cargar países: " + ex.Message);
-    }
-}
+        private void CargarPaises()
+        {
+            try
+            {
+                List<string> paises = lugarNacimientoNegocio.ObtenerPaises();
+                ddlPais.DataSource = paises;
+                ddlPais.DataBind();
+                ddlPais.Items.Insert(0, new ListItem("Seleccione un país", ""));
+            }
+            catch (Exception ex)
+            {
+                MostrarError("Error al cargar países: " + ex.Message);
+            }
+        }
 
-private void CargarProvincias(string pais)
-{
-    try
-    {
-        List<string> provincias = lugarNacimientoNegocio.ObtenerProvincias(pais);
-        ddlProvincia.DataSource = provincias;
-        ddlProvincia.DataBind();
-        ddlProvincia.Items.Insert(0, new ListItem("Seleccione una provincia", ""));
-        ddlProvincia.Enabled = provincias.Count > 0;
-    }
-    catch (Exception ex)
-    {
-        MostrarError("Error al cargar provincias: " + ex.Message);
-    }
-}
+        private void CargarProvincias(string pais)
+        {
+            try
+            {
+                List<string> provincias = lugarNacimientoNegocio.ObtenerProvincias(pais);
+                ddlProvincia.DataSource = provincias;
+                ddlProvincia.DataBind();
+                ddlProvincia.Items.Insert(0, new ListItem("Seleccione una provincia", ""));
+                ddlProvincia.Enabled = provincias.Count > 0;
+            }
+            catch (Exception ex)
+            {
+                MostrarError("Error al cargar provincias: " + ex.Message);
+            }
+        }
 
-private void CargarCiudades(string provincia)
-{
-    try
-    {
-        List<string> ciudades = lugarNacimientoNegocio.ObtenerCiudades(provincia);
-        ddlCiudad.DataSource = ciudades;
-        ddlCiudad.DataBind();
-        ddlCiudad.Items.Insert(0, new ListItem("Seleccione una ciudad", ""));
-    }
-    catch (Exception ex)
-    {
-        MostrarError("Error al cargar ciudades: " + ex.Message);
-    }
-}
+        private void CargarCiudades(string provincia)
+        {
+            try
+            {
+                List<string> ciudades = lugarNacimientoNegocio.ObtenerCiudades(provincia);
+                ddlCiudad.DataSource = ciudades;
+                ddlCiudad.DataBind();
+                ddlCiudad.Items.Insert(0, new ListItem("Seleccione una ciudad", ""));
+            }
+            catch (Exception ex)
+            {
+                MostrarError("Error al cargar ciudades: " + ex.Message);
+            }
+        }
 
-private void MostrarError(string mensaje)
-{
-    Session.Add("error", mensaje);
-    Response.Redirect("Error.aspx", false);
-}
+        private void MostrarError(string mensaje)
+        {
+            Session.Add("error", mensaje);
+            Response.Redirect("Error.aspx", false);
+        }
 
-protected void ddlPais_SelectedIndexChanged(object sender, EventArgs e)
-{
-    try
-    {
-        // Obtener el valor seleccionado del país
-        string paisSeleccionado = ddlPais.SelectedValue;
+        protected void ddlPais_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                // Obtener el valor seleccionado del país
+                string paisSeleccionado = ddlPais.SelectedValue;
 
-        // Cargar las provincias basadas en el país seleccionado
-        CargarProvincias(paisSeleccionado);
+                // Cargar las provincias basadas en el país seleccionado
+                CargarProvincias(paisSeleccionado);
 
-        // Limpiar la selección de ciudad y provincia cuando cambie el país
-        ddlProvincia.SelectedIndex = 0;
-        ddlCiudad.SelectedIndex = 0;
+                // Limpiar la selección de ciudad y provincia cuando cambie el país
+                ddlProvincia.SelectedIndex = 0;
+                ddlCiudad.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MostrarError("Error al seleccionar país: " + ex.Message);
+            }
+        }
+
+
+
+
+
+
+        protected void ddlProvincia_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                // Obtener el valor seleccionado de la provincia
+                string provinciaSeleccionada = ddlProvincia.SelectedValue;
+
+                // Cargar las ciudades basadas en la provincia seleccionada
+                CargarCiudades(provinciaSeleccionada);
+
+                // Limpiar la selección de ciudad cuando cambie la provincia
+                ddlCiudad.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MostrarError("Error al seleccionar provincia: " + ex.Message);
+            }
+        }
+
+
+
+
+        public List<Control> ComprobarVacio()
+        {
+            
+            List<Control> nueva = new List<Control>();
+
+            
+            nueva.Add(txtboxId);
+            nueva.Add(txtboxNombre);
+            nueva.Add(txtboxApellido);
+            nueva.Add(txtFechaNacimiento);
+            nueva.Add(txtboxEmail);
+            nueva.Add(txtboxAltura);
+            nueva.Add(txtboxPeso);
+            nueva.Add(txtboxPosicion);
+
+            
+            nueva.Add(ddlPais);
+            nueva.Add(ddlProvincia);
+            nueva.Add(ddlCiudad);
+            nueva.Add(ddlCategoria);
+            nueva.Add(ddlEstadoJugador);
+
+            return nueva;
+        }
+
+
+
+
+
+
+
+
     }
-    catch (Exception ex)
-    {
-        MostrarError("Error al seleccionar país: " + ex.Message);
-    }
-}
 
-protected void ddlProvincia_SelectedIndexChanged(object sender, EventArgs e)
-{
-    try
-    {
-        // Obtener el valor seleccionado de la provincia
-        string provinciaSeleccionada = ddlProvincia.SelectedValue;
 
-        // Cargar las ciudades basadas en la provincia seleccionada
-        CargarCiudades(provinciaSeleccionada);
 
-        // Limpiar la selección de ciudad cuando cambie la provincia
-        ddlCiudad.SelectedIndex = 0;
-    }
-    catch (Exception ex)
-    {
-        MostrarError("Error al seleccionar provincia: " + ex.Message);
-    }
-}
-    }
+
+
+
+
+
+
+
+
 }

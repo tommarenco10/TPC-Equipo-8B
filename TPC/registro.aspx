@@ -109,32 +109,28 @@
 
             <div class="row g-3">
                 <!-- Campo para subir la imagen -->
-                <div class="col-md-6">
-                    <label for="fileInput" class="form-label">Subir Imagen</label>
-                    <asp:FileUpload ID="fileInput" runat="server" CssClass="form-control mb-2" OnChange="validarTamanoYVistaPrevia(this);" />
-                    <asp:Label ID="Label1" runat="server" CssClass="text-danger" Text=""></asp:Label>
-                </div>
+                <asp:FileUpload ID="fileInput" runat="server" CssClass="form-control mb-2" OnChange="validarTamanoYVistaPrevia(this);" />
+                <asp:Label ID="Label1" runat="server" CssClass="text-danger" Text=""></asp:Label>
 
                 <!-- Vista previa de la imagen, centrada y con tamaño limitado -->
                 <div class="col-md-6 d-flex justify-content-center align-items-center mt-3">
                     <img id="imgPreview" src="/Images/placeholder.png" alt="Vista previa" class="preview-image" />
                 </div>
+                </div>
+
+
+
+
+                <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
+
+
+
+                <!-- Otros Campos -->
+
+                <div class="col-12">
+                    <asp:Button Text="Confirmar" CssClass="btn btn-primary" ID="btnConfirmar" runat="server" Enabled="true" OnClick="btnConfirmar_Click" />
+                </div>
             </div>
-
-
-
-
-            <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
-
-
-
-            <!-- Otros Campos -->
-
-            <div class="col-12">
-                <asp:Button Text="Confirmar" CssClass="btn btn-primary" ID="btnConfirmar" runat="server" Enabled="true" OnClick="btnConfirmar_Click" />
-            </div>
-        </div>
-
     </section>
 
 

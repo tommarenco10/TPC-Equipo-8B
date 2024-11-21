@@ -1,46 +1,34 @@
-﻿function previewImage(event) {
+﻿function validarTamanoYVistaPrevia(input) {
+    const archivo = input.files[0];
     const imgPreview = document.getElementById("imgPreview");
-    imgPreview.src = URL.createObjectURL(event.target.files[0]);
-    imgPreview.classList.remove("d-none");
-}
-
-
-
-function validarTamanoArchivo(input) {
-    const maxFileSize = 2 * 1024 * 1024;    
-    const archivo = input.files[0]; 
-    const lblError = document.getElementById('<%= lblError.ClientID %>');
 
     if (archivo) {
-        if (archivo.size > maxFileSize) {
-            lblError.innerText = "El tamaño del archivo no debe superar los 2 MB.";
-            input.value = "";   
-        } else {
-            lblError.innerText = "";    
+        // Validación opcional del tamaño o tipo
+        if (archivo.size > 2 * 1024 * 1024) { // 2 MB
+            alert("El archivo es demasiado grande.");
+            return;
         }
+
+        // Mostrar la vista previa
+        imgPreview.src = URL.createObjectURL(archivo);
+        imgPreview.classList.remove("d-none");
     }
 }
 
 
-
-function validarTamanoYVistaPrevia(input) {
-    const maxFileSize = 2 * 1024 * 1024; // 2 MB
+function validarTamanoYVistaPreviaJugador(input) {
     const archivo = input.files[0];
-    const lblError = document.getElementById('<%= lblError.ClientID %>');
-    const imgPreview = document.getElementById("imgPreview");
+    const imgPreview = document.getElementById("imgJugador");
 
     if (archivo) {
-        // Validar tamaño del archivo
-        if (archivo.size > maxFileSize) {
-            lblError.innerText = "El tamaño del archivo no debe superar los 2 MB.";
-            input.value = ""; // Limpiar el campo de archivo
-            imgPreview.classList.add("d-none"); // Ocultar la vista previa
-        } else {
-            lblError.innerText = ""; // Limpiar cualquier mensaje de error
-            imgPreview.classList.remove("d-none"); // Mostrar la vista previa
-
-            // Mostrar la vista previa de la imagen
-            imgPreview.src = URL.createObjectURL(archivo);
+        // Validación opcional del tamaño o tipo
+        if (archivo.size > 2 * 1024 * 1024) { // 2 MB
+            alert("El archivo es demasiado grande.");
+            return;
         }
+
+        // Mostrar la vista previa
+        imgPreview.src = URL.createObjectURL(archivo);
+        imgPreview.classList.remove("d-none");
     }
 }
