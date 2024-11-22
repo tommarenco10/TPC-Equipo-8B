@@ -48,10 +48,18 @@ namespace TPC
                 if (!IsPostBack)
                 {
                     // CONFIGURACIONES INICIALES
+                    btnAgregar.Visible = false;
+                    btnEliminar.Visible = false;
+                    btnModificar.Visible = false;
 
                     // GUARDA EL TIPO DE PÁGINA
                     tipoPagina = Convert.ToInt32(Request.QueryString["id"]);
                     Session["tipoPagina"] = tipoPagina;
+
+                    if (tipoPagina == 1) btnEliminar.Visible = true;
+                    if (tipoPagina == 2) btnModificar.Visible = true;
+                    if (tipoPagina != 2 && tipoPagina != 1) btnAgregar.Visible = true;
+
 
                     if (tipoPagina == 1 || tipoPagina == 2)
                     {
@@ -65,6 +73,7 @@ namespace TPC
                     {
                         InicializarFormularioAgregar();
                     }
+
                 }
             }
             catch (Exception ex)

@@ -27,7 +27,12 @@ namespace TPC
 
             if (!(esAdministrador || esEntrenador))
             {
-                EliminarColumnas(); // Eliminar columnas antes de enlazar los datos
+                if (!(esAdministrador || esEntrenador))
+                {
+                    dgvJugadores.Columns[dgvJugadores.Columns.Count - 1].Visible = false; // Eliminar
+                    dgvJugadores.Columns[dgvJugadores.Columns.Count - 2].Visible = false; // Incidencias
+                    dgvJugadores.Columns[dgvJugadores.Columns.Count - 3].Visible = false; // Modificar
+                }
             }
 
             if (!IsPostBack)
@@ -148,20 +153,6 @@ namespace TPC
             }
         }
 
-        protected void EliminarColumnas()
-
-        {
-            // Eliminar las últimas dos columnas (Modificar y Gestión Incidencias)
-            // Asegúrate de eliminar en el orden correcto (de atrás hacia adelante)
-            if (dgvJugadores.Columns.Count > 0)
-            {
-                dgvJugadores.Columns.RemoveAt(dgvJugadores.Columns.Count - 1);  // Eliminar la columna "Gestión Incidencias"
-            }
-            if (dgvJugadores.Columns.Count > 0)
-            {
-                dgvJugadores.Columns.RemoveAt(dgvJugadores.Columns.Count - 1);  // Eliminar la columna "Modificar"
-            }
-        }
 
         protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {

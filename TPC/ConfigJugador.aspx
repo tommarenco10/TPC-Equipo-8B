@@ -168,9 +168,9 @@
         <div class="col-12">
             <asp:UpdatePanel ID="updatePanel" runat="server">
                 <ContentTemplate>
-                    <asp:Button Text="Agregar" CssClass="btn btn-primary" ID="btnAgregar" runat="server" OnClick="btnAgregar_Click" />
                     <asp:Button Text="Modificar" CssClass="btn btn-warning" ID="btnModificar" runat="server" OnClick="btnModificar_Click" AutoPostBack="true" />
                     <asp:Button Text="Eliminar" CssClass="btn btn-danger" ID="btnEliminar" runat="server" OnClick="btnEliminar_Click" />
+                    <asp:Button Text="Agregar" CssClass="btn btn-primary" ID="btnAgregar" runat="server" OnClick="btnAgregar_Click" />
                     <% if (ConfirmarEliminacion)
                         { %>
                     <asp:CheckBox Text="Confirmar eliminacion" ID="chkboxConfirmado" runat="server" />
