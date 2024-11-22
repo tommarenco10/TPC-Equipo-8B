@@ -47,19 +47,19 @@ namespace Negocio
 
                 while (datos.Lector.Read())
                 {
-                    ObservacionConFecha aux = new ObservacionConFecha();
-
-                    aux.IdObservacion = datos.Lector["IdObservacion"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdObservacion"]) : 0;
-                    aux.IdIncidencia = datos.Lector["IdIncidencia"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdIncidencia"]) : 0;
-                    aux.Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : string.Empty;
-                    aux.Fecha = datos.Lector["Fecha"] != DBNull.Value ? (DateTime)datos.Lector["Fecha"] : DateTime.MinValue;
+                    ObservacionConFecha aux = new ObservacionConFecha
+                    {
+                        IdObservacion = datos.Lector["IdObservacion"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdObservacion"]) : 0,
+                        IdIncidencia = datos.Lector["IdIncidencia"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdIncidencia"]) : 0,
+                        Fecha = datos.Lector["Fecha"] != DBNull.Value ? (DateTime)datos.Lector["Fecha"] : DateTime.MinValue,
+                        Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : string.Empty
+                    };
 
                     lista.Add(aux);
                 }
 
                 return lista;
             }
-
             catch (Exception ex)
             {
                 throw ex;
@@ -68,8 +68,8 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
-
         }
+
 
         public List<ObservacionConFecha> listarPorFechaAscendente()
         {
@@ -78,23 +78,66 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("SELECT IdObservacion, Fecha, Descripcion FROM Observacion ORDER BY Fecha ASC");
+                datos.setearConsulta("SELECT IdObservacion, IdIncidencia, Fecha, Descripcion FROM Observacion ORDER BY Fecha ASC");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
-                    ObservacionConFecha aux = new ObservacionConFecha();
-
-                    aux.IdObservacion = datos.Lector["IdObservacion"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdObservacion"]) : 0;
-                    aux.Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : string.Empty;
-                    aux.Fecha = datos.Lector["Fecha"] != DBNull.Value ? (DateTime)datos.Lector["Fecha"] : DateTime.MinValue;
+                    ObservacionConFecha aux = new ObservacionConFecha
+                    {
+                        IdObservacion = datos.Lector["IdObservacion"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdObservacion"]) : 0,
+                        IdIncidencia = datos.Lector["IdIncidencia"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdIncidencia"]) : 0,
+                        Fecha = datos.Lector["Fecha"] != DBNull.Value ? (DateTime)datos.Lector["Fecha"] : DateTime.MinValue,
+                        Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : string.Empty
+                    };
 
                     lista.Add(aux);
                 }
 
                 return lista;
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
+
+
+
+        public Incidencia obtenerIncidenciaConObservaciones(int idIncidencia)
+        {
+            Incidencia incidencia = null;
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                // Consultar la incidencia
+                datos.setearConsulta("SELECT IdIncidencia, IdJugador, Estado, FechaRegistro, FechaResolucion, Descripcion FROM Incidencia WHERE IdIncidencia = @id");
+                datos.agregarParametro("@id", idIncidencia);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    incidencia = new Incidencia
+                    {
+                        IdIncidencia = Convert.ToInt32(datos.Lector["IdIncidencia"]),
+                        IdJugador = Convert.ToInt32(datos.Lector["IdJugador"]),
+                        Estado = datos.Lector["Estado"] != DBNull.Value && (bool)datos.Lector["Estado"],
+                        FechaRegistro = datos.Lector["FechaRegistro"] != DBNull.Value ? (DateTime)datos.Lector["FechaRegistro"] : DateTime.MinValue,
+                        FechaResolución = datos.Lector["FechaResolucion"] != DBNull.Value ? (DateTime)datos.Lector["FechaResolucion"] : DateTime.MinValue,
+                        Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : string.Empty
+                    };
+                }
+                datos.cerrarConexion();
+
+                // Consultar las observaciones asociadas
+                incidencia.Observaciones = listarAscendentePorIncidencia(idIncidencia);
+            }
             catch (Exception ex)
             {
                 throw ex;
@@ -104,6 +147,7 @@ namespace Negocio
                 datos.cerrarConexion();
             }
 
+            return incidencia;
         }
 
     }
