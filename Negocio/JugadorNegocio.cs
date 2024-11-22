@@ -100,7 +100,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta(@"SELECT P.UrlImagen, P.Email, P.pais, P.provincia, P.ciudad, 
+                datos.setearConsulta(@"SELECT P.UrlImagen, P.Email, P.pais, P.provincia, P.ciudad,P.DNI, 
                                    J.IdJugador, J.IdPersona, P.Nombre, P.Apellido, 
                                    P.FechaNacimiento, J.Altura, J.Peso, J.Posicion, 
                                    C.IdCategoria, C.nombre as NombreCategoria, 
@@ -140,7 +140,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta($"SELECT J.IdJugador, P.Nombre, P.Apellido, P.FechaNacimiento, P.Pais, P.Provincia, P.Ciudad, " +
+                datos.setearConsulta($"SELECT J.IdJugador, P.Nombre, P.Apellido, P.FechaNacimiento, P.Pais, P.Provincia, P.Ciudad, P.DNI, " +
                                      $"P.Email, P.UrlImagen, J.Altura, J.Peso, J.Posicion, C.IdCategoria, C.Nombre AS NombreCategoria, " +
                                      $"EJ.IdEstadoJugador, EJ.Nombre AS EstadoJugador " +
                                      $"FROM Jugador J " +
@@ -164,6 +164,7 @@ namespace Negocio
         }
 
 
+
         public Jugador ObtenerJugadorPorId(int id)
         {
             Jugador jugador = null;
@@ -172,7 +173,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta(@"SELECT J.IdJugador, P.Nombre, P.Apellido, P.FechaNacimiento, 
-                                   P.pais, P.provincia, P.ciudad, P.Email, P.UrlImagen, 
+                                   P.pais, P.provincia, P.ciudad, P.Email, P.UrlImagen, P.DNI,
                                    J.Altura, J.Peso, J.Posicion, C.IdCategoria, 
                                    C.nombre AS NombreCategoria, EJ.IdEstadoJugador, 
                                    EJ.nombre AS EstadoJugador 
@@ -331,7 +332,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta(@"SELECT j.IdJugador, p.Nombre, p.Apellido, p.FechaNacimiento, p.Pais, 
+                datos.setearConsulta(@"SELECT j.IdJugador, p.Nombre, p.Apellido, p.FechaNacimiento, p.Pais, p.DNI,
                                 p.Provincia, p.Ciudad, p.Email, j.Altura, j.Peso, j.Posicion, 
                                 c.IdCategoria, c.Nombre AS NombreCategoria, 
                                 ej.IdEstadoJugador, ej.Nombre AS EstadoJugador, p.UrlImagen
