@@ -63,11 +63,12 @@ footer {
 }
 
 .preview-image {
-    width: 12rem;   
-    height: 12rem;  
-    object-fit: cover;  
-    border: 1px solid #ccc;     
-    border-radius: 5px;     
+    width: 12rem;
+    height: 12rem;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: block; /* Asegura que la imagen se muestre */
 }
 
 

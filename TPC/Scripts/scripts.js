@@ -1,4 +1,17 @@
-﻿function validarTamanoYVistaPrevia(input) {
+﻿
+window.onload = function () {
+    const imgPreview = document.getElementById("imgJugador");
+
+    // Si ya tiene un src, quito la clase d-none para que se muestre
+    if (imgPreview.src && imgPreview.src !== "") {
+        imgPreview.classList.remove("d-none");
+    }
+};
+
+
+
+
+function validarTamanoYVistaPrevia(input) {
     const archivo = input.files[0];
     const imgPreview = document.getElementById("imgPreview");
 

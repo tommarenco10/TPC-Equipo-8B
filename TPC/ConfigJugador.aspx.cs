@@ -100,7 +100,6 @@ namespace TPC
                 txtboxPeso.Text = jugador.Peso.ToString();
                 txtboxPosicion.Text = jugador.Posicion;
                 ddlEstadoJugador.SelectedValue = jugador.estadoJugador.IdEstado.ToString();
-
                 Session.Add("jugadorSeleccionado", jugador);
             }
         }
@@ -352,12 +351,12 @@ namespace TPC
         {
             try
             {
-                //if (chkboxConfirmado.Checked)
-                //{
-                //    var negocio = new JugadorNegocio();
-                //    negocio.EliminarJugador(int.Parse(txtboxId.Text));
-                //    Response.Redirect("PlantillaJugadores.aspx");
-                //}
+                if (chkboxConfirmado.Checked)
+                {
+                   var negocio = new JugadorNegocio();
+                    negocio.EliminarJugador(int.Parse(txtboxId.Text));
+                    Response.Redirect("PlantillaJugadores.aspx");
+                }
             }
             catch (Exception ex)
             {
@@ -393,6 +392,25 @@ namespace TPC
             nueva.Add(ddlEstadoJugador);
 
             return nueva;
+        }
+
+
+         public string getImagenJugador() {
+
+            if ((int)Session["tipoPagina"] == 2|| (int)Session["tipoPagina"]==1)
+            {
+                Jugador nuevo = (Jugador)(Session["jugadorSeleccionado"]);
+                return nuevo.UrlImagen;
+            }
+            else
+            {
+
+                return "/Images/placeholder.png";
+            }
+
+
+
+
         }
     }
 }

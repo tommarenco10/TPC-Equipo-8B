@@ -159,11 +159,11 @@
                     <div class="mb-3">
                         <label for="fileInput" class="form-label">Foto del Jugador:</label>
                         <asp:FileUpload ID="fileInput" runat="server" CssClass="form-control mb-2" OnChange="validarTamanoYVistaPreviaJugador(this);" />
-                        <img id="imgJugador" src="/Images/placeholder.png" alt="Vista previa" class="preview-image" />
+                        <img id="imgJugador" src="<%=getImagenJugador()%>" alt="Vista previa" class="preview-image" />
                     </div>
                 </div>
             </div>
-        </div>
+       </div>
 
         <div class="col-12">
             <asp:UpdatePanel ID="updatePanel" runat="server">
