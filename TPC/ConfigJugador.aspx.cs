@@ -91,15 +91,25 @@ namespace TPC
 
             if (jugador != null)
             {
-                txtboxId.Text = jugador.IdJugador.ToString();
-                txtboxNombre.Text = jugador.Nombres;
-                txtboxApellido.Text = jugador.Apellidos;
+                txtId.Text = jugador.IdJugador.ToString();
+                txtNombre.Text = jugador.Nombres;
+                txtApellido.Text = jugador.Apellidos;
                 txtFechaNacimiento.Text = jugador.FechaNacimiento.ToString("yyyy-MM-dd");
-                txtboxEmail.Text = jugador.Email;
-                txtboxAltura.Text = jugador.Altura.ToString();
-                txtboxPeso.Text = jugador.Peso.ToString();
-                txtboxPosicion.Text = jugador.Posicion;
-                ddlEstadoJugador.SelectedValue = jugador.estadoJugador.IdEstado.ToString();
+                txtEmail.Text = jugador.Email;
+                txtAltura.Text = jugador.Altura.ToString();
+                txtPeso.Text = jugador.Peso.ToString();
+                txtPosicion.Text = jugador.Posicion;
+                string nuevaUrlImagen = jugador.UrlImagen;
+
+                if (!string.IsNullOrEmpty(nuevaUrlImagen))
+                {
+                    imgJugadorPrincipal.ImageUrl = nuevaUrlImagen;
+                }
+                else
+                {
+                    imgJugadorPrincipal.ImageUrl = "https://via.placeholder.com/160";
+                }
+
                 Session.Add("jugadorSeleccionado", jugador);
             }
         }
@@ -254,13 +264,26 @@ namespace TPC
 
             try
             {
+                
+                string nuevaUrlImagen = jugador.UrlImagen;
+
+                if (!string.IsNullOrEmpty(nuevaUrlImagen))
+                {
+                    imgJugadorPrincipal.ImageUrl = nuevaUrlImagen;
+                }
+                else
+                {
+                    imgJugadorPrincipal.ImageUrl = "https://via.placeholder.com/150";
+                }
+                
+
                 string rutaRelativa = null;
 
                 // Si se ha subido una imagen nueva, procesarla
                 if (fileInput.HasFile)
                 {
                     string rutaCarpeta = Server.MapPath("~/Images/");
-                    string nombreArchivo = "profile-" + txtboxNombre.Text + "-" + Guid.NewGuid() + Path.GetExtension(fileInput.FileName);
+                    string nombreArchivo = "profile-" + txtNombre.Text + "-" + Guid.NewGuid() + Path.GetExtension(fileInput.FileName);
                     string rutaCompleta = Path.Combine(rutaCarpeta, nombreArchivo);
                     fileInput.SaveAs(rutaCompleta);
                     rutaRelativa = "Images/" + nombreArchivo;
@@ -273,24 +296,22 @@ namespace TPC
 
                 // Asignar valores a las propiedades del jugador
                 jugador.UrlImagen = rutaRelativa;
-                jugador.Nombres = txtboxNombre.Text;
-                jugador.Apellidos = txtboxApellido.Text;
+
+                jugador.Nombres = txtNombre.Text;
+                jugador.Apellidos = txtApellido.Text;
                 jugador.FechaNacimiento = DateTime.Parse(txtFechaNacimiento.Text);
 
                 jugador.LugarNacimiento.Pais = ddlPais.SelectedItem.Text;
                 jugador.LugarNacimiento.Provincia = ddlProvincia.SelectedItem.Text;
                 jugador.LugarNacimiento.Ciudad = ddlCiudad.SelectedItem.Text;
 
-                jugador.Email = txtboxEmail.Text;
-                jugador.Altura = int.Parse(txtboxAltura.Text);
-                jugador.Peso = decimal.Parse(txtboxPeso.Text);
-                jugador.Posicion = txtboxPosicion.Text;
+                jugador.Email = txtEmail.Text;
+                jugador.Altura = int.Parse(txtAltura.Text);
+                jugador.Peso = decimal.Parse(txtPeso.Text);
+                jugador.Posicion = txtPosicion.Text;
 
                 jugador.Categoria.IdCategoria = int.Parse(ddlCategoria.SelectedValue);
                 jugador.Categoria.NombreCategoria = ddlCategoria.SelectedItem.Text;
-
-                jugador.estadoJugador.IdEstado = int.Parse(ddlEstadoJugador.SelectedValue);
-                jugador.estadoJugador.NombreEstado = ddlEstadoJugador.SelectedItem.Text;
 
                 // Eliminar el jugador de la sesión después de obtener los datos
                 if (Session["jugadorSeleccionado"] != null)
@@ -330,7 +351,7 @@ namespace TPC
             try
             {
                 var jugador = ObtenerJugadorDesdeFormulario();
-                jugador.IdJugador = int.Parse(txtboxId.Text);
+                jugador.IdJugador = int.Parse(txtId.Text);
                 var negocio = new JugadorNegocio();
                 negocio.ModificarJugador(jugador);
                 Response.Redirect("PlantillaJugadores.aspx", false);
@@ -353,8 +374,8 @@ namespace TPC
             {
                 if (chkboxConfirmado.Checked)
                 {
-                   var negocio = new JugadorNegocio();
-                    negocio.EliminarJugador(int.Parse(txtboxId.Text));
+                    var negocio = new JugadorNegocio();
+                    negocio.EliminarJugador(int.Parse(txtId.Text));
                     Response.Redirect("PlantillaJugadores.aspx");
                 }
             }
@@ -376,28 +397,41 @@ namespace TPC
         {
             List<Control> nueva = new List<Control>();
 
-            nueva.Add(txtboxId);
-            nueva.Add(txtboxNombre);
-            nueva.Add(txtboxApellido);
+            nueva.Add(txtId);
+            nueva.Add(txtNombre);
+            nueva.Add(txtApellido);
             nueva.Add(txtFechaNacimiento);
-            nueva.Add(txtboxEmail);
-            nueva.Add(txtboxAltura);
-            nueva.Add(txtboxPeso);
-            nueva.Add(txtboxPosicion);
+            nueva.Add(txtEmail);
+            nueva.Add(txtAltura);
+            nueva.Add(txtPeso);
+            nueva.Add(txtPosicion);
 
             nueva.Add(ddlPais);
             nueva.Add(ddlProvincia);
             nueva.Add(ddlCiudad);
             nueva.Add(ddlCategoria);
-            nueva.Add(ddlEstadoJugador);
 
             return nueva;
         }
 
 
-         public string getImagenJugador() {
+        protected void txtUrlImagen_TextChanged(object sender, EventArgs e)
+        {
+            string url = txtUrlImagen.Text.Trim();
+            if (Uri.IsWellFormedUriString(url, UriKind.Absolute))
+            {
+                imgJugadorPrincipal.ImageUrl = url;
+            }
+            else
+            {
+                imgJugadorPrincipal.ImageUrl = "https://via.placeholder.com/160";
+            }
+        }
 
-            if ((int)Session["tipoPagina"] == 2|| (int)Session["tipoPagina"]==1)
+        public string getImagenJugador()
+        {
+
+            if ((int)Session["tipoPagina"] == 2 || (int)Session["tipoPagina"] == 1)
             {
                 Jugador nuevo = (Jugador)(Session["jugadorSeleccionado"]);
                 return nuevo.UrlImagen;
@@ -407,10 +441,10 @@ namespace TPC
 
                 return "/Images/placeholder.png";
             }
-
-
-
-
         }
+
+
+
+
     }
 }

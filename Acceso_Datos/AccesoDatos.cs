@@ -16,7 +16,7 @@ namespace Acceso_Datos
 
         public AccesoDatos()
         {
-            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=Gestion_Clubes; integrated security=true; TrustServerCertificate=True");
+            conexion = new SqlConnection("server=.\\SQLEXPRESS09; database=Gestion_Clubes; integrated security=true; TrustServerCertificate=True");
             comando = new SqlCommand();
             comando.Connection = conexion;
         }
