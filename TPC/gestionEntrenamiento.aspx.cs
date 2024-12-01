@@ -402,6 +402,8 @@ namespace TPC
                         entrenamientoNegocio.agregarEntrenamiento(entrenamiento);
                         int idNuevoEntrenamiento = entrenamientoNegocio.obtenerUltimoEntrenamiento();
                         asistenciaNegocio.AgregarAsistenciaMultiple(idNuevoEntrenamiento, jugadoresSeleccionadosIds);
+                        ServicioEmail.notificarJugadoresEntrenamiento(entrenamiento);
+                        
                     }
 
                     string script = (int)Session["tipoPagina"] == 2
