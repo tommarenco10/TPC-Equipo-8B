@@ -152,6 +152,7 @@ namespace TPC
                 Session["userProfileImage"] = rutaRelativa;
 
                 // Redirigir al usuario a la página principal
+                ServicioEmail.registroExitoso(persona);
                 Response.Redirect("index.aspx", false);
             }
             catch (Exception ex)
