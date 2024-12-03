@@ -112,19 +112,32 @@ namespace TPC
             Response.Redirect("gestionEntrenamiento.aspx");
         }
 
-        protected void btnVerDetalle_Click(object sender, EventArgs e)
+        protected void btnAccion_Click(object sender, EventArgs e)
         {
             try
             {
-                Button btnVerDetalle = (Button)sender;
-                int idEntrenamiento = Convert.ToInt32(btnVerDetalle.CommandArgument);
+                Button btn = (Button)sender;
+                int idEntrenamiento = Convert.ToInt32(btn.CommandArgument);
 
                 EntrenamientoNegocio negocioEntrenamiento = new EntrenamientoNegocio();
                 Entrenamiento entrenamientoSeleccionado = negocioEntrenamiento.ObtenerEntrenamientoPorId(idEntrenamiento);
 
+                List<int> listaJugadores = new List<int>();
+                foreach (Jugador jugador in entrenamientoSeleccionado.JugadoresCitados)
+                {
+                    listaJugadores.Add(jugador.IdJugador);
+                }
+                Session["jugadoresSeleccionados"] = listaJugadores;
                 Session["entrenamientoSeleccionado"] = entrenamientoSeleccionado;
 
-                Response.Redirect("entrenamientoVistaPrevia.aspx?id=4"); //FUNCION VER DETALLE
+                if (btn.ID == "btnVerDetalle")
+                {
+                    Response.Redirect("entrenamientoVistaPrevia.aspx?id=3"); //FUNCION VER DETALLE
+                }
+                else if (btn.ID == "btnRepetir")
+                {
+                    Response.Redirect("gestionEntrenamiento.aspx?id=3"); //FUNCION REPETIR ENTRENAMIENTO
+                }
             }
             catch (ThreadAbortException) { }
             catch (Exception ex)

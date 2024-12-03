@@ -80,7 +80,7 @@ namespace TPC
                     // CONFIGURACIONES SEGÚN TIPO DE PÁGINA
 
                     // SI TIPO DE PÁGINA 1: AGREGAR - VUELTA DESDE VISTA PREVIA
-                    if ((int)Session["tipoPagina"] == 1)
+                    if ((int)Session["tipoPagina"] == 1 || (int)Session["tipoPagina"] == 3)
                     {
 
                     }
