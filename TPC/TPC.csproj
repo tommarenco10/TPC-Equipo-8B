@@ -86,6 +86,7 @@
     <Content Include="index.aspx" />
     <Content Include="info.aspx" />
     <Content Include="ingreso.aspx" />
+    <Content Include="listaAsistencias.aspx" />
     <Content Include="PlantillaJugadores.aspx" />
     <Content Include="registro.aspx" />
     <Content Include="Scripts\scripts.js" />
@@ -213,6 +214,13 @@
     </Compile>
     <Compile Include="ingreso.aspx.designer.cs">
       <DependentUpon>ingreso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="listaAsistencias.aspx.cs">
+      <DependentUpon>listaAsistencias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="listaAsistencias.aspx.designer.cs">
+      <DependentUpon>listaAsistencias.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>

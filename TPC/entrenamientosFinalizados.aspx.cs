@@ -117,12 +117,17 @@ namespace TPC
                 EntrenamientoNegocio negocioEntrenamiento = new EntrenamientoNegocio();
                 Entrenamiento entrenamientoSeleccionado = negocioEntrenamiento.ObtenerEntrenamientoPorId(idEntrenamiento);
 
+                // Obtener los jugadores presentes
+                JugadorNegocio jugadorNegocio = new JugadorNegocio(); // Nueva capa de negocio para asistencias
+                List<int> jugadoresPresentes = jugadorNegocio.obtenerIdsPresentesPorEntrenamiento(idEntrenamiento);
+
                 List<int> listaJugadores = new List<int>();
                 foreach (Jugador jugador in entrenamientoSeleccionado.JugadoresCitados)
                 {
                     listaJugadores.Add(jugador.IdJugador);
                 }
                 Session["jugadoresSeleccionados"] = listaJugadores;
+                Session["jugadoresPresentes"] = jugadoresPresentes;
                 Session["entrenamientoSeleccionado"] = entrenamientoSeleccionado;
 
                 if (btn.ID == "btnVerDetalle")

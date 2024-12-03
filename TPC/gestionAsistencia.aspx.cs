@@ -69,20 +69,20 @@ namespace TPC
                     lblMensaje.Text = "Aún no hay jugadores seleccionados.";
                     lblMensaje.Visible = true;
                 }
-            }
 
-            /*if (Session["jugadoresPresentes"] != null)
-            {
-                List<int> jugadoresPresentes = (List<int>)Session["jugadoresPresentes"];
-
-                foreach (GridViewRow row in dgvJugadores.Rows)
+                if (Session["jugadoresPresentes"] != null)
                 {
-                    CheckBox chkAsistencia = (CheckBox)row.FindControl("chkAsistencia");
-                    int idJugador = Convert.ToInt32(dgvJugadores.DataKeys[row.RowIndex].Value);
+                    List<int> jugadoresPresentes = (List<int>)Session["jugadoresPresentes"];
 
-                    chkAsistencia.Checked = jugadoresPresentes.Contains(idJugador);
+                    foreach (GridViewRow row in dgvJugadores.Rows)
+                    {
+                        CheckBox chkAsistencia = (CheckBox)row.FindControl("chkAsistencia");
+                        int idJugador = Convert.ToInt32(dgvJugadores.DataKeys[row.RowIndex].Value);
+
+                        chkAsistencia.Checked = jugadoresPresentes.Contains(idJugador);
+                    }
                 }
-            }*/
+            }
         }
 
         protected void btnPreseleccionar_Click(object sender, EventArgs e)

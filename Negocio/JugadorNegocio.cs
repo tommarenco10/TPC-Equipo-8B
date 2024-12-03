@@ -238,33 +238,6 @@ namespace Negocio
 
         }
 
-
-        public List<Jugador> FiltroAvanzado(string categoria, string estado)
-        {
-            List<Jugador> lista = new List<Jugador>();
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                datos.setearSP("FiltroAvanzado");
-                datos.agregarParametro("@NombreCategoria", categoria);
-                datos.agregarParametro("@NombreEstado", estado);
-                datos.ejecutarLectura();
-
-                while (datos.Lector.Read())
-                {
-                    lista.Add(MapearJugador(datos.Lector));
-                }
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-
-            return lista;
-        }
-
-
         public void ModificarJugador(Jugador modificado)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -403,7 +376,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta(@"SELECT j.IdJugador, p.Nombre, p.Apellido, p.FechaNacimiento, p.Pais, 
+                datos.setearConsulta(@"SELECT j.IdJugador, p.Nombre, p.Apellido, p.FechaNacimiento, p.Pais, p.DNI, 
                                 p.Provincia, p.Ciudad, p.Email, j.Altura, j.Peso, j.Posicion, 
                                 c.IdCategoria, c.Nombre AS NombreCategoria, 
                                 ej.IdEstadoJugador, ej.Nombre AS EstadoJugador, p.UrlImagen
@@ -433,6 +406,41 @@ namespace Negocio
             }
         }
 
+        public List<int> obtenerIdsPresentesPorEntrenamiento(int idEntrenamiento)
+        {
+            List<int> lista = new List<int>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta(@"SELECT j.IdJugador
+                              FROM Persona p
+                              INNER JOIN Jugador j ON j.IdPersona = p.IdPersona
+                              INNER JOIN Categoria c ON c.IdCategoria = j.IdCategoria
+                              INNER JOIN EstadoJugador ej ON ej.IdEstadoJugador = j.IdEstadoJugador
+                              INNER JOIN Asistencia a ON a.IdJugador = j.IdJugador
+                              WHERE a.IdEntrenamiento = @IdEntrenamiento AND a.Asistio = 1");
+                datos.agregarParametro("@IdEntrenamiento", idEntrenamiento);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    int jugador = Convert.ToInt32(datos.Lector["IdJugador"]);
+
+                    lista.Add(jugador);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
         //ACTUALIZACIONES DE ESTADO
 
@@ -500,41 +508,6 @@ namespace Negocio
         }
 
 
-        public void actualizarEstadoDeTodosLosJugadores() {
-            JugadorNegocio negocioJugador = new JugadorNegocio();
-            List<Jugador> listaJugadores = negocioJugador.listar();
-
-            foreach (Jugador jugador in listaJugadores)
-            {
-                ActualizarEstadoJugador(jugador.IdJugador);
-            }
-        }
-
-
-        public void actualizarEstadoPorNuevaIncidencia(int idJugador, Incidencia incidencia)
-        {
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                datos.setearConsulta("UPDATE jugador SET IdEstadoJugador = @IdEstadoJugador WHERE IdJugador = @IdJugador");
-                datos.agregarParametro("@IdEstadoJugador", incidencia.EstadoJugador.IdEstado);
-                datos.agregarParametro("@IdJugador", idJugador);
-
-                datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-
-        }
-
-
         private Jugador MapearJugador(SqlDataReader lector)
         {
             Jugador jugador = new Jugador();
@@ -569,5 +542,69 @@ namespace Negocio
 
             return jugador;
         }
+
+
+
+
+        //SIN USO
+
+        public void actualizarEstadoDeTodosLosJugadores()
+        {
+            JugadorNegocio negocioJugador = new JugadorNegocio();
+            List<Jugador> listaJugadores = negocioJugador.listar();
+
+            foreach (Jugador jugador in listaJugadores)
+            {
+                ActualizarEstadoJugador(jugador.IdJugador);
+            }
+        }
+
+        public void actualizarEstadoPorNuevaIncidencia(int idJugador, Incidencia incidencia)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE jugador SET IdEstadoJugador = @IdEstadoJugador WHERE IdJugador = @IdJugador");
+                datos.agregarParametro("@IdEstadoJugador", incidencia.EstadoJugador.IdEstado);
+                datos.agregarParametro("@IdJugador", idJugador);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public List<Jugador> FiltroAvanzado(string categoria, string estado)
+        {
+            List<Jugador> lista = new List<Jugador>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearSP("FiltroAvanzado");
+                datos.agregarParametro("@NombreCategoria", categoria);
+                datos.agregarParametro("@NombreEstado", estado);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    lista.Add(MapearJugador(datos.Lector));
+                }
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return lista;
+        }
+
     }
 }
