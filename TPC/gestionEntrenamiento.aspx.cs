@@ -141,6 +141,7 @@ namespace TPC
 
                 List<Jugador> listaFiltrada = new List<Jugador>();
                 listaJugadores = (List<Jugador>)Session["listaJugadores"];
+
                 int idCategoriaSeleccionada = btnPreseleccionar
                     ? int.Parse(ddlCategoria.SelectedValue)
                         : int.Parse(ddlJugadoresAdicionales.SelectedValue);
@@ -151,6 +152,7 @@ namespace TPC
                     {
                         if (jugador.Categoria.IdCategoria == idCategoriaSeleccionada)
                         {
+                            
                             listaFiltrada.Add(jugador);
                         }
                     }
@@ -319,6 +321,46 @@ namespace TPC
                 else
                 {
                     descripcionEntrenamiento = txtDescripcion.Text.ToString();
+                }
+                
+                // VALIDAR JUGADORES SELECCIONADOS
+                List<int> jugadoresSeleccionados = (List<int>)Session["jugadoresSeleccionados"];
+                if (jugadoresSeleccionados != null && jugadoresSeleccionados.Count > 0)
+                {
+                    List<Jugador> jugadoresInhabilitados = new List<Jugador>();
+                    JugadorNegocio jugadorNegocio = new JugadorNegocio();
+                    IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
+                    foreach (int idJugador in jugadoresSeleccionados)
+                    {
+                        Jugador jugador = jugadorNegocio.ObtenerJugadorPorId(idJugador); // Método que obtiene un jugador por su ID
+                        if (jugador == null) continue;
+
+                        // Validar incidencias
+                        List<Incidencia> listaIncidencias = incidenciaNegocio.listarPorJugador(idJugador);
+                        foreach (Incidencia incidencia in listaIncidencias)
+                        {
+                            if ((incidencia.EstadoJugador.IdEstado == 2 || incidencia.EstadoJugador.IdEstado == 4) &&
+                                incidencia.FechaResolución > fechaHoraEntrenamiento)
+                            {
+                                jugadoresInhabilitados.Add(jugador);
+                                break;
+                            }
+                        }
+                    }
+
+                    if (jugadoresInhabilitados.Count > 0)
+                    {
+                        lblError.CssClass = "alert alert-warning";
+                        lblError.Text = "Algunos jugadores seleccionados no están habilitados: " +
+                                        string.Join(", ", jugadoresInhabilitados.Select(j => j.Apellidos));
+                        return false;
+                    }
+                }
+                else
+                {
+                    lblError.CssClass = "alert alert-warning";
+                    lblError.Text = "Por favor, seleccione al menos un jugador.";
+                    return false;
                 }
 
                 //GUARDADO DEL OBJETO VALIDADO EN SESSION
