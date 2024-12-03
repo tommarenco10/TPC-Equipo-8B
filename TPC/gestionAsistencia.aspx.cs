@@ -12,21 +12,16 @@ namespace TPC
 {
     public partial class gestionAsistencia : System.Web.UI.Page
     {
+        public bool permisoUsuario = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["user"] != null)
             {
                 Usuario logueado = (Usuario)Session["user"];
-                if (!(Seguridad.esEntrenador(logueado) || Seguridad.esAdmin(logueado)))
+                if (Seguridad.esEntrenador(logueado) || Seguridad.esAdmin(logueado))
                 {
-                    Session.Add("error", "Se necesitan permisos especiales para usar esta funcionalidad.");
-                    Response.Redirect("Error.aspx");
+                    permisoUsuario = true;
                 }
-            }
-            else
-            {
-                Session.Add("error", "Se necesitan permisos especiales para usar esta funcionalidad.");
-                Response.Redirect("Error.aspx");
             }
 
             if (!IsPostBack)

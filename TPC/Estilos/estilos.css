@@ -96,3 +96,8 @@ footer {
     border-radius: 8px; 
     border: 1px solid #444;     
 }
+
+.disabled-checkbox {
+    pointer-events: none;
+    opacity: 0.5;
+}
